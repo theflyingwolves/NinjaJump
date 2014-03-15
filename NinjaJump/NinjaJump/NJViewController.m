@@ -7,6 +7,7 @@
 //
 
 #import "NJViewController.h"
+#import "NJLevelSceneWaterPark.h"
 
 @implementation NJViewController
 
@@ -20,14 +21,14 @@
     skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    SKScene * scene = [SKScene sceneWithSize:skView.bounds.size];
+    NJLevelSceneWaterPark * scene = [NJLevelSceneWaterPark sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
     [skView presentScene:scene];
 }
 
-- (BOOL)shouldAutorotate
+- (BOOL)prefersStatusBarHidden
 {
     return YES;
 }

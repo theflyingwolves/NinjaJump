@@ -1,5 +1,5 @@
 //
-//  NJLevelScene.h
+//  NJLevelSceneWaterPark.h
 //  NinjaJump
 //
 //  Created by Zijian on 15/3/14.
@@ -8,6 +8,6 @@
 
 #import "NJMultiplayerLayeredCharacterScene.h"
 
-@interface NJLevelScene : NJMultiplayerLayeredCharacterScene
+@interface NJLevelSceneWaterPark : NJMultiplayerLayeredCharacterScene
 
 @end

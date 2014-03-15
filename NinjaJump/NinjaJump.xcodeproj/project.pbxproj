@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2B21F14E18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F14D18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m */; };
-		2B21F15118D433D2007220CF /* NJLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15018D433D2007220CF /* NJLevelScene.m */; };
+		2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15018D433D2007220CF /* NJLevelSceneWaterPark.m */; };
 		2B21F15418D4342E007220CF /* NJPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15318D4342E007220CF /* NJPlayer.m */; };
+		2B21F15818D43B90007220CF /* waterParkBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2B21F15718D43B90007220CF /* waterParkBG.jpg */; };
 		2F94CD7018D419F1007DAFAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD6F18D419F1007DAFAD /* Foundation.framework */; };
 		2F94CD7218D419F1007DAFAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD7118D419F1007DAFAD /* CoreGraphics.framework */; };
 		2F94CD7418D419F1007DAFAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD7318D419F1007DAFAD /* UIKit.framework */; };
@@ -40,10 +41,11 @@
 /* Begin PBXFileReference section */
 		2B21F14C18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJMultiplayerLayeredCharacterScene.h; path = Scenes/NJMultiplayerLayeredCharacterScene.h; sourceTree = "<group>"; };
 		2B21F14D18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJMultiplayerLayeredCharacterScene.m; path = Scenes/NJMultiplayerLayeredCharacterScene.m; sourceTree = "<group>"; };
-		2B21F14F18D433D2007220CF /* NJLevelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLevelScene.h; path = Scenes/NJLevelScene.h; sourceTree = "<group>"; };
-		2B21F15018D433D2007220CF /* NJLevelScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLevelScene.m; path = Scenes/NJLevelScene.m; sourceTree = "<group>"; };
+		2B21F14F18D433D2007220CF /* NJLevelSceneWaterPark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLevelSceneWaterPark.h; path = Scenes/NJLevelSceneWaterPark.h; sourceTree = "<group>"; };
+		2B21F15018D433D2007220CF /* NJLevelSceneWaterPark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLevelSceneWaterPark.m; path = Scenes/NJLevelSceneWaterPark.m; sourceTree = "<group>"; };
 		2B21F15218D4342E007220CF /* NJPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPlayer.h; path = Scenes/NJPlayer.h; sourceTree = "<group>"; };
 		2B21F15318D4342E007220CF /* NJPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPlayer.m; path = Scenes/NJPlayer.m; sourceTree = "<group>"; };
+		2B21F15718D43B90007220CF /* waterParkBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = waterParkBG.jpg; path = Assets/Background/waterParkBG.jpg; sourceTree = "<group>"; };
 		2F94CD6C18D419F1007DAFAD /* NinjaJump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaJump.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F94CD6F18D419F1007DAFAD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2F94CD7118D419F1007DAFAD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -103,8 +105,8 @@
 			children = (
 				2B21F14C18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.h */,
 				2B21F14D18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m */,
-				2B21F14F18D433D2007220CF /* NJLevelScene.h */,
-				2B21F15018D433D2007220CF /* NJLevelScene.m */,
+				2B21F14F18D433D2007220CF /* NJLevelSceneWaterPark.h */,
+				2B21F15018D433D2007220CF /* NJLevelSceneWaterPark.m */,
 				2B21F15218D4342E007220CF /* NJPlayer.h */,
 				2B21F15318D4342E007220CF /* NJPlayer.m */,
 			);
@@ -114,6 +116,8 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2B21F15618D43A2A007220CF /* Background */,
+				2B21F15518D439DC007220CF /* Texture Atlases */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -123,6 +127,21 @@
 			children = (
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		2B21F15518D439DC007220CF /* Texture Atlases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Texture Atlases";
+			sourceTree = "<group>";
+		};
+		2B21F15618D43A2A007220CF /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				2B21F15718D43B90007220CF /* waterParkBG.jpg */,
+			);
+			name = Background;
 			sourceTree = "<group>";
 		};
 		2F94CD6318D419F1007DAFAD = {
@@ -283,6 +302,7 @@
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
+				2B21F15818D43B90007220CF /* waterParkBG.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +324,7 @@
 				2B21F14E18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */,
 				2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */,
 				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
-				2B21F15118D433D2007220CF /* NJLevelScene.m in Sources */,
+				2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */,
 				2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */,
 				2F94CD7E18D419F1007DAFAD /* main.m in Sources */,
 			);
