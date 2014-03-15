@@ -7,7 +7,6 @@
 //
 
 #import "NJViewController.h"
-#import "NJMyScene.h"
 
 @implementation NJViewController
 
@@ -21,7 +20,7 @@
     skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    SKScene * scene = [NJMyScene sceneWithSize:skView.bounds.size];
+    SKScene * scene = [SKScene sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
@@ -31,15 +30,6 @@
 - (BOOL)shouldAutorotate
 {
     return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    } else {
-        return UIInterfaceOrientationMaskAll;
-    }
 }
 
 - (void)didReceiveMemoryWarning

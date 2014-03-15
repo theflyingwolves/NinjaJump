@@ -16,8 +16,6 @@
 		2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94CD8118D419F1007DAFAD /* NJAppDelegate.m */; };
 		2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F94CD8318D419F1007DAFAD /* Main.storyboard */; };
 		2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94CD8718D419F1007DAFAD /* NJViewController.m */; };
-		2F94CD8B18D419F1007DAFAD /* NJMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94CD8A18D419F1007DAFAD /* NJMyScene.m */; };
-		2F94CD8D18D419F1007DAFAD /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F94CD8C18D419F1007DAFAD /* Spaceship.png */; };
 		2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F94CD8E18D419F1007DAFAD /* Images.xcassets */; };
 		2F94CD9618D419F1007DAFAD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD9518D419F1007DAFAD /* XCTest.framework */; };
 		2F94CD9718D419F1007DAFAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD6F18D419F1007DAFAD /* Foundation.framework */; };
@@ -51,9 +49,6 @@
 		2F94CD8418D419F1007DAFAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2F94CD8618D419F1007DAFAD /* NJViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NJViewController.h; sourceTree = "<group>"; };
 		2F94CD8718D419F1007DAFAD /* NJViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NJViewController.m; sourceTree = "<group>"; };
-		2F94CD8918D419F1007DAFAD /* NJMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NJMyScene.h; sourceTree = "<group>"; };
-		2F94CD8A18D419F1007DAFAD /* NJMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NJMyScene.m; sourceTree = "<group>"; };
-		2F94CD8C18D419F1007DAFAD /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		2F94CD8E18D419F1007DAFAD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2F94CD9418D419F1007DAFAD /* NinjaJumpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NinjaJumpTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F94CD9518D419F1007DAFAD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -126,9 +121,6 @@
 				2F94CD8318D419F1007DAFAD /* Main.storyboard */,
 				2F94CD8618D419F1007DAFAD /* NJViewController.h */,
 				2F94CD8718D419F1007DAFAD /* NJViewController.m */,
-				2F94CD8918D419F1007DAFAD /* NJMyScene.h */,
-				2F94CD8A18D419F1007DAFAD /* NJMyScene.m */,
-				2F94CD8C18D419F1007DAFAD /* Spaceship.png */,
 				2F94CD8E18D419F1007DAFAD /* Images.xcassets */,
 				2F94CD7818D419F1007DAFAD /* Supporting Files */,
 			);
@@ -243,7 +235,6 @@
 			files = (
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
-				2F94CD8D18D419F1007DAFAD /* Spaceship.png in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,7 +256,6 @@
 			files = (
 				2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */,
 				2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */,
-				2F94CD8B18D419F1007DAFAD /* NJMyScene.m in Sources */,
 				2F94CD7E18D419F1007DAFAD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,6 +469,7 @@
 				2F94CDA718D419F1007DAFAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2F94CDA818D419F1007DAFAD /* Build configuration list for PBXNativeTarget "NinjaJumpTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +478,7 @@
 				2F94CDAA18D419F1007DAFAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
