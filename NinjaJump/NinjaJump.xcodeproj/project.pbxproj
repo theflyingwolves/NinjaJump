@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B21F14E18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F14D18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m */; };
+		2B21F15118D433D2007220CF /* NJLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15018D433D2007220CF /* NJLevelScene.m */; };
+		2B21F15418D4342E007220CF /* NJPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15318D4342E007220CF /* NJPlayer.m */; };
 		2F94CD7018D419F1007DAFAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD6F18D419F1007DAFAD /* Foundation.framework */; };
 		2F94CD7218D419F1007DAFAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD7118D419F1007DAFAD /* CoreGraphics.framework */; };
 		2F94CD7418D419F1007DAFAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD7318D419F1007DAFAD /* UIKit.framework */; };
@@ -35,6 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B21F14C18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJMultiplayerLayeredCharacterScene.h; path = Scenes/NJMultiplayerLayeredCharacterScene.h; sourceTree = "<group>"; };
+		2B21F14D18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJMultiplayerLayeredCharacterScene.m; path = Scenes/NJMultiplayerLayeredCharacterScene.m; sourceTree = "<group>"; };
+		2B21F14F18D433D2007220CF /* NJLevelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLevelScene.h; path = Scenes/NJLevelScene.h; sourceTree = "<group>"; };
+		2B21F15018D433D2007220CF /* NJLevelScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLevelScene.m; path = Scenes/NJLevelScene.m; sourceTree = "<group>"; };
+		2B21F15218D4342E007220CF /* NJPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPlayer.h; path = Scenes/NJPlayer.h; sourceTree = "<group>"; };
+		2B21F15318D4342E007220CF /* NJPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPlayer.m; path = Scenes/NJPlayer.m; sourceTree = "<group>"; };
 		2F94CD6C18D419F1007DAFAD /* NinjaJump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaJump.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F94CD6F18D419F1007DAFAD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2F94CD7118D419F1007DAFAD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -82,9 +91,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B21F14518D43005007220CF /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Sprites;
+			sourceTree = "<group>";
+		};
+		2B21F14918D430B0007220CF /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				2B21F14C18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.h */,
+				2B21F14D18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m */,
+				2B21F14F18D433D2007220CF /* NJLevelScene.h */,
+				2B21F15018D433D2007220CF /* NJLevelScene.m */,
+				2B21F15218D4342E007220CF /* NJPlayer.h */,
+				2B21F15318D4342E007220CF /* NJPlayer.m */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		2B21F14A18D430DB007220CF /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		2B21F14B18D430E8007220CF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		2F94CD6318D419F1007DAFAD = {
 			isa = PBXGroup;
 			children = (
+				2B21F14918D430B0007220CF /* Scenes */,
+				2B21F14518D43005007220CF /* Sprites */,
+				2B21F14B18D430E8007220CF /* Utilities */,
+				2B21F14A18D430DB007220CF /* Assets */,
 				2F94CD7718D419F1007DAFAD /* NinjaJump */,
 				2F94CD9B18D419F1007DAFAD /* NinjaJumpTests */,
 				2F94CD6E18D419F1007DAFAD /* Frameworks */,
@@ -254,7 +301,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B21F14E18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */,
 				2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */,
+				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
+				2B21F15118D433D2007220CF /* NJLevelScene.m in Sources */,
 				2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */,
 				2F94CD7E18D419F1007DAFAD /* main.m in Sources */,
 			);
