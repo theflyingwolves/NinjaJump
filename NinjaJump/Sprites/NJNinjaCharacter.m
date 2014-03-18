@@ -10,6 +10,4 @@
 
 @implementation NJNinjaCharacter
 
-#pragma mark - Animation Init
-
 @end

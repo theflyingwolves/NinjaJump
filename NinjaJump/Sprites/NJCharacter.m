@@ -30,12 +30,6 @@
     self.requestedAnimation = NJAnimationStateJump;
 }
 
-- (NSArray *)jumpAnimationFrames
-{
-    // To Be Implemented by subclasses
-    return nil;
-}
-
 - (void)update
 {
     if (self.isAnimated) {
@@ -83,5 +77,11 @@
 - (void)animationHasCompleted:(NJAnimationState)animationState
 {
     self.activeAnimationKey = nil;
+}
+
+- (NSArray *)jumpAnimationFrames
+{
+    // To Be Implemented by subclasses
+    return nil;
 }
 @end

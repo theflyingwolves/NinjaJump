@@ -10,7 +10,7 @@
 
 @implementation NJGraphicsUnitilities
 
-- (NSArray *)NJLoadFramesFromAtlas:(NSString *)atlasName withBaseName:(NSString *)baseName andNumOfFrames:(int)numOfFrames
++ (NSArray *)NJLoadFramesFromAtlas:(NSString *)atlasName withBaseName:(NSString *)baseName andNumOfFrames:(int)numOfFrames
 
 {
     NSMutableArray *frames = [NSMutableArray arrayWithCapacity:numOfFrames];
