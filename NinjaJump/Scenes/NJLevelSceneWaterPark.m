@@ -8,6 +8,7 @@
 
 #import "NJLevelSceneWaterPark.h"
 #import "NJNinjaCharacter.h"
+#import "NJPile.h"
 
 #define kBackGroundFileName @"waterParkBG.jpg"
 
@@ -37,10 +38,25 @@
     
     [self addBackground];
     
-//    [self addWoodPiles];
+    [self addWoodPiles];
     
 //    [self addSpawnPoints];
 }
+
+- (void)addWoodPiles
+{
+    for (int i=0; i<5; i++) {
+        double rand1 = ((arc4random()%80)/100.0)+0.1;
+        double rand2 = ((arc4random()%80)/100.0)+0.1;
+        NSLog(@"%f",rand1);
+        NSLog(@"%f",rand2);
+        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(rand1*CGRectGetHeight(self.frame),rand2*CGRectGetWidth(self.frame)) withSpeed:0 angularSpeed:5 path:nil];
+
+        [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
+        [self.woodPiles addObject:pile];
+    }
+}
+
 
 - (void)addBackground
 {
@@ -48,20 +64,28 @@
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addNode:background atWorldLayer:NJWorldLayerGround];
 }
+
+/*
 #pragma mark - Level Start
 - (void)startLevel {
     for (NJPlayer *player in self.players) {
         NJNinjaCharacter *ninja = [self addHeroForPlayer:player];
     }
 }
-
+*/
 #pragma mark - Loop Update
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
+    /*
     // Update all players' ninjas.
     for (NJNinjaCharacter *ninja in self.ninjas) {
         [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
     }
+    */
+    for (NJPile *pile in _woodPiles) {
+        [pile updateWithTimeSinceLastUpdate:timeSinceLast];
+    }
 }
+
 
 #pragma mark - Shared Assets
 + (void)loadSceneAssets

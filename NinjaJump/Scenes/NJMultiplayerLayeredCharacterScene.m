@@ -48,6 +48,7 @@
     [layerNode addChild:node];
 }
 
+/*
 #pragma mark - Heroes and Players
 
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player
@@ -75,7 +76,7 @@
     
     return ninja;
 }
-
+*/
 #pragma mark - Loop Update
 - (void)update:(NSTimeInterval)currentTime {
     // Handle time delta.
@@ -88,7 +89,7 @@
     }
     
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
-    
+     /*
     for (NJPlayer *player in self.players) {
         if ((id)player == [NSNull null]) {
             continue;
@@ -107,6 +108,7 @@
             }
         }
     }
+ */
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast {
@@ -114,7 +116,7 @@
 }
 
 #pragma mark - Event Handling
-
+/*
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     NSArray *ninjas = self.ninjas;
     if ([heroes count] < 1) {
@@ -139,6 +141,7 @@
         });
     });
 }
+ */
 
 + (void)loadSceneAssets
 {
