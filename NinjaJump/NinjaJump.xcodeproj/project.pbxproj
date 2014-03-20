@@ -30,6 +30,8 @@
 		2F94CD9818D419F1007DAFAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD7318D419F1007DAFAD /* UIKit.framework */; };
 		2F94CDA018D419F1007DAFAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F94CD9E18D419F1007DAFAD /* InfoPlist.strings */; };
 		2F94CDA218D419F1007DAFAD /* NinjaJumpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94CDA118D419F1007DAFAD /* NinjaJumpTests.m */; };
+		C4CAA7FF18DB21830070F3D5 /* NJPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FC18DB21830070F3D5 /* NJPath.m */; };
+		C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FE18DB21830070F3D5 /* NJPile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,10 @@
 		2F94CD9D18D419F1007DAFAD /* NinjaJumpTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NinjaJumpTests-Info.plist"; sourceTree = "<group>"; };
 		2F94CD9F18D419F1007DAFAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2F94CDA118D419F1007DAFAD /* NinjaJumpTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NinjaJumpTests.m; sourceTree = "<group>"; };
+		C4CAA7FB18DB21830070F3D5 /* NJPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPath.h; path = Sprites/pile/NJPath.h; sourceTree = "<group>"; };
+		C4CAA7FC18DB21830070F3D5 /* NJPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPath.m; path = Sprites/pile/NJPath.m; sourceTree = "<group>"; };
+		C4CAA7FD18DB21830070F3D5 /* NJPile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPile.h; path = Sprites/pile/NJPile.h; sourceTree = "<group>"; };
+		C4CAA7FE18DB21830070F3D5 /* NJPile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPile.m; path = Sprites/pile/NJPile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,7 @@
 		2B21F14518D43005007220CF /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				C4CAA7F418DB21520070F3D5 /* Pile */,
 				2F80BB8318D4481F00C337BB /* NJCharacter.h */,
 				2F80BB8418D4481F00C337BB /* NJCharacter.m */,
 				2F3963DC18D8329800B66C8D /* NJNinjaCharacter.h */,
@@ -242,6 +249,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C4CAA7F418DB21520070F3D5 /* Pile */ = {
+			isa = PBXGroup;
+			children = (
+				C4CAA7FB18DB21830070F3D5 /* NJPath.h */,
+				C4CAA7FC18DB21830070F3D5 /* NJPath.m */,
+				C4CAA7FD18DB21830070F3D5 /* NJPile.h */,
+				C4CAA7FE18DB21830070F3D5 /* NJPile.m */,
+			);
+			name = Pile;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -349,8 +367,10 @@
 				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
 				2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */,
 				2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */,
+				C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */,
 				2F94CD7E18D419F1007DAFAD /* main.m in Sources */,
 				2F3963E118D832B300B66C8D /* NJNinjaCharacterNormal.m in Sources */,
+				C4CAA7FF18DB21830070F3D5 /* NJPath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
