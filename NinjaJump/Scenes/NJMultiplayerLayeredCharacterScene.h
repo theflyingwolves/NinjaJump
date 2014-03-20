@@ -18,9 +18,12 @@ typedef enum : uint8_t {
 } NJWorldLayer;
 
 #define kMinTimeInterval (1.0f / 60.0f)
+#define kNumPlayers 1
 
 /* Completion handler for callback after loading assets asynchronously. */
 typedef void (^NJAssetLoadCompletionHandler)(void);
+
+@class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal;
 
 @interface NJMultiplayerLayeredCharacterScene : SKScene
 
@@ -44,4 +47,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 /* Overridden by subclasses to update the scene - called once per frame. */
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast;
+
+/* Heroes and players. */
+- (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
 @end

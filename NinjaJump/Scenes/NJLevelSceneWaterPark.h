@@ -8,6 +8,10 @@
 
 #import "NJMultiplayerLayeredCharacterScene.h"
 
+@class NJNinjaCharacter;
+
 @interface NJLevelSceneWaterPark : NJMultiplayerLayeredCharacterScene
+
+- (void)startLevel;
 
 @end
