@@ -59,20 +59,24 @@ typedef enum : uint8_t {
 -(void)configurePhysicsBody;
 
 // EFFECTS: apply a given amount of damage to the character.
--(BOOL)applyDamage:(float)amount;
+-(BOOL)applyDamage:(CGFloat)amount;
 
 // EFFECTS: apply damage to the character according to the item causing the damage
--(BOOL)applyDamageFromItem:(NJSpecialItem *)item;
+//-(BOOL)applyDamageFromItem:(NJSpecialItem *)item;
 
 // EFFECTS: character jump to a given position
 -(void)jumpToPosition:(CGPoint)position withTimeInterval:(NSTimeInterval)timeInterval;
 
 // EFFECTS: Only handle the animation of using the given item
--(void)useItem:(NJSpecialItem *)item;
+//-(void)useItem:(NJSpecialItem *)item;
 
 // EFFECTS: Update the next-frame renderring of the character
 -(void)update;
 
-// EFFECTS: Load animation frames
+// EFFECTS: Load animation frames for jumping animation
 - (NSArray *)jumpAnimationFrames;
+
+// EFFECTS: load animation frames for death animation
+- (NSArray *)deathAnimationFrames;
+
 @end
