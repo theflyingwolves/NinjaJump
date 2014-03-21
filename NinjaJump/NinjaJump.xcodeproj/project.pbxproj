@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B08AE1418DB2836008A74ED /* woodPile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B08AE1318DB2836008A74ED /* woodPile.png */; };
+		2B08AE1618DB3BEC008A74ED /* ninja.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B08AE1518DB3BEC008A74ED /* ninja.png */; };
 		2B21F14E18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F14D18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m */; };
 		2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15018D433D2007220CF /* NJLevelSceneWaterPark.m */; };
 		2B21F15418D4342E007220CF /* NJPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15318D4342E007220CF /* NJPlayer.m */; };
@@ -45,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B08AE1318DB2836008A74ED /* woodPile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woodPile.png; sourceTree = "<group>"; };
+		2B08AE1518DB3BEC008A74ED /* ninja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ninja.png; sourceTree = "<group>"; };
 		2B21F14C18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJMultiplayerLayeredCharacterScene.h; path = Scenes/NJMultiplayerLayeredCharacterScene.h; sourceTree = "<group>"; };
 		2B21F14D18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJMultiplayerLayeredCharacterScene.m; path = Scenes/NJMultiplayerLayeredCharacterScene.m; sourceTree = "<group>"; };
 		2B21F14F18D433D2007220CF /* NJLevelSceneWaterPark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLevelSceneWaterPark.h; path = Scenes/NJLevelSceneWaterPark.h; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2B08AE1518DB3BEC008A74ED /* ninja.png */,
+				2B08AE1318DB2836008A74ED /* woodPile.png */,
 				2B21F15618D43A2A007220CF /* Background */,
 				2B21F15518D439DC007220CF /* Texture Atlases */,
 			);
@@ -337,8 +343,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B08AE1618DB3BEC008A74ED /* ninja.png in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
+				2B08AE1418DB2836008A74ED /* woodPile.png in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 				2B21F15818D43B90007220CF /* waterParkBG.jpg in Resources */,
 			);

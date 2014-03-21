@@ -10,22 +10,26 @@
 
 @implementation NJPile{
     BOOL isRotating;
-    BOOL initialized;
 }
 
 #define rotatetime 1
 
+/*
 +(instancetype)spriteNodeWithImageNamed:(NSString *)name
 {
     return (NJPile *)[SKSpriteNode spriteNodeWithImageNamed:name];
 }
-
--(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position
+*/
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed path:(NJPath *)path
 {
-    self = [NJPile spriteNodeWithImageNamed:textureName];
+    self = [super initWithImageNamed:textureName];
     if (self) {
+        self = [NJPile spriteNodeWithImageNamed:textureName];
         self.position = position;
-        isRotating = NO;
+        isRotating = YES;
+        self.speed = speed;
+        self.angularSpeed = aSpeed;
+        self.path = path;
     }
     
     return self;
@@ -35,17 +39,13 @@
     self.speed = speed;
     self.angularSpeed = aSpeed;
     self.path = path;
-    initialized = YES;
 }
 
-- (void)update
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval
 {
-    if (initialized) {
-        if (!isRotating) {
-            [self runAction:[SKAction rotateByAngle:self.angularSpeed*2 duration:2] completion:^{
-                isRotating = NO;
-            }];
-        }
+    if (isRotating) {
+        float angle = self.angularSpeed*interval;
+        self.zRotation += angle;
     }
 }
 

@@ -19,12 +19,9 @@
 /* Preload texture */
 //+(void)loadSharedAssets;
 
--(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position;
-
-//just give a dummy path now
--(void)initializeWithSpeed:(float)speed andAngularSpeed:(float)aSpeed andPath:(NJPath*)path;
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed path:(NJPath *)path;
 
 // EFFECTS: Update the next-frame renderring of the pile
--(void)update;
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJPlayer.h"
+#import "NJNinjaCharacter.h"
 
 @interface NJMultiplayerLayeredCharacterScene ()
 
@@ -15,10 +16,6 @@
 @property (nonatomic) SKNode *world;                    // root node to which all game renderables are attached
 @property (nonatomic) NSMutableArray *layers;           // different layer nodes within the world
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
-
-@property (nonatomic) NSArray *hudAvatars;              // keep track of the various nodes for the HUD
-@property (nonatomic) NSArray *hudLabels;
-@property (nonatomic) NSArray *hudHealthPoint;
 
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
 
@@ -41,8 +38,6 @@
         }
         
         [self addChild:_world];
-        
-        [self buildHUD];
     }
     return self;
 }
@@ -53,9 +48,115 @@
     [layerNode addChild:node];
 }
 
-- (void)buildHUD
+/*
+#pragma mark - Heroes and Players
+
+- (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player
 {
+    NSAssert(![player isKindOfClass:[NSNull class]], @"Player should not be NSNull");
     
+    if (player.ninja && !player.ninja.dying) {
+        [player.ninja removeFromParent];
+    }
+    
+    CGPoint spawnPos = player.defaultSpawnPoint;
+    
+    NJNinjaCharacter *ninja = [[NJNinjaCharacterNormal alloc] initAtPosition:spawnPos withPlayer:player];
+    if (ninja) {
+        SKEmitterNode *emitter = [[self sharedSpawnEmitter] copy];
+        emitter.position = spawnPos;
+        [self addNode:emitter atWorldLayer:NJWorldLayerAboveCharacter];
+        NJRunOneShotEmitter(emitter, 0.15f); //should be implemented in utilities class
+        
+        [ninja fadeIn:2.0f];
+        [ninja addToScene:self];
+        [(NSMutableArray *)self.ninjas addObject:ninja];
+    }
+    player.ninja = ninja;
+    
+    return ninja;
+}
+*/
+#pragma mark - Loop Update
+- (void)update:(NSTimeInterval)currentTime {
+    // Handle time delta.
+    // If we drop below 60fps, we still want everything to move the same distance.
+    CFTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
+    self.lastUpdateTimeInterval = currentTime;
+    if (timeSinceLast > 1) { // more than a second since last update
+        timeSinceLast = kMinTimeInterval;
+        self.lastUpdateTimeInterval = currentTime;
+    }
+    
+    [self updateWithTimeSinceLastUpdate:timeSinceLast];
+     /*
+    for (NJPlayer *player in self.players) {
+        if ((id)player == [NSNull null]) {
+            continue;
+        }
+        NJNinjaCharacter *ninja = nil;
+        if ([self.ninjas count] > 0) {
+            ninja = player.ninja;
+        }
+        if (![ninja isDying]) {
+            if (ninja.moveRequested) {
+                if (!CGPointEqualToPoint(player.targetLocation, player.position)) {
+                    [ninja jumpToPostion:player.targetLocation withTimeInterval:timeSinceLast];
+                } else {
+                    ninja.moveRequested = NO;
+                }
+            }
+        }
+    }
+ */
+}
+
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast {
+    // Overridden by subclasses.
+}
+
+#pragma mark - Event Handling
+/*
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSArray *ninjas = self.ninjas;
+    if ([heroes count] < 1) {
+        return;
+    }
+}
+
+#pragma mark - Shared Assets
++ (void)loadSceneAssetsWithCompletionHandler:(NJAssetLoadCompletionHandler)handler
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        // Load the shared assets in the background.
+        [self loadSceneAssets];
+        
+        if (!handler) {
+            return;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Call the completion handler back on the main queue.
+            handler();
+        });
+    });
+}
+ */
+
++ (void)loadSceneAssets
+{
+    // Overridden by subclasses.
+}
+
++ (void)releaseSceneAssets
+{
+    // Overridden by subclasses.
+}
+
+- (SKEmitterNode *)sharedSpawnEmitter
+{
+    // Overridden by subclasses.
+    return nil;
 }
 
 @end
