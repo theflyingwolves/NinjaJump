@@ -25,6 +25,10 @@
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
+<<<<<<< HEAD
+        //self = [NJPile spriteNodeWithImageNamed:textureName];
+=======
+>>>>>>> origin/WLFPile
         self.position = position;
         isRotating = YES;
         isMoving = YES;

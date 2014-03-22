@@ -44,6 +44,15 @@
 
 - (void)addWoodPiles
 {
+<<<<<<< HEAD
+    for (int i=0; i<5; i++) {
+        double rand1 = ((arc4random()%70)/100.0)+0.1;
+        double rand2 = ((arc4random()%70)/100.0)+0.1;
+        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(rand1*CGRectGetWidth(self.frame), rand2*CGRectGetHeight(self.frame)) withSpeed:0 angularSpeed:5 path:nil];
+        [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
+        [self.woodPiles addObject:pile];
+    }
+=======
     CGPoint center = CGPointMake(CGRectGetHeight(self.frame)/2,CGRectGetWidth(self.frame)/2);
     NSValue *centerValue = [NSValue valueWithCGPoint:center];
     NSValue *test1 = [NSValue valueWithCGPoint:CGPointMake(center.x + 100, center.y  + 100)];
@@ -65,6 +74,7 @@
     
     [self addNode:pile2 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile2];
+>>>>>>> origin/WLFPile
 }
 
 

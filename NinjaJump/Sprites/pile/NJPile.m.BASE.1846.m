@@ -10,7 +10,6 @@
 
 @implementation NJPile{
     BOOL isRotating;
-    BOOL isMoving;
 }
 
 #define rotatetime 1
@@ -25,9 +24,9 @@
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
+        self = [NJPile spriteNodeWithImageNamed:textureName];
         self.position = position;
         isRotating = YES;
-        isMoving = YES;
         self.speed = speed;
         self.angularSpeed = aSpeed;
         self.path = path;
@@ -36,27 +35,18 @@
     return self;
 }
 
+-(void)initializeWithSpeed:(float)speed andAngularSpeed:(float)aSpeed andPath:(NJPath*)path{
+    self.speed = speed;
+    self.angularSpeed = aSpeed;
+    self.path = path;
+}
+
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval
 {
     if (isRotating) {
         float angle = self.angularSpeed*interval;
         self.zRotation += angle;
     }
-    if (isMoving) {
-        NJPath *path = self.path;
-        float speed = self.speed;
-        NSDictionary *state = [path updateStateAfterTimeInterval:interval withSpeed:self.speed];
-        CGPoint newPosition = [((NSValue*)state[@"position"]) CGPointValue];
-//        NSLog(@"x: %f, y: %f", newPosition.x, newPosition.y);
-        NSLog(@"reverse: %d", [((NSNumber*)state[@"moveReverse"]) integerValue]);
-        self.position = newPosition;
-    }
-}
-
-- (CGPoint)positionAfterTimeinterval:(CFTimeInterval)interval{
-    NSDictionary *state = [self.path  stateAfterTimeInterval:interval withSpeed:self.speed];
-    CGPoint position = [((NSValue*)state[@"position"]) CGPointValue];;
-    return position;
 }
 
 
