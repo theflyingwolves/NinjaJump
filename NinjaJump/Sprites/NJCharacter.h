@@ -19,7 +19,7 @@ typedef enum : uint8_t {
 
 #import <SpriteKit/SpriteKit.h>
 
-@class NJSpecialItem;
+@class NJSpecialItem, NJMultiplayerLayeredCharacterScene;
 
 @interface NJCharacter : SKSpriteNode
 
@@ -30,6 +30,7 @@ typedef enum : uint8_t {
 @property (nonatomic) CGPoint jumpTargetPosition;
 
 @property (nonatomic) CGFloat animationSpeed;
+@property (nonatomic) CGFloat movementSpeed;
 @property (nonatomic, getter=isAnimated) BOOL animated;
 @property (nonatomic) NSString *activeAnimationKey;
 @property (nonatomic) NJAnimationState requestedAnimation;
@@ -78,5 +79,7 @@ typedef enum : uint8_t {
 
 // EFFECTS: load animation frames for death animation
 - (NSArray *)deathAnimationFrames;
+
+- (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
 
 @end

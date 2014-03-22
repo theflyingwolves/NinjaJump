@@ -39,19 +39,14 @@
     [self addBackground];
     
     [self addWoodPiles];
-    
-//    [self addSpawnPoints];
 }
 
 - (void)addWoodPiles
 {
     for (int i=0; i<5; i++) {
-        double rand1 = ((arc4random()%80)/100.0)+0.1;
-        double rand2 = ((arc4random()%80)/100.0)+0.1;
-        NSLog(@"%f",rand1);
-        NSLog(@"%f",rand2);
-        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(rand1*CGRectGetHeight(self.frame),rand2*CGRectGetWidth(self.frame)) withSpeed:0 angularSpeed:5 path:nil];
-
+        double rand1 = ((arc4random()%70)/100.0)+0.1;
+        double rand2 = ((arc4random()%70)/100.0)+0.1;
+        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(rand1*CGRectGetWidth(self.frame), rand2*CGRectGetHeight(self.frame)) withSpeed:0 angularSpeed:5 path:nil];
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
     }
@@ -65,14 +60,14 @@
     [self addNode:background atWorldLayer:NJWorldLayerGround];
 }
 
-/*
+
 #pragma mark - Level Start
 - (void)startLevel {
     for (NJPlayer *player in self.players) {
-        NJNinjaCharacter *ninja = [self addHeroForPlayer:player];
+        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
     }
 }
-*/
+
 #pragma mark - Loop Update
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
     /*

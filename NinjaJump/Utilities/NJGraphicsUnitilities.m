@@ -25,4 +25,9 @@
     return frames;
 }
 
+CGFloat NJRadiansBetweenPoints(CGPoint first, CGPoint second) {
+    CGFloat deltaX = second.x - first.x;
+    CGFloat deltaY = second.y - first.y;
+    return atan2f(deltaY, deltaX);
+}
 @end

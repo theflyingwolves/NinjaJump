@@ -9,13 +9,16 @@
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJPlayer.h"
 #import "NJNinjaCharacter.h"
+#import "NJNinjaCharacterNormal.h"
+#import "NJButton.h"
 
-@interface NJMultiplayerLayeredCharacterScene ()
+@interface NJMultiplayerLayeredCharacterScene () <NJButtonDelegate>
 
 @property (nonatomic) NSMutableArray *players;          // array of player objects or NSNull for no player
 @property (nonatomic) SKNode *world;                    // root node to which all game renderables are attached
 @property (nonatomic) NSMutableArray *layers;           // different layer nodes within the world
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
+@property (nonatomic) NSMutableArray *buttons;
 
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
 
@@ -27,6 +30,12 @@
 - (instancetype)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
     if (self) {
+        _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
+        for (int i=0; i<kNumPlayers ; i++) {
+            NJPlayer *player = [[NJPlayer alloc] init];
+            [(NSMutableArray *)_players addObject:player];
+            player.spawnPoint = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+        }
         _world = [[SKNode alloc] init];
         [_world setName:@"world"];
         _layers = [NSMutableArray arrayWithCapacity:kWorldLayerCount];
@@ -36,8 +45,18 @@
             [_world addChild:layer];
             [(NSMutableArray *)_layers addObject:layer];
         }
-        
         [self addChild:_world];
+        _buttons = [NSMutableArray arrayWithCapacity:4];
+        for (int i = 0; i < 4; i++) {
+            NJButton *button = [[NJButton alloc] initWithImageNamed:@"bubble-red"];
+            button.delegate = self;
+            [_buttons addObject:button];
+            [self addChild:button];
+        }
+        ((SKSpriteNode*)_buttons[0]).position = CGPointMake(50, 50);
+        ((SKSpriteNode*)_buttons[1]).position = CGPointMake(974, 50);
+        ((SKSpriteNode*)_buttons[2]).position = CGPointMake(50, 718);
+        ((SKSpriteNode*)_buttons[3]).position = CGPointMake(974, 718);
     }
     return self;
 }
@@ -48,27 +67,21 @@
     [layerNode addChild:node];
 }
 
-/*
 #pragma mark - Heroes and Players
 
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player
 {
     NSAssert(![player isKindOfClass:[NSNull class]], @"Player should not be NSNull");
     
+    /*
     if (player.ninja && !player.ninja.dying) {
         [player.ninja removeFromParent];
     }
+    */
+    CGPoint spawnPos = player.spawnPoint;
     
-    CGPoint spawnPos = player.defaultSpawnPoint;
-    
-    NJNinjaCharacter *ninja = [[NJNinjaCharacterNormal alloc] initAtPosition:spawnPos withPlayer:player];
+    NJNinjaCharacterNormal *ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:@"ninja.png" atPosition:spawnPos withPlayer:player];
     if (ninja) {
-        SKEmitterNode *emitter = [[self sharedSpawnEmitter] copy];
-        emitter.position = spawnPos;
-        [self addNode:emitter atWorldLayer:NJWorldLayerAboveCharacter];
-        NJRunOneShotEmitter(emitter, 0.15f); //should be implemented in utilities class
-        
-        [ninja fadeIn:2.0f];
         [ninja addToScene:self];
         [(NSMutableArray *)self.ninjas addObject:ninja];
     }
@@ -76,7 +89,7 @@
     
     return ninja;
 }
-*/
+
 #pragma mark - Loop Update
 - (void)update:(NSTimeInterval)currentTime {
     // Handle time delta.
@@ -89,7 +102,7 @@
     }
     
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
-     /*
+    
     for (NJPlayer *player in self.players) {
         if ((id)player == [NSNull null]) {
             continue;
@@ -99,16 +112,15 @@
             ninja = player.ninja;
         }
         if (![ninja isDying]) {
-            if (ninja.moveRequested) {
-                if (!CGPointEqualToPoint(player.targetLocation, player.position)) {
-                    [ninja jumpToPostion:player.targetLocation withTimeInterval:timeSinceLast];
+            if (player.jumpRequested) {
+                if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
+                    [ninja jumpToPosition:player.targetLocation withTimeInterval:timeSinceLast];
                 } else {
-                    ninja.moveRequested = NO;
+                    player.jumpRequested = NO;
                 }
             }
         }
     }
- */
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast {
@@ -116,12 +128,16 @@
 }
 
 #pragma mark - Event Handling
-/*
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+
+- (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {
     NSArray *ninjas = self.ninjas;
-    if ([heroes count] < 1) {
+    if ([ninjas count] < 1) {
         return;
     }
+    UITouch *touch = [touches anyObject];
+    NJNinjaCharacter *ninja = [ninjas firstObject];
+    ninja.player.targetLocation = [touch locationInNode:ninja.parent];
+    ninja.player.jumpRequested = YES;
 }
 
 #pragma mark - Shared Assets
@@ -141,7 +157,6 @@
         });
     });
 }
- */
 
 + (void)loadSceneAssets
 {

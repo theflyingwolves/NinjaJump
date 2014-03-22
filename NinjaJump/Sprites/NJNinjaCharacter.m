@@ -7,7 +7,19 @@
 //
 
 #import "NJNinjaCharacter.h"
+#import "NJMultiplayerLayeredCharacterScene.h"
 
 @implementation NJNinjaCharacter
+
+- (instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withPlayer:(NJPlayer *)player
+{
+    self = [super initWithTextureNamed:textureName AtPosition:position];
+    
+    if (self) {
+        _player = player;
+    }
+    
+    return self;
+}
 
 @end

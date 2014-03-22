@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class NJNinjaCharacter;
+
 @interface NJPlayer : NSObject
+@property (nonatomic) NJNinjaCharacter *ninja;
+
+@property (nonatomic) CGPoint spawnPoint;
+@property (nonatomic) BOOL fireAction;
+
+@property (nonatomic) CGPoint targetLocation;
+
+@property (nonatomic) BOOL jumpRequested;               // used to track whether a move was requested
 
 @end

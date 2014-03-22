@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <SpriteKit/SpriteKit.h>
 
 @interface NJViewController : UIViewController
 

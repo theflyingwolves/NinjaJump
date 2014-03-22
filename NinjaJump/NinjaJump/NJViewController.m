@@ -8,24 +8,31 @@
 
 #import "NJViewController.h"
 #import "NJLevelSceneWaterPark.h"
+#import <SpriteKit/SpriteKit.h>
+
+@interface NJViewController ()
+@property (weak, nonatomic) IBOutlet SKView *skView;
+@property (strong, nonatomic) NJLevelSceneWaterPark *scene;
+@end
 
 @implementation NJViewController
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
 
     // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+    _skView.showsFPS = YES;
+    _skView.showsDrawCount = YES;
+    _skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    NJLevelSceneWaterPark * scene = [NJLevelSceneWaterPark sceneWithSize:skView.bounds.size];
+    NJLevelSceneWaterPark * scene = [NJLevelSceneWaterPark sceneWithSize:_skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
-    
+    self.scene = scene;
     // Present the scene.
-    [skView presentScene:scene];
+    [_skView presentScene:scene];
+    [scene startLevel];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -34,7 +41,7 @@
 }
 
 - (BOOL)shouldAutorotate {
-    return NO;
+    return YES;
 }
 
 - (NSUInteger)supportedInterfaceOrientations {

@@ -24,7 +24,7 @@
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
-        self = [NJPile spriteNodeWithImageNamed:textureName];
+        //self = [NJPile spriteNodeWithImageNamed:textureName];
         self.position = position;
         isRotating = YES;
         self.speed = speed;

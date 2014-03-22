@@ -12,4 +12,5 @@
 @interface NJGraphicsUnitilities : NSObject
 
 + (NSArray *)NJLoadFramesFromAtlas:(NSString *)atlasName withBaseName:(NSString *)baseName andNumOfFrames:(int)numOfFrames;
+CGFloat NJRadiansBetweenPoints(CGPoint first, CGPoint second);
 @end

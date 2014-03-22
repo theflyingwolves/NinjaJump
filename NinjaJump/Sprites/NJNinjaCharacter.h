@@ -8,6 +8,11 @@
 
 #import "NJCharacter.h"
 
+@class NJPlayer;
+
 @interface NJNinjaCharacter : NJCharacter
 
+@property (nonatomic, weak) NJPlayer *player;
+
+- (id)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withPlayer:(NJPlayer *)player;
 @end

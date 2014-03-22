@@ -7,6 +7,10 @@
 //
 
 #import "NJCharacter.h"
+#import "NJMultiplayerLayeredCharacterScene.h"
+#import "NJGraphicsUnitilities.h"
+
+#define NJ_POLAR_ADJUST(x) x + (M_PI * 0.5f)
 
 @implementation NJCharacter
 
@@ -14,8 +18,9 @@
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
-        self = [NJCharacter spriteNodeWithImageNamed:textureName];
+        //self = [NJCharacter spriteNodeWithImageNamed:textureName];
         self.position = position;
+        self.movementSpeed = 200;
     }
     
     return self;
@@ -23,8 +28,23 @@
 
 - (void)jumpToPosition:(CGPoint)position withTimeInterval:(NSTimeInterval)timeInterval
 {
+    /*
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
+     */
+    CGPoint curPosition = self.position;
+    CGFloat dx = position.x - curPosition.x;
+    CGFloat dy = position.y - curPosition.y;
+    CGFloat dt = self.movementSpeed * timeInterval;
+    CGFloat distRemaining = hypotf(dx, dy);
+    CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(position, curPosition));
+    self.zRotation = ang;
+    if (distRemaining < dt) {
+        self.position = position;
+    } else {
+        self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
+                                    curPosition.y + cosf(ang)*dt);
+    }
 }
 
 - (void)update
@@ -115,6 +135,11 @@
 - (void)animationHasCompleted:(NJAnimationState)animationState
 {
     self.activeAnimationKey = nil;
+}
+
+- (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene
+{
+    [scene addNode:self atWorldLayer:NJWorldLayerCharacter];
 }
 
 
