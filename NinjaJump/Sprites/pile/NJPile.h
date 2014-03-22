@@ -24,4 +24,8 @@
 // EFFECTS: Update the next-frame renderring of the pile
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval;
 
+// EFFECTS: return the position of the pile afte a timeinterval
+- (CGPoint)positionAfterTimeinterval:(CFTimeInterval)interval;
+
+
 @end

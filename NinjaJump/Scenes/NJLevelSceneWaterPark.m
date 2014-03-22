@@ -9,6 +9,7 @@
 #import "NJLevelSceneWaterPark.h"
 #import "NJNinjaCharacter.h"
 #import "NJPile.h"
+#import "NJPath.h"
 
 #define kBackGroundFileName @"waterParkBG.jpg"
 
@@ -45,16 +46,27 @@
 
 - (void)addWoodPiles
 {
-    for (int i=0; i<5; i++) {
-        double rand1 = ((arc4random()%80)/100.0)+0.1;
-        double rand2 = ((arc4random()%80)/100.0)+0.1;
-        NSLog(@"%f",rand1);
-        NSLog(@"%f",rand2);
-        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(rand1*CGRectGetHeight(self.frame),rand2*CGRectGetWidth(self.frame)) withSpeed:0 angularSpeed:5 path:nil];
-
-        [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
-        [self.woodPiles addObject:pile];
-    }
+    CGPoint center = CGPointMake(CGRectGetHeight(self.frame)/2,CGRectGetWidth(self.frame)/2);
+    NSValue *centerValue = [NSValue valueWithCGPoint:center];
+    NSValue *test1 = [NSValue valueWithCGPoint:CGPointMake(center.x + 100, center.y  + 100)];
+    NSValue *test2 = [NSValue valueWithCGPoint:CGPointMake(center.x + 100, center.y  - 100)];
+    NSNumber *mode = [NSNumber numberWithInteger:linear];
+    
+    NJPath *path1 = [[NJPath alloc] initPathWithPoints:@[centerValue, test1, test2] andMode:@[mode, mode]];
+    NJPile *pile1 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:center withSpeed:150 angularSpeed:5 path:path1];
+    
+    [self addNode:pile1 atWorldLayer:NJWorldLayerBelowCharacter];
+    [self.woodPiles addObject:pile1];
+    
+    NSValue *test3 = [NSValue valueWithCGPoint:CGPointMake(center.x + 200, center.y  + 200)];
+    NSValue *test4 = [NSValue valueWithCGPoint:CGPointMake(center.x + 200, center.y  - 200)];
+    NSValue *test5 = [NSValue valueWithCGPoint:CGPointMake(center.x, center.y  - 200)];
+    
+    NJPath *path2 = [[NJPath alloc] initPathWithPoints:@[test3, test4, test5] andMode:@[mode, mode]];
+    NJPile *pile2 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:test3.CGPointValue withSpeed:150 angularSpeed:5 path:path2];
+    
+    [self addNode:pile2 atWorldLayer:NJWorldLayerBelowCharacter];
+    [self.woodPiles addObject:pile2];
 }
 
 
