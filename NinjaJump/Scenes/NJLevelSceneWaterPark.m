@@ -133,7 +133,6 @@
     [self addNode:background atWorldLayer:NJWorldLayerGround];
 }
 
-
 #pragma mark - Level Start
 - (void)startLevel {
     for (NJPlayer *player in self.players) {
@@ -141,7 +140,6 @@
         int index = arc4random() % [_woodPiles count];
         CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
         ninja.position = spawnPosition;
-        NSLog(@"spawn: %f, %f",spawnPosition.x,spawnPosition.y);
         [ninja setSpawnPoint:spawnPosition];
     }
 }

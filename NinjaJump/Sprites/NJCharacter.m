@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
+#define FULL_HP 100
+
 #import "NJCharacter.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJGraphicsUnitilities.h"
@@ -21,6 +23,7 @@ static NSUInteger tagGenerator = 0;
         self.position = position;
         self.movementSpeed = 1000;
         self.animationSpeed = 1/60.0f;
+        self.health = FULL_HP;
         self.tag = tagGenerator;
         tagGenerator ++;
     }
@@ -91,10 +94,11 @@ static NSUInteger tagGenerator = 0;
 //        }
         
         // Show the damage.
-        SKAction *damageAction = [self damageAction];
-        if (damageAction) {
-            [self runAction:damageAction];
-        }
+//        SKAction *damageAction = [self damageAction];
+//        if (damageAction) {
+//            [self runAction:damageAction];
+//        }
+        
         return NO;
     }else{
         [self performDeath];
