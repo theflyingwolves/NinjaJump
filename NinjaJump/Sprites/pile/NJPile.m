@@ -15,20 +15,22 @@
 
 #define rotatetime 1
 
-/*
-+(instancetype)spriteNodeWithImageNamed:(NSString *)name
-{
-    return (NJPile *)[SKSpriteNode spriteNodeWithImageNamed:name];
-}
-*/
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed path:(NJPath *)path
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
         self.position = position;
-        isRotating = YES;
-        isMoving = YES;
+        if (speed < 0.1) {
+            isMoving = NO;
+        } else {
+            isMoving = YES;
+        }
         self.speed = speed;
+        if (aSpeed < 0.1) {
+            isRotating = NO;
+        } else {
+            isRotating = YES;
+        }
         self.angularSpeed = aSpeed;
         self.path = path;
     }
@@ -40,15 +42,16 @@
 {
     if (isRotating) {
         float angle = self.angularSpeed*interval;
+        self.angleRotatedSinceLastUpdate = angle;
         self.zRotation += angle;
+        while (self.zRotation>=2*M_PI) {
+            self.zRotation -= 2*M_PI;
+        }
     }
     if (isMoving) {
         NJPath *path = self.path;
-        float speed = self.speed;
         NSDictionary *state = [path updateStateAfterTimeInterval:interval withSpeed:self.speed];
         CGPoint newPosition = [((NSValue*)state[@"position"]) CGPointValue];
-//        NSLog(@"x: %f, y: %f", newPosition.x, newPosition.y);
-        NSLog(@"reverse: %d", [((NSNumber*)state[@"moveReverse"]) integerValue]);
         self.position = newPosition;
     }
 }

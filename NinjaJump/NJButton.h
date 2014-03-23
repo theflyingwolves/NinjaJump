@@ -7,7 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-@class NJButton;
+@class NJButton, NJPlayer;
 @protocol NJButtonDelegate <NSObject>
 
 - (void)button:(NJButton *) button touchesEnded:(NSSet *)touches;
@@ -17,6 +17,7 @@
 @interface NJButton : SKSpriteNode
 
 @property (nonatomic, weak) id <NJButtonDelegate> delegate;
+@property (nonatomic, weak) NJPlayer *player;
 
 - (id)initWithImageNamed:(NSString *)name;
 

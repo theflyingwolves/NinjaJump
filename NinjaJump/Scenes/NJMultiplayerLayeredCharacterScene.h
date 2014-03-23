@@ -18,7 +18,7 @@ typedef enum : uint8_t {
 } NJWorldLayer;
 
 #define kMinTimeInterval (1.0f / 60.0f)
-#define kNumPlayers 1
+#define kNumPlayers 4
 
 /* Completion handler for callback after loading assets asynchronously. */
 typedef void (^NJAssetLoadCompletionHandler)(void);

@@ -12,13 +12,13 @@
 #import "NJNinjaCharacterNormal.h"
 #import "NJButton.h"
 
-@interface NJMultiplayerLayeredCharacterScene () <NJButtonDelegate>
+@interface NJMultiplayerLayeredCharacterScene ()
 
 @property (nonatomic) NSMutableArray *players;          // array of player objects or NSNull for no player
 @property (nonatomic) SKNode *world;                    // root node to which all game renderables are attached
 @property (nonatomic) NSMutableArray *layers;           // different layer nodes within the world
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
-@property (nonatomic) NSMutableArray *buttons;
+
 
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
 
@@ -46,17 +46,6 @@
             [(NSMutableArray *)_layers addObject:layer];
         }
         [self addChild:_world];
-        _buttons = [NSMutableArray arrayWithCapacity:4];
-        for (int i = 0; i < 4; i++) {
-            NJButton *button = [[NJButton alloc] initWithImageNamed:@"bubble-red"];
-            button.delegate = self;
-            [_buttons addObject:button];
-            [self addChild:button];
-        }
-        ((SKSpriteNode*)_buttons[0]).position = CGPointMake(50, 50);
-        ((SKSpriteNode*)_buttons[1]).position = CGPointMake(974, 50);
-        ((SKSpriteNode*)_buttons[2]).position = CGPointMake(50, 718);
-        ((SKSpriteNode*)_buttons[3]).position = CGPointMake(974, 718);
     }
     return self;
 }
@@ -117,6 +106,7 @@
                     [ninja jumpToPosition:player.targetLocation withTimeInterval:timeSinceLast];
                 } else {
                     player.jumpRequested = NO;
+                    player.isJumping = NO;
                 }
             }
         }
@@ -125,19 +115,6 @@
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast {
     // Overridden by subclasses.
-}
-
-#pragma mark - Event Handling
-
-- (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {
-    NSArray *ninjas = self.ninjas;
-    if ([ninjas count] < 1) {
-        return;
-    }
-    UITouch *touch = [touches anyObject];
-    NJNinjaCharacter *ninja = [ninjas firstObject];
-    ninja.player.targetLocation = [touch locationInNode:ninja.parent];
-    ninja.player.jumpRequested = YES;
 }
 
 #pragma mark - Shared Assets

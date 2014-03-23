@@ -10,8 +10,6 @@
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJGraphicsUnitilities.h"
 
-#define NJ_POLAR_ADJUST(x) x + (M_PI * 0.5f)
-
 @implementation NJCharacter
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position
@@ -20,7 +18,7 @@
     if (self) {
         //self = [NJCharacter spriteNodeWithImageNamed:textureName];
         self.position = position;
-        self.movementSpeed = 200;
+        self.movementSpeed = 1000;
     }
     
     return self;

@@ -14,6 +14,7 @@
 @property float radius; //do we really need it?
 @property float speed;
 @property float angularSpeed;
+@property float angleRotatedSinceLastUpdate;
 @property NJPath *path; //contains position and path
 
 /* Preload texture */

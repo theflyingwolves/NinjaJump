@@ -17,6 +17,7 @@
 @property (nonatomic) BOOL fireAction;
 
 @property (nonatomic) CGPoint targetLocation;
+@property (nonatomic) BOOL isJumping;
 
 @property (nonatomic) BOOL jumpRequested;               // used to track whether a move was requested
 
