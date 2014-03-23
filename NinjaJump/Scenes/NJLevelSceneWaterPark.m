@@ -67,7 +67,7 @@
     for (int i=0; i < 5; i++) {
         float rand1 = (arc4random()%60)/100.0+0.2;
         float rand2 = (arc4random()%60)/100.0+0.2;
-        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(rand1*CGRectGetWidth(self.frame), rand2*CGRectGetHeight(self.frame)) withSpeed:0 angularSpeed:5 path:nil];
+        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(rand1*CGRectGetWidth(self.frame), rand2*CGRectGetHeight(self.frame)) withSpeed:0 angularSpeed:3 path:nil];
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
     }
@@ -129,44 +129,32 @@
 
 - (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja
 {
+    NJPile *nearest = nil;
     for (NJPile *pile in _woodPiles) {
         if (!CGPointEqualToPoint(pile.position, ninja.position)) {
-            /*
-            CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(pile.position, ninja.position));
-            NSLog(@"angle: %f",ang);
-            NSLog(@"zRotate: %f",ninja.zRotation);
-            float dx = pile.position.x - ninja.position.x;
-            float dy = pile.position.y - ninja.position.y;
-            if (fabs(ang-ninja.zRotation)<=(2*asinf(pile.size.width/hypotf(dx, dy)))) {
-                return pile;
-            }
-             */
             float dx = pile.position.x - ninja.position.x;
             float dy = pile.position.y - ninja.position.y;
             float zRotation = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(pile.position, ninja.position));
             
-            float dxabs = fabs(dx);
-            float dyabs = fabs(dy);
-            float dist = hypotf(dxabs, dyabs);
+            if (zRotation < 0 && zRotation >= -M_PI/2) {
+                zRotation += 2*M_PI;
+            }
+            float dist = hypotf(dx, dy);
             float radius = pile.size.width / 2;
             float angleSpaned = atan2f(radius,dist);
             while (ninja.zRotation>=2*M_PI) {
                 ninja.zRotation -= 2*M_PI;
             }
-            if (zRotation-2*angleSpaned <= ninja.zRotation && zRotation+2*angleSpaned >= ninja.zRotation) {
-                return pile;
+            if (zRotation-3*angleSpaned <= ninja.zRotation && zRotation+3*angleSpaned >= ninja.zRotation) {
+                if (nearest == nil) {
+                    nearest = pile;
+                } else if (NJDistanceBetweenPoints(ninja.position, nearest.position)>NJDistanceBetweenPoints(ninja.position, pile.position)) {
+                    nearest = pile;
+                }
             }
-            
-//            NSLog(@"angle spanned %f",angleSpaned);
-//            NSLog(@"%f",angle - ninja.zRotation);
-            
-            
-//            if (fabs(angle-ninja.zRotation+M_PI/2)<=(2*asin(hypotf(pile.size.width, pile.size.height)/2/hypotf(dx, dy)))) {
-//                return pile;
-//            }
         }
     }
-    return nil;
+    return nearest;
 }
 
 #pragma mark - Shared Assets

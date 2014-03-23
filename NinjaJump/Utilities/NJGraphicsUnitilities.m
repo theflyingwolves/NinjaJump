@@ -30,4 +30,11 @@ CGFloat NJRadiansBetweenPoints(CGPoint first, CGPoint second) {
     CGFloat deltaY = second.y - first.y;
     return atan2f(deltaY, deltaX);
 }
+
+CGFloat NJDistanceBetweenPoints(CGPoint first, CGPoint second)
+{
+    CGFloat dx = second.x - first.x;
+    CGFloat dy = second.y - second.y;
+    return hypotf(dx, dy);
+}
 @end
