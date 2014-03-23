@@ -24,6 +24,7 @@
 @property (nonatomic) NSMutableArray *buttons;
 @property (nonatomic) NSMutableArray *hpBars;
 @end
+
 @implementation NJLevelSceneWaterPark
 @synthesize ninjas = _ninjas;
 - (instancetype)initWithSize:(CGSize)size
@@ -75,6 +76,7 @@
     }
     return self;
 }
+
 #pragma mark - World Building
 - (void)buildWorld {
     NSLog(@"Building the world");
@@ -137,7 +139,10 @@
     for (NJPlayer *player in self.players) {
         NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
         int index = arc4random() % [_woodPiles count];
-        ninja.position = ((NJPile*)_woodPiles[index]).position;
+        CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
+        ninja.position = spawnPosition;
+        NSLog(@"spawn: %f, %f",spawnPosition.x,spawnPosition.y);
+        [ninja setSpawnPoint:spawnPosition];
     }
 }
 

@@ -30,6 +30,7 @@
     self = [super initWithSize:size];
     if (self) {
         _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
+        
         for (int i=0; i<kNumPlayers ; i++) {
             NJPlayer *player = [[NJPlayer alloc] init];
             [(NSMutableArray *)_players addObject:player];
@@ -97,13 +98,14 @@
             continue;
         }
         NJNinjaCharacter *ninja = nil;
-        if ([self.ninjas count] > 0) {
+        if ([self.ninjas count] > 0){
             ninja = player.ninja;
         }
+        
         if (![ninja isDying]) {
             if (player.jumpRequested) {
                 if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
-                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast];
+                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast arrayOfCharacters:self.ninjas];
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;

@@ -12,6 +12,8 @@
 
 @implementation NJCharacter
 
+static NSUInteger tagGenerator = 0;
+
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position
 {
     self = [super initWithImageNamed:textureName];
@@ -19,12 +21,14 @@
         self.position = position;
         self.movementSpeed = 1000;
         self.animationSpeed = 1/60.0f;
+        self.tag = tagGenerator;
+        tagGenerator ++;
     }
     
     return self;
 }
 
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters
 {
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
@@ -37,6 +41,7 @@
     self.zRotation = ang;
     if (distRemaining <= dt) {
         self.position = position;
+        [self attackCharacterAtSamePosition:characters];
     } else {
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
                                     curPosition.y + cosf(ang)*dt);
@@ -47,6 +52,17 @@
 {
     if (self.isAnimated) {
         [self resolveRequestedAnimation];
+    }
+}
+
+#pragma mark - Attack
+- (void)attackCharacterAtSamePosition:(NSArray *)characters
+{
+    for (NJCharacter *character in characters) {
+        if (CGPointEqualToPoint(character.position, self.position) && character.tag != _tag) {
+            [character applyDamage:20];
+            [character resetPosition];
+        }
     }
 }
 
@@ -85,8 +101,6 @@
         return YES;
     }
 }
-
-
 
 #pragma mark - Animation
 - (void)resolveRequestedAnimation
