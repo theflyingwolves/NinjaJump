@@ -36,6 +36,21 @@
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
         _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
         
+        for (int i=0; i < kNumPlayers; i++) {
+            CGPoint position = CGPointMake(250, 250);
+            
+            NJHPBar *bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
+            float angle = i * M_PI / 2 - M_PI / 2;
+            bar.zRotation = angle;
+            [_hpBars addObject:bar];
+            [self addChild:bar];
+        }
+        
+        ((NJHPBar *)_hpBars[0]).position = CGPointMake(-135, 320);
+        ((NJHPBar *)_hpBars[1]).position = CGPointMake(685, -135);
+        ((NJHPBar *)_hpBars[2]).position = CGPointMake(1150, 430);
+        ((NJHPBar *)_hpBars[3]).position = CGPointMake(335, 900);
+
         for (int i = 0; i < kNumPlayers; i++) {
             NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
             button.delegate = self;
@@ -43,19 +58,6 @@
             [_buttons addObject:button];
             [self addChild:button];
         }
-        
-        for (int i=0; i < kNumPlayers; i++) {
-            NJHPBar *bar = [NJHPBar hpBarWithPosition:CGPointMake(250, 250) andCharacter:((NJPlayer *)self.players[i]).ninja];
-            [_hpBars addObject:bar];
-            float angle = i * M_PI / 2 - M_PI / 2;
-            bar.zRotation = angle;
-            [self addChild:bar];
-        }
-        
-        ((NJHPBar *)_hpBars[0]).position = CGPointMake(-135, 320);
-        ((NJHPBar *)_hpBars[1]).position = CGPointMake(self.frame.size.width/2 + 175, -self.frame.size.height / 2 + 250);
-        ((NJHPBar *)_hpBars[2]).position = CGPointMake(1150, 430);
-        ((NJHPBar *)_hpBars[3]).position = CGPointMake(335, 900);
         
         ((NJButton*)_buttons[0]).position = CGPointMake(50, 50);
         ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
@@ -67,16 +69,16 @@
         ((NJButton*)_buttons[1]).color = [SKColor blueColor];
         ((NJButton*)_buttons[1]).colorBlendFactor = 1.0;
         ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
-        ((NJButton*)_buttons[2]).position = CGPointMake(50, 718);
+        ((NJButton*)_buttons[2]).position = CGPointMake(974, 718);
         ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
-        ((NJButton*)_buttons[2]).color = [SKColor redColor];
+        ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
         ((NJButton*)_buttons[2]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[2]).player.color = [SKColor redColor];
-        ((NJButton*)_buttons[3]).position = CGPointMake(974, 718);
+        ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
+        ((NJButton*)_buttons[3]).position = CGPointMake(50, 718);
         ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
-        ((NJButton*)_buttons[3]).color = [SKColor yellowColor];
+        ((NJButton*)_buttons[3]).color = [SKColor redColor];
         ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[3]).player.color = [SKColor yellowColor];
+        ((NJButton*)_buttons[3]).player.color = [SKColor redColor];
         [self buildWorld];
     }
     return self;
@@ -140,14 +142,12 @@
 
 #pragma mark - Level Start
 - (void)startLevel {
-    
     for (NJPlayer *player in self.players) {
         NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
         int index = arc4random() % [_woodPiles count];
         CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
         ninja.position = spawnPosition;
         [ninja setSpawnPoint:spawnPosition];
-        
     }
 }
 
@@ -167,6 +167,10 @@
                 }
             }
         }
+    }
+    
+    for (NJHPBar *bar in _hpBars) {
+        [bar updateHealthPoint];
     }
 }
 

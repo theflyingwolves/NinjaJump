@@ -75,6 +75,7 @@ static NSUInteger tagGenerator = 0;
     self.health = 0.0f;
     self.dying = YES;
     self.requestedAnimation = NJAnimationStateDeath;
+    self.alpha = 0;
 }
 
 #pragma mark - Damage
