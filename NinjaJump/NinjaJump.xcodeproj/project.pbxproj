@@ -10,12 +10,12 @@
 		2B21F14E18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F14D18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m */; };
 		2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15018D433D2007220CF /* NJLevelSceneWaterPark.m */; };
 		2B21F15418D4342E007220CF /* NJPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15318D4342E007220CF /* NJPlayer.m */; };
-		2B21F15818D43B90007220CF /* waterParkBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2B21F15718D43B90007220CF /* waterParkBG.jpg */; };
 		2B25DB1218DDCAD1005A4D40 /* woodPile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B25DB1118DDCAD1005A4D40 /* woodPile.png */; };
 		2B25DB1418DDCB40005A4D40 /* ninja.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B25DB1318DDCB40005A4D40 /* ninja.png */; };
 		2B25DB1618DDCC16005A4D40 /* jumpButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B25DB1518DDCC16005A4D40 /* jumpButton.png */; };
-		2B25DB1818DDDF90005A4D40 /* Ninja_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B25DB1718DDDF90005A4D40 /* Ninja_Jump.atlas */; };
 		2B2708D118DD6FF20033D1BF /* NJButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2708D018DD6FF20033D1BF /* NJButton.m */; };
+		2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */; };
+		2B76872F18DED9F300A9CB6E /* waterParkBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B76872E18DED9F300A9CB6E /* waterParkBG.png */; };
 		2F3963DE18D8329800B66C8D /* NJNinjaCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3963DD18D8329800B66C8D /* NJNinjaCharacter.m */; };
 		2F3963E118D832B300B66C8D /* NJNinjaCharacterNormal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3963E018D832B300B66C8D /* NJNinjaCharacterNormal.m */; };
 		2F3963E418D83CE000B66C8D /* NJGraphicsUnitilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3963E318D83CE000B66C8D /* NJGraphicsUnitilities.m */; };
@@ -56,13 +56,13 @@
 		2B21F15018D433D2007220CF /* NJLevelSceneWaterPark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLevelSceneWaterPark.m; path = Scenes/NJLevelSceneWaterPark.m; sourceTree = "<group>"; };
 		2B21F15218D4342E007220CF /* NJPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPlayer.h; path = Scenes/NJPlayer.h; sourceTree = "<group>"; };
 		2B21F15318D4342E007220CF /* NJPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPlayer.m; path = Scenes/NJPlayer.m; sourceTree = "<group>"; };
-		2B21F15718D43B90007220CF /* waterParkBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = waterParkBG.jpg; path = Assets/Background/waterParkBG.jpg; sourceTree = "<group>"; };
 		2B25DB1118DDCAD1005A4D40 /* woodPile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woodPile.png; sourceTree = "<group>"; };
 		2B25DB1318DDCB40005A4D40 /* ninja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ninja.png; sourceTree = "<group>"; };
 		2B25DB1518DDCC16005A4D40 /* jumpButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jumpButton.png; sourceTree = "<group>"; };
-		2B25DB1718DDDF90005A4D40 /* Ninja_Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Jump.atlas; path = "Assets/Texture Atlases/Ninja_Jump.atlas"; sourceTree = "<group>"; };
 		2B2708CF18DD6FF20033D1BF /* NJButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJButton.h; sourceTree = "<group>"; };
 		2B2708D018DD6FF20033D1BF /* NJButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJButton.m; sourceTree = "<group>"; };
+		2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Jump.atlas; path = "Assets/Texture Altases/Ninja_Jump.atlas"; sourceTree = "<group>"; };
+		2B76872E18DED9F300A9CB6E /* waterParkBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waterParkBG.png; sourceTree = "<group>"; };
 		2F3963DC18D8329800B66C8D /* NJNinjaCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacter.h; path = Sprites/NJNinjaCharacter.h; sourceTree = "<group>"; };
 		2F3963DD18D8329800B66C8D /* NJNinjaCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJNinjaCharacter.m; path = Sprites/NJNinjaCharacter.m; sourceTree = "<group>"; };
 		2F3963DF18D832B300B66C8D /* NJNinjaCharacterNormal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacterNormal.h; path = Sprites/NJNinjaCharacterNormal.h; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 		2B21F15518D439DC007220CF /* Texture Atlases */ = {
 			isa = PBXGroup;
 			children = (
-				2B25DB1718DDDF90005A4D40 /* Ninja_Jump.atlas */,
+				2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */,
 			);
 			name = "Texture Atlases";
 			sourceTree = "<group>";
@@ -183,7 +183,7 @@
 		2B21F15618D43A2A007220CF /* Background */ = {
 			isa = PBXGroup;
 			children = (
-				2B21F15718D43B90007220CF /* waterParkBG.jpg */,
+				2B76872E18DED9F300A9CB6E /* waterParkBG.png */,
 			);
 			name = Background;
 			sourceTree = "<group>";
@@ -357,11 +357,11 @@
 				2B25DB1218DDCAD1005A4D40 /* woodPile.png in Resources */,
 				2B25DB1618DDCC16005A4D40 /* jumpButton.png in Resources */,
 				2B25DB1418DDCB40005A4D40 /* ninja.png in Resources */,
+				2B76872F18DED9F300A9CB6E /* waterParkBG.png in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
-				2B25DB1818DDDF90005A4D40 /* Ninja_Jump.atlas in Resources */,
-				2B21F15818D43B90007220CF /* waterParkBG.jpg in Resources */,
+				2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

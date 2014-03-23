@@ -62,11 +62,10 @@
 {
     NSAssert(![player isKindOfClass:[NSNull class]], @"Player should not be NSNull");
     
-    /*
     if (player.ninja && !player.ninja.dying) {
         [player.ninja removeFromParent];
     }
-    */
+    
     CGPoint spawnPos = player.spawnPoint;
     
     NJNinjaCharacterNormal *ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:@"ninja.png" atPosition:spawnPos withPlayer:player];
@@ -74,6 +73,8 @@
         [ninja addToScene:self];
         [(NSMutableArray *)self.ninjas addObject:ninja];
     }
+    ninja.color = player.color;
+    ninja.colorBlendFactor = 0.6;
     player.ninja = ninja;
     
     return ninja;
@@ -103,7 +104,7 @@
         if (![ninja isDying]) {
             if (player.jumpRequested) {
                 if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
-                    [ninja jumpToPosition:player.targetLocation withTimeInterval:timeSinceLast];
+                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast];
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;

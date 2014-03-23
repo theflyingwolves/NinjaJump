@@ -8,14 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@class NJNinjaCharacter;
+@class NJNinjaCharacter, SKColor;
 
 @interface NJPlayer : NSObject
 @property (nonatomic) NJNinjaCharacter *ninja;
+@property (nonatomic) SKColor *color;
 
 @property (nonatomic) CGPoint spawnPoint;
 @property (nonatomic) BOOL fireAction;
 
+@property (nonatomic) CGPoint startLocation;
 @property (nonatomic) CGPoint targetLocation;
 @property (nonatomic) BOOL isJumping;
 

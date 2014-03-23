@@ -16,20 +16,18 @@
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
-        //self = [NJCharacter spriteNodeWithImageNamed:textureName];
         self.position = position;
         self.movementSpeed = 1000;
+        self.animationSpeed = 1/60.0f;
     }
     
     return self;
 }
 
-- (void)jumpToPosition:(CGPoint)position withTimeInterval:(NSTimeInterval)timeInterval
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval
 {
-    /*
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
-     */
     CGPoint curPosition = self.position;
     CGFloat dx = position.x - curPosition.x;
     CGFloat dy = position.y - curPosition.y;
@@ -37,7 +35,7 @@
     CGFloat distRemaining = hypotf(dx, dy);
     CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(position, curPosition));
     self.zRotation = ang;
-    if (distRemaining < dt) {
+    if (distRemaining <= dt) {
         self.position = position;
     } else {
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
@@ -45,7 +43,7 @@
     }
 }
 
-- (void)update
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
 {
     if (self.isAnimated) {
         [self resolveRequestedAnimation];
@@ -124,7 +122,7 @@
     
     self.activeAnimationKey = animationKey;
     [self runAction:[SKAction sequence:@[
-                                         [SKAction animateWithTextures:animationFrames timePerFrame:self.animationSpeed resize:YES restore:NO],
+                                         [SKAction animateWithTextures:animationFrames timePerFrame:self.animationSpeed resize:YES restore:YES],
                                          [SKAction runBlock:^{
         [self animationHasCompleted:animationState];
     }]]] withKey:animationKey];
@@ -132,12 +130,18 @@
 
 - (void)animationHasCompleted:(NJAnimationState)animationState
 {
+    self.animated = NO;
     self.activeAnimationKey = nil;
 }
 
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene
 {
     [scene addNode:self atWorldLayer:NJWorldLayerCharacter];
+}
+
+#pragma mark - Shared Assets
++ (void)loadSharedAssets {
+    // overridden by subclasses
 }
 
 

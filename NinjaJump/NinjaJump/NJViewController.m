@@ -26,13 +26,15 @@
     _skView.showsDrawCount = YES;
     _skView.showsNodeCount = YES;
     
-    // Create and configure the scene.
-    NJLevelSceneWaterPark * scene = [NJLevelSceneWaterPark sceneWithSize:_skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    self.scene = scene;
-    // Present the scene.
-    [_skView presentScene:scene];
-    [scene startLevel];
+    [NJLevelSceneWaterPark loadSceneAssetsWithCompletionHandler:^{
+        // Create and configure the scene.
+        NJLevelSceneWaterPark * scene = [NJLevelSceneWaterPark sceneWithSize:_skView.bounds.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        self.scene = scene;
+        // Present the scene.
+        [_skView presentScene:scene];
+        [scene startLevel];
+    }];
 }
 
 - (BOOL)prefersStatusBarHidden

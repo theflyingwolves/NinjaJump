@@ -17,7 +17,7 @@
     
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:atlasName];
     for (int i = 1; i <= numOfFrames; i++) {
-        NSString *fileName = [NSString stringWithFormat:@"%@%d.png", baseName, i];
+        NSString *fileName = [NSString stringWithFormat:@"%@%03d.png", baseName, i];
         SKTexture *texture = [atlas textureNamed:fileName];
         [frames addObject:texture];
     }
