@@ -7,10 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+@class NJCharacter;
 
 @interface NJHPBar : SKSpriteNode
 
-+ (NJHPBar *)hpBarWithPosition:(CGPoint)position;
-- (void)applyDamage:(float)amount;
-
++ (NJHPBar *)hpBarWithPosition:(CGPoint)position andCharacter:(NJCharacter *)character;
+- (void)updateHealthPoint;
 @end

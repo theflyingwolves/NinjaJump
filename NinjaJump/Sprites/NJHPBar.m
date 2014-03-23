@@ -11,18 +11,21 @@
 #define FULL_HP 100
 
 #import "NJHPBar.h"
+#import "NJCharacter.h"
 
 @interface NJHPBar()
 @property SKCropNode *HPBar;
 @property SKSpriteNode *bottomLayer;
 @property float healthPoint;
+@property NJCharacter *character;
 @end
 
 @implementation NJHPBar
 
-+ (NJHPBar *)hpBarWithPosition:(CGPoint)position
++ (NJHPBar *)hpBarWithPosition:(CGPoint)position andCharacter:(NJCharacter *)character
 {
     NJHPBar *bar = [[NJHPBar alloc] initWithPosition:position];
+    bar.character = character;
     return bar;
 }
 
@@ -56,14 +59,9 @@
     return self;
 }
 
-- (void)applyDamage:(float)amount
+- (void)updateHealthPoint
 {
-    if (self.healthPoint > amount) {
-        self.healthPoint -= amount;
-    }else{
-        self.healthPoint = 0;
-    }
-    
+    self.healthPoint = self.character.health;
     float ratio = self.healthPoint / FULL_HP;
     
 }

@@ -45,12 +45,17 @@
         }
         
         for (int i=0; i < kNumPlayers; i++) {
-            NJHPBar *bar = [NJHPBar hpBarWithPosition:CGPointMake(250, 250)];
+            NJHPBar *bar = [NJHPBar hpBarWithPosition:CGPointMake(250, 250) andCharacter:((NJPlayer *)self.players[i]).ninja];
             [_hpBars addObject:bar];
-            if (i == 0) {
-                [self addChild:bar];
-            }
+            float angle = i * M_PI / 2 - M_PI / 2;
+            bar.zRotation = angle;
+            [self addChild:bar];
         }
+        
+        ((NJHPBar *)_hpBars[0]).position = CGPointMake(-135, 320);
+        ((NJHPBar *)_hpBars[1]).position = CGPointMake(self.frame.size.width/2 + 175, -self.frame.size.height / 2 + 250);
+        ((NJHPBar *)_hpBars[2]).position = CGPointMake(1150, 430);
+        ((NJHPBar *)_hpBars[3]).position = CGPointMake(335, 900);
         
         ((NJButton*)_buttons[0]).position = CGPointMake(50, 50);
         ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
@@ -135,12 +140,14 @@
 
 #pragma mark - Level Start
 - (void)startLevel {
+    
     for (NJPlayer *player in self.players) {
         NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
         int index = arc4random() % [_woodPiles count];
         CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
         ninja.position = spawnPosition;
         [ninja setSpawnPoint:spawnPosition];
+        
     }
 }
 

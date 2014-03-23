@@ -98,7 +98,6 @@ static NSUInteger tagGenerator = 0;
 //        if (damageAction) {
 //            [self runAction:damageAction];
 //        }
-        
         return NO;
     }else{
         [self performDeath];
