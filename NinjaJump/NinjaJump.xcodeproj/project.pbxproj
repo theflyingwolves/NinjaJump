@@ -35,6 +35,9 @@
 		2F94CD9818D419F1007DAFAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F94CD7318D419F1007DAFAD /* UIKit.framework */; };
 		2F94CDA018D419F1007DAFAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F94CD9E18D419F1007DAFAD /* InfoPlist.strings */; };
 		2F94CDA218D419F1007DAFAD /* NinjaJumpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94CDA118D419F1007DAFAD /* NinjaJumpTests.m */; };
+		2FBFD99118DEF382001E230B /* NJHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBFD99018DEF382001E230B /* NJHPBar.m */; };
+		2FBFD99418DEF4AC001E230B /* hp_bar_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFD99218DEF4AC001E230B /* hp_bar_bottom.png */; };
+		2FBFD99518DEF4AC001E230B /* hp_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFD99318DEF4AC001E230B /* hp_bar.png */; };
 		C4CAA7FF18DB21830070F3D5 /* NJPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FC18DB21830070F3D5 /* NJPath.m */; };
 		C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FE18DB21830070F3D5 /* NJPile.m */; };
 /* End PBXBuildFile section */
@@ -91,6 +94,10 @@
 		2F94CD9D18D419F1007DAFAD /* NinjaJumpTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NinjaJumpTests-Info.plist"; sourceTree = "<group>"; };
 		2F94CD9F18D419F1007DAFAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2F94CDA118D419F1007DAFAD /* NinjaJumpTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NinjaJumpTests.m; sourceTree = "<group>"; };
+		2FBFD98F18DEF382001E230B /* NJHPBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJHPBar.h; path = Sprites/NJHPBar.h; sourceTree = "<group>"; };
+		2FBFD99018DEF382001E230B /* NJHPBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJHPBar.m; path = Sprites/NJHPBar.m; sourceTree = "<group>"; };
+		2FBFD99218DEF4AC001E230B /* hp_bar_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hp_bar_bottom.png; sourceTree = "<group>"; };
+		2FBFD99318DEF4AC001E230B /* hp_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hp_bar.png; sourceTree = "<group>"; };
 		C4CAA7FB18DB21830070F3D5 /* NJPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPath.h; path = Sprites/pile/NJPath.h; sourceTree = "<group>"; };
 		C4CAA7FC18DB21830070F3D5 /* NJPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPath.m; path = Sprites/pile/NJPath.m; sourceTree = "<group>"; };
 		C4CAA7FD18DB21830070F3D5 /* NJPile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPile.h; path = Sprites/pile/NJPile.h; sourceTree = "<group>"; };
@@ -134,6 +141,8 @@
 				2F3963E018D832B300B66C8D /* NJNinjaCharacterNormal.m */,
 				2B2708CF18DD6FF20033D1BF /* NJButton.h */,
 				2B2708D018DD6FF20033D1BF /* NJButton.m */,
+				2FBFD98F18DEF382001E230B /* NJHPBar.h */,
+				2FBFD99018DEF382001E230B /* NJHPBar.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -154,6 +163,8 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2FBFD99218DEF4AC001E230B /* hp_bar_bottom.png */,
+				2FBFD99318DEF4AC001E230B /* hp_bar.png */,
 				2B25DB1518DDCC16005A4D40 /* jumpButton.png */,
 				2B25DB1318DDCB40005A4D40 /* ninja.png */,
 				2B25DB1118DDCAD1005A4D40 /* woodPile.png */,
@@ -357,7 +368,9 @@
 				2B25DB1218DDCAD1005A4D40 /* woodPile.png in Resources */,
 				2B25DB1618DDCC16005A4D40 /* jumpButton.png in Resources */,
 				2B25DB1418DDCB40005A4D40 /* ninja.png in Resources */,
+				2FBFD99518DEF4AC001E230B /* hp_bar.png in Resources */,
 				2B76872F18DED9F300A9CB6E /* waterParkBG.png in Resources */,
+				2FBFD99418DEF4AC001E230B /* hp_bar_bottom.png in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
@@ -385,6 +398,7 @@
 				2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */,
 				2F3963DE18D8329800B66C8D /* NJNinjaCharacter.m in Sources */,
 				2F80BB8518D4481F00C337BB /* NJCharacter.m in Sources */,
+				2FBFD99118DEF382001E230B /* NJHPBar.m in Sources */,
 				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
 				2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */,
 				2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */,

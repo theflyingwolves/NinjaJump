@@ -11,6 +11,7 @@
 #import "NJPile.h"
 #import "NJPath.h"
 #import "NJButton.h"
+#import "NJHPBar.h"
 #import "NJPlayer.h"
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterNormal.h"
@@ -21,6 +22,7 @@
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic) NSMutableArray *woodPiles;              // all the wood piles in the scene
 @property (nonatomic) NSMutableArray *buttons;
+@property (nonatomic) NSMutableArray *hpBars;
 @end
 @implementation NJLevelSceneWaterPark
 @synthesize ninjas = _ninjas;
@@ -31,6 +33,8 @@
         _ninjas = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
+        _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
+        
         for (int i = 0; i < kNumPlayers; i++) {
             NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
             button.delegate = self;
@@ -38,6 +42,15 @@
             [_buttons addObject:button];
             [self addChild:button];
         }
+        
+        for (int i=0; i < kNumPlayers; i++) {
+            NJHPBar *bar = [NJHPBar hpBarWithPosition:CGPointMake(250, 250)];
+            [_hpBars addObject:bar];
+            if (i == 0) {
+                [self addChild:bar];
+            }
+        }
+        
         ((NJButton*)_buttons[0]).position = CGPointMake(50, 50);
         ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
         ((NJButton*)_buttons[0]).color = [SKColor blackColor];
