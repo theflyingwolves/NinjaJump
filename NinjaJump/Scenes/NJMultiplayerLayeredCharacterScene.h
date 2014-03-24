@@ -27,7 +27,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 @interface NJMultiplayerLayeredCharacterScene : SKScene
 
-@property (nonatomic, readonly) NSArray *players;               // array of player objects or NSNull for no player
+@property (nonatomic, readonly) NSArray *players;               // array of player objects or NSNull for no playerf
 @property (nonatomic, readonly) SKNode *world;                  // root node to which all game renderables are attached
 @property (nonatomic, readonly) NSArray *ninjas;                // all ninjas in the game
 

@@ -38,6 +38,16 @@
 		2F94CDA018D419F1007DAFAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F94CD9E18D419F1007DAFAD /* InfoPlist.strings */; };
 		2F94CDA218D419F1007DAFAD /* NinjaJumpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94CDA118D419F1007DAFAD /* NinjaJumpTests.m */; };
 		2FBFD99118DEF382001E230B /* NJHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBFD99018DEF382001E230B /* NJHPBar.m */; };
+		C42170C318E066F800942374 /* NJSpecialItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170C218E066F800942374 /* NJSpecialItem.m */; };
+		C42170C618E0672400942374 /* NJTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170C518E0672400942374 /* NJTool.m */; };
+		C42170C918E0675F00942374 /* NJScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170C818E0675F00942374 /* NJScroll.m */; };
+		C42170CF18E0685500942374 /* NJMine.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170CE18E0685500942374 /* NJMine.m */; };
+		C42170D518E0687800942374 /* NJShuriken.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170D418E0687800942374 /* NJShuriken.m */; };
+		C42170D818E0689100942374 /* NJMedikit.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170D718E0689100942374 /* NJMedikit.m */; };
+		C42170DE18E068C100942374 /* NJThunderScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170DD18E068C100942374 /* NJThunderScroll.m */; };
+		C42170E118E068CF00942374 /* NJWindScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170E018E068CF00942374 /* NJWindScroll.m */; };
+		C42170E418E068DD00942374 /* NJIceScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170E318E068DD00942374 /* NJIceScroll.m */; };
+		C42170E718E068E800942374 /* NJFireScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170E618E068E800942374 /* NJFireScroll.m */; };
 		C4CAA7FF18DB21830070F3D5 /* NJPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FC18DB21830070F3D5 /* NJPath.m */; };
 		C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FE18DB21830070F3D5 /* NJPile.m */; };
 /* End PBXBuildFile section */
@@ -98,6 +108,26 @@
 		2F94CDA118D419F1007DAFAD /* NinjaJumpTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NinjaJumpTests.m; sourceTree = "<group>"; };
 		2FBFD98F18DEF382001E230B /* NJHPBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJHPBar.h; path = Sprites/NJHPBar.h; sourceTree = "<group>"; };
 		2FBFD99018DEF382001E230B /* NJHPBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJHPBar.m; path = Sprites/NJHPBar.m; sourceTree = "<group>"; };
+		C42170C118E066F800942374 /* NJSpecialItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJSpecialItem.h; path = Sprites/Item/NJSpecialItem.h; sourceTree = "<group>"; };
+		C42170C218E066F800942374 /* NJSpecialItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJSpecialItem.m; path = Sprites/Item/NJSpecialItem.m; sourceTree = "<group>"; };
+		C42170C418E0672400942374 /* NJTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJTool.h; path = Sprites/Item/NJTool.h; sourceTree = "<group>"; };
+		C42170C518E0672400942374 /* NJTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJTool.m; path = Sprites/Item/NJTool.m; sourceTree = "<group>"; };
+		C42170C718E0675F00942374 /* NJScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJScroll.h; sourceTree = "<group>"; };
+		C42170C818E0675F00942374 /* NJScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJScroll.m; sourceTree = "<group>"; };
+		C42170CD18E0685500942374 /* NJMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJMine.h; path = Sprites/Item/NJMine.h; sourceTree = "<group>"; };
+		C42170CE18E0685500942374 /* NJMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJMine.m; path = Sprites/Item/NJMine.m; sourceTree = "<group>"; };
+		C42170D318E0687800942374 /* NJShuriken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJShuriken.h; path = Sprites/Item/NJShuriken.h; sourceTree = "<group>"; };
+		C42170D418E0687800942374 /* NJShuriken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJShuriken.m; path = Sprites/Item/NJShuriken.m; sourceTree = "<group>"; };
+		C42170D618E0689100942374 /* NJMedikit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJMedikit.h; path = Sprites/Item/NJMedikit.h; sourceTree = "<group>"; };
+		C42170D718E0689100942374 /* NJMedikit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJMedikit.m; path = Sprites/Item/NJMedikit.m; sourceTree = "<group>"; };
+		C42170DC18E068C100942374 /* NJThunderScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJThunderScroll.h; path = Sprites/Item/NJThunderScroll.h; sourceTree = "<group>"; };
+		C42170DD18E068C100942374 /* NJThunderScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJThunderScroll.m; path = Sprites/Item/NJThunderScroll.m; sourceTree = "<group>"; };
+		C42170DF18E068CF00942374 /* NJWindScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJWindScroll.h; path = Sprites/Item/NJWindScroll.h; sourceTree = "<group>"; };
+		C42170E018E068CF00942374 /* NJWindScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJWindScroll.m; path = Sprites/Item/NJWindScroll.m; sourceTree = "<group>"; };
+		C42170E218E068DD00942374 /* NJIceScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJIceScroll.h; path = Sprites/Item/NJIceScroll.h; sourceTree = "<group>"; };
+		C42170E318E068DD00942374 /* NJIceScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJIceScroll.m; path = Sprites/Item/NJIceScroll.m; sourceTree = "<group>"; };
+		C42170E518E068E800942374 /* NJFireScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJFireScroll.h; path = Sprites/Item/NJFireScroll.h; sourceTree = "<group>"; };
+		C42170E618E068E800942374 /* NJFireScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJFireScroll.m; path = Sprites/Item/NJFireScroll.m; sourceTree = "<group>"; };
 		C4CAA7FB18DB21830070F3D5 /* NJPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPath.h; path = Sprites/pile/NJPath.h; sourceTree = "<group>"; };
 		C4CAA7FC18DB21830070F3D5 /* NJPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPath.m; path = Sprites/pile/NJPath.m; sourceTree = "<group>"; };
 		C4CAA7FD18DB21830070F3D5 /* NJPile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPile.h; path = Sprites/pile/NJPile.h; sourceTree = "<group>"; };
@@ -132,6 +162,7 @@
 		2B21F14518D43005007220CF /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				C42170C018E066AE00942374 /* Item */,
 				2F63E13518E029BA00E9A17B /* Control */,
 				2F63E13418E0299A00E9A17B /* Characters */,
 				C4CAA7F418DB21520070F3D5 /* Pile */,
@@ -301,6 +332,49 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C42170C018E066AE00942374 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				C42170C118E066F800942374 /* NJSpecialItem.h */,
+				C42170C218E066F800942374 /* NJSpecialItem.m */,
+				C42170CB18E0678600942374 /* Scroll */,
+				C42170CA18E0677400942374 /* Tool */,
+			);
+			name = Item;
+			sourceTree = "<group>";
+		};
+		C42170CA18E0677400942374 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				C42170C418E0672400942374 /* NJTool.h */,
+				C42170C518E0672400942374 /* NJTool.m */,
+				C42170CD18E0685500942374 /* NJMine.h */,
+				C42170CE18E0685500942374 /* NJMine.m */,
+				C42170D318E0687800942374 /* NJShuriken.h */,
+				C42170D418E0687800942374 /* NJShuriken.m */,
+				C42170D618E0689100942374 /* NJMedikit.h */,
+				C42170D718E0689100942374 /* NJMedikit.m */,
+			);
+			name = Tool;
+			sourceTree = "<group>";
+		};
+		C42170CB18E0678600942374 /* Scroll */ = {
+			isa = PBXGroup;
+			children = (
+				C42170C718E0675F00942374 /* NJScroll.h */,
+				C42170C818E0675F00942374 /* NJScroll.m */,
+				C42170DC18E068C100942374 /* NJThunderScroll.h */,
+				C42170DD18E068C100942374 /* NJThunderScroll.m */,
+				C42170DF18E068CF00942374 /* NJWindScroll.h */,
+				C42170E018E068CF00942374 /* NJWindScroll.m */,
+				C42170E218E068DD00942374 /* NJIceScroll.h */,
+				C42170E318E068DD00942374 /* NJIceScroll.m */,
+				C42170E518E068E800942374 /* NJFireScroll.h */,
+				C42170E618E068E800942374 /* NJFireScroll.m */,
+			);
+			name = Scroll;
+			sourceTree = "<group>";
+		};
 		C4CAA7F418DB21520070F3D5 /* Pile */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,18 +491,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42170C918E0675F00942374 /* NJScroll.m in Sources */,
 				2F3963E418D83CE000B66C8D /* NJGraphicsUnitilities.m in Sources */,
+				C42170CF18E0685500942374 /* NJMine.m in Sources */,
 				2B21F14E18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */,
 				2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */,
 				2F3963DE18D8329800B66C8D /* NJNinjaCharacter.m in Sources */,
+				C42170E718E068E800942374 /* NJFireScroll.m in Sources */,
 				2F80BB8518D4481F00C337BB /* NJCharacter.m in Sources */,
 				2FBFD99118DEF382001E230B /* NJHPBar.m in Sources */,
 				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
+				C42170C318E066F800942374 /* NJSpecialItem.m in Sources */,
 				2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */,
+				C42170C618E0672400942374 /* NJTool.m in Sources */,
+				C42170E118E068CF00942374 /* NJWindScroll.m in Sources */,
 				2F63E13318E0298700E9A17B /* NJButton.m in Sources */,
 				2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */,
 				C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */,
+				C42170D518E0687800942374 /* NJShuriken.m in Sources */,
 				2F94CD7E18D419F1007DAFAD /* main.m in Sources */,
+				C42170D818E0689100942374 /* NJMedikit.m in Sources */,
+				C42170E418E068DD00942374 /* NJIceScroll.m in Sources */,
+				C42170DE18E068C100942374 /* NJThunderScroll.m in Sources */,
 				2F3963E118D832B300B66C8D /* NJNinjaCharacterNormal.m in Sources */,
 				C4CAA7FF18DB21830070F3D5 /* NJPath.m in Sources */,
 			);
