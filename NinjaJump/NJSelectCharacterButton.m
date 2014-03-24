@@ -21,21 +21,12 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
-    
-    CGPoint touchPoint = [touch locationInView:(SKScene *)_delegate];
-    NSLog(@"%f %f",touchPoint.x,touchPoint.y);
-//    for (Building *building in self.buildings) {
-//        if (CGPathContainsPoint(building.path, CGAffineTransformIdentity, touchPoint, YES)) {
-//            //the touch was inside this building!
-//            //now do something with this knowledge.
-//        }
-//    }
+
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.delegate selectionButton:self touchesEnded:touches];
+    [self.delegate button:self touchesEnded:touches];
 }
 
 - (NSString *)imageNameFromType:(NJSelectionButtonType) type{

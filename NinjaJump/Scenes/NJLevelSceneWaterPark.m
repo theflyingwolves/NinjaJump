@@ -18,7 +18,7 @@
 
 #define kBackGroundFileName @"waterParkBG.png"
 
-@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate, NJSelectionButtonDelegate>
+@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic) NSMutableArray *woodPiles;              // all the wood piles in the scene
 @property (nonatomic) NSMutableArray *buttons;
@@ -203,16 +203,12 @@
 
 /**********Select Character Scene*************/
 - (void)initSelectionSystem{
-    NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]initWithScene:self];
+    NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
     selectionSystem.position = center;
     [self addChild:selectionSystem];
-}
-
-- (void)selectionButton:(NJSelectCharacterButton *) button touchesEnded:(NSSet *)touches{
-    button.hidden = !button.hidden;
 }
 
 

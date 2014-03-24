@@ -11,6 +11,4 @@
 
 @interface NJSelectionButtonSystem : SKSpriteNode
 
-- (id) initWithScene:(SKScene *)scene;
-
 @end
