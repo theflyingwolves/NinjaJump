@@ -50,4 +50,6 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 /* Heroes and players. */
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
+
+- (CGPoint)spawnAtRandomPosition;
 @end
