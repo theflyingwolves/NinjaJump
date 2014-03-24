@@ -37,7 +37,26 @@
         _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
         
         for (int i=0; i < kNumPlayers; i++) {
-            CGPoint position = CGPointMake(250, 250);
+            CGPoint position;
+            float size = 250;
+            switch (i) {
+                case 0:
+                    position = CGPointMake(size / 2, size / 2);
+                    break;
+                case 1:
+                    position = CGPointMake(self.frame.size.width - size / 2, size / 2);
+                    break;
+                case 2:
+                    position = CGPointMake(self.frame.size.width - size / 2, self.frame.size.height - size / 2);
+                    break;
+                case 3:
+                    position = CGPointMake(size / 2, self.frame.size.height - size / 2);
+                    break;
+                default:
+                    break;
+            }
+            
+            NSLog(@"%f, %f",self.frame.size.width, self.frame.size.height);
             
             NJHPBar *bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
             float angle = i * M_PI / 2 - M_PI / 2;
@@ -45,11 +64,6 @@
             [_hpBars addObject:bar];
             [self addChild:bar];
         }
-        
-        ((NJHPBar *)_hpBars[0]).position = CGPointMake(-135, 320);
-        ((NJHPBar *)_hpBars[1]).position = CGPointMake(685, -135);
-        ((NJHPBar *)_hpBars[2]).position = CGPointMake(1150, 430);
-        ((NJHPBar *)_hpBars[3]).position = CGPointMake(335, 900);
 
         for (int i = 0; i < kNumPlayers; i++) {
             NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
