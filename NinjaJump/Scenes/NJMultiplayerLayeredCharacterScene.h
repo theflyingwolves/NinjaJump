@@ -27,10 +27,10 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 @interface NJMultiplayerLayeredCharacterScene : SKScene
 
-@property (nonatomic, readonly) NSArray *players;               // array of player objects or NSNull for no player
+@property (nonatomic, readonly) NSArray *players;               // array of player objects or NSNull for no playerf
 @property (nonatomic, readonly) SKNode *world;                  // root node to which all game renderables are attached
 @property (nonatomic, readonly) NSArray *ninjas;                // all ninjas in the game
-
+@property (nonatomic) NSMutableArray *items;
 
 /* All sprites in the scene should be added through this method to ensure they are placed in the correct world layer. */
 - (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer;
@@ -50,4 +50,6 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 /* Heroes and players. */
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
+
+- (CGPoint)spawnAtRandomPosition;
 @end

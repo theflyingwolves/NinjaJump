@@ -106,7 +106,11 @@
         if (![ninja isDying]) {
             if (player.jumpRequested) {
                 if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
+<<<<<<< HEAD
                     [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast arrayOfCharacters:self.ninjas arrayOfItems:self.items];
+=======
+                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast];
+>>>>>>> 2731348e90e955f36f0ff8cf1c464297c196c477
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;

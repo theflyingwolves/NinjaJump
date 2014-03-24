@@ -197,8 +197,11 @@
 		2B21F14518D43005007220CF /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				C42170C018E066AE00942374 /* Item */,
+=======
 				C9B8F29018E05B1400FA877E /* playerSelection */,
+>>>>>>> 2731348e90e955f36f0ff8cf1c464297c196c477
 				2F63E13518E029BA00E9A17B /* Control */,
 				2F63E13418E0299A00E9A17B /* Characters */,
 				2B21F14B18D430E8007220CF /* Utilities */,
@@ -301,7 +304,6 @@
 			children = (
 				2B21F14918D430B0007220CF /* Scenes */,
 				2B21F14518D43005007220CF /* Sprites */,
-				2B21F14B18D430E8007220CF /* Utilities */,
 				2B21F14A18D430DB007220CF /* Assets */,
 				2F94CD7718D419F1007DAFAD /* NinjaJump */,
 				2F94CD9B18D419F1007DAFAD /* NinjaJumpTests */,
@@ -597,9 +599,12 @@
 				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
 				C42170C318E066F800942374 /* NJSpecialItem.m in Sources */,
 				2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */,
+<<<<<<< HEAD
 				C42170C618E0672400942374 /* NJTool.m in Sources */,
 				C42170E118E068CF00942374 /* NJWindScroll.m in Sources */,
+=======
 				C9B8F29518E05B3B00FA877E /* NJSelectCharacterButton.m in Sources */,
+>>>>>>> 2731348e90e955f36f0ff8cf1c464297c196c477
 				2F63E13318E0298700E9A17B /* NJButton.m in Sources */,
 				2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */,
 				C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */,

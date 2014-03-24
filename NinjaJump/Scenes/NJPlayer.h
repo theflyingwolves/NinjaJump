@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NJSpecialItem.h"
 
 @class NJNinjaCharacter, SKColor;
 
@@ -22,5 +23,7 @@
 @property (nonatomic) BOOL isJumping;
 
 @property (nonatomic) BOOL jumpRequested;               // used to track whether a move was requested
+
+@property (nonatomic) NJSpecialItem *item;
 
 @end

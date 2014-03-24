@@ -5,7 +5,7 @@
 //  Created by Wang Kunzhen on 18/3/14.
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
-#define NUM_OF_FRAMES_FOR_NORMAL_NINJA_JUMP 11
+#define NUM_OF_FRAMES_FOR_NORMAL_NINJA_JUMP 17
 #define NUM_OF_FRAMES_FOR_NORMAL_NINJA_DEATH 10
 
 #import "NJNinjaCharacterNormal.h"
