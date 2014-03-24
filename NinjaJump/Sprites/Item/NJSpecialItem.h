@@ -10,4 +10,9 @@
 
 @interface NJSpecialItem : SKSpriteNode
 
+@property BOOL isPickedUp;
+
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position;
+
+
 @end

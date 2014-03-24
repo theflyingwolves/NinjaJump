@@ -10,4 +10,14 @@
 
 @implementation NJSpecialItem
 
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+    self = [super initWithImageNamed:textureName];
+    if (self){
+        self.position = position;
+        self.isPickedUp = NO;
+    }
+    
+    return self;
+}
+
 @end

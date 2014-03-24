@@ -71,8 +71,9 @@ typedef enum : uint8_t {
 //-(BOOL)applyDamageFromItem:(NJSpecialItem *)item;
 
 // EFFECTS: character jump to a given position
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters;
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters arrayOfItems:(NSArray *)items;
 // EFFECTS: Only handle the animation of using the given item
+
 //-(void)useItem:(NJSpecialItem *)item;
 
 // EFFECTS: Update the next-frame renderring of the character

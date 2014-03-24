@@ -11,6 +11,7 @@
 #import "NJNinjaCharacter.h"
 #import "NJNinjaCharacterNormal.h"
 #import "NJButton.h"
+#import "NJSpecialItem.h"
 
 @interface NJMultiplayerLayeredCharacterScene ()
 
@@ -105,13 +106,23 @@
         if (![ninja isDying]) {
             if (player.jumpRequested) {
                 if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
-                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast arrayOfCharacters:self.ninjas];
+                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast arrayOfCharacters:self.ninjas arrayOfItems:self.items];
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;
                 }
             }
         }
+    }
+    
+    NSMutableArray *itemsToRemove = [NSMutableArray array];
+    for (NJSpecialItem *item in self.items){
+        if (item.isPickedUp) {
+            [itemsToRemove addObject:item];
+        }
+    }
+    for (id item in itemsToRemove){
+        [self.items removeObject:item];
     }
 }
 

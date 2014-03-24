@@ -16,11 +16,13 @@
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterNormal.h"
 
+#import "NJShuriken.h"
+
 #define kBackGroundFileName @"waterParkBG.png"
 
 @interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
-@property (nonatomic) NSMutableArray *woodPiles;              // all the wood piles in the scene
+@property (nonatomic) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic) NSMutableArray *buttons;
 @property (nonatomic) NSMutableArray *hpBars;
 @end
@@ -35,6 +37,7 @@
         _woodPiles = [[NSMutableArray alloc] init];
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
         _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
+        self.items = [[NSMutableArray alloc] init];
         
         for (int i=0; i < kNumPlayers; i++) {
             CGPoint position;
@@ -109,6 +112,16 @@
     [self addBackground];
     
     [self addWoodPiles];
+    
+    [self addItem];
+}
+
+- (void)addItem{
+    CGPoint position = ((NJPile*)self.woodPiles[0]).position;
+    
+    NJShuriken *shuriken = [[NJShuriken alloc] initWithTextureNamed:@"shuriken" atPosition:position];
+    [self addNode:shuriken atWorldLayer:NJWorldLayerCharacter];
+    [self.items addObject:shuriken];
 }
 
 - (void)addWoodPiles

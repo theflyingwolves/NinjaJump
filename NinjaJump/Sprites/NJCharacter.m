@@ -9,6 +9,7 @@
 #define FULL_HP 100
 
 #import "NJCharacter.h"
+#import "NJSpecialItem.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJGraphicsUnitilities.h"
 
@@ -31,7 +32,7 @@ static NSUInteger tagGenerator = 0;
     return self;
 }
 
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters arrayOfItems:(NSArray *)items
 {
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
