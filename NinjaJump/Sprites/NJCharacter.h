@@ -84,5 +84,7 @@ typedef enum : uint8_t {
 // EFFECTS: load animation frames for death animation
 - (NSArray *)deathAnimationFrames;
 
+- (NSArray *)attackAnimationFrames;
+
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
 @end

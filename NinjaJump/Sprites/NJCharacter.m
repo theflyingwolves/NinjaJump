@@ -63,6 +63,7 @@ static NSUInteger tagGenerator = 0;
 {
     for (NJCharacter *character in characters) {
         if (CGPointEqualToPoint(character.position, self.position) && character.tag != _tag) {
+            self.requestedAnimation = NJAnimationStateAttack;
             [character applyDamage:20];
             [character resetPosition];
         }
@@ -122,6 +123,10 @@ static NSUInteger tagGenerator = 0;
             animationKey = @"anim_death";
             animationFrames = [self deathAnimationFrames];
             break;
+        case NJAnimationStateAttack:
+            animationKey = @"anim_attack";
+            animationFrames = [self attackAnimationFrames];
+            break;
         default:
             break;
     }
@@ -162,9 +167,14 @@ static NSUInteger tagGenerator = 0;
     // overridden by subclasses
 }
 
-
 #pragma mark - Abstract Methods
 - (NSArray *)jumpAnimationFrames
+{
+    // To Be Implemented by subclasses
+    return nil;
+}
+
+- (NSArray *)attackAnimationFrames
 {
     // To Be Implemented by subclasses
     return nil;
