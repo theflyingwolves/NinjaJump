@@ -14,11 +14,11 @@
 #import "NJPlayer.h"
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterNormal.h"
-#import "NJSelectCharacterButton.h"
+#import "NJSelectionButtonSystem.h"
 
 #define kBackGroundFileName @"waterParkBG.png"
 
-@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate>
+@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate, NJSelectionButtonDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic) NSMutableArray *woodPiles;              // all the wood piles in the scene
 @property (nonatomic) NSMutableArray *buttons;
@@ -59,6 +59,7 @@
         ((NJButton*)_buttons[3]).color = [SKColor yellowColor];
         ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
         ((NJButton*)_buttons[3]).player.color = [SKColor yellowColor];
+        [self initSelectionSystem];
         [self buildWorld];
     }
     return self;
@@ -200,18 +201,19 @@
     [NJNinjaCharacterNormal loadSharedAssets];
 }
 
-/************** select character scene**************/
-- (void)addCharacterSelectionButton{
-    NJSelectCharacterButton *selectingButton = [[NJSelectCharacterButton alloc]]
-    
-        NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
-        button.delegate = self;
-        button.player = self.players[i];
-        [_buttons addObject:button];
-        [self addChild:button];
-    ((NJButton*)_buttons[0]).position = CGPointMake(50, 50);
-    ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
-    ((NJButton*)_buttons[0]).color = [SKColor blackColor];
+/**********Select Character Scene*************/
+- (void)initSelectionSystem{
+    NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]initWithScene:self];
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
+    selectionSystem.position = center;
+    [self addChild:selectionSystem];
 }
+
+- (void)selectionButton:(NJSelectCharacterButton *) button touchesEnded:(NSSet *)touches{
+    button.hidden = !button.hidden;
+}
+
 
 @end

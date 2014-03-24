@@ -7,15 +7,18 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-@class NJSelectCharacterButton;
-@protocol NJButtonDelegate <NSObject>
+typedef enum {BLUE, RED, PURPLE, BROWN} NJSelectionButtonType ;
 
-- (void)button:(NJSelectCharacterButton *) button touchesEnded:(NSSet *)touches;
+@class NJSelectCharacterButton;
+@protocol NJSelectionButtonDelegate <NSObject>
+
+- (void)selectionButton:(NJSelectCharacterButton *) button touchesEnded:(NSSet *)touches;
 
 @end
 
 @interface NJSelectCharacterButton : SKSpriteNode
 
-@property (nonatomic, weak) id <NJButtonDelegate> delegate;
+@property (nonatomic, weak) id <NJSelectionButtonDelegate> delegate;
 
+- (id)initWithType:(NJSelectionButtonType) buttonType;
 @end

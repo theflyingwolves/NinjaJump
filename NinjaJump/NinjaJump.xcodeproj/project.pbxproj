@@ -43,6 +43,13 @@
 		C93FB36118DF0C9E00D9B207 /* loading bar.png in Resources */ = {isa = PBXBuildFile; fileRef = C93FB35D18DF0C9E00D9B207 /* loading bar.png */; };
 		C93FB36218DF0C9E00D9B207 /* loading bar2.png in Resources */ = {isa = PBXBuildFile; fileRef = C93FB35E18DF0C9E00D9B207 /* loading bar2.png */; };
 		C93FB36318DF0C9E00D9B207 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C93FB35F18DF0C9E00D9B207 /* logo.png */; };
+		C9A8157F18E00967007BA7BE /* ready buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8157818E00967007BA7BE /* ready buttons.png */; };
+		C9A8158118E00967007BA7BE /* start button.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8157A18E00967007BA7BE /* start button.png */; };
+		C9A8158218E00967007BA7BE /* touched button blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8157B18E00967007BA7BE /* touched button blue.png */; };
+		C9A8158318E00967007BA7BE /* touched button brown.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8157C18E00967007BA7BE /* touched button brown.png */; };
+		C9A8158418E00967007BA7BE /* touched button purple.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8157D18E00967007BA7BE /* touched button purple.png */; };
+		C9A8158518E00967007BA7BE /* touched button red.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8157E18E00967007BA7BE /* touched button red.png */; };
+		C9A8158918E010AF007BA7BE /* NJSelectionButtonSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A8158818E010AF007BA7BE /* NJSelectionButtonSystem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +116,14 @@
 		C93FB35D18DF0C9E00D9B207 /* loading bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar.png"; path = "Assets/loading scene/loading bar.png"; sourceTree = "<group>"; };
 		C93FB35E18DF0C9E00D9B207 /* loading bar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar2.png"; path = "Assets/loading scene/loading bar2.png"; sourceTree = "<group>"; };
 		C93FB35F18DF0C9E00D9B207 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = "Assets/loading scene/logo.png"; sourceTree = "<group>"; };
+		C9A8157818E00967007BA7BE /* ready buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ready buttons.png"; path = "Assets/selection scene/ready buttons.png"; sourceTree = "<group>"; };
+		C9A8157A18E00967007BA7BE /* start button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "start button.png"; path = "Assets/selection scene/start button.png"; sourceTree = "<group>"; };
+		C9A8157B18E00967007BA7BE /* touched button blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button blue.png"; path = "Assets/selection scene/touched button blue.png"; sourceTree = "<group>"; };
+		C9A8157C18E00967007BA7BE /* touched button brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button brown.png"; path = "Assets/selection scene/touched button brown.png"; sourceTree = "<group>"; };
+		C9A8157D18E00967007BA7BE /* touched button purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button purple.png"; path = "Assets/selection scene/touched button purple.png"; sourceTree = "<group>"; };
+		C9A8157E18E00967007BA7BE /* touched button red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button red.png"; path = "Assets/selection scene/touched button red.png"; sourceTree = "<group>"; };
+		C9A8158718E010AF007BA7BE /* NJSelectionButtonSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJSelectionButtonSystem.h; sourceTree = "<group>"; };
+		C9A8158818E010AF007BA7BE /* NJSelectionButtonSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJSelectionButtonSystem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +154,7 @@
 		2B21F14518D43005007220CF /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				C9A8158618E01071007BA7BE /* CharacterSelection */,
 				C4CAA7F418DB21520070F3D5 /* Pile */,
 				2F80BB8318D4481F00C337BB /* NJCharacter.h */,
 				2F80BB8418D4481F00C337BB /* NJCharacter.m */,
@@ -148,8 +164,6 @@
 				2F3963E018D832B300B66C8D /* NJNinjaCharacterNormal.m */,
 				2B2708CF18DD6FF20033D1BF /* NJButton.h */,
 				2B2708D018DD6FF20033D1BF /* NJButton.m */,
-				C931543218E005C30026195A /* NJSelectCharacterButton.h */,
-				C931543318E005C30026195A /* NJSelectCharacterButton.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -172,6 +186,7 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C9A8157718E00953007BA7BE /* selectionscene */,
 				C93FB35B18DF0C8600D9B207 /* loadscreen */,
 				2B25DB1518DDCC16005A4D40 /* jumpButton.png */,
 				2B25DB1318DDCB40005A4D40 /* ninja.png */,
@@ -307,6 +322,30 @@
 			name = loadscreen;
 			sourceTree = "<group>";
 		};
+		C9A8157718E00953007BA7BE /* selectionscene */ = {
+			isa = PBXGroup;
+			children = (
+				C9A8157818E00967007BA7BE /* ready buttons.png */,
+				C9A8157A18E00967007BA7BE /* start button.png */,
+				C9A8157B18E00967007BA7BE /* touched button blue.png */,
+				C9A8157C18E00967007BA7BE /* touched button brown.png */,
+				C9A8157D18E00967007BA7BE /* touched button purple.png */,
+				C9A8157E18E00967007BA7BE /* touched button red.png */,
+			);
+			name = selectionscene;
+			sourceTree = "<group>";
+		};
+		C9A8158618E01071007BA7BE /* CharacterSelection */ = {
+			isa = PBXGroup;
+			children = (
+				C931543218E005C30026195A /* NJSelectCharacterButton.h */,
+				C931543318E005C30026195A /* NJSelectCharacterButton.m */,
+				C9A8158718E010AF007BA7BE /* NJSelectionButtonSystem.h */,
+				C9A8158818E010AF007BA7BE /* NJSelectionButtonSystem.m */,
+			);
+			name = CharacterSelection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -386,14 +425,20 @@
 			files = (
 				2B25DB1218DDCAD1005A4D40 /* woodPile.png in Resources */,
 				2B25DB1618DDCC16005A4D40 /* jumpButton.png in Resources */,
+				C9A8157F18E00967007BA7BE /* ready buttons.png in Resources */,
 				C93FB36018DF0C9E00D9B207 /* light.png in Resources */,
+				C9A8158118E00967007BA7BE /* start button.png in Resources */,
 				2B25DB1418DDCB40005A4D40 /* ninja.png in Resources */,
 				2B76872F18DED9F300A9CB6E /* waterParkBG.png in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
+				C9A8158418E00967007BA7BE /* touched button purple.png in Resources */,
+				C9A8158218E00967007BA7BE /* touched button blue.png in Resources */,
+				C9A8158518E00967007BA7BE /* touched button red.png in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 				C93FB36318DF0C9E00D9B207 /* logo.png in Resources */,
 				C93FB36218DF0C9E00D9B207 /* loading bar2.png in Resources */,
+				C9A8158318E00967007BA7BE /* touched button brown.png in Resources */,
 				2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */,
 				C93FB36118DF0C9E00D9B207 /* loading bar.png in Resources */,
 			);
@@ -417,6 +462,7 @@
 				2F3963E418D83CE000B66C8D /* NJGraphicsUnitilities.m in Sources */,
 				2B21F14E18D432C3007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */,
 				2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */,
+				C9A8158918E010AF007BA7BE /* NJSelectionButtonSystem.m in Sources */,
 				2F3963DE18D8329800B66C8D /* NJNinjaCharacter.m in Sources */,
 				C93FB35818DF0BFA00D9B207 /* NJLoadScene.m in Sources */,
 				2F80BB8518D4481F00C337BB /* NJCharacter.m in Sources */,
