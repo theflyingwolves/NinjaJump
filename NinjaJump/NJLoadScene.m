@@ -12,7 +12,9 @@
 
 @end
 
-@implementation NJLoadScene
+@implementation NJLoadScene {
+    bool loadAnimationFlag;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,21 +29,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    loadAnimationFlag = YES;
     self.navigationController.navigationBarHidden = YES;
-    [self shineLogo];
-    [self incrementLoadbar];
+    if (loadAnimationFlag) {
+        [self shineLogo];
+        [self incrementLoadbar];
+    } else{
+        [self performSegueWithIdentifier: @"SegueToMainScene"
+                                  sender: self];
+    }
 }
 
 
 - (void)shineLogo{
-//    [UIView setAnimationDelegate:self];
-//    [UIView setAnimationDidStopSelector:@selector(shinningAnimationStopped:finished:context:)];
-//    [UIView beginAnimations:@"shining" context:nil];
-//    [UIView setAnimationDuration:1.0];
-//    [UIView setAnimationRepeatCount:3];
-//    _light.alpha = 2.0;
-//    _light.alpha = 0.0;
-//    [UIView commitAnimations];
     [UIView animateWithDuration:1.0f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveLinear
@@ -73,10 +73,7 @@
     _loadingBar.layer.mask = maskLayer;
 
     CGPoint newPos = CGPointMake(1000, 0);
-    //[self resizeLayer:maskLayer to:newRect];
     [self moveLayer: maskLayer to:newPos];
-    //_loadingBar.layer.masksToBounds = YES;
-
     
 }
 
