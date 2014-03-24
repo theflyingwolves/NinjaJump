@@ -28,7 +28,7 @@
 
 - (void)addStartButton{
     SKSpriteNode *startButton = [SKSpriteNode spriteNodeWithImageNamed:@"start button.png"];
-    SKSpriteNode *shade = [SKSpriteNode spriteNodeWithImageNamed:@"arena shade.png"];
+    SKSpriteNode *shade = [SKSpriteNode spriteNodeWithImageNamed:@"shade.png"];
     [self addChild:shade];
     [self addChild:startButton];
     startButton.position = CGPointMake(30, 0);

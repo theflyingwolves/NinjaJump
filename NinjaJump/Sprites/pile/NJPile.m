@@ -43,7 +43,7 @@
     return self;
 }
 
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
 {
     if (isRotating) {
         float angle = self.angularSpeed*interval;
@@ -61,7 +61,7 @@
     }
 }
 
-- (CGPoint)positionAfterTimeinterval:(CFTimeInterval)interval{
+- (CGPoint)positionAfterTimeinterval:(NSTimeInterval)interval{
     NSDictionary *state = [self.path  stateAfterTimeInterval:interval withSpeed:self.speed];
     CGPoint position = [((NSValue*)state[@"position"]) CGPointValue];;
     return position;

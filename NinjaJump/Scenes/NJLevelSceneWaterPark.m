@@ -117,16 +117,16 @@
 {
     //add in the spawn pile of ninjas
     CGFloat r= 120.0f;
-    NJPile *pile11 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, r) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile11 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile11 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile11];
-    NJPile *pile12 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, r) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile12 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile12 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile12];
-    NJPile *pile13 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, 768-r) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile13 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, 768-r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile13 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile13];
-    NJPile *pile14 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, 768-r) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile14 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, 768-r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile14 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile14];
     
@@ -173,26 +173,18 @@
 
 #pragma mark - Level Start
 - (void)startLevel {
-<<<<<<< HEAD
-    NSMutableArray *piles = [NSMutableArray arrayWithArray:_woodPiles];
-    for (NJPlayer *player in self.players) {
-        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-        int index = arc4random() % [piles count];
-        CGPoint spawnPosition = ((NJPile*)piles[index]).position;
-        [piles removeObjectAtIndex:index];
-=======
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
         NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
         CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
->>>>>>> 4b286daa88c894db9ece3b819db4f950e45299fd
         ninja.position = spawnPosition;
         [ninja setSpawnPoint:spawnPosition];
     }
 }
 
 #pragma mark - Loop Update
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
     // Update all players' ninjas.
     for (NJNinjaCharacter *ninja in self.ninjas) {
         [ninja updateWithTimeSinceLastUpdate:timeSinceLast];

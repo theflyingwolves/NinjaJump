@@ -29,10 +29,10 @@ typedef enum : uint8_t {
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed direction:(NJDirection)direction path:(NJPath *)path;
 
 // EFFECTS: Update the next-frame renderring of the pile
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval;
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
 // EFFECTS: return the position of the pile afte a timeinterval
-- (CGPoint)positionAfterTimeinterval:(CFTimeInterval)interval;
+- (CGPoint)positionAfterTimeinterval:(NSTimeInterval)interval;
 
 
 @end
