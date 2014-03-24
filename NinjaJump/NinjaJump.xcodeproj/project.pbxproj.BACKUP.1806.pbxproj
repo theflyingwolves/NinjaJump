@@ -192,8 +192,12 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+				2B4669F418E068EA00A51A87 /* spawnLight.png */,
+=======
 				C9B8F2A518E05E9E00FA877E /* selection scene */,
 				C9B8F29A18E05D9400FA877E /* Load Scene */,
+>>>>>>> 4b286daa88c894db9ece3b819db4f950e45299fd
 				2F63E12618E0290600E9A17B /* ninja.png */,
 				2F63E12818E0290600E9A17B /* woodPile.png */,
 				2F63E13618E029F600E9A17B /* Control */,
@@ -468,7 +472,11 @@
 				2F63E12918E0290600E9A17B /* jumpButton.png in Resources */,
 				2F63E12B18E0290600E9A17B /* waterParkBG.png in Resources */,
 				2F63E12C18E0290600E9A17B /* woodPile.png in Resources */,
+<<<<<<< HEAD
+				2B4669F518E068EA00A51A87 /* spawnLight.png in Resources */,
+=======
 				C9B8F2A018E05E8400FA877E /* light.png in Resources */,
+>>>>>>> 4b286daa88c894db9ece3b819db4f950e45299fd
 				2F63E13018E0291500E9A17B /* hp_bar.png in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				C931A94318E05EF7002FE154 /* touched button purple.png in Resources */,
