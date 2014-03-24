@@ -15,7 +15,7 @@
 
 #define rotatetime 1
 
--(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed path:(NJPath *)path
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed direction:(NJDirection)direction path:(NJPath *)path
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
@@ -31,7 +31,12 @@
         } else {
             isRotating = YES;
         }
-        self.angularSpeed = aSpeed;
+        if (direction == NJDiectionClockwise) {
+            self.angularSpeed = -aSpeed;
+        } else {
+            self.angularSpeed = aSpeed;
+        }
+        self.rotateDirection = direction;
         self.path = path;
     }
     

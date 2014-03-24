@@ -21,7 +21,7 @@ static NSUInteger tagGenerator = 0;
     self = [super initWithImageNamed:textureName];
     if (self) {
         self.position = position;
-        self.movementSpeed = 1000;
+        self.movementSpeed = 800;
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
         self.tag = tagGenerator;
@@ -40,6 +40,12 @@ static NSUInteger tagGenerator = 0;
     CGFloat dy = position.y - curPosition.y;
     CGFloat dt = self.movementSpeed * timeInterval;
     CGFloat distRemaining = hypotf(dx, dy);
+    CGFloat totalDist = NJDistanceBetweenPoints(position, from);
+    CGFloat ratio = (totalDist-distRemaining)/totalDist;
+    if (ratio>0.5) {
+        ratio = 1.0-ratio;
+    }
+    
     CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(position, curPosition));
     self.zRotation = ang;
     if (distRemaining <= dt) {
