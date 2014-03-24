@@ -265,6 +265,10 @@
     CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
     selectionSystem.position = center;
     [self addChild:selectionSystem];
+    
+    //add notification to the load file action
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(loadModel:) name:@"loadedFilePath" object:nil];
 }
 
 @end
