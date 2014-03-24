@@ -77,7 +77,9 @@
     CGPoint touchPoint = [touch locationInNode:self];
 //    NSLog(@"%f %f",touchPoint.x,touchPoint.y);
     //CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
+    CGFloat dist = sqrt(touchPoint.x*touchPoint.x+touchPoint.y*touchPoint.y);
+    bool isReacted = NO;
+    CGFloat startButtonRadius = 50;
     for (int i=0; i<4; i++) {
         CGPathRef path= [self pathOfButton:(NJSelectionButtonType)i];
         NJSelectCharacterButton *button = selectionButtons[i];
@@ -85,9 +87,30 @@
         if (CGPathContainsPoint(path, &CGAffineTransformIdentity, touchPoint, YES)) {
             button.hidden = !button.hidden;
             spotLight.hidden = !spotLight.hidden;
+            isReacted = YES;
         }
         CGPathRelease(path);
     }
+    //NSLog(@"touchPoint %f",dist);
+    if (!isReacted && dist<startButtonRadius) {
+        [self didStartButtonClicked];
+    }
+}
+
+- (void)didStartButtonClicked{
+    NSLog(@"game start");
+    SKAction *flyAway2TopLeft = [SKAction moveByX:-700 y:700 duration:1.0];
+    SKAction *flyAway2BottomLeft = [SKAction moveByX:-700 y:-700 duration:1.0];
+    SKAction *flyAway2BottomRight = [SKAction moveByX:700 y:-700 duration:1.0];
+    SKAction *flyAway2TopRight = [SKAction moveByX:700 y:700 duration:1.0];
+    SKAction *fadeAway = [SKAction fadeOutWithDuration:1.0];
+    SKAction *removeNode = [SKAction removeFromParent];
+    SKAction *sequence = [SKAction sequence:@[fadeAway, removeNode]];
+    [selectionButtons[0] runAction:flyAway2TopLeft];
+    [selectionButtons[1] runAction:flyAway2BottomLeft];
+    [selectionButtons[2] runAction:flyAway2TopRight];
+    [selectionButtons[3] runAction:flyAway2BottomRight];
+    [self runAction:sequence];
 }
 
 - (CGMutablePathRef)pathOfButton:(NJSelectionButtonType)buttonType{
