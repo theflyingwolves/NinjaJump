@@ -6,11 +6,15 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
+#define FULL_HP 100
+
 #import "NJCharacter.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJGraphicsUnitilities.h"
 
 @implementation NJCharacter
+
+static NSUInteger tagGenerator = 0;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position
 {
@@ -19,12 +23,15 @@
         self.position = position;
         self.movementSpeed = 1000;
         self.animationSpeed = 1/60.0f;
+        self.health = FULL_HP;
+        self.tag = tagGenerator;
+        tagGenerator ++;
     }
     
     return self;
 }
 
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters
 {
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
@@ -37,6 +44,7 @@
     self.zRotation = ang;
     if (distRemaining <= dt) {
         self.position = position;
+        [self attackCharacterAtSamePosition:characters];
     } else {
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
                                     curPosition.y + cosf(ang)*dt);
@@ -50,12 +58,24 @@
     }
 }
 
+#pragma mark - Attack
+- (void)attackCharacterAtSamePosition:(NSArray *)characters
+{
+    for (NJCharacter *character in characters) {
+        if (CGPointEqualToPoint(character.position, self.position) && character.tag != _tag) {
+            [character applyDamage:20];
+            [character resetPosition];
+        }
+    }
+}
+
 #pragma mark - Death
 - (void)performDeath
 {
     self.health = 0.0f;
     self.dying = YES;
     self.requestedAnimation = NJAnimationStateDeath;
+    self.alpha = 0;
 }
 
 #pragma mark - Damage
@@ -75,18 +95,16 @@
 //        }
         
         // Show the damage.
-        SKAction *damageAction = [self damageAction];
-        if (damageAction) {
-            [self runAction:damageAction];
-        }
+//        SKAction *damageAction = [self damageAction];
+//        if (damageAction) {
+//            [self runAction:damageAction];
+//        }
         return NO;
     }else{
         [self performDeath];
         return YES;
     }
 }
-
-
 
 #pragma mark - Animation
 - (void)resolveRequestedAnimation

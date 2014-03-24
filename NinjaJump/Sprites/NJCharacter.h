@@ -28,12 +28,15 @@ typedef enum : uint8_t {
 
 @property (nonatomic) CGFloat health;
 @property (nonatomic) CGPoint jumpTargetPosition;
+@property (nonatomic) CGPoint spawnPoint;
 
 @property (nonatomic) CGFloat animationSpeed;
 @property (nonatomic) CGFloat movementSpeed;
 @property (nonatomic, getter=isAnimated) BOOL animated;
 @property (nonatomic) NSString *activeAnimationKey;
 @property (nonatomic) NJAnimationState requestedAnimation;
+
+@property (nonatomic) NSUInteger tag;
 
 +(void)loadSharedAssets;
 
@@ -43,6 +46,8 @@ typedef enum : uint8_t {
 
 // EFFECTS: Reset the character back to initial states: Putting them back to starting position, removing all items possessed. However, the HP remains unchanged.
 -(void)reset;
+
+- (void)resetPosition;
 
 // EFFECTS: Handle following animation after the jumping animation is complete, making ninja spin with the piles
 -(void)animationDidComplete;
@@ -66,8 +71,7 @@ typedef enum : uint8_t {
 //-(BOOL)applyDamageFromItem:(NJSpecialItem *)item;
 
 // EFFECTS: character jump to a given position
--(void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval;
-
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters;
 // EFFECTS: Only handle the animation of using the given item
 //-(void)useItem:(NJSpecialItem *)item;
 
@@ -81,5 +85,4 @@ typedef enum : uint8_t {
 - (NSArray *)deathAnimationFrames;
 
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
-
 @end
