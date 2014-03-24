@@ -105,10 +105,20 @@
         if (![ninja isDying]) {
             if (player.jumpRequested) {
                 if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
-                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast arrayOfCharacters:self.ninjas];
+                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast];
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;
+                    for (NJPlayer *p in _players) {
+                        if (p == player) {
+                            continue;
+                        }
+                        if (CGPointEqualToPoint(player.ninja.position, p.ninja.position)) {
+                            [player.ninja attackCharacter:p.ninja];
+                            CGPoint position = [self spawnAtRandomPosition];
+                            [p.ninja resetToPosition:position];
+                        }
+                    }
                 }
             }
         }

@@ -156,10 +156,12 @@
 
 #pragma mark - Level Start
 - (void)startLevel {
+    NSMutableArray *piles = [NSMutableArray arrayWithArray:_woodPiles];
     for (NJPlayer *player in self.players) {
         NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-        int index = arc4random() % [_woodPiles count];
-        CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
+        int index = arc4random() % [piles count];
+        CGPoint spawnPosition = ((NJPile*)piles[index]).position;
+        [piles removeObjectAtIndex:index];
         ninja.position = spawnPosition;
         [ninja setSpawnPoint:spawnPosition];
     }
@@ -235,6 +237,25 @@
         }
     }
     return nearest;
+}
+
+- (CGPoint)spawnAtRandomPosition
+{
+    NSMutableArray *array = [NSMutableArray new];
+    for (NJPile *pile in _woodPiles) {
+        BOOL isFree = YES;
+        for (NJPlayer *player in self.players) {
+            if (CGPointEqualToPoint(pile.position, player.ninja.position) || (CGPointEqualToPoint(pile.position, player.targetLocation))) {
+                isFree = NO;
+            }
+        }
+        if (isFree) {
+            [array addObject:pile];
+        }
+    }
+    int index = arc4random() % [array count];
+    CGPoint spawnPosition = ((NJPile*)array[index]).position;
+    return spawnPosition;
 }
 
 #pragma mark - Shared Assets

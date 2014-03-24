@@ -11,6 +11,7 @@
 		2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15018D433D2007220CF /* NJLevelSceneWaterPark.m */; };
 		2B21F15418D4342E007220CF /* NJPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15318D4342E007220CF /* NJPlayer.m */; };
 		2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */; };
+		2B4669F518E068EA00A51A87 /* spawnLight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B4669F418E068EA00A51A87 /* spawnLight.png */; };
 		2F3963DE18D8329800B66C8D /* NJNinjaCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3963DD18D8329800B66C8D /* NJNinjaCharacter.m */; };
 		2F3963E118D832B300B66C8D /* NJNinjaCharacterNormal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3963E018D832B300B66C8D /* NJNinjaCharacterNormal.m */; };
 		2F3963E418D83CE000B66C8D /* NJGraphicsUnitilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3963E318D83CE000B66C8D /* NJGraphicsUnitilities.m */; };
@@ -60,6 +61,7 @@
 		2B21F15218D4342E007220CF /* NJPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPlayer.h; path = Scenes/NJPlayer.h; sourceTree = "<group>"; };
 		2B21F15318D4342E007220CF /* NJPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPlayer.m; path = Scenes/NJPlayer.m; sourceTree = "<group>"; };
 		2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Jump.atlas; path = "Assets/Texture Altases/Ninja_Jump.atlas"; sourceTree = "<group>"; };
+		2B4669F418E068EA00A51A87 /* spawnLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spawnLight.png; sourceTree = "<group>"; };
 		2F3963DC18D8329800B66C8D /* NJNinjaCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacter.h; path = Sprites/NJNinjaCharacter.h; sourceTree = "<group>"; };
 		2F3963DD18D8329800B66C8D /* NJNinjaCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJNinjaCharacter.m; path = Sprites/NJNinjaCharacter.m; sourceTree = "<group>"; };
 		2F3963DF18D832B300B66C8D /* NJNinjaCharacterNormal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacterNormal.h; path = Sprites/NJNinjaCharacterNormal.h; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2B4669F418E068EA00A51A87 /* spawnLight.png */,
 				2F63E12618E0290600E9A17B /* ninja.png */,
 				2F63E12818E0290600E9A17B /* woodPile.png */,
 				2F63E13618E029F600E9A17B /* Control */,
@@ -393,6 +396,7 @@
 				2F63E12918E0290600E9A17B /* jumpButton.png in Resources */,
 				2F63E12B18E0290600E9A17B /* waterParkBG.png in Resources */,
 				2F63E12C18E0290600E9A17B /* woodPile.png in Resources */,
+				2B4669F518E068EA00A51A87 /* spawnLight.png in Resources */,
 				2F63E13018E0291500E9A17B /* hp_bar.png in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,

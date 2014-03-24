@@ -61,17 +61,21 @@ typedef enum : uint8_t {
 // EFFECTS: Remove ninja from game
 -(void)performDeath;
 
+- (void)resetToPosition:(CGPoint)position;
+
 // EFFECTS: Configure physics body to enable physics engine
 -(void)configurePhysicsBody;
 
 // EFFECTS: apply a given amount of damage to the character.
 -(BOOL)applyDamage:(CGFloat)amount;
 
+- (void)attackCharacter:(NJCharacter *)character;
+
 // EFFECTS: apply damage to the character according to the item causing the damage
 //-(BOOL)applyDamageFromItem:(NJSpecialItem *)item;
 
 // EFFECTS: character jump to a given position
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters;
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval;
 // EFFECTS: Only handle the animation of using the given item
 //-(void)useItem:(NJSpecialItem *)item;
 

@@ -31,7 +31,7 @@ static NSUInteger tagGenerator = 0;
     return self;
 }
 
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval
 {
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
@@ -40,17 +40,11 @@ static NSUInteger tagGenerator = 0;
     CGFloat dy = position.y - curPosition.y;
     CGFloat dt = self.movementSpeed * timeInterval;
     CGFloat distRemaining = hypotf(dx, dy);
-    CGFloat totalDist = NJDistanceBetweenPoints(position, from);
-    CGFloat ratio = (totalDist-distRemaining)/totalDist;
-    if (ratio>0.5) {
-        ratio = 1.0-ratio;
-    }
     
     CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(position, curPosition));
     self.zRotation = ang;
     if (distRemaining <= dt) {
         self.position = position;
-        [self attackCharacterAtSamePosition:characters];
     } else {
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
                                     curPosition.y + cosf(ang)*dt);
@@ -65,14 +59,9 @@ static NSUInteger tagGenerator = 0;
 }
 
 #pragma mark - Attack
-- (void)attackCharacterAtSamePosition:(NSArray *)characters
+- (void)attackCharacter:(NJCharacter *)character
 {
-    for (NJCharacter *character in characters) {
-        if (CGPointEqualToPoint(character.position, self.position) && character.tag != _tag) {
-            [character applyDamage:20];
-            [character resetPosition];
-        }
-    }
+    [character applyDamage:20];
 }
 
 #pragma mark - Death
@@ -110,6 +99,18 @@ static NSUInteger tagGenerator = 0;
         [self performDeath];
         return YES;
     }
+}
+
+#pragma mark - Resets
+- (void)resetToPosition:(CGPoint)position
+{
+    self.position = position;
+    SKSpriteNode *spawnEffect = [[SKSpriteNode alloc] initWithImageNamed:@"spawnLight"];
+    spawnEffect.color = [SKColor yellowColor];
+    spawnEffect.colorBlendFactor = 4.0;
+    [self addChild:spawnEffect];
+    SKAction *blink = [SKAction sequence:@[[SKAction fadeAlphaTo:0 duration:0.25],[SKAction fadeAlphaTo:0.4 duration:0.25]]];
+    [spawnEffect runAction:[SKAction sequence:@[[SKAction repeatAction:blink count:4],[SKAction removeFromParent]]]];
 }
 
 #pragma mark - Animation

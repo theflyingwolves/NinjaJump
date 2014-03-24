@@ -8,7 +8,7 @@
 
 #import "NJNinjaCharacter.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
-#import "NJPlayer.h";
+#import "NJPlayer.h"
 
 @implementation NJNinjaCharacter
 
@@ -21,12 +21,6 @@
     }
     
     return self;
-}
-
-#pragma mark - Resets
-- (void)resetPosition
-{
-    self.position = self.spawnPoint;
 }
 
 @end
