@@ -36,13 +36,17 @@
 {
     self = [super init];
     if (self) {
+        self.position = position;
         if (!_HPBar) {
-//            self.position = position;
             _HPBar = [SKCropNode node];
             SKSpriteNode *bar = [SKSpriteNode spriteNodeWithImageNamed:HP_BAR_IMAGE_NAME];
             [_HPBar addChild:bar];
             
-            SKSpriteNode *mask = [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size:CGSizeMake(250, 250)];
+            SKSpriteNode *mask = [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size:bar.frame.size];
+            mask.position = bar.position;
+            mask.position = CGPointMake(mask.position.x + mask.size.width / 2, mask.position.y - mask.size.height / 2);
+            [_HPBar setMaskNode:mask];
+            mask.anchorPoint = CGPointMake(1, 0);
             [_HPBar setMaskNode:mask];
             self.maskNode = mask;
         }
@@ -50,9 +54,6 @@
         if (!_bottomLayer) {
             _bottomLayer = [SKSpriteNode spriteNodeWithImageNamed:HP_BAR_BOTTOM_IMAGE_NAME];
         }
-        
-        _HPBar.position = position;
-        _bottomLayer.position = position;
         
         [self addChild:_bottomLayer];
         [self addChild:_HPBar];
@@ -64,14 +65,10 @@
 
 - (void)updateHealthPoint
 {
-    self.healthPoint = self.player.ninja.health;
-    float ratio = self.healthPoint / FULL_HP;
-//    self.maskNode.anchorPoint = CGPointMake(self.position.x - self.maskNode.size.width / 2, self.position.y - self.maskNode.size.height / 2);
-//    NSLog(@"%f, %f", self.position.x, self.position.y);
-//    NSLog(@"%f",ratio);
-    self.maskNode.xScale = ratio * 0.45;
-//    self.maskNode.xScale = 0.4;
-//    self.maskNode.yScale = 0.2;
+    float newHp = self.player.ninja.health;
+    float ratio = newHp / FULL_HP;
+    self.maskNode.yScale = ratio * 0.8;
+    self.healthPoint = newHp;
 }
 
 @end

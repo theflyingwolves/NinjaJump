@@ -8,6 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 @class NJButton, NJPlayer;
+
 @protocol NJButtonDelegate <NSObject>
 
 - (void)button:(NJButton *) button touchesEnded:(NSSet *)touches;
