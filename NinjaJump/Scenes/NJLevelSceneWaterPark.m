@@ -73,7 +73,6 @@
     self.physicsWorld.contactDelegate = self;
     
     [self addBackground];
-    
     [self addWoodPiles];
 }
 
@@ -110,6 +109,21 @@
     NJPile *pile10 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(750, 150) withSpeed:0 angularSpeed:3 path:nil];
     [self addNode:pile10 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile10];
+    
+    //add in the birthplace pile of ninjas
+    CGFloat r= 120.0f;
+    NJPile *pile11 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, r) withSpeed:0 angularSpeed:3 path:nil];
+    [self addNode:pile11 atWorldLayer:NJWorldLayerBelowCharacter];
+    [self.woodPiles addObject:pile11];
+    NJPile *pile12 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, r) withSpeed:0 angularSpeed:3 path:nil];
+    [self addNode:pile12 atWorldLayer:NJWorldLayerBelowCharacter];
+    [self.woodPiles addObject:pile12];
+    NJPile *pile13 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, 768-r) withSpeed:0 angularSpeed:3 path:nil];
+    [self addNode:pile13 atWorldLayer:NJWorldLayerBelowCharacter];
+    [self.woodPiles addObject:pile13];
+    NJPile *pile14 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, 768-r) withSpeed:0 angularSpeed:3 path:nil];
+    [self addNode:pile14 atWorldLayer:NJWorldLayerBelowCharacter];
+    [self.woodPiles addObject:pile14];
 }
 
 

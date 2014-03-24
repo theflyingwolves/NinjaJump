@@ -64,7 +64,7 @@
                     <connections>
                         <outlet property="light" destination="M3g-mZ-5Lp" id="Nhp-22-cxl"/>
                         <outlet property="loadingBar" destination="ekX-TB-ChZ" id="6BI-qb-XhW"/>
-                        <segue destination="BV1-FR-VrT" kind="modal" identifier="SegueToMainScene" id="G04-Ux-KfE"/>
+                        <segue destination="BV1-FR-VrT" kind="modal" identifier="SegueToMainScene" modalTransitionStyle="crossDissolve" id="G04-Ux-KfE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpU-F4-z42" userLabel="First Responder" sceneMemberID="firstResponder"/>

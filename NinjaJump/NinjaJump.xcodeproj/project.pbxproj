@@ -50,6 +50,8 @@
 		C9A8158418E00967007BA7BE /* touched button purple.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8157D18E00967007BA7BE /* touched button purple.png */; };
 		C9A8158518E00967007BA7BE /* touched button red.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8157E18E00967007BA7BE /* touched button red.png */; };
 		C9A8158918E010AF007BA7BE /* NJSelectionButtonSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A8158818E010AF007BA7BE /* NJSelectionButtonSystem.m */; };
+		C9A8158B18E0367C007BA7BE /* spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8158A18E0367C007BA7BE /* spotlight.png */; };
+		C9A8158D18E0509C007BA7BE /* arena shade.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A8158C18E0509C007BA7BE /* arena shade.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +126,8 @@
 		C9A8157E18E00967007BA7BE /* touched button red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button red.png"; path = "Assets/selection scene/touched button red.png"; sourceTree = "<group>"; };
 		C9A8158718E010AF007BA7BE /* NJSelectionButtonSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJSelectionButtonSystem.h; sourceTree = "<group>"; };
 		C9A8158818E010AF007BA7BE /* NJSelectionButtonSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJSelectionButtonSystem.m; sourceTree = "<group>"; };
+		C9A8158A18E0367C007BA7BE /* spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spotlight.png; path = "Assets/selection scene/spotlight.png"; sourceTree = "<group>"; };
+		C9A8158C18E0509C007BA7BE /* arena shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arena shade.png"; path = "Assets/selection scene/arena shade.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,11 +330,13 @@
 			isa = PBXGroup;
 			children = (
 				C9A8157818E00967007BA7BE /* ready buttons.png */,
+				C9A8158C18E0509C007BA7BE /* arena shade.png */,
 				C9A8157A18E00967007BA7BE /* start button.png */,
 				C9A8157B18E00967007BA7BE /* touched button blue.png */,
 				C9A8157C18E00967007BA7BE /* touched button brown.png */,
 				C9A8157D18E00967007BA7BE /* touched button purple.png */,
 				C9A8157E18E00967007BA7BE /* touched button red.png */,
+				C9A8158A18E0367C007BA7BE /* spotlight.png */,
 			);
 			name = selectionscene;
 			sourceTree = "<group>";
@@ -426,12 +432,14 @@
 				2B25DB1218DDCAD1005A4D40 /* woodPile.png in Resources */,
 				2B25DB1618DDCC16005A4D40 /* jumpButton.png in Resources */,
 				C9A8157F18E00967007BA7BE /* ready buttons.png in Resources */,
+				C9A8158B18E0367C007BA7BE /* spotlight.png in Resources */,
 				C93FB36018DF0C9E00D9B207 /* light.png in Resources */,
 				C9A8158118E00967007BA7BE /* start button.png in Resources */,
 				2B25DB1418DDCB40005A4D40 /* ninja.png in Resources */,
 				2B76872F18DED9F300A9CB6E /* waterParkBG.png in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
+				C9A8158D18E0509C007BA7BE /* arena shade.png in Resources */,
 				C9A8158418E00967007BA7BE /* touched button purple.png in Resources */,
 				C9A8158218E00967007BA7BE /* touched button blue.png in Resources */,
 				C9A8158518E00967007BA7BE /* touched button red.png in Resources */,
