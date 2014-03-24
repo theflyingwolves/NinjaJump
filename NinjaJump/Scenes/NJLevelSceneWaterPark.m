@@ -14,6 +14,7 @@
 #import "NJPlayer.h"
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterNormal.h"
+#import "NJSelectCharacterButton.h"
 
 #define kBackGroundFileName @"waterParkBG.png"
 
@@ -197,6 +198,20 @@
 + (void)loadSceneAssets
 {
     [NJNinjaCharacterNormal loadSharedAssets];
+}
+
+/************** select character scene**************/
+- (void)addCharacterSelectionButton{
+    NJSelectCharacterButton *selectingButton = [[NJSelectCharacterButton alloc]]
+    
+        NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
+        button.delegate = self;
+        button.player = self.players[i];
+        [_buttons addObject:button];
+        [self addChild:button];
+    ((NJButton*)_buttons[0]).position = CGPointMake(50, 50);
+    ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
+    ((NJButton*)_buttons[0]).color = [SKColor blackColor];
 }
 
 @end
