@@ -10,4 +10,13 @@
 
 @implementation NJMine
 
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+    self = [super initWithTextureNamed:textureName atPosition:position];
+    if (self){
+//        _itemType = NJItemMine;
+    }
+    
+    return self;
+}
+
 @end

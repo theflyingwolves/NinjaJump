@@ -10,4 +10,13 @@
 
 @implementation NJFireScroll
 
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+    self = [super initWithTextureNamed:textureName atPosition:position];
+    if (self){
+        _itemType = NJItemFireScroll;
+    }
+    
+    return self;
+}
+
 @end

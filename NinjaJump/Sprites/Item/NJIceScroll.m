@@ -10,4 +10,13 @@
 
 @implementation NJIceScroll
 
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+    self = [super initWithTextureNamed:textureName atPosition:position];
+    if (self){
+        _itemType = NJItemIceScroll;
+    }
+    
+    return self;
+}
+
 @end

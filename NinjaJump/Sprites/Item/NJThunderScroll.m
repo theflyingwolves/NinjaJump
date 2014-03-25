@@ -10,4 +10,13 @@
 
 @implementation NJThunderScroll
 
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+    self = [super initWithTextureNamed:textureName atPosition:position];
+    if (self){
+        _itemType = NJItemThunderScroll;
+    }
+    
+    return self;
+}
+
 @end

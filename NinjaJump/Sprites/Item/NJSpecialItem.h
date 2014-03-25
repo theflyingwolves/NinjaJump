@@ -8,9 +8,25 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface NJSpecialItem : SKSpriteNode
+typedef enum : uint8_t {
+    NJItemThunderScroll = 0,
+    NJItemWindScroll,
+    NJItemIceScroll,
+    NJItemFireScroll,
+//    NJItemMine,
+    NJItemShuriken,
+    NJItemMedikit,
+    NJItemCount
+} NJItemType;
+
+
+@interface NJSpecialItem : SKSpriteNode{
+@protected NJItemType _itemType;
+}
+
 
 @property BOOL isPickedUp;
+@property (readonly) NJItemType itemType;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position;
 
