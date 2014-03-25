@@ -11,6 +11,7 @@
 #import "NJNinjaCharacter.h"
 #import "NJNinjaCharacterNormal.h"
 #import "NJButton.h"
+#import "NJSpecialItem.h"
 
 @interface NJMultiplayerLayeredCharacterScene ()
 
@@ -18,6 +19,8 @@
 @property (nonatomic) SKNode *world;                    // root node to which all game renderables are attached
 @property (nonatomic) NSMutableArray *layers;           // different layer nodes within the world
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
+@property (nonatomic, readwrite) NSMutableArray *items;
+@property (nonatomic, readwrite) NSMutableArray *woodPiles;
 
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
 
@@ -29,6 +32,7 @@
 - (instancetype)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
     if (self) {
+        _items = [NSMutableArray new];
         _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
         
         for (int i=0; i<kNumPlayers ; i++) {
@@ -105,14 +109,42 @@
         if (![ninja isDying]) {
             if (player.jumpRequested) {
                 if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
-                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast arrayOfCharacters:self.ninjas];
+                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast];
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;
+                    //resolve attack events
+                    for (NJPlayer *p in _players) {
+                        if (p == player) {
+                            continue;
+                        }
+                        if (CGPointEqualToPoint(player.ninja.position, p.ninja.position)) {
+                            [player.ninja attackCharacter:p.ninja];
+                            CGPoint position = [self spawnAtRandomPosition];
+                            [p.ninja resetToPosition:position];
+                        }
+                    }
+                    //pick up items if needed
+                    [player.ninja pickupItemAtSamePosition:self.items];
                 }
             }
         }
     }
+    NSMutableArray *itemsToRemove = [NSMutableArray array];
+    for (NJSpecialItem *item in self.items){
+        if (item.isPickedUp) {
+            [itemsToRemove addObject:item];
+        }
+    }
+    for (id item in itemsToRemove){
+        [(NSMutableArray*)self.items removeObject:item];
+    }
+}
+
+- (CGPoint)spawnAtRandomPosition
+{
+    // Overridden by subclasses.
+    return CGPointZero;
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast {

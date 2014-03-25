@@ -22,7 +22,6 @@ typedef enum : uint8_t {
 @class NJSpecialItem, NJMultiplayerLayeredCharacterScene;
 
 @interface NJCharacter : SKSpriteNode
-
 @property (nonatomic, getter=isDying) BOOL dying;
 @property (nonatomic, getter=isAttacking) BOOL attacking;
 
@@ -47,8 +46,6 @@ typedef enum : uint8_t {
 // EFFECTS: Reset the character back to initial states: Putting them back to starting position, removing all items possessed. However, the HP remains unchanged.
 -(void)reset;
 
-- (void)resetPosition;
-
 // EFFECTS: Handle following animation after the jumping animation is complete, making ninja spin with the piles
 -(void)animationDidComplete;
 
@@ -61,18 +58,23 @@ typedef enum : uint8_t {
 // EFFECTS: Remove ninja from game
 -(void)performDeath;
 
+- (void)resetToPosition:(CGPoint)position;
+
 // EFFECTS: Configure physics body to enable physics engine
 -(void)configurePhysicsBody;
 
 // EFFECTS: apply a given amount of damage to the character.
 -(BOOL)applyDamage:(CGFloat)amount;
 
+- (void)attackCharacter:(NJCharacter *)character;
+
 // EFFECTS: apply damage to the character according to the item causing the damage
 //-(BOOL)applyDamageFromItem:(NJSpecialItem *)item;
 
 // EFFECTS: character jump to a given position
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters;
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval;
 // EFFECTS: Only handle the animation of using the given item
+
 //-(void)useItem:(NJSpecialItem *)item;
 
 // EFFECTS: Update the next-frame renderring of the character
@@ -85,4 +87,6 @@ typedef enum : uint8_t {
 - (NSArray *)deathAnimationFrames;
 
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
+
+- (void)pickupItemAtSamePosition:(NSArray *)items;
 @end

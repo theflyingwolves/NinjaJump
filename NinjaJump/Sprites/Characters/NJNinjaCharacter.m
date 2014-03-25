@@ -8,7 +8,8 @@
 
 #import "NJNinjaCharacter.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
-#import "NJPlayer.h";
+#import "NJPlayer.h"
+#import "NJGraphicsUnitilities.h"
 
 @implementation NJNinjaCharacter
 
@@ -23,10 +24,15 @@
     return self;
 }
 
-#pragma mark - Resets
-- (void)resetPosition
-{
-    self.position = self.spawnPoint;
+#pragma mark - Pickup Item
+- (void)pickupItemAtSamePosition:(NSArray *)items{
+    for (NJSpecialItem *item in items) {
+        if (CGPointEqualToPoint(item.position, self.position)) {
+            item.isPickedUp = YES;
+            [item removeFromParent];
+            self.player.item = item;
+        }
+    }
 }
 
 @end

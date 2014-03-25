@@ -17,22 +17,28 @@
 #import "NJNinjaCharacterNormal.h"
 #import "NJSelectionButtonSystem.h"
 
+#import "NJShuriken.h"
+
 #define kBackGroundFileName @"waterParkBG.png"
 
 @interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
-@property (nonatomic) NSMutableArray *woodPiles;              // all the wood piles in the scene
+@property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
+@property (nonatomic ,readwrite) NSMutableArray *items;
 @property (nonatomic) NSMutableArray *buttons;
 @property (nonatomic) NSMutableArray *hpBars;
 @end
 
 @implementation NJLevelSceneWaterPark
 @synthesize ninjas = _ninjas;
+@synthesize woodPiles = _woodPiles;
+@synthesize items = _items;
 - (instancetype)initWithSize:(CGSize)size
 {
     self = [super initWithSize:size];
     if (self) {
         _ninjas = [[NSMutableArray alloc] init];
+        _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
         _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
@@ -111,54 +117,64 @@
     [self addBackground];
     
     [self addWoodPiles];
+    
+    [self addItem];
+}
+
+- (void)addItem{
+    CGPoint position = ((NJPile*)self.woodPiles[0]).position;
+    
+    NJShuriken *shuriken = [[NJShuriken alloc] initWithTextureNamed:@"shuriken" atPosition:position];
+    [self addNode:shuriken atWorldLayer:NJWorldLayerCharacter];
+    [_items addObject:shuriken];
 }
 
 - (void)addWoodPiles
 {
     //add in the spawn pile of ninjas
     CGFloat r= 120.0f;
-    NJPile *pile11 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, r) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile11 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile11 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile11];
-    NJPile *pile12 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, r) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile12 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile12 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile12];
-    NJPile *pile13 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, 768-r) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile13 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, 768-r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile13 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile13];
-    NJPile *pile14 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, 768-r) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile14 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, 768-r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile14 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile14];
     
     //hard coded 10 piles for now
-    NJPile *pile1 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(512, 580) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile1 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(512, 580) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile1 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile1];
-    NJPile *pile2 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(250, 250) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile2 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(250, 250) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile2 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile2];
-    NJPile *pile3 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(350, 100) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile3 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(350, 100) withSpeed:0 angularSpeed:3 direction:NJDirectionCounterClockwise path:nil];
     [self addNode:pile3 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile3];
-    NJPile *pile4 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(650, 350) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile4 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(650, 350) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile4 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile4];
-    NJPile *pile5 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(850, 400) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile5 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(850, 400) withSpeed:0 angularSpeed:3 direction:NJDirectionCounterClockwise path:nil];
     [self addNode:pile5 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile5];
-    NJPile *pile6 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(100, 300) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile6 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(100, 300) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile6 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile6];
-    NJPile *pile7 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(250, 500) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile7 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(250, 500) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile7 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile7];
-    NJPile *pile8 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(550, 400) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile8 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(550, 400) withSpeed:0 angularSpeed:3 direction:NJDirectionCounterClockwise path:nil];
     [self addNode:pile8 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile8];
-    NJPile *pile9 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(700, 600) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile9 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(700, 600) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
     [self addNode:pile9 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile9];
-    NJPile *pile10 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(750, 150) withSpeed:0 angularSpeed:3 path:nil];
+    NJPile *pile10 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(750, 150) withSpeed:0 angularSpeed:3 direction:NJDirectionCounterClockwise path:nil];
     [self addNode:pile10 atWorldLayer:NJWorldLayerBelowCharacter];
     [self.woodPiles addObject:pile10];
 }
@@ -183,7 +199,8 @@
 }
 
 #pragma mark - Loop Update
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
     // Update all players' ninjas.
     for (NJNinjaCharacter *ninja in self.ninjas) {
         [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
@@ -193,8 +210,14 @@
         for (NJNinjaCharacter *ninja in _ninjas) {
             if (CGPointEqualToPoint(ninja.position, pile.position)) {
                 ninja.zRotation += pile.angleRotatedSinceLastUpdate;
-                while (ninja.zRotation>=2*M_PI) {
-                    ninja.zRotation -= 2*M_PI;
+                if (pile.rotateDirection == NJDirectionCounterClockwise) {
+                    while (ninja.zRotation>=2*M_PI) {
+                        ninja.zRotation -= 2*M_PI;
+                    }
+                } else {
+                    while (ninja.zRotation<0) {
+                        ninja.zRotation += 2*M_PI;
+                    }
                 }
             }
         }
@@ -236,9 +259,6 @@
             float dist = hypotf(dx, dy);
             float radius = pile.size.width / 2;
             float angleSpaned = atan2f(radius,dist);
-            while (ninja.zRotation>=2*M_PI) {
-                ninja.zRotation -= 2*M_PI;
-            }
             if (zRotation-3*angleSpaned <= ninja.zRotation && zRotation+3*angleSpaned >= ninja.zRotation) {
                 if (nearest == nil) {
                     nearest = pile;
@@ -249,6 +269,25 @@
         }
     }
     return nearest;
+}
+
+- (CGPoint)spawnAtRandomPosition
+{
+    NSMutableArray *array = [NSMutableArray new];
+    for (NJPile *pile in _woodPiles) {
+        BOOL isFree = YES;
+        for (NJPlayer *player in self.players) {
+            if (CGPointEqualToPoint(pile.position, player.ninja.position) || (CGPointEqualToPoint(pile.position, player.targetLocation))) {
+                isFree = NO;
+            }
+        }
+        if (isFree) {
+            [array addObject:pile];
+        }
+    }
+    int index = arc4random() % [array count];
+    CGPoint spawnPosition = ((NJPile*)array[index]).position;
+    return spawnPosition;
 }
 
 #pragma mark - Shared Assets
