@@ -7,6 +7,7 @@
 //
 #define NUM_OF_FRAMES_FOR_NORMAL_NINJA_JUMP 17
 #define NUM_OF_FRAMES_FOR_NORMAL_NINJA_DEATH 10
+#define NUM_OF_FRAMES_FOR_NORMAL_NINJA_ATTACK 11
 
 #import "NJNinjaCharacterNormal.h"
 #import "NJGraphicsUnitilities.h"
@@ -18,6 +19,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sSharedJumpAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Ninja_Jump" withBaseName:@"ninja_jump_" andNumOfFrames:NUM_OF_FRAMES_FOR_NORMAL_NINJA_JUMP];
+//        sSharedAttackAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Ninja_Attack" withBaseName:@"ninja_attack_" andNumOfFrames:NUM_OF_FRAMES_FOR_NORMAL_NINJA_ATTACK];
+        sSharedAttackAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Ninja_Attack" withBaseName:@"attack_light_" andNumOfFrames:6];
         //sSharedDeathAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"ninja_normal_death" withBaseName:@"ninja_death_atlas_" andNumOfFrames:NUM_OF_FRAMES_FOR_NORMAL_NINJA_DEATH];
     });
 }
@@ -34,4 +37,9 @@ static NSArray *sSharedDeathAnimationFrames;
     return sSharedDeathAnimationFrames;
 }
 
+static NSArray *sSharedAttackAnimationFrames;
+- (NSArray *)attackAnimationFrames
+{
+    return sSharedAttackAnimationFrames;
+}
 @end

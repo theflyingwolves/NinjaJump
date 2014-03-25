@@ -34,9 +34,8 @@ typedef enum : uint8_t {
 @property (nonatomic, getter=isAnimated) BOOL animated;
 @property (nonatomic) NSString *activeAnimationKey;
 @property (nonatomic) NJAnimationState requestedAnimation;
-
+@property (nonatomic) SKTexture *originalTexture;
 @property (nonatomic) NSUInteger tag;
-
 +(void)loadSharedAssets;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position;

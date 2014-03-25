@@ -43,6 +43,7 @@
 		2FC568BE18E1BE0900C6589D /* woodPile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568B918E1BE0900C6589D /* woodPile.png */; };
 		2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568BF18E1BE3B00C6589D /* shuriken.png */; };
 		2FC568C418E1BEC000C6589D /* ninja.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568C318E1BEC000C6589D /* ninja.png */; };
+		2FC568C618E1CF4200C6589D /* Ninja_Attack.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568C518E1CF4200C6589D /* Ninja_Attack.atlas */; };
 		C42170C318E066F800942374 /* NJSpecialItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170C218E066F800942374 /* NJSpecialItem.m */; };
 		C42170C618E0672400942374 /* NJTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170C518E0672400942374 /* NJTool.m */; };
 		C42170CF18E0685500942374 /* NJMine.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170CE18E0685500942374 /* NJMine.m */; };
@@ -132,6 +133,7 @@
 		2FC568B918E1BE0900C6589D /* woodPile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = woodPile.png; path = Assets/GameBoard/woodPile.png; sourceTree = "<group>"; };
 		2FC568BF18E1BE3B00C6589D /* shuriken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shuriken.png; path = Assets/Items/shuriken.png; sourceTree = "<group>"; };
 		2FC568C318E1BEC000C6589D /* ninja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ninja.png; path = Assets/GameBoard/ninja.png; sourceTree = "<group>"; };
+		2FC568C518E1CF4200C6589D /* Ninja_Attack.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Attack.atlas; path = "Assets/Texture Altases/Ninja_Attack.atlas"; sourceTree = "<group>"; };
 		C42170C118E066F800942374 /* NJSpecialItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJSpecialItem.h; path = Sprites/Item/NJSpecialItem.h; sourceTree = "<group>"; };
 		C42170C218E066F800942374 /* NJSpecialItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJSpecialItem.m; path = Sprites/Item/NJSpecialItem.m; sourceTree = "<group>"; };
 		C42170C418E0672400942374 /* NJTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJTool.h; path = Sprites/Item/NJTool.h; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 		2B21F15518D439DC007220CF /* Texture Atlases */ = {
 			isa = PBXGroup;
 			children = (
+				2FC568C518E1CF4200C6589D /* Ninja_Attack.atlas */,
 				2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */,
 			);
 			name = "Texture Atlases";
@@ -569,6 +572,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC568C618E1CF4200C6589D /* Ninja_Attack.atlas in Resources */,
 				2FC568BC18E1BE0900C6589D /* spotlight.png in Resources */,
 				C931A93F18E05EF7002FE154 /* shade.png in Resources */,
 				2FC568BE18E1BE0900C6589D /* woodPile.png in Resources */,
