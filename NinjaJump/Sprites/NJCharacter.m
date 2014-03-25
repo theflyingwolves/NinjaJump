@@ -15,8 +15,6 @@
 
 @implementation NJCharacter
 
-static NSUInteger tagGenerator = 0;
-
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position
 {
     self = [super initWithImageNamed:textureName];
@@ -25,14 +23,12 @@ static NSUInteger tagGenerator = 0;
         self.movementSpeed = 800;
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
-        self.tag = tagGenerator;
-        tagGenerator ++;
     }
     
     return self;
 }
 
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval arrayOfCharacters:(NSArray *)characters arrayOfItems:(NSArray *)items
+- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval
 {
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;

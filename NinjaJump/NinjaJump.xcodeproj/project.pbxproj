@@ -13,6 +13,7 @@
 		2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */; };
 		2B4669F818E07BCE00A51A87 /* NJLoadScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669F718E07BCE00A51A87 /* NJLoadScene.m */; };
 		2B4669FA18E07E2700A51A87 /* spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B4669F918E07E2700A51A87 /* spotlight.png */; };
+		2B81F97C18E1A7E000E36DC9 /* spawnLight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B81F97B18E1A7E000E36DC9 /* spawnLight.png */; };
 		2F3963DE18D8329800B66C8D /* NJNinjaCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3963DD18D8329800B66C8D /* NJNinjaCharacter.m */; };
 		2F3963E118D832B300B66C8D /* NJNinjaCharacterNormal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3963E018D832B300B66C8D /* NJNinjaCharacterNormal.m */; };
 		2F3963E418D83CE000B66C8D /* NJGraphicsUnitilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3963E318D83CE000B66C8D /* NJGraphicsUnitilities.m */; };
@@ -88,7 +89,8 @@
 		2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Jump.atlas; path = "Assets/Texture Altases/Ninja_Jump.atlas"; sourceTree = "<group>"; };
 		2B4669F618E07BCE00A51A87 /* NJLoadScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJLoadScene.h; sourceTree = "<group>"; };
 		2B4669F718E07BCE00A51A87 /* NJLoadScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJLoadScene.m; sourceTree = "<group>"; };
-		2B4669F918E07E2700A51A87 /* spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spotlight.png; sourceTree = "<group>"; };
+		2B4669F918E07E2700A51A87 /* spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spotlight.png; path = Assets/spotlight.png; sourceTree = "<group>"; };
+		2B81F97B18E1A7E000E36DC9 /* spawnLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spawnLight.png; path = Assets/spawnLight.png; sourceTree = "<group>"; };
 		2F3963DC18D8329800B66C8D /* NJNinjaCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacter.h; path = Sprites/NJNinjaCharacter.h; sourceTree = "<group>"; };
 		2F3963DD18D8329800B66C8D /* NJNinjaCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJNinjaCharacter.m; path = Sprites/NJNinjaCharacter.m; sourceTree = "<group>"; };
 		2F3963DF18D832B300B66C8D /* NJNinjaCharacterNormal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacterNormal.h; path = Sprites/NJNinjaCharacterNormal.h; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2B81F97B18E1A7E000E36DC9 /* spawnLight.png */,
 				C9B8F2A518E05E9E00FA877E /* selection scene */,
 				C9B8F29A18E05D9400FA877E /* Load Scene */,
 				2F63E12618E0290600E9A17B /* ninja.png */,
@@ -560,6 +563,7 @@
 				C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */,
 				C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */,
 				C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */,
+				2B81F97C18E1A7E000E36DC9 /* spawnLight.png in Resources */,
 				C931A94418E05EF7002FE154 /* touched button red.png in Resources */,
 				C931A94118E05EF7002FE154 /* touched button blue.png in Resources */,
 				C931A94018E05EF7002FE154 /* start button.png in Resources */,

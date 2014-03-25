@@ -23,22 +23,25 @@
 
 @interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
-@property (nonatomic) NSMutableArray *woodPiles;// all the wood piles in the scene
+@property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
+@property (nonatomic ,readwrite) NSMutableArray *items;
 @property (nonatomic) NSMutableArray *buttons;
 @property (nonatomic) NSMutableArray *hpBars;
 @end
 
 @implementation NJLevelSceneWaterPark
 @synthesize ninjas = _ninjas;
+@synthesize woodPiles = _woodPiles;
+@synthesize items = _items;
 - (instancetype)initWithSize:(CGSize)size
 {
     self = [super initWithSize:size];
     if (self) {
         _ninjas = [[NSMutableArray alloc] init];
+        _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
         _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
-        self.items = [[NSMutableArray alloc] init];
         
         for (int i=0; i < kNumPlayers; i++) {
             CGPoint position;
@@ -123,7 +126,7 @@
     
     NJShuriken *shuriken = [[NJShuriken alloc] initWithTextureNamed:@"shuriken" atPosition:position];
     [self addNode:shuriken atWorldLayer:NJWorldLayerCharacter];
-    [self.items addObject:shuriken];
+    [_items addObject:shuriken];
 }
 
 - (void)addWoodPiles
