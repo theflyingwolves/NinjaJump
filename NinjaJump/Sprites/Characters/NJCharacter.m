@@ -60,7 +60,6 @@
 - (void)attackCharacter:(NJCharacter *)character
 {
     if (character) {
-        NSLog(@"reset");
         [character applyDamage:20];
         self.requestedAnimation = NJAnimationStateAttack;
         self.texture = self.originalTexture;
@@ -141,6 +140,9 @@
     }
     
     if (animationKey) {
+        if (animationState == NJAnimationStateAttack) {
+            [self removeActionForKey:@"anim_jump"];
+        }
         [self fireAnimationForState:animationState usingTextures:animationFrames withKey:animationKey];
     }
 }
@@ -162,8 +164,8 @@
 
 - (void)animationHasCompleted:(NJAnimationState)animationState
 {
-        self.animated = NO;
-        self.activeAnimationKey = nil;
+    self.animated = NO;
+    self.activeAnimationKey = nil;
 }
 
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene
