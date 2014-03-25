@@ -130,6 +130,7 @@
             }
         }
     }
+    
     NSMutableArray *itemsToRemove = [NSMutableArray array];
     for (NJSpecialItem *item in self.items){
         if (item.isPickedUp) {

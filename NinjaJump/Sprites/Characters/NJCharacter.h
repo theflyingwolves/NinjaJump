@@ -66,6 +66,9 @@ typedef enum : uint8_t {
 // EFFECTS: apply a given amount of damage to the character.
 -(BOOL)applyDamage:(CGFloat)amount;
 
+// EFFECTS:  a given amount of recover to the character.
+-(void)recover:(CGFloat)amount;
+
 - (void)attackCharacter:(NJCharacter *)character;
 
 // EFFECTS: apply damage to the character according to the item causing the damage

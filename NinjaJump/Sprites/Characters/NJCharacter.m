@@ -98,6 +98,11 @@
     }
 }
 
+// EFFECTS:  a given amount of recover to the character.
+-(void)recover:(CGFloat)amount{
+    [self applyDamage:(0-amount)];
+}
+
 #pragma mark - Resets
 - (void)resetToPosition:(CGPoint)position
 {

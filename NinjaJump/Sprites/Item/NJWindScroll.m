@@ -10,4 +10,13 @@
 
 @implementation NJWindScroll
 
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+    self = [super initWithTextureNamed:textureName atPosition:position];
+    if (self){
+        _itemType = NJItemWindScroll;
+    }
+    
+    return self;
+}
+
 @end
