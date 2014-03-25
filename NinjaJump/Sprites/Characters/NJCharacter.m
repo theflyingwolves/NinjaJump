@@ -23,6 +23,7 @@
         self.movementSpeed = 800;
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
+        self.originalTexture = [SKTexture textureWithImageNamed:textureName];
     }
     
     return self;
@@ -58,7 +59,12 @@
 #pragma mark - Attack
 - (void)attackCharacter:(NJCharacter *)character
 {
-    [character applyDamage:20];
+    if (character) {
+        NSLog(@"sss");
+        [character applyDamage:20];
+        self.requestedAnimation = NJAnimationStateAttack;
+        self.texture = self.originalTexture;
+    }
 }
 
 #pragma mark - Death
@@ -131,11 +137,19 @@
             animationKey = @"anim_death";
             animationFrames = [self deathAnimationFrames];
             break;
+        case NJAnimationStateAttack:
+            animationKey = @"anim_attack";
+            animationFrames = [self attackAnimationFrames];
+            break;
         default:
             break;
     }
     
     if (animationKey) {
+        if (animationState == NJAnimationStateAttack) {
+            [self removeActionForKey:@"anim_jump"];
+        }
+        
         [self fireAnimationForState:animationState usingTextures:animationFrames withKey:animationKey];
     }
 }
@@ -175,19 +189,25 @@
 #pragma mark - Abstract Methods
 - (NSArray *)jumpAnimationFrames
 {
-    // To Be Implemented by subclasses
+    // overridden by subclasses
     return nil;
 }
 
 - (NSArray *)deathAnimationFrames
 {
-    // To Be Implemented by subclasses
+    // overridden by subclasses
+    return nil;
+}
+
+- (NSArray *)attackAnimationFrames
+{
+    // overridden by subclasses
     return nil;
 }
 
 - (SKAction *)damageAction
 {
-    // To Be Implemented by subclasses
+    // overridden by subclasses
     return nil;
 }
 @end

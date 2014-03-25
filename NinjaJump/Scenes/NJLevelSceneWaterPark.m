@@ -77,9 +77,7 @@
                 default:
                     break;
             }
-            
-            NSLog(@"%f, %f",self.frame.size.width, self.frame.size.height);
-            
+                        
             NJHPBar *bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
             float angle = i * M_PI / 2 - M_PI / 2;
             bar.zRotation = angle;
