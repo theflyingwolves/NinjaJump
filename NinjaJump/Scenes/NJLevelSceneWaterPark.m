@@ -135,7 +135,7 @@
 - (void)addItem{
     CGPoint position = [self spawnAtRandomPosition];
     
-    if (![self hasItemOnPosition:position]) {
+    if ([self.items count] < 3) {
         int index = arc4random() % NJItemCount;
         NJSpecialItem *item;
         
@@ -340,6 +340,11 @@
         BOOL isFree = YES;
         for (NJPlayer *player in self.players) {
             if (CGPointEqualToPoint(pile.position, player.ninja.position) || (CGPointEqualToPoint(pile.position, player.targetLocation))) {
+                isFree = NO;
+            }
+        }
+        for (NJSpecialItem *item in self.items){
+            if (CGPointEqualToPoint(pile.position, item.position)) {
                 isFree = NO;
             }
         }
