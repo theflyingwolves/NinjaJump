@@ -27,8 +27,12 @@ typedef enum : uint8_t {
 
 @property BOOL isPickedUp;
 @property (readonly) NJItemType itemType;
+@property (readonly) float lifeTime;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position;
+
+// EFFECTS: Update the next-frame state of the item on the screen
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
 
 @end

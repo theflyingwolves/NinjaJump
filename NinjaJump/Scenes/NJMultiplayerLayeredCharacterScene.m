@@ -13,6 +13,8 @@
 #import "NJButton.h"
 #import "NJSpecialItem.h"
 
+#define kMaxItemLifeTime 15.0f
+
 @interface NJMultiplayerLayeredCharacterScene ()
 
 @property (nonatomic) NSMutableArray *players;          // array of player objects or NSNull for no player
@@ -138,6 +140,17 @@
         }
     }
     for (id item in itemsToRemove){
+        [(NSMutableArray*)self.items removeObject:item];
+    }
+    
+    itemsToRemove = [NSMutableArray array];
+    for (NJSpecialItem *item in self.items){
+        if (item.lifeTime > kMaxItemLifeTime) {
+            [itemsToRemove addObject:item];
+        }
+    }
+    for (NJSpecialItem *item in itemsToRemove){
+        [item removeFromParent];
         [(NSMutableArray*)self.items removeObject:item];
     }
 }

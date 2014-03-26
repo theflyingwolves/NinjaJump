@@ -34,7 +34,7 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 1000;
+#define kNumOfFramesToSpawnItem 10
 
 @interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
@@ -278,6 +278,10 @@
                 }
             }
         }
+    }
+    
+    for (NJSpecialItem *item in self.items){
+        [item updateWithTimeSinceLastUpdate:timeSinceLast];
     }
     
     for (NJHPBar *bar in _hpBars) {

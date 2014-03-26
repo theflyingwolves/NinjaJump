@@ -15,9 +15,17 @@
     if (self){
         self.position = position;
         self.isPickedUp = NO;
+        _lifeTime = 0;
     }
     
     return self;
 }
+
+// EFFECTS: Update the next-frame state of the item on the screen
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval{
+    _lifeTime += interval;
+}
+
+
 
 @end
