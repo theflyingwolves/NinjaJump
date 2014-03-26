@@ -23,6 +23,7 @@
         self.movementSpeed = 800;
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
+        self.origTexture = [SKTexture textureWithImageNamed:textureName];
     }
     
     return self;
@@ -48,8 +49,13 @@
                                     curPosition.y + cosf(ang)*dt);
     }
 }
+
 - (void)prepareForJump
 {
+    if (!self.texture) {
+        NSLog(@"tsd");
+        self.texture = self.origTexture;
+    }
     [self removeActionForKey:@"anim_attack"];
 }
 

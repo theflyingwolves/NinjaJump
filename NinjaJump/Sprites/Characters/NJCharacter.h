@@ -36,6 +36,7 @@ typedef enum : uint8_t {
 @property (nonatomic) NJAnimationState requestedAnimation;
 
 @property (nonatomic) NSUInteger tag;
+@property (nonatomic) SKTexture *origTexture;
 +(void)loadSharedAssets;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position;
