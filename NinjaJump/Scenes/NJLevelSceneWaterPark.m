@@ -34,7 +34,7 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 300;
+#define kNumOfFramesToSpawnItem 1000;
 
 @interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
