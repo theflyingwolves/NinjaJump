@@ -23,7 +23,6 @@
         self.movementSpeed = 800;
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
-        self.originalTexture = [SKTexture textureWithImageNamed:textureName];
     }
     
     return self;
@@ -31,6 +30,7 @@
 
 - (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval
 {
+    [self prepareForJump];
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
     CGPoint curPosition = self.position;
@@ -47,6 +47,10 @@
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
                                     curPosition.y + cosf(ang)*dt);
     }
+}
+- (void)prepareForJump
+{
+    [self removeActionForKey:@"anim_attack"];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
@@ -173,6 +177,9 @@
 {
     self.animated = NO;
     self.activeAnimationKey = nil;
+    if (animationState == NJAnimationStateAttack) {
+        [self removeActionForKey:@"anim_attack"];
+    }
 }
 
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene
