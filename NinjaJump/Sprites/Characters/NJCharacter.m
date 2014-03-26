@@ -60,7 +60,6 @@
 - (void)attackCharacter:(NJCharacter *)character
 {
     if (character) {
-        NSLog(@"sss");
         [character applyDamage:20];
         self.requestedAnimation = NJAnimationStateAttack;
         self.texture = self.originalTexture;

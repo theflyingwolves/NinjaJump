@@ -19,7 +19,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sSharedJumpAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Ninja_Jump" withBaseName:@"ninja_jump_" andNumOfFrames:NUM_OF_FRAMES_FOR_NORMAL_NINJA_JUMP];
-        sSharedJumpAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Ninja_Attack" withBaseName:@"attack_light_" andNumOfFrames:NUM_OF_FRAMES_FOR_NORMAL_NINJA_ATTACK];
+        sSharedAttackAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Ninja_Attack" withBaseName:@"attack_light_" andNumOfFrames:NUM_OF_FRAMES_FOR_NORMAL_NINJA_ATTACK];
         //sSharedDeathAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"ninja_normal_death" withBaseName:@"ninja_death_atlas_" andNumOfFrames:NUM_OF_FRAMES_FOR_NORMAL_NINJA_DEATH];
     });
 }
