@@ -59,11 +59,11 @@
 #pragma mark - Attack
 - (void)attackCharacter:(NJCharacter *)character
 {
-    if (character) {
-        [character applyDamage:20];
-        self.requestedAnimation = NJAnimationStateAttack;
-        self.texture = self.originalTexture;
+    if (character.health <= 0) {
+        return ; // to prevent the attack animation to be wrongly performed
     }
+    [character applyDamage:20];
+    self.requestedAnimation = NJAnimationStateAttack;
 }
 
 #pragma mark - Death
@@ -73,6 +73,7 @@
     self.dying = YES;
     self.requestedAnimation = NJAnimationStateDeath;
     self.alpha = 0;
+    [self removeFromParent];
 }
 
 #pragma mark - Damage
