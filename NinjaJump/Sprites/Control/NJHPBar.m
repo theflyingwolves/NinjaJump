@@ -66,7 +66,7 @@
 - (void)updateHealthPoint
 {
     float newHp = self.player.ninja.health;
-    if (newHp < 0) {
+    if (newHp < 0 || newHp > FULL_HP) {
         return;
     }
     
