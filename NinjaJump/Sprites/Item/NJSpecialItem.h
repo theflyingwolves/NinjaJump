@@ -34,4 +34,7 @@ typedef enum : uint8_t {
 // EFFECTS: Update the next-frame state of the item on the screen
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
+// EFFECTS: Use the item at a position with a direction (which is the zRotation of the player)
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction;
+
 @end

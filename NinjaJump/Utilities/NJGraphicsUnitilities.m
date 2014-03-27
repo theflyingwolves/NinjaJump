@@ -37,4 +37,11 @@ CGFloat NJDistanceBetweenPoints(CGPoint first, CGPoint second)
     CGFloat dy = second.y - second.y;
     return hypotf(dx, dy);
 }
+
+CGPoint PositionAfterMovement(CGPoint from, CGFloat radians, CGFloat speed){
+    CGFloat dx = speed * cos(radians);
+    CGFloat dy = speed * sin(radians);
+    
+    return CGPointMake(from.x+dx, from.y+dy);
+}
 @end

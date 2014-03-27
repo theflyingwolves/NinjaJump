@@ -19,7 +19,7 @@
     return self;
 }
 
-- (void)useAtPosition:(CGPoint)position withRotation:(CGFloat)zRotation{
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction{
     
 }
 
