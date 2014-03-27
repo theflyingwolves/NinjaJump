@@ -117,6 +117,9 @@
 // EFFECTS:  a given amount of recover to the character.
 -(void)recover:(CGFloat)amount{
     [self applyDamage:(0-amount)];
+    if (self.health > FULL_HP) {
+        self.health = FULL_HP;
+    }
 }
 
 #pragma mark - Resets

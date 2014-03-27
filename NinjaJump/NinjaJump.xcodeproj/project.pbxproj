@@ -75,6 +75,9 @@
 		C9B8F2A018E05E8400FA877E /* light.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29B18E05E8400FA877E /* light.png */; };
 		C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29C18E05E8400FA877E /* loading bar.png */; };
 		C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29D18E05E8400FA877E /* loading bar2.png */; };
+		C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06F918E1CE7000C43E24 /* FireEffect.sks */; };
+		C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FA18E1CE7000C43E24 /* spark.png */; };
+		C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FE18E1D16F00C43E24 /* fireArc.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +189,9 @@
 		C9B8F29B18E05E8400FA877E /* light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = light.png; path = "Assets/loading scene/light.png"; sourceTree = "<group>"; };
 		C9B8F29C18E05E8400FA877E /* loading bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar.png"; path = "Assets/loading scene/loading bar.png"; sourceTree = "<group>"; };
 		C9B8F29D18E05E8400FA877E /* loading bar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar2.png"; path = "Assets/loading scene/loading bar2.png"; sourceTree = "<group>"; };
+		C9EC06F918E1CE7000C43E24 /* FireEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireEffect.sks; path = Particle/FireEffect.sks; sourceTree = "<group>"; };
+		C9EC06FA18E1CE7000C43E24 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Particle/spark.png; sourceTree = "<group>"; };
+		C9EC06FE18E1D16F00C43E24 /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/Particle/fireArc.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +250,7 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C9EC06FD18E1D12A00C43E24 /* Particle */,
 				2FC568C218E1BE5A00C6589D /* GameBoard */,
 				2FC568C118E1BE4300C6589D /* Items */,
 				C9B8F2A518E05E9E00FA877E /* selection scene */,
@@ -322,6 +329,7 @@
 				2FC568AB18E1BCF200C6589D /* Utilities */,
 				2B21F14918D430B0007220CF /* Scenes */,
 				2B21F14518D43005007220CF /* Sprites */,
+				C9EC06F818E1CDFD00C43E24 /* Particle */,
 				2B21F14A18D430DB007220CF /* Assets */,
 				2F94CD7718D419F1007DAFAD /* NinjaJump */,
 				2F94CD9B18D419F1007DAFAD /* NinjaJumpTests */,
@@ -518,6 +526,23 @@
 			name = "selection scene";
 			sourceTree = "<group>";
 		};
+		C9EC06F818E1CDFD00C43E24 /* Particle */ = {
+			isa = PBXGroup;
+			children = (
+				C9EC06F918E1CE7000C43E24 /* FireEffect.sks */,
+				C9EC06FA18E1CE7000C43E24 /* spark.png */,
+			);
+			name = Particle;
+			sourceTree = "<group>";
+		};
+		C9EC06FD18E1D12A00C43E24 /* Particle */ = {
+			isa = PBXGroup;
+			children = (
+				C9EC06FE18E1D16F00C43E24 /* fireArc.png */,
+			);
+			name = Particle;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -603,6 +628,7 @@
 				C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */,
 				C9B8F2A018E05E8400FA877E /* light.png in Resources */,
 				2FC568BB18E1BE0900C6589D /* spawnLight.png in Resources */,
+				C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */,
 				2F63E13018E0291500E9A17B /* hp_bar.png in Resources */,
 				2FC568BA18E1BE0900C6589D /* jumpButton.png in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
@@ -623,9 +649,11 @@
 				C931A94118E05EF7002FE154 /* touched button blue.png in Resources */,
 				C931A94018E05EF7002FE154 /* start button.png in Resources */,
 				2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */,
+				C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */,
 				2F63E12F18E0291500E9A17B /* hp_bar_bottom.png in Resources */,
 				C41270F318E1D3AF00CAC44A /* windScroll.png in Resources */,
 				2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */,
+				C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

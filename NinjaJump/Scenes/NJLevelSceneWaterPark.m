@@ -35,7 +35,7 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 10
+#define kNumOfFramesToSpawnItem 1000
 
 @interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
@@ -275,6 +275,12 @@
         CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
         ninja.position = spawnPosition;
         [ninja setSpawnPoint:spawnPosition];
+//        if (index ==1) {
+//            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
+//            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
+//            //smokeTrail.position = CGPointMake(screenWidth/2, 15);
+//            [ninja addChild:smokeTrail];
+//        }
     }
 }
 
@@ -408,6 +414,48 @@
     CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
     selectionSystem.position = center;
     [self addChild:selectionSystem];
+    
+    //add notification to actived players Index
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(activateSelectedPlayers:) name:@"activatedPlayerIndex" object:nil];
+}
+
+- (void) activateSelectedPlayers:(NSNotification *)note{
+    NSArray *activePlayerIndices = [note object];
+    NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
+    for (NSNumber *index in activePlayerIndices) {
+        [fullIndices removeObject:index];
+    }
+    for (NSNumber *index in fullIndices){ //inactivate unselected players
+        NSLog(@"activated %d",[index intValue]);
+        int convertedIndex = [self convertIndex:[index intValue]];
+        [((NJPlayer *)self.players[convertedIndex]).ninja removeFromParent];
+        //((NSMutableArray *)self.players)[convertedIndex] = [NSNull null];
+    }
+}
+
+- (int)convertIndex:(int)index{
+    switch (index) {
+        case 0:
+            return 1;
+            break;
+        case 1:
+            return 0;
+            break;
+        case 2:
+            return 3;
+            break;
+        case 3:
+            return 2;
+        default:
+            break;
+    }
+    [NSException raise:@"invalid index" format:@""];
+    return -1;
+}
+
+- (void)inActivate{
+    
 }
 
 @end

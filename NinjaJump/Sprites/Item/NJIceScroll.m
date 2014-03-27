@@ -19,4 +19,8 @@
     return self;
 }
 
+- (void)useAtPosition:(CGPoint)position withRotation:(CGFloat)zRotation{
+    
+}
+
 @end

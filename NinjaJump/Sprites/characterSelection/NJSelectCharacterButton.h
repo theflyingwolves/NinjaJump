@@ -7,7 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-typedef enum {BLUE=0, RED=1, PURPLE=2, BROWN=3} NJSelectionButtonType ;
+typedef enum {BLUE=0, RED=1, BROWN=2, PURPLE=3} NJSelectionButtonType ;
 
 @class NJSelectCharacterButton;
 @protocol NJSelectionButtonDelegate <NSObject>
