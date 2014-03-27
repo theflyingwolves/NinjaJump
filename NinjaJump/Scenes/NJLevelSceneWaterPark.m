@@ -312,6 +312,7 @@
     int toSpawnItem = arc4random() % kNumOfFramesToSpawnItem;
     if (toSpawnItem==1) {
         [self addItem];
+        
     }
 }
 
