@@ -9,6 +9,8 @@
 #import "NJShuriken.h"
 #import "NJEffectShurikenMulti.h"
 
+#define kShurikenAngle 30
+
 @implementation NJShuriken
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
@@ -21,7 +23,39 @@
 }
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction{
-    NJEffectShurikenMulti *effect = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction onScene:self.myParent];
+    int angle1 = 0 - kShurikenAngle/2;
+    int angle2 = 0;
+    int angle3 = kShurikenAngle - kShurikenAngle/2;
+    
+    float direction1 = (angle1/360.0)*(2*M_PI) + direction;
+    float direction2 = (angle2/360.0)*(2*M_PI) + direction;
+    float direction3 = (angle3/360.0)*(2*M_PI) + direction;
+    if (direction1 > 2*M_PI) {
+        direction1 -= 2*M_PI;
+    } else if (direction1 < 0){
+        direction1 += 2*M_PI;
+    }
+    
+    if (direction2 > 2*M_PI) {
+        direction2 -= 2*M_PI;
+    } else if (direction2 < 0){
+        direction2 += 2*M_PI;
+    }
+    
+    if (direction3 > 2*M_PI) {
+        direction3 -= 2*M_PI;
+    } else if (direction3 < 0){
+        direction3 += 2*M_PI;
+    }
+    
+//    NSLog(@"finish computing angle");
+    NJEffectShurikenMulti *shuriken1 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction1 onScene:self.myParent];
+    
+    NJEffectShurikenMulti *shuriken2 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction2 onScene:self.myParent];
+    
+    NJEffectShurikenMulti *shuriken3 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction3 onScene:self.myParent];
+    
+//    NSLog(@"d1: %f, d2: %f, d3: %f", direction1, direction2, direction3);
 }
 
 @end
