@@ -15,6 +15,7 @@
     NSMutableArray *selectionButtons;
     NSMutableArray *spotLightList;
     NSMutableArray *activePlayerList;
+    SKSpriteNode *startButton;
 }
 
 - (id) init{
@@ -29,11 +30,12 @@
 }
 
 - (void)addStartButton{
-    SKSpriteNode *startButton = [SKSpriteNode spriteNodeWithImageNamed:@"start button.png"];
+    startButton = [SKSpriteNode spriteNodeWithImageNamed:@"start button.png"];
     SKSpriteNode *shade = [SKSpriteNode spriteNodeWithImageNamed:@"shade.png"];
     [self addChild:shade];
     [self addChild:startButton];
     startButton.position = CGPointMake(30, 0);
+    startButton.hidden = YES;
 }
 
 - (void)addSpotlight{
@@ -102,8 +104,14 @@
         CGPathRelease(path);
     }
     //NSLog(@"touchPoint %f",dist);
-    if (!isReacted && dist<startButtonRadius) {
-        [self didStartButtonClicked];
+    //deal with start button area
+    if (activePlayerList.count>0){
+        startButton.hidden = NO;
+        if(!isReacted && dist<startButtonRadius) {
+            [self didStartButtonClicked];
+        }
+    } else if (activePlayerList.count==0){
+        startButton.hidden = YES;
     }
 }
 

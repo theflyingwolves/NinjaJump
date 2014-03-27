@@ -183,6 +183,7 @@
     });
 }
 
+
 + (void)loadSceneAssets
 {
     // Overridden by subclasses.
