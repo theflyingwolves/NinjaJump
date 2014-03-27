@@ -10,10 +10,11 @@
 
 @implementation NJItemEffect
 
--(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position onScene:(NJMultiplayerLayeredCharacterScene*)scene{
     self = [super initWithImageNamed:textureName];
     if (self) {
         self.position = position;
+        [scene addNode:self atWorldLayer:NJWorldLayerCharacter];
     }
     return self;
 }

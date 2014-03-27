@@ -7,6 +7,7 @@
 //
 
 #import "NJShuriken.h"
+#import "NJEffectShurikenMulti.h"
 
 @implementation NJShuriken
 
@@ -20,7 +21,7 @@
 }
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction{
-    
+    NJEffectShurikenMulti *effect = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction onScene:self.myParent];
 }
 
 @end

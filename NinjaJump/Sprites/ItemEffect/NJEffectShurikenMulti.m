@@ -9,21 +9,22 @@
 #import "NJEffectShurikenMulti.h"
 #import "NJGraphicsUnitilities.h"
 
-#define kShurikenEffectFileName @"shuriken.png"
+#define kShurikenEffectFileName @"shurikenEffect.png"
+#define kShurikenSpeed 800
+#define kShurikenMaxDistance 1500
 
 @implementation NJEffectShurikenMulti
 
--(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction;{
-    self = [super initWithTextureNamed:kShurikenEffectFileName atPosition:position];
+-(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene{
+    self = [super initWithTextureNamed:kShurikenEffectFileName atPosition:position onScene:scene];
     if (self) {
         _direction = direction;
+        CGVector movement = vectorForMovement(direction, kShurikenMaxDistance);
+        [self runAction:[SKAction moveByX:movement.dx y:movement.dy duration:kShurikenMaxDistance/kShurikenSpeed] completion:^{[self removeFromParent];}];
+//        [scene addNode:self atWorldLayer:NJWorldLayerCharacter];
     }
     return self;
 }
 
-// EFFECTS: Update the next-frame renderring of the pile
-- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval{
-    self.position = PositionAfterMovement(self.position, self.direction, self.speed);
-}
 
 @end

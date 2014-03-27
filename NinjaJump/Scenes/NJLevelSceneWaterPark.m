@@ -35,7 +35,7 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 1000
+#define kNumOfFramesToSpawnItem 10
 
 @interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
@@ -195,6 +195,7 @@
                 break;
         }
         
+        item.myParent = self;
         [self addNode:item atWorldLayer:NJWorldLayerCharacter];
         [_items addObject:item];
     }

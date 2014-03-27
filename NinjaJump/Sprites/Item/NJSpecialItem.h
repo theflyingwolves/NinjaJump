@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "NJMultiplayerLayeredCharacterScene.h"
 
 typedef enum : uint8_t {
     NJItemThunderScroll = 0,
@@ -24,10 +25,10 @@ typedef enum : uint8_t {
 @protected NJItemType _itemType;
 }
 
-
 @property BOOL isPickedUp;
 @property (readonly) NJItemType itemType;
 @property (readonly) float lifeTime;
+@property (weak, nonatomic) NJMultiplayerLayeredCharacterScene *myParent;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position;
 

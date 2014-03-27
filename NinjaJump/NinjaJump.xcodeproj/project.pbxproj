@@ -64,6 +64,7 @@
 		C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FE18DB21830070F3D5 /* NJPile.m */; };
 		C4F0821418E4569E00F81C8C /* NJEffectShurikenMulti.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */; };
 		C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821618E459B700F81C8C /* NJItemEffect.m */; };
+		C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0821918E4708300F81C8C /* shurikenEffect.png */; };
 		C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93718E05EF7002FE154 /* ready buttons.png */; };
 		C931A93F18E05EF7002FE154 /* shade.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93818E05EF7002FE154 /* shade.png */; };
 		C931A94018E05EF7002FE154 /* start button.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93918E05EF7002FE154 /* start button.png */; };
@@ -180,6 +181,7 @@
 		C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJEffectShurikenMulti.m; path = Sprites/ItemEffect/NJEffectShurikenMulti.m; sourceTree = "<group>"; };
 		C4F0821518E459B700F81C8C /* NJItemEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJItemEffect.h; path = Sprites/ItemEffect/NJItemEffect.h; sourceTree = "<group>"; };
 		C4F0821618E459B700F81C8C /* NJItemEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJItemEffect.m; path = Sprites/ItemEffect/NJItemEffect.m; sourceTree = "<group>"; };
+		C4F0821918E4708300F81C8C /* shurikenEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shurikenEffect.png; path = Assets/effect/shurikenEffect.png; sourceTree = "<group>"; };
 		C931A93718E05EF7002FE154 /* ready buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ready buttons.png"; path = "Assets/selection scene/ready buttons.png"; sourceTree = "<group>"; };
 		C931A93818E05EF7002FE154 /* shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shade.png; path = "Assets/selection scene/shade.png"; sourceTree = "<group>"; };
 		C931A93918E05EF7002FE154 /* start button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "start button.png"; path = "Assets/selection scene/start button.png"; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C4F0821818E4707C00F81C8C /* Effects */,
 				C9EC06FD18E1D12A00C43E24 /* Particle */,
 				2FC568C218E1BE5A00C6589D /* GameBoard */,
 				2FC568C118E1BE4300C6589D /* Items */,
@@ -507,6 +510,14 @@
 			name = ItemEffect;
 			sourceTree = "<group>";
 		};
+		C4F0821818E4707C00F81C8C /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				C4F0821918E4708300F81C8C /* shurikenEffect.png */,
+			);
+			name = Effects;
+			sourceTree = "<group>";
+		};
 		C9B8F29018E05B1400FA877E /* playerSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,6 +670,7 @@
 				C931A94618E06358002FE154 /* logo.png in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 				C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */,
+				C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */,
 				2FC568C818E1EBC000C6589D /* Ninja_Attack.atlas in Resources */,
 				2F8A72B718E44F0A00B88E79 /* itemControl.png in Resources */,
 				C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */,
