@@ -15,6 +15,8 @@
 @property (nonatomic) NJNinjaCharacter *ninja;
 @property (nonatomic) SKColor *color;
 
+@property (nonatomic) BOOL isActive;
+
 @property (nonatomic) CGPoint spawnPoint;
 @property (nonatomic) BOOL fireAction;
 

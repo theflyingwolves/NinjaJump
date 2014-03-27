@@ -60,7 +60,8 @@
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
         _itemControls = [NSMutableArray arrayWithCapacity:kNumPlayers];
         _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
-        
+        [self initSelectionSystem];
+
         for (int i=0; i < kNumPlayers; i++) {
             CGPoint position;
             float size = 250;
@@ -136,7 +137,6 @@
         ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
         ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
         
-        [self initSelectionSystem];
         [self buildWorld];
     }
     return self;
@@ -271,10 +271,12 @@
 - (void)startLevel {
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
-        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-        CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
-        ninja.position = spawnPosition;
-        [ninja setSpawnPoint:spawnPosition];
+        if (player.isActive) {
+            NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
+            CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
+            ninja.position = spawnPosition;
+            [ninja setSpawnPoint:spawnPosition];
+        }
 //        if (index ==1) {
 //            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
 //            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
@@ -430,7 +432,8 @@
     for (NSNumber *index in fullIndices){ //inactivate unselected players
         NSLog(@"activated %d",[index intValue]);
         int convertedIndex = [self convertIndex:[index intValue]];
-        [((NJPlayer *)self.players[convertedIndex]).ninja removeFromParent];
+        ((NJPlayer *)self.players[convertedIndex]).isActive = YES;
+//        [((NJPlayer *)self.players[convertedIndex]).ninja removeFromParent];
         //((NSMutableArray *)self.players)[convertedIndex] = [NSNull null];
     }
 }
