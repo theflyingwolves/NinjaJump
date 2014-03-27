@@ -137,7 +137,7 @@
 #pragma mark - Use Items
 - (void)useItem:(NJSpecialItem *)item
 {
-    NSLog(@"use item");
+    
 }
 
 #pragma mark - Animation

@@ -132,7 +132,9 @@
             }
             
             if (player.itemUseRequested) {
-                [player.ninja useItem:player.item];
+                if (player.item != nil) {
+                    [player.ninja useItem:player.item];
+                }
                 player.itemUseRequested = NO;
             }
         }

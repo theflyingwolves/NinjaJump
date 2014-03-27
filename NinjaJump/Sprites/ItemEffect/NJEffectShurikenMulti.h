@@ -8,17 +8,17 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "NJItemEffect.h"
+#import "NJMultiplayerLayeredCharacterScene.h"
 
-#define kShurikenSpeed 100;
+
+
 
 @interface NJEffectShurikenMulti : NJItemEffect
 
 @property (readonly) CGFloat direction; //in radians, same as definition of zPosition
 
--(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction;
+-(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene;
 
-// EFFECTS: Update the next-frame renderring of the pile
-- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
 
 @end

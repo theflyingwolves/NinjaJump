@@ -7,12 +7,11 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "NJMultiplayerLayeredCharacterScene.h"
 
 @interface NJItemEffect : SKSpriteNode
 
--(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position;
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position onScene:(NJMultiplayerLayeredCharacterScene*)scene;
 
-// EFFECTS: Update the next-frame renderring of the pile
-- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
 @end

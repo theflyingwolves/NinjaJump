@@ -182,7 +182,7 @@
             case NJItemMedikit:
                 item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
                 break;
-                
+            
                 //        case NJItemMine:
                 //            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
                 //            break;
@@ -195,8 +195,11 @@
                 break;
         }
         
-        [self addNode:item atWorldLayer:NJWorldLayerCharacter];
-        [_items addObject:item];
+        if (item != nil) {
+            item.myParent = self;
+            [self addNode:item atWorldLayer:NJWorldLayerCharacter];
+            [_items addObject:item];
+        }
     }
 }
 

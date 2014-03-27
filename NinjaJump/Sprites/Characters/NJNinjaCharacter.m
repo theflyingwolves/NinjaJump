@@ -31,19 +31,38 @@ const CGFloat medikitRecover = 40.0f;
 - (void)pickupItemAtSamePosition:(NSArray *)items{
     for (NJSpecialItem *item in items) {
         if (CGPointEqualToPoint(item.position, self.position)) {
+            item.isPickedUp = YES;
+            [item removeFromParent];
+            self.player.item = item;
+            
             switch (item.itemType) {
                 case NJItemMedikit:
                     [self recover:medikitRecover];
                     break;
-                    
+                
+                case NJItemShuriken:
+//                    [self useItem:item];
+                    break;
+                
                 default:
                     break;
             }
-            item.isPickedUp = YES;
-            [item removeFromParent];
-            self.player.item = item;
+            
         }
     }
+}
+
+#pragma mark - Use Items
+- (void)useItem:(NJSpecialItem *)item
+{
+    CGFloat direction = (self.zRotation + M_PI/2);
+    if (direction > (2*M_PI)) {
+        direction -= 2*M_PI;
+    }
+    [item useAtPosition:self.position withDirection: direction];
+    self.player.item = nil;
+    
+    NSLog(@"use item");
 }
 
 @end
