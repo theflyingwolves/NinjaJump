@@ -34,5 +34,4 @@ typedef enum : uint8_t {
 // EFFECTS: Update the next-frame state of the item on the screen
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
-
 @end

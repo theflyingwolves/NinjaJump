@@ -96,22 +96,24 @@
             [self addChild:button];
         }
         
-        ((NJButton*)_buttons[0]).position = CGPointMake(50, 50);
+        double xDiff = 35, yDiff=80;
+        
+        ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
         ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
         ((NJButton*)_buttons[0]).color = [SKColor blackColor];
         ((NJButton*)_buttons[0]).colorBlendFactor = 1.0;
         ((NJButton*)_buttons[0]).player.color = [SKColor blackColor];
-        ((NJButton*)_buttons[1]).position = CGPointMake(974, 50);
+        ((NJButton*)_buttons[1]).position = CGPointMake(1024-yDiff, xDiff);
         ((NJButton*)_buttons[1]).zRotation = M_PI/4;
         ((NJButton*)_buttons[1]).color = [SKColor blueColor];
         ((NJButton*)_buttons[1]).colorBlendFactor = 1.0;
         ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
-        ((NJButton*)_buttons[2]).position = CGPointMake(974, 718);
+        ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
         ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
         ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
         ((NJButton*)_buttons[2]).colorBlendFactor = 1.0;
         ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
-        ((NJButton*)_buttons[3]).position = CGPointMake(50, 718);
+        ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
         ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
         ((NJButton*)_buttons[3]).color = [SKColor redColor];
         ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
@@ -125,13 +127,13 @@
             [self addChild:control];
         }
         
-        ((NJItemControl *)_itemControls[0]).position = CGPointMake(60, 60);
+        ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
         ((NJItemControl *)_itemControls[0]).zRotation = -M_PI / 4;
-        ((NJItemControl *)_itemControls[1]).position = CGPointMake(950, 60);
+        ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
         ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
-        ((NJItemControl *)_itemControls[2]).position = CGPointMake(950, 700);
+        ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
         ((NJItemControl *)_itemControls[2]).zRotation = -3*M_PI / 4;
-        ((NJItemControl *)_itemControls[3]).position = CGPointMake(60, 700);
+        ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
         ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
         
         [self initSelectionSystem];
@@ -339,7 +341,6 @@
     }
     // Use Item
     control.player.itemUseRequested = YES;
-    NSLog(@"use item");
 }
 
 - (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja

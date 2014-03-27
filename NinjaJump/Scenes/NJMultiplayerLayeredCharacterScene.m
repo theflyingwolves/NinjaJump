@@ -130,6 +130,11 @@
                     [player.ninja pickupItemAtSamePosition:self.items];
                 }
             }
+            
+            if (player.itemUseRequested) {
+                [player.ninja useItem:player.item];
+                player.itemUseRequested = NO;
+            }
         }
     }
     
