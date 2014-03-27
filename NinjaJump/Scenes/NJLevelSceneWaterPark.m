@@ -96,22 +96,24 @@
             [self addChild:button];
         }
         
-        ((NJButton*)_buttons[0]).position = CGPointMake(50, 50);
+        double xDiff = 35, yDiff=80;
+        
+        ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
         ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
         ((NJButton*)_buttons[0]).color = [SKColor blackColor];
         ((NJButton*)_buttons[0]).colorBlendFactor = 1.0;
         ((NJButton*)_buttons[0]).player.color = [SKColor blackColor];
-        ((NJButton*)_buttons[1]).position = CGPointMake(974, 50);
+        ((NJButton*)_buttons[1]).position = CGPointMake(1024-yDiff, xDiff);
         ((NJButton*)_buttons[1]).zRotation = M_PI/4;
         ((NJButton*)_buttons[1]).color = [SKColor blueColor];
         ((NJButton*)_buttons[1]).colorBlendFactor = 1.0;
         ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
-        ((NJButton*)_buttons[2]).position = CGPointMake(974, 718);
+        ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
         ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
         ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
         ((NJButton*)_buttons[2]).colorBlendFactor = 1.0;
         ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
-        ((NJButton*)_buttons[3]).position = CGPointMake(50, 718);
+        ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
         ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
         ((NJButton*)_buttons[3]).color = [SKColor redColor];
         ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
@@ -125,13 +127,13 @@
             [self addChild:control];
         }
         
-        ((NJItemControl *)_itemControls[0]).position = CGPointMake(60, 60);
+        ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
         ((NJItemControl *)_itemControls[0]).zRotation = -M_PI / 4;
-        ((NJItemControl *)_itemControls[1]).position = CGPointMake(950, 60);
+        ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
         ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
-        ((NJItemControl *)_itemControls[2]).position = CGPointMake(950, 700);
+        ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
         ((NJItemControl *)_itemControls[2]).zRotation = -3*M_PI / 4;
-        ((NJItemControl *)_itemControls[3]).position = CGPointMake(60, 700);
+        ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
         ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
         
         [self initSelectionSystem];
@@ -273,6 +275,12 @@
         CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
         ninja.position = spawnPosition;
         [ninja setSpawnPoint:spawnPosition];
+//        if (index ==1) {
+//            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
+//            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
+//            //smokeTrail.position = CGPointMake(screenWidth/2, 15);
+//            [ninja addChild:smokeTrail];
+//        }
     }
 }
 
@@ -340,7 +348,6 @@
     }
     // Use Item
     control.player.itemUseRequested = YES;
-    NSLog(@"use item");
 }
 
 - (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja
@@ -408,6 +415,48 @@
     CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
     selectionSystem.position = center;
     [self addChild:selectionSystem];
+    
+    //add notification to actived players Index
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(activateSelectedPlayers:) name:@"activatedPlayerIndex" object:nil];
+}
+
+- (void) activateSelectedPlayers:(NSNotification *)note{
+    NSArray *activePlayerIndices = [note object];
+    NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
+    for (NSNumber *index in activePlayerIndices) {
+        [fullIndices removeObject:index];
+    }
+    for (NSNumber *index in fullIndices){ //inactivate unselected players
+        NSLog(@"activated %d",[index intValue]);
+        int convertedIndex = [self convertIndex:[index intValue]];
+        [((NJPlayer *)self.players[convertedIndex]).ninja removeFromParent];
+        //((NSMutableArray *)self.players)[convertedIndex] = [NSNull null];
+    }
+}
+
+- (int)convertIndex:(int)index{
+    switch (index) {
+        case 0:
+            return 1;
+            break;
+        case 1:
+            return 0;
+            break;
+        case 2:
+            return 3;
+            break;
+        case 3:
+            return 2;
+        default:
+            break;
+    }
+    [NSException raise:@"invalid index" format:@""];
+    return -1;
+}
+
+- (void)inActivate{
+    
 }
 
 @end

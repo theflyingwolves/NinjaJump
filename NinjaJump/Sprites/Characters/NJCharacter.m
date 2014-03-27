@@ -134,6 +134,12 @@
     [spawnEffect runAction:[SKAction sequence:@[[SKAction repeatAction:blink count:4],[SKAction removeFromParent]]]];
 }
 
+#pragma mark - Use Items
+- (void)useItem:(NJSpecialItem *)item
+{
+    NSLog(@"use item");
+}
+
 #pragma mark - Animation
 - (void)resolveRequestedAnimation
 {

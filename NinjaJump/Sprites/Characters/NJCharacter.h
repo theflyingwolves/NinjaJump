@@ -78,7 +78,7 @@ typedef enum : uint8_t {
 - (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval;
 // EFFECTS: Only handle the animation of using the given item
 
-//-(void)useItem:(NJSpecialItem *)item;
+-(void)useItem:(NJSpecialItem *)item;
 
 // EFFECTS: Update the next-frame renderring of the character
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval;

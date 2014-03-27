@@ -14,11 +14,13 @@
 @implementation NJSelectionButtonSystem{
     NSMutableArray *selectionButtons;
     NSMutableArray *spotLightList;
+    NSMutableArray *activePlayerList;
 }
 
 - (id) init{
     self = [super initWithImageNamed:@"ready buttons.png"];
     if (self) {
+        activePlayerList = [NSMutableArray array];
         [self addStartButton];
         [self addSelectionButtons];
         [self addSpotlight];
@@ -49,12 +51,13 @@
     ((SKSpriteNode *)spotLightList[1]).position = CGPointMake(r-screenHeight/2, r-screenWidth/2);
     ((SKSpriteNode *)spotLightList[1]).xScale = -1;
     ((SKSpriteNode *)spotLightList[1]).yScale = -1;
-    ((SKSpriteNode *)spotLightList[2]).position = CGPointMake(screenHeight/2-r, screenWidth/2-r);
-    ((SKSpriteNode *)spotLightList[3]).position = CGPointMake(screenHeight/2-r, r-screenWidth/2);
-    ((SKSpriteNode *)spotLightList[3]).yScale = -1;
+    ((SKSpriteNode *)spotLightList[2]).position = CGPointMake(screenHeight/2-r, r-screenWidth/2);
+    ((SKSpriteNode *)spotLightList[2]).yScale = -1;
+    ((SKSpriteNode *)spotLightList[3]).position = CGPointMake(screenHeight/2-r, screenWidth/2-r);
+
     NSLog(@"%lu",spotLightList.count);
     for (int i=0; i<spotLightList.count; i++) {
-        [self addChild:spotLightList[i]];;
+        [self addChild:spotLightList[i]];
     }
 }
 
@@ -63,7 +66,7 @@
     NJSelectCharacterButton *selectionButtonRed = [[NJSelectCharacterButton alloc] initWithType:RED];
     NJSelectCharacterButton *selectionButtonBrown = [[NJSelectCharacterButton alloc] initWithType:BROWN];
     NJSelectCharacterButton *selectionButtonPurple = [[NJSelectCharacterButton alloc] initWithType:PURPLE];
-    selectionButtons = [NSMutableArray arrayWithObjects:selectionButtonBlue, selectionButtonRed, selectionButtonPurple, selectionButtonBrown, nil];
+    selectionButtons = [NSMutableArray arrayWithObjects:selectionButtonBlue, selectionButtonRed, selectionButtonBrown, selectionButtonPurple, nil];
     for (NJSelectCharacterButton *selectionButton in selectionButtons) {
         selectionButton.hidden = YES;
         selectionButton.delegate = self;
@@ -85,9 +88,16 @@
         NJSelectCharacterButton *button = selectionButtons[i];
         SKSpriteNode *spotLight = spotLightList[i];
         if (CGPathContainsPoint(path, &CGAffineTransformIdentity, touchPoint, YES)) {
+            NSLog(@"%d",i);
             button.hidden = !button.hidden;
             spotLight.hidden = !spotLight.hidden;
             isReacted = YES;
+            NSNumber *index = [NSNumber numberWithInt:i];
+            if (button.hidden) {
+                [activePlayerList removeObject:index];
+            } else if(![activePlayerList containsObject:index]){
+                [activePlayerList addObject:index];
+            }
         }
         CGPathRelease(path);
     }
@@ -108,8 +118,10 @@
     SKAction *sequence = [SKAction sequence:@[fadeAway, removeNode]];
     [selectionButtons[0] runAction:flyAway2TopLeft];
     [selectionButtons[1] runAction:flyAway2BottomLeft];
-    [selectionButtons[2] runAction:flyAway2TopRight];
-    [selectionButtons[3] runAction:flyAway2BottomRight];
+    [selectionButtons[2] runAction:flyAway2BottomRight];
+    [selectionButtons[3] runAction:flyAway2TopRight];
+    NSNotification *note = [NSNotification notificationWithName:@"activatedPlayerIndex" object:[activePlayerList copy]];
+    [[NSNotificationCenter defaultCenter] postNotification:note];
     [self runAction:sequence];
 }
 
