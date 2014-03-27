@@ -53,7 +53,7 @@
 - (void)prepareForJump
 {
     if (!self.texture) {
-        NSLog(@"tsd");
+        NSLog(@"no texture");
         self.texture = self.origTexture;
     }
     [self removeActionForKey:@"anim_attack"];

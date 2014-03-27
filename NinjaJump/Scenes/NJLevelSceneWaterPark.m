@@ -11,6 +11,7 @@
 #import "NJPile.h"
 #import "NJPath.h"
 #import "NJButton.h"
+#import "NJItemControl.h"
 #import "NJHPBar.h"
 #import "NJPlayer.h"
 #import "NJGraphicsUnitilities.h"
@@ -36,11 +37,12 @@
 
 #define kNumOfFramesToSpawnItem 10
 
-@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate>
+@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;
 @property (nonatomic) NSMutableArray *buttons;
+@property (nonatomic) NSMutableArray *itemControls;
 @property (nonatomic) NSMutableArray *hpBars;
 @end
 
@@ -56,6 +58,7 @@
         _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
+        _itemControls = [NSMutableArray arrayWithCapacity:kNumPlayers];
         _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
         
         for (int i=0; i < kNumPlayers; i++) {
@@ -113,6 +116,24 @@
         ((NJButton*)_buttons[3]).color = [SKColor redColor];
         ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
         ((NJButton*)_buttons[3]).player.color = [SKColor redColor];
+        
+        for (int i=0; i<kNumPlayers; i++) {
+            NJItemControl *control = [[NJItemControl alloc] initWithImageNamed:@"itemControl"];
+            control.delegate = self;
+            control.player = self.players[i];
+            [_itemControls addObject:control];
+            [self addChild:control];
+        }
+        
+        ((NJItemControl *)_itemControls[0]).position = CGPointMake(60, 60);
+        ((NJItemControl *)_itemControls[0]).zRotation = -M_PI / 4;
+        ((NJItemControl *)_itemControls[1]).position = CGPointMake(950, 60);
+        ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
+        ((NJItemControl *)_itemControls[2]).position = CGPointMake(950, 700);
+        ((NJItemControl *)_itemControls[2]).zRotation = -3*M_PI / 4;
+        ((NJItemControl *)_itemControls[3]).position = CGPointMake(60, 700);
+        ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
+        
         [self initSelectionSystem];
         [self buildWorld];
     }
@@ -308,6 +329,17 @@
         button.player.jumpRequested = YES;
         button.player.isJumping = YES;
     }
+}
+
+- (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
+{
+    NSArray *ninjas = self.ninjas;
+    if ([ninjas count]<1) {
+        return ;
+    }
+    // Use Item
+    control.player.itemUseRequested = YES;
+    NSLog(@"use item");
 }
 
 - (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja

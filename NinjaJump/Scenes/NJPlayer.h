@@ -26,4 +26,6 @@
 
 @property (nonatomic) NJSpecialItem *item;
 
+@property (nonatomic) BOOL itemUseRequested;
+
 @end
