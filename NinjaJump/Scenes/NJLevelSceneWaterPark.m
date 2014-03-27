@@ -195,6 +195,12 @@
         CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
         ninja.position = spawnPosition;
         [ninja setSpawnPoint:spawnPosition];
+//        if (index ==1) {
+//            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
+//            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
+//            //smokeTrail.position = CGPointMake(screenWidth/2, 15);
+//            [ninja addChild:smokeTrail];
+//        }
     }
 }
 
@@ -320,7 +326,7 @@
         NSLog(@"activated %d",[index intValue]);
         int convertedIndex = [self convertIndex:[index intValue]];
         [((NJPlayer *)self.players[convertedIndex]).ninja removeFromParent];
-        ((NSMutableArray *)self.players)[convertedIndex] = [NSNull null];
+        //((NSMutableArray *)self.players)[convertedIndex] = [NSNull null];
     }
 }
 
