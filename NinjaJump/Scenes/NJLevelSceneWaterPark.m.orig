@@ -66,6 +66,18 @@
     return self;
 }
 
+<<<<<<< HEAD
+- (void)initAllProperties
+{
+    _ninjas = [[NSMutableArray alloc] init];
+    _items = [[NSMutableArray alloc] init];
+    _woodPiles = [[NSMutableArray alloc] init];
+    [self initHpBars];
+    [self initButtonsAndItemControls];
+}
+
+=======
+>>>>>>> ee3e7ca1248f7299b80ebc297ba8acc1efe4f740
 - (void)initHpBars
 {
     _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
