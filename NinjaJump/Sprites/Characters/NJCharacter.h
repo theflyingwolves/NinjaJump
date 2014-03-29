@@ -81,7 +81,7 @@ typedef enum : uint8_t {
 -(void)useItem:(NJSpecialItem *)item;
 
 // EFFECTS: Update the next-frame renderring of the character
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval;
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
 // EFFECTS: Load animation frames for jumping animation
 - (NSArray *)jumpAnimationFrames;

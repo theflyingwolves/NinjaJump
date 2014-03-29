@@ -50,6 +50,8 @@
 @synthesize ninjas = _ninjas;
 @synthesize woodPiles = _woodPiles;
 @synthesize items = _items;
+@synthesize buttons = _buttons;
+@synthesize itemControls = _itemControls;
 - (instancetype)initWithSize:(CGSize)size
 {
     self = [super initWithSize:size];
@@ -66,8 +68,8 @@
     _ninjas = [[NSMutableArray alloc] init];
     _items = [[NSMutableArray alloc] init];
     _woodPiles = [[NSMutableArray alloc] init];
-    [self initButtonsAndItemControls];
     [self initHpBars];
+    [self initButtonsAndItemControls];
 }
 
 - (void)initHpBars
@@ -295,6 +297,9 @@
                 }
             }
         }
+    }
+    for (NJItemControl *control in _itemControls) {
+        [control updateWithTimeSinceLastUpdate:timeSinceLast];
     }
     
     for (NJSpecialItem *item in self.items){

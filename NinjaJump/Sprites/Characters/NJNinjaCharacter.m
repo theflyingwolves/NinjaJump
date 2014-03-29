@@ -34,9 +34,11 @@ const CGFloat medikitRecover = 40.0f;
             item.isPickedUp = YES;
             [item removeFromParent];
             self.player.item = item;
+            NSLog(@"picked up item: %@",self.player.item);
             
             switch (item.itemType) {
                 case NJItemMedikit:
+                    self.player.item = nil;
                     [self recover:medikitRecover];
                     break;
                 
@@ -47,7 +49,6 @@ const CGFloat medikitRecover = 40.0f;
                 default:
                     break;
             }
-            
         }
     }
 }

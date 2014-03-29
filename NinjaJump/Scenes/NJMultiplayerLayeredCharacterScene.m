@@ -12,6 +12,7 @@
 #import "NJNinjaCharacterNormal.h"
 #import "NJButton.h"
 #import "NJSpecialItem.h"
+#import "NJItemControl.h"
 
 #define kMaxItemLifeTime 15.0f
 
@@ -34,7 +35,6 @@
 - (instancetype)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
     if (self) {
-//        _items = [NSMutableArray new];
         _items = [[NSMutableArray alloc] init];
         _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
         
