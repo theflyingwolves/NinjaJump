@@ -11,8 +11,8 @@
 @implementation NJCircularRange
 - (BOOL)isPointWithinRange:(CGPoint)point
 {
-    double distance = hypot(point.x-self.origin.x, point.y - self.origin.y);
-    if (distance < self.farDist) {
+    double distance = hypotf(point.x-self.origin.x, point.y - self.origin.y);
+    if (distance <= self.farDist && distance != 0) {
         return YES;
     }else{
         return NO;

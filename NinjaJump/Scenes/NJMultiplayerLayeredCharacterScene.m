@@ -37,7 +37,7 @@
     if (self) {
         _items = [[NSMutableArray alloc] init];
         _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
-        
+
         for (int i=0; i<kNumPlayers ; i++) {
             NJPlayer *player = [[NJPlayer alloc] init];
             [(NSMutableArray *)_players addObject:player];
@@ -132,13 +132,6 @@
                     [player.ninja pickupItemAtSamePosition:self.items];
                 }
             }
-            
-            if (player.itemUseRequested) {
-                if (player.item != nil) {
-                    [player.ninja useItem:player.item];
-                }
-                player.itemUseRequested = NO;
-            }
         }
     }
     
@@ -148,6 +141,7 @@
             [itemsToRemove addObject:item];
         }
     }
+    
     for (id item in itemsToRemove){
         [(NSMutableArray*)self.items removeObject:item];
     }

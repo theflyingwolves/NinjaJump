@@ -13,6 +13,9 @@
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJGraphicsUnitilities.h"
 
+#import "NJRange.h"
+#import "NJCircularRange.h"
+
 @implementation NJCharacter
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position
@@ -135,7 +138,7 @@
 }
 
 #pragma mark - Use Items
-- (void)useItem:(NJSpecialItem *)item
+- (void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles
 {
     
 }

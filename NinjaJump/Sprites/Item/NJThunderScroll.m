@@ -19,7 +19,8 @@
     return self;
 }
 
-- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction{
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction andWoodPiles:(NSArray *)piles
+{
     
 }
 

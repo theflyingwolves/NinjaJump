@@ -21,7 +21,6 @@ typedef enum : uint8_t {
     NJItemCount
 } NJItemType;
 
-
 @interface NJSpecialItem : SKSpriteNode{
 @protected NJItemType _itemType;
 }
@@ -38,6 +37,6 @@ typedef enum : uint8_t {
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
 // EFFECTS: Use the item at a position with a direction (which is the zRotation of the player)
-- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction;
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction andWoodPiles:(NSArray *)piles;
 
 @end

@@ -54,6 +54,7 @@
 @synthesize items = _items;
 @synthesize buttons = _buttons;
 @synthesize itemControls = _itemControls;
+
 - (instancetype)initWithSize:(CGSize)size
 {
     self = [super initWithSize:size];
@@ -164,6 +165,7 @@
 
 - (void)initCharacters
 {
+    _ninjas = [NSMutableArray array];
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
@@ -309,13 +311,20 @@
         }
     }
     
+    int count = 0;
+
     for (NJSpecialItem *item in _items) {
         for (NJPile *pile in _woodPiles) {
             NJRange *range = item.range;
+            if (range) {
+                NSLog(@"item detected");
+            }
             if (range && [range isPointWithinRange:pile.position]) {
+                NSLog(@"Testing (%f, %f) against origin: (%f, %f).\n",pile.position.x, pile.position.y,range.origin.x, range.origin.y);
                 if ([item isKindOfClass:[NJIceScroll class]]) {
                     pile.isIceScrollEnabled = YES;
                 }
+                count++;
             }
         }
     }
@@ -323,7 +332,8 @@
     for (NJPile *pile in _woodPiles) {
         if (pile.isIceScrollEnabled) {
             [pile.standingCharacter applyDamage:20];
-            NSLog(@"ice triggered");
+            pile.isIceScrollEnabled = NO;
+//            NSLog(@"ice triggered");
         }
     }
     
@@ -335,6 +345,15 @@
         [item updateWithTimeSinceLastUpdate:timeSinceLast];
     }
     
+    for (NJPlayer *player in self.players) {
+        if (player.itemUseRequested) {
+            if (player.item != nil) {
+                [player.ninja useItem:player.item withWoodPiles:_woodPiles];
+            }
+            player.itemUseRequested = NO;
+        }
+    }
+    
     for (NJHPBar *bar in _hpBars) {
         [bar updateHealthPoint];
     }
@@ -343,14 +362,6 @@
     if (toSpawnItem==1) {
         [self addItem];
     }
-    
-    int counter = 0;
-    for (NJPile *pile in _woodPiles) {
-        if (pile.standingCharacter) {
-            counter++;
-        }
-    }
-    NSLog(@"%d",counter);
 }
 
 #pragma mark - Event Handling
@@ -366,7 +377,7 @@
         button.player.targetLocation = pile.position;
         button.player.jumpRequested = YES;
         button.player.isJumping = YES;
-    }
+    } 
 }
 
 - (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
