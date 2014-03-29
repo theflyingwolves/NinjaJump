@@ -83,6 +83,7 @@
 		C9B8F2A018E05E8400FA877E /* light.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29B18E05E8400FA877E /* light.png */; };
 		C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29C18E05E8400FA877E /* loading bar.png */; };
 		C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29D18E05E8400FA877E /* loading bar2.png */; };
+		C9C34F2518E71D5B003B6979 /* NJResponsibleBG.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C34F2418E71D5B003B6979 /* NJResponsibleBG.m */; };
 		C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06F918E1CE7000C43E24 /* FireEffect.sks */; };
 		C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FA18E1CE7000C43E24 /* spark.png */; };
 		C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FE18E1D16F00C43E24 /* fireArc.png */; };
@@ -211,6 +212,8 @@
 		C9B8F29B18E05E8400FA877E /* light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = light.png; path = "Assets/loading scene/light.png"; sourceTree = "<group>"; };
 		C9B8F29C18E05E8400FA877E /* loading bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar.png"; path = "Assets/loading scene/loading bar.png"; sourceTree = "<group>"; };
 		C9B8F29D18E05E8400FA877E /* loading bar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar2.png"; path = "Assets/loading scene/loading bar2.png"; sourceTree = "<group>"; };
+		C9C34F2318E71D5B003B6979 /* NJResponsibleBG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJResponsibleBG.h; path = ../../../../backup/NJResponsibleBG.h; sourceTree = "<group>"; };
+		C9C34F2418E71D5B003B6979 /* NJResponsibleBG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJResponsibleBG.m; path = ../../../../backup/NJResponsibleBG.m; sourceTree = "<group>"; };
 		C9EC06F918E1CE7000C43E24 /* FireEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireEffect.sks; path = Particle/FireEffect.sks; sourceTree = "<group>"; };
 		C9EC06FA18E1CE7000C43E24 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Particle/spark.png; sourceTree = "<group>"; };
 		C9EC06FE18E1D16F00C43E24 /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/Particle/fireArc.png; sourceTree = "<group>"; };
@@ -348,6 +351,8 @@
 				2F8A72B218E449B300B88E79 /* NJItemControl.m */,
 				2FC5689E18E1BC9B00C6589D /* NJHPBar.h */,
 				2FC5689F18E1BC9B00C6589D /* NJHPBar.m */,
+				C9C34F2318E71D5B003B6979 /* NJResponsibleBG.h */,
+				C9C34F2418E71D5B003B6979 /* NJResponsibleBG.m */,
 			);
 			name = Control;
 			sourceTree = "<group>";
@@ -759,6 +764,7 @@
 				C9B8F29518E05B3B00FA877E /* NJSelectCharacterButton.m in Sources */,
 				2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */,
 				C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */,
+				C9C34F2518E71D5B003B6979 /* NJResponsibleBG.m in Sources */,
 				C42170D518E0687800942374 /* NJShuriken.m in Sources */,
 				2F94CD7E18D419F1007DAFAD /* main.m in Sources */,
 				2FC568AA18E1BCA900C6589D /* NJNinjaCharacterNormal.m in Sources */,

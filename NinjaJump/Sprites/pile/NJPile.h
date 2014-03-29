@@ -34,5 +34,6 @@ typedef enum : uint8_t {
 // EFFECTS: return the position of the pile afte a timeinterval
 - (CGPoint)positionAfterTimeinterval:(NSTimeInterval)interval;
 
+- (void)setSpeed:(float)aSpeed direction:(NJDirection)direction;
 
 @end

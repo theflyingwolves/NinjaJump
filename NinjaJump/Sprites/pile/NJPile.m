@@ -70,7 +70,14 @@
     return position;
 }
 
-
+- (void)setSpeed:(float)aSpeed direction:(NJDirection)direction
+{
+    if (direction == NJDiectionClockwise) {
+        self.angularSpeed = -aSpeed;
+    } else {
+        self.angularSpeed = aSpeed;
+    }
+}
 
 
 
