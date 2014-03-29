@@ -55,5 +55,11 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
+//- (void)popPausePanel{
+//    UIPopoverController *popover = [[UIPopoverController alloc]initWithContentViewController:self];
+//    popover.delegate = self;
+//    CGRect popoverRect = [self.view convertRect:[self.saveButton frame] fromView:[self.saveButton superview]];
+//    [self.popoverController presentPopoverFromRect:popoverRect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//}
 
 @end

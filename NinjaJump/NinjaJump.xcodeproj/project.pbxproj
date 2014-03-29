@@ -72,11 +72,16 @@
 		C931A94318E05EF7002FE154 /* touched button purple.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93C18E05EF7002FE154 /* touched button purple.png */; };
 		C931A94418E05EF7002FE154 /* touched button red.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93D18E05EF7002FE154 /* touched button red.png */; };
 		C931A94618E06358002FE154 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A94518E06358002FE154 /* logo.png */; };
+		C9911E4718E47F8F002E12DC /* NJResponsibleBG.m in Sources */ = {isa = PBXBuildFile; fileRef = C9911E4618E47F8F002E12DC /* NJResponsibleBG.m */; };
 		C9B8F29518E05B3B00FA877E /* NJSelectCharacterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B8F29218E05B3B00FA877E /* NJSelectCharacterButton.m */; };
 		C9B8F29618E05B3B00FA877E /* NJSelectionButtonSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B8F29418E05B3B00FA877E /* NJSelectionButtonSystem.m */; };
 		C9B8F2A018E05E8400FA877E /* light.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29B18E05E8400FA877E /* light.png */; };
 		C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29C18E05E8400FA877E /* loading bar.png */; };
 		C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29D18E05E8400FA877E /* loading bar2.png */; };
+		C9C34F1C18E69886003B6979 /* continue button.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C34F1918E69886003B6979 /* continue button.png */; };
+		C9C34F1D18E69886003B6979 /* pause scene.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C34F1A18E69886003B6979 /* pause scene.png */; };
+		C9C34F1E18E69886003B6979 /* restart button.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C34F1B18E69886003B6979 /* restart button.png */; };
+		C9C34F2218E69902003B6979 /* NJPausePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C34F2118E69902003B6979 /* NJPausePanel.m */; };
 		C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06F918E1CE7000C43E24 /* FireEffect.sks */; };
 		C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FA18E1CE7000C43E24 /* spark.png */; };
 		C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FE18E1D16F00C43E24 /* fireArc.png */; };
@@ -188,6 +193,8 @@
 		C931A93C18E05EF7002FE154 /* touched button purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button purple.png"; path = "Assets/selection scene/touched button purple.png"; sourceTree = "<group>"; };
 		C931A93D18E05EF7002FE154 /* touched button red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button red.png"; path = "Assets/selection scene/touched button red.png"; sourceTree = "<group>"; };
 		C931A94518E06358002FE154 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = "Assets/loading scene/logo.png"; sourceTree = "<group>"; };
+		C9911E4518E47F8F002E12DC /* NJResponsibleBG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJResponsibleBG.h; path = Sprites/Control/NJResponsibleBG.h; sourceTree = "<group>"; };
+		C9911E4618E47F8F002E12DC /* NJResponsibleBG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJResponsibleBG.m; path = Sprites/Control/NJResponsibleBG.m; sourceTree = "<group>"; };
 		C9B8F29118E05B3B00FA877E /* NJSelectCharacterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJSelectCharacterButton.h; path = Sprites/characterSelection/NJSelectCharacterButton.h; sourceTree = "<group>"; };
 		C9B8F29218E05B3B00FA877E /* NJSelectCharacterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJSelectCharacterButton.m; path = Sprites/characterSelection/NJSelectCharacterButton.m; sourceTree = "<group>"; };
 		C9B8F29318E05B3B00FA877E /* NJSelectionButtonSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJSelectionButtonSystem.h; path = Sprites/characterSelection/NJSelectionButtonSystem.h; sourceTree = "<group>"; };
@@ -195,6 +202,11 @@
 		C9B8F29B18E05E8400FA877E /* light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = light.png; path = "Assets/loading scene/light.png"; sourceTree = "<group>"; };
 		C9B8F29C18E05E8400FA877E /* loading bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar.png"; path = "Assets/loading scene/loading bar.png"; sourceTree = "<group>"; };
 		C9B8F29D18E05E8400FA877E /* loading bar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar2.png"; path = "Assets/loading scene/loading bar2.png"; sourceTree = "<group>"; };
+		C9C34F1918E69886003B6979 /* continue button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "continue button.png"; path = "Assets/Pause panel/continue button.png"; sourceTree = "<group>"; };
+		C9C34F1A18E69886003B6979 /* pause scene.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pause scene.png"; path = "Assets/Pause panel/pause scene.png"; sourceTree = "<group>"; };
+		C9C34F1B18E69886003B6979 /* restart button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "restart button.png"; path = "Assets/Pause panel/restart button.png"; sourceTree = "<group>"; };
+		C9C34F2018E69902003B6979 /* NJPausePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPausePanel.h; path = Sprites/PauseGame/NJPausePanel.h; sourceTree = "<group>"; };
+		C9C34F2118E69902003B6979 /* NJPausePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPausePanel.m; path = Sprites/PauseGame/NJPausePanel.m; sourceTree = "<group>"; };
 		C9EC06F918E1CE7000C43E24 /* FireEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireEffect.sks; path = Particle/FireEffect.sks; sourceTree = "<group>"; };
 		C9EC06FA18E1CE7000C43E24 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Particle/spark.png; sourceTree = "<group>"; };
 		C9EC06FE18E1D16F00C43E24 /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/Particle/fireArc.png; sourceTree = "<group>"; };
@@ -228,6 +240,7 @@
 		2B21F14518D43005007220CF /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				C9C34F1F18E698CA003B6979 /* PauseGame */,
 				C4F0820E18E4545C00F81C8C /* ItemEffect */,
 				C42170C018E066AE00942374 /* Item */,
 				C9B8F29018E05B1400FA877E /* playerSelection */,
@@ -257,6 +270,7 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C9C34F1818E69872003B6979 /* Pause panel */,
 				C9EC06FD18E1D12A00C43E24 /* Particle */,
 				2FC568C218E1BE5A00C6589D /* GameBoard */,
 				2FC568C118E1BE4300C6589D /* Items */,
@@ -310,6 +324,8 @@
 		2F63E13518E029BA00E9A17B /* Control */ = {
 			isa = PBXGroup;
 			children = (
+				C9911E4518E47F8F002E12DC /* NJResponsibleBG.h */,
+				C9911E4618E47F8F002E12DC /* NJResponsibleBG.m */,
 				2FC5689C18E1BC9B00C6589D /* NJButton.h */,
 				2FC5689D18E1BC9B00C6589D /* NJButton.m */,
 				2F8A72B118E449B300B88E79 /* NJItemControl.h */,
@@ -544,6 +560,25 @@
 			name = "selection scene";
 			sourceTree = "<group>";
 		};
+		C9C34F1818E69872003B6979 /* Pause panel */ = {
+			isa = PBXGroup;
+			children = (
+				C9C34F1918E69886003B6979 /* continue button.png */,
+				C9C34F1A18E69886003B6979 /* pause scene.png */,
+				C9C34F1B18E69886003B6979 /* restart button.png */,
+			);
+			name = "Pause panel";
+			sourceTree = "<group>";
+		};
+		C9C34F1F18E698CA003B6979 /* PauseGame */ = {
+			isa = PBXGroup;
+			children = (
+				C9C34F2018E69902003B6979 /* NJPausePanel.h */,
+				C9C34F2118E69902003B6979 /* NJPausePanel.m */,
+			);
+			name = PauseGame;
+			sourceTree = "<group>";
+		};
 		C9EC06F818E1CDFD00C43E24 /* Particle */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,11 +691,13 @@
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
 				2FC568BD18E1BE0900C6589D /* waterParkBG.png in Resources */,
 				2FC568C418E1BEC000C6589D /* ninja.png in Resources */,
+				C9C34F1D18E69886003B6979 /* pause scene.png in Resources */,
 				C931A94618E06358002FE154 /* logo.png in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 				C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */,
 				2FC568C818E1EBC000C6589D /* Ninja_Attack.atlas in Resources */,
 				2F8A72B718E44F0A00B88E79 /* itemControl.png in Resources */,
+				C9C34F1C18E69886003B6979 /* continue button.png in Resources */,
 				C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */,
 				C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */,
 				C931A94418E05EF7002FE154 /* touched button red.png in Resources */,
@@ -672,6 +709,7 @@
 				C41270F318E1D3AF00CAC44A /* windScroll.png in Resources */,
 				2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */,
 				C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */,
+				C9C34F1E18E69886003B6979 /* restart button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,9 +739,11 @@
 				2FC568A818E1BCA900C6589D /* NJCharacter.m in Sources */,
 				C42170E718E068E800942374 /* NJFireScroll.m in Sources */,
 				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
+				C9911E4718E47F8F002E12DC /* NJResponsibleBG.m in Sources */,
 				C42170C318E066F800942374 /* NJSpecialItem.m in Sources */,
 				2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */,
 				C42170C618E0672400942374 /* NJTool.m in Sources */,
+				C9C34F2218E69902003B6979 /* NJPausePanel.m in Sources */,
 				C4F0821418E4569E00F81C8C /* NJEffectShurikenMulti.m in Sources */,
 				2FC568AE18E1BCFF00C6589D /* NJGraphicsUnitilities.m in Sources */,
 				2F8A72B318E449B300B88E79 /* NJItemControl.m in Sources */,

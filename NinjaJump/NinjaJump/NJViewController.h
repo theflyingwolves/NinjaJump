@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NJViewController : UIViewController
+@interface NJViewController : UIViewController <UIPopoverControllerDelegate> 
 
 @end

@@ -17,6 +17,8 @@
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterNormal.h"
 #import "NJSelectionButtonSystem.h"
+#import "NJResponsibleBG.h"
+#import "NJPausePanel.h"
 
 #import "NJThunderScroll.h"
 #import "NJWindScroll.h"
@@ -37,7 +39,7 @@
 
 #define kNumOfFramesToSpawnItem 1000
 
-@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate>
+@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;
@@ -153,6 +155,7 @@
     [self addBackground];
     
     [self addWoodPiles];
+    [self addClickableArea];
 }
 
 - (void)addItem{
@@ -230,6 +233,7 @@
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addNode:background atWorldLayer:NJWorldLayerGround];
 }
+
 
 #pragma mark - Level Start
 - (void)startLevel {
@@ -371,7 +375,100 @@
     [NJNinjaCharacterNormal loadSharedAssets];
 }
 
-/**********Select Player Scene*************/
+
+#pragma makr - Pause Game
+
+
+- (void)addClickableArea
+{
+    NJResponsibleBG *clickableArea = [[NJResponsibleBG alloc] initWithImageNamed:kBackGroundFileName];
+    clickableArea.alpha = 0;
+    clickableArea.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addNode:clickableArea atWorldLayer:NJWorldLayerAboveCharacter];
+    clickableArea.delegate = self;
+}
+
+- (void)backgroundTouchesEnded:(NSSet *)touches{
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInNode:self];
+    if (touchPoint.x>120 && touchPoint.x<1024-120 && touchPoint.y>120 && touchPoint.y<768-120) {
+        [self pauseGame];
+    }
+}
+
+- (void)pauseGame
+{
+    [self pauseWoodpiles];
+    [self pauseItemUpdate];
+    NJPausePanel *pausePanel = [[NJPausePanel alloc]init];
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
+    pausePanel.position = center;
+    [self addChild:pausePanel];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
+}
+
+- (void)restartOrContinue:(NSNotification *)note
+{
+    NSUInteger actionIndex = [(NSNumber *)[note object]integerValue];
+    if (actionIndex == RESTART){
+        [self resetNinjas];
+        [self resetWoodPiles];
+        [self initSelectionSystem];
+    } else if(actionIndex == CONTINUE){
+        [self continueItemUpdate];
+        [self continueWoodpiles];
+    }
+}
+
+
+- (void)continueWoodpiles
+{
+    for (NJPile *pile in self.woodPiles) {
+        [pile setSpeed:3 direction:NJDiectionClockwise];
+    }
+}
+
+- (void)continueItemUpdate
+{
+    
+}
+
+- (void)pauseWoodpiles
+{
+    for (NJPile *pile in self.woodPiles) {
+        [pile setSpeed:3 direction:NJDiectionClockwise];
+    }
+}
+    
+
+- (void)pauseItemUpdate
+{
+    
+}
+
+- (void)resetWoodPiles
+{
+    for (int i=0; i<self.woodPiles.count; i++){
+        NJPile *pile = self.woodPiles[i];
+        pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pile.position withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
+    }
+}
+
+- (void)resetNinjas
+{
+    for (int index=0; index<4; index++) {
+        NJPlayer *player = self.players[index];
+        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
+        CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
+        ninja.position = spawnPosition;
+        [ninja setSpawnPoint:spawnPosition];
+    }
+}
+
+#pragma mark - Selection Scene
 - (void)initSelectionSystem{
     NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -419,8 +516,6 @@
     return -1;
 }
 
-- (void)inActivate{
-    
-}
+
 
 @end
