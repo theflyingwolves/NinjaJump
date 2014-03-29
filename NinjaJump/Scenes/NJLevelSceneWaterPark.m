@@ -55,8 +55,9 @@
     self = [super initWithSize:size];
     if (self) {
         [self initAllProperties];
-        [self initSelectionSystem];
         [self buildWorld];
+        [self initCharacters];
+        [self initSelectionSystem];
     }
     return self;
 }
@@ -66,8 +67,9 @@
     _ninjas = [[NSMutableArray alloc] init];
     _items = [[NSMutableArray alloc] init];
     _woodPiles = [[NSMutableArray alloc] init];
-    [self initButtonsAndItemControls];
-    [self initHpBars];
+    
+//    [self initButtonsAndItemControls];
+//    [self initHpBars];
 }
 
 - (void)initHpBars
@@ -163,6 +165,19 @@
     ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
 }
 
+- (void)initCharacters
+{
+    for (int index=0; index<4; index++) {
+        NJPlayer *player = self.players[index];
+        if (!player.isDisabled) {
+            NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
+            CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
+            ninja.position = spawnPosition;
+            [ninja setSpawnPoint:spawnPosition];
+        }
+    }
+}
+
 #pragma mark - World Building
 - (void)buildWorld {
     NSLog(@"Building the world");
@@ -244,8 +259,6 @@
         [self.woodPiles addObject:pile];
     }
 }
-
-
 
 - (void)addBackground
 {
@@ -427,8 +440,10 @@
         }
     }
     
-//    [self initHpBars];
-//    [self initButtonsAndItemControls];
+    [self initHpBars];
+    [self initButtonsAndItemControls];
+    [self initCharacters];
+//    [self startLevel];
 }
 
 - (int)convertIndex:(int)index{
