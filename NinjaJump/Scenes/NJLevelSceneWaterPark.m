@@ -310,30 +310,17 @@
             [pile removeStandingCharacter];
         }
     }
-    
-    int count = 0;
 
-    for (NJSpecialItem *item in _items) {
-        for (NJPile *pile in _woodPiles) {
-            NJRange *range = item.range;
-            if (range) {
-                NSLog(@"item detected");
-            }
-            if (range && [range isPointWithinRange:pile.position]) {
-                NSLog(@"Testing (%f, %f) against origin: (%f, %f).\n",pile.position.x, pile.position.y,range.origin.x, range.origin.y);
-                if ([item isKindOfClass:[NJIceScroll class]]) {
-                    pile.isIceScrollEnabled = YES;
-                }
-                count++;
-            }
-        }
-    }
     
     for (NJPile *pile in _woodPiles) {
         if (pile.isIceScrollEnabled) {
             [pile.standingCharacter applyDamage:20];
             pile.isIceScrollEnabled = NO;
-//            NSLog(@"ice triggered");
+        }
+        
+        if (pile.isThunderScrollEnabled) {
+            [pile.standingCharacter applyDamage:20];
+            pile.isThunderScrollEnabled = NO;
         }
     }
     

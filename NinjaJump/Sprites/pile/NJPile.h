@@ -26,6 +26,7 @@ typedef enum : uint8_t {
 @property NJPath *path; //contains position and path
 @property NJCharacter *standingCharacter;
 @property BOOL isIceScrollEnabled;
+@property BOOL isThunderScrollEnabled;
 
 /* Preload texture */
 //+(void)loadSharedAssets;
