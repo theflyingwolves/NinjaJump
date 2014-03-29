@@ -491,7 +491,7 @@
 - (void)pauseWoodpiles
 {
     for (NJPile *pile in self.woodPiles) {
-        [pile setSpeed:3 direction:NJDiectionClockwise];
+        [pile setSpeed:0 direction:NJDiectionClockwise];
     }
 }
 
@@ -503,9 +503,8 @@
 
 - (void)resetWoodPiles
 {
-    for (int i=0; i<self.woodPiles.count; i++){
-        NJPile *pile = self.woodPiles[i];
-        pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pile.position withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
+    for (NJPile *pile in self.woodPiles) {
+        [pile setSpeed:3 direction:NJDiectionClockwise];
     }
 }
 
