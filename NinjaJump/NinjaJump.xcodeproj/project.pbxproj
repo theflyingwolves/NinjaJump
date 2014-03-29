@@ -84,6 +84,7 @@
 		C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29C18E05E8400FA877E /* loading bar.png */; };
 		C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29D18E05E8400FA877E /* loading bar2.png */; };
 		C9C34F2518E71D5B003B6979 /* NJResponsibleBG.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C34F2418E71D5B003B6979 /* NJResponsibleBG.m */; };
+		C9C34F2918E71FEF003B6979 /* NJPausePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C34F2818E71FEF003B6979 /* NJPausePanel.m */; };
 		C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06F918E1CE7000C43E24 /* FireEffect.sks */; };
 		C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FA18E1CE7000C43E24 /* spark.png */; };
 		C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FE18E1D16F00C43E24 /* fireArc.png */; };
@@ -214,6 +215,8 @@
 		C9B8F29D18E05E8400FA877E /* loading bar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar2.png"; path = "Assets/loading scene/loading bar2.png"; sourceTree = "<group>"; };
 		C9C34F2318E71D5B003B6979 /* NJResponsibleBG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJResponsibleBG.h; path = ../../../../backup/NJResponsibleBG.h; sourceTree = "<group>"; };
 		C9C34F2418E71D5B003B6979 /* NJResponsibleBG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJResponsibleBG.m; path = ../../../../backup/NJResponsibleBG.m; sourceTree = "<group>"; };
+		C9C34F2718E71FEF003B6979 /* NJPausePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPausePanel.h; path = ../../../../backup/PauseGame/NJPausePanel.h; sourceTree = "<group>"; };
+		C9C34F2818E71FEF003B6979 /* NJPausePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPausePanel.m; path = ../../../../backup/PauseGame/NJPausePanel.m; sourceTree = "<group>"; };
 		C9EC06F918E1CE7000C43E24 /* FireEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireEffect.sks; path = Particle/FireEffect.sks; sourceTree = "<group>"; };
 		C9EC06FA18E1CE7000C43E24 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Particle/spark.png; sourceTree = "<group>"; };
 		C9EC06FE18E1D16F00C43E24 /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/Particle/fireArc.png; sourceTree = "<group>"; };
@@ -247,6 +250,7 @@
 		2B21F14518D43005007220CF /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				C9C34F2618E71F97003B6979 /* PauseGame */,
 				C4F0820E18E4545C00F81C8C /* ItemEffect */,
 				C42170C018E066AE00942374 /* Item */,
 				C9B8F29018E05B1400FA877E /* playerSelection */,
@@ -591,6 +595,15 @@
 			name = "selection scene";
 			sourceTree = "<group>";
 		};
+		C9C34F2618E71F97003B6979 /* PauseGame */ = {
+			isa = PBXGroup;
+			children = (
+				C9C34F2718E71FEF003B6979 /* NJPausePanel.h */,
+				C9C34F2818E71FEF003B6979 /* NJPausePanel.m */,
+			);
+			name = PauseGame;
+			sourceTree = "<group>";
+		};
 		C9EC06F818E1CDFD00C43E24 /* Particle */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +779,7 @@
 				C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */,
 				C9C34F2518E71D5B003B6979 /* NJResponsibleBG.m in Sources */,
 				C42170D518E0687800942374 /* NJShuriken.m in Sources */,
+				C9C34F2918E71FEF003B6979 /* NJPausePanel.m in Sources */,
 				2F94CD7E18D419F1007DAFAD /* main.m in Sources */,
 				2FC568AA18E1BCA900C6589D /* NJNinjaCharacterNormal.m in Sources */,
 				C42170D818E0689100942374 /* NJMedikit.m in Sources */,

@@ -57,7 +57,7 @@
     ((SKSpriteNode *)spotLightList[2]).yScale = -1;
     ((SKSpriteNode *)spotLightList[3]).position = CGPointMake(screenHeight/2-r, screenWidth/2-r);
     
-    NSLog(@"%lu",spotLightList.count);
+    //NSLog(@"%lu",spotLightList.count);
     for (int i=0; i<spotLightList.count; i++) {
         [self addChild:spotLightList[i]];
     }
@@ -87,7 +87,6 @@
         NJSelectCharacterButton *button = selectionButtons[i];
         SKSpriteNode *spotLight = spotLightList[i];
         if (CGPathContainsPoint(path, &CGAffineTransformIdentity, touchPoint, YES)) {
-            NSLog(@"%d",i);
             button.hidden = !button.hidden;
             spotLight.hidden = !spotLight.hidden;
             isReacted = YES;
