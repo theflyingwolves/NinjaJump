@@ -18,6 +18,7 @@
 #import "NJNinjaCharacterNormal.h"
 #import "NJSelectionButtonSystem.h"
 
+#import "NJScroll.h"
 #import "NJThunderScroll.h"
 #import "NJWindScroll.h"
 #import "NJIceScroll.h"
@@ -35,9 +36,10 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 1000
+#define kNumOfFramesToSpawnItem 100
 
 @interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate>
+
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;
@@ -72,18 +74,19 @@
     for (int i=0; i < kNumPlayers; i++) {
         CGPoint position;
         float size = 250;
+        float offset = 10;
         switch (i) {
             case 0:
-                position = CGPointMake(size / 2, size / 2);
+                position = CGPointMake(size / 2 + offset, size / 2 + offset);
                 break;
             case 1:
-                position = CGPointMake(self.frame.size.width - size / 2, size / 2);
+                position = CGPointMake(self.frame.size.width - size / 2 - offset, size / 2+offset);
                 break;
             case 2:
-                position = CGPointMake(self.frame.size.width - size / 2, self.frame.size.height - size / 2);
+                position = CGPointMake(self.frame.size.width - size / 2 - offset, self.frame.size.height - size / 2 - offset);
                 break;
             case 3:
-                position = CGPointMake(size / 2, self.frame.size.height - size / 2);
+                position = CGPointMake(size / 2 + offset, self.frame.size.height - size / 2 - offset);
                 break;
             default:
                 break;
@@ -115,7 +118,7 @@
         }
     }
     
-    double xDiff = 35, yDiff=80;
+    double xDiff = 40, yDiff=90;
     
     ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
     ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
@@ -280,10 +283,14 @@
     for (NJNinjaCharacter *ninja in self.ninjas) {
         [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
     }
+    
     for (NJPile *pile in _woodPiles) {
         [pile updateWithTimeSinceLastUpdate:timeSinceLast];
+        BOOL added = NO;
         for (NJNinjaCharacter *ninja in _ninjas) {
             if (CGPointEqualToPoint(ninja.position, pile.position)) {
+                [pile addCharacterToPile:ninja];
+                added = YES;
                 ninja.zRotation += pile.angleRotatedSinceLastUpdate;
                 if (pile.rotateDirection == NJDirectionCounterClockwise) {
                     while (ninja.zRotation>=2*M_PI) {
@@ -296,7 +303,30 @@
                 }
             }
         }
+        
+        if (!added && pile.standingCharacter) {
+            [pile removeStandingCharacter];
+        }
     }
+    
+    for (NJSpecialItem *item in _items) {
+        for (NJPile *pile in _woodPiles) {
+            NJRange *range = item.range;
+            if (range && [range isPointWithinRange:pile.position]) {
+                if ([item isKindOfClass:[NJIceScroll class]]) {
+                    pile.isIceScrollEnabled = YES;
+                }
+            }
+        }
+    }
+    
+    for (NJPile *pile in _woodPiles) {
+        if (pile.isIceScrollEnabled) {
+            [pile.standingCharacter applyDamage:20];
+            NSLog(@"ice triggered");
+        }
+    }
+    
     for (NJItemControl *control in _itemControls) {
         [control updateWithTimeSinceLastUpdate:timeSinceLast];
     }
@@ -313,6 +343,14 @@
     if (toSpawnItem==1) {
         [self addItem];
     }
+    
+    int counter = 0;
+    for (NJPile *pile in _woodPiles) {
+        if (pile.standingCharacter) {
+            counter++;
+        }
+    }
+    NSLog(@"%d",counter);
 }
 
 #pragma mark - Event Handling
@@ -398,7 +436,7 @@
     [NJNinjaCharacterNormal loadSharedAssets];
 }
 
-/**********Select Player Scene*************/
+#pragma mark - Player Selection Scene
 - (void)initSelectionSystem{
     NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -419,7 +457,6 @@
         [fullIndices removeObject:index];
     }
     for (NSNumber *index in fullIndices){ //inactivate unselected players
-        NSLog(@"activated %d",[index intValue]);
         int convertedIndex = [self convertIndex:[index intValue]];
         ((NJPlayer *)self.players[convertedIndex]).isDisabled = YES;
     }
@@ -460,5 +497,7 @@
 - (void)inActivate{
     
 }
+
+#pragma mark - Delegate Methods
 
 @end

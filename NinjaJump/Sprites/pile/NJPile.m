@@ -67,8 +67,14 @@
     return position;
 }
 
+- (void)addCharacterToPile:(NJCharacter *)character
+{
+    self.standingCharacter = character;
+}
 
-
-
+- (void)removeStandingCharacter
+{
+    self.standingCharacter = nil;
+}
 
 @end

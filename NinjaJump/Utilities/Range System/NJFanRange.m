@@ -9,5 +9,4 @@
 #import "NJFanRange.h"
 
 @implementation NJFanRange
-
 @end

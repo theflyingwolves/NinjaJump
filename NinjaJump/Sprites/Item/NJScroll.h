@@ -7,7 +7,8 @@
 //
 
 #import "NJSpecialItem.h"
+@class NJRange;
 
 @interface NJScroll : NJSpecialItem
-
+@property BOOL isUsed;
 @end
