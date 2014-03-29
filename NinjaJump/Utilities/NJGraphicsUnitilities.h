@@ -17,4 +17,6 @@
 + (NSArray *)NJLoadFramesFromAtlas:(NSString *)atlasName withBaseName:(NSString *)baseName andNumOfFrames:(int)numOfFrames;
 CGFloat NJRadiansBetweenPoints(CGPoint first, CGPoint second);
 CGFloat NJDistanceBetweenPoints(CGPoint first, CGPoint second);
+CGPoint PositionAfterMovement(CGPoint from, CGFloat radians, CGFloat distance);
+CGVector vectorForMovement(CGFloat radians, CGFloat distance);
 @end

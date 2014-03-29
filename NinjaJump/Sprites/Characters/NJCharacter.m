@@ -23,6 +23,7 @@
         self.movementSpeed = 800;
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
+        self.origTexture = [SKTexture textureWithImageNamed:textureName];
     }
     
     return self;
@@ -30,6 +31,7 @@
 
 - (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval
 {
+    [self prepareForJump];
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
     CGPoint curPosition = self.position;
@@ -48,6 +50,15 @@
     }
 }
 
+- (void)prepareForJump
+{
+    if (!self.texture) {
+        NSLog(@"no texture");
+        self.texture = self.origTexture;
+    }
+    [self removeActionForKey:@"anim_attack"];
+}
+
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
 {
     if (self.isAnimated) {
@@ -58,7 +69,11 @@
 #pragma mark - Attack
 - (void)attackCharacter:(NJCharacter *)character
 {
+    if (character.health <= 0) {
+        return ; // to prevent the attack animation to be wrongly performed
+    }
     [character applyDamage:20];
+    self.requestedAnimation = NJAnimationStateAttack;
 }
 
 #pragma mark - Death
@@ -68,6 +83,7 @@
     self.dying = YES;
     self.requestedAnimation = NJAnimationStateDeath;
     self.alpha = 0;
+    [self removeFromParent];
 }
 
 #pragma mark - Damage
@@ -101,6 +117,9 @@
 // EFFECTS:  a given amount of recover to the character.
 -(void)recover:(CGFloat)amount{
     [self applyDamage:(0-amount)];
+    if (self.health > FULL_HP) {
+        self.health = FULL_HP;
+    }
 }
 
 #pragma mark - Resets
@@ -113,6 +132,12 @@
     [self addChild:spawnEffect];
     SKAction *blink = [SKAction sequence:@[[SKAction fadeAlphaTo:0 duration:0.25],[SKAction fadeAlphaTo:0.4 duration:0.25]]];
     [spawnEffect runAction:[SKAction sequence:@[[SKAction repeatAction:blink count:4],[SKAction removeFromParent]]]];
+}
+
+#pragma mark - Use Items
+- (void)useItem:(NJSpecialItem *)item
+{
+    
 }
 
 #pragma mark - Animation
@@ -131,11 +156,19 @@
             animationKey = @"anim_death";
             animationFrames = [self deathAnimationFrames];
             break;
+        case NJAnimationStateAttack:
+            animationKey = @"anim_attack";
+            animationFrames = [self attackAnimationFrames];
+            break;
         default:
             break;
     }
     
     if (animationKey) {
+        if (animationState == NJAnimationStateAttack) {
+            [self removeActionForKey:@"anim_jump"];
+        }
+        
         [self fireAnimationForState:animationState usingTextures:animationFrames withKey:animationKey];
     }
 }
@@ -159,6 +192,9 @@
 {
     self.animated = NO;
     self.activeAnimationKey = nil;
+    if (animationState == NJAnimationStateAttack) {
+        [self removeActionForKey:@"anim_attack"];
+    }
 }
 
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene
@@ -175,19 +211,25 @@
 #pragma mark - Abstract Methods
 - (NSArray *)jumpAnimationFrames
 {
-    // To Be Implemented by subclasses
+    // overridden by subclasses
     return nil;
 }
 
 - (NSArray *)deathAnimationFrames
 {
-    // To Be Implemented by subclasses
+    // overridden by subclasses
+    return nil;
+}
+
+- (NSArray *)attackAnimationFrames
+{
+    // overridden by subclasses
     return nil;
 }
 
 - (SKAction *)damageAction
 {
-    // To Be Implemented by subclasses
+    // overridden by subclasses
     return nil;
 }
 @end

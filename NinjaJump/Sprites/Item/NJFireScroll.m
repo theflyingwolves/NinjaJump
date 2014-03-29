@@ -19,4 +19,8 @@
     return self;
 }
 
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction{
+    
+}
+
 @end

@@ -11,6 +11,7 @@
 #import "NJPile.h"
 #import "NJPath.h"
 #import "NJButton.h"
+#import "NJItemControl.h"
 #import "NJHPBar.h"
 #import "NJPlayer.h"
 #import "NJGraphicsUnitilities.h"
@@ -34,13 +35,14 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 300;
+#define kNumOfFramesToSpawnItem 1000
 
-@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate>
+@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;
 @property (nonatomic) NSMutableArray *buttons;
+@property (nonatomic) NSMutableArray *itemControls;
 @property (nonatomic) NSMutableArray *hpBars;
 @end
 
@@ -52,73 +54,113 @@
 {
     self = [super initWithSize:size];
     if (self) {
-        _ninjas = [[NSMutableArray alloc] init];
-        _items = [[NSMutableArray alloc] init];
-        _woodPiles = [[NSMutableArray alloc] init];
-        _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
-        _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
-        
-        for (int i=0; i < kNumPlayers; i++) {
-            CGPoint position;
-            float size = 250;
-            switch (i) {
-                case 0:
-                    position = CGPointMake(size / 2, size / 2);
-                    break;
-                case 1:
-                    position = CGPointMake(self.frame.size.width - size / 2, size / 2);
-                    break;
-                case 2:
-                    position = CGPointMake(self.frame.size.width - size / 2, self.frame.size.height - size / 2);
-                    break;
-                case 3:
-                    position = CGPointMake(size / 2, self.frame.size.height - size / 2);
-                    break;
-                default:
-                    break;
-            }
-            
-            NSLog(@"%f, %f",self.frame.size.width, self.frame.size.height);
-            
-            NJHPBar *bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
-            float angle = i * M_PI / 2 - M_PI / 2;
-            bar.zRotation = angle;
-            [_hpBars addObject:bar];
-            [self addChild:bar];
-        }
-
-        for (int i = 0; i < kNumPlayers; i++) {
-            NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
-            button.delegate = self;
-            button.player = self.players[i];
-            [_buttons addObject:button];
-            [self addChild:button];
-        }
-        
-        ((NJButton*)_buttons[0]).position = CGPointMake(50, 50);
-        ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
-        ((NJButton*)_buttons[0]).color = [SKColor blackColor];
-        ((NJButton*)_buttons[0]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[0]).player.color = [SKColor blackColor];
-        ((NJButton*)_buttons[1]).position = CGPointMake(974, 50);
-        ((NJButton*)_buttons[1]).zRotation = M_PI/4;
-        ((NJButton*)_buttons[1]).color = [SKColor blueColor];
-        ((NJButton*)_buttons[1]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
-        ((NJButton*)_buttons[2]).position = CGPointMake(974, 718);
-        ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
-        ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
-        ((NJButton*)_buttons[2]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
-        ((NJButton*)_buttons[3]).position = CGPointMake(50, 718);
-        ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
-        ((NJButton*)_buttons[3]).color = [SKColor redColor];
-        ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[3]).player.color = [SKColor redColor];
+        [self initAllProperties];
         [self initSelectionSystem];
         [self buildWorld];
     }
     return self;
+}
+
+- (void)initAllProperties
+{
+    _ninjas = [[NSMutableArray alloc] init];
+    _items = [[NSMutableArray alloc] init];
+    _woodPiles = [[NSMutableArray alloc] init];
+    [self initButtonsAndItemControls];
+    [self initHpBars];
+}
+
+- (void)initHpBars
+{
+    _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
+    for (int i=0; i < kNumPlayers; i++) {
+        CGPoint position;
+        float size = 250;
+        switch (i) {
+            case 0:
+                position = CGPointMake(size / 2, size / 2);
+                break;
+            case 1:
+                position = CGPointMake(self.frame.size.width - size / 2, size / 2);
+                break;
+            case 2:
+                position = CGPointMake(self.frame.size.width - size / 2, self.frame.size.height - size / 2);
+                break;
+            case 3:
+                position = CGPointMake(size / 2, self.frame.size.height - size / 2);
+                break;
+            default:
+                break;
+        }
+        
+        NJHPBar *bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
+        float angle = i * M_PI / 2 - M_PI / 2;
+        bar.zRotation = angle;
+        [_hpBars addObject:bar];
+        NJPlayer *player = self.players[i];
+        if (!player.isDisabled) {
+            [self addChild:bar];
+        }
+    }
+}
+
+- (void)initButtonsAndItemControls
+{
+    _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
+    _itemControls = [NSMutableArray arrayWithCapacity:kNumPlayers];
+    for (int i = 0; i < kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
+        button.delegate = self;
+        button.player = self.players[i];
+        [_buttons addObject:button];
+        if (!player.isDisabled) {
+            [self addChild:button];
+        }
+    }
+    
+    double xDiff = 35, yDiff=80;
+    
+    ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
+    ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
+    ((NJButton*)_buttons[0]).color = [SKColor blackColor];
+    ((NJButton*)_buttons[0]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[0]).player.color = [SKColor blackColor];
+    ((NJButton*)_buttons[1]).position = CGPointMake(1024-yDiff, xDiff);
+    ((NJButton*)_buttons[1]).zRotation = M_PI/4;
+    ((NJButton*)_buttons[1]).color = [SKColor blueColor];
+    ((NJButton*)_buttons[1]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
+    ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
+    ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
+    ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
+    ((NJButton*)_buttons[2]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
+    ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
+    ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
+    ((NJButton*)_buttons[3]).color = [SKColor redColor];
+    ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[3]).player.color = [SKColor redColor];
+    
+    for (int i=0; i<kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        NJItemControl *control = [[NJItemControl alloc] initWithImageNamed:@"itemControl"];
+        control.delegate = self;
+        control.player = self.players[i];
+        [_itemControls addObject:control];
+        if (!player.isDisabled) {
+            [self addChild:control];
+        }
+    }
+    
+    ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
+    ((NJItemControl *)_itemControls[0]).zRotation = -M_PI / 4;
+    ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
+    ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
+    ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
+    ((NJItemControl *)_itemControls[2]).zRotation = -3*M_PI / 4;
+    ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
+    ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
 }
 
 #pragma mark - World Building
@@ -130,14 +172,13 @@
     self.physicsWorld.contactDelegate = self;
     
     [self addBackground];
-    
     [self addWoodPiles];
 }
 
 - (void)addItem{
     CGPoint position = [self spawnAtRandomPosition];
     
-    if (![self hasItemOnPosition:position]) {
+    if ([self.items count] < 3) {
         int index = arc4random() % NJItemCount;
         NJSpecialItem *item;
         
@@ -161,7 +202,7 @@
             case NJItemMedikit:
                 item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
                 break;
-                
+            
                 //        case NJItemMine:
                 //            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
                 //            break;
@@ -174,8 +215,11 @@
                 break;
         }
         
-        [self addNode:item atWorldLayer:NJWorldLayerCharacter];
-        [_items addObject:item];
+        if (item != nil) {
+            item.myParent = self;
+            [self addNode:item atWorldLayer:NJWorldLayerCharacter];
+            [_items addObject:item];
+        }
     }
 }
 
@@ -190,53 +234,17 @@
 
 - (void)addWoodPiles
 {
-    //add in the spawn pile of ninjas
     CGFloat r= 120.0f;
-    NJPile *pile11 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile11 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile11];
-    NJPile *pile12 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile12 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile12];
-    NJPile *pile13 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(1024-r, 768-r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile13 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile13];
-    NJPile *pile14 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(r, 768-r) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile14 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile14];
-    
-    //hard coded 10 piles for now
-    NJPile *pile1 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(512, 580) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile1 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile1];
-    NJPile *pile2 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(250, 250) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile2 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile2];
-    NJPile *pile3 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(350, 100) withSpeed:0 angularSpeed:3 direction:NJDirectionCounterClockwise path:nil];
-    [self addNode:pile3 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile3];
-    NJPile *pile4 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(650, 350) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile4 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile4];
-    NJPile *pile5 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(850, 400) withSpeed:0 angularSpeed:3 direction:NJDirectionCounterClockwise path:nil];
-    [self addNode:pile5 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile5];
-    NJPile *pile6 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(100, 300) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile6 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile6];
-    NJPile *pile7 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(250, 500) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile7 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile7];
-    NJPile *pile8 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(550, 400) withSpeed:0 angularSpeed:3 direction:NJDirectionCounterClockwise path:nil];
-    [self addNode:pile8 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile8];
-    NJPile *pile9 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(700, 600) withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
-    [self addNode:pile9 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile9];
-    NJPile *pile10 = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:CGPointMake(750, 150) withSpeed:0 angularSpeed:3 direction:NJDirectionCounterClockwise path:nil];
-    [self addNode:pile10 atWorldLayer:NJWorldLayerBelowCharacter];
-    [self.woodPiles addObject:pile10];
+    NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 580)], [NSValue valueWithCGPoint:CGPointMake(250, 250)], [NSValue valueWithCGPoint:CGPointMake(350, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(100, 300)], [NSValue valueWithCGPoint:CGPointMake(250, 500)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 600)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
+    //add in the spawn pile of ninjas
+    for (NSValue *posValue in pilePos){
+        CGPoint pos = [posValue CGPointValue];
+        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pos withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
+        [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
+        [self.woodPiles addObject:pile];
+    }
 }
+
 
 
 - (void)addBackground
@@ -254,6 +262,13 @@
         CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
         ninja.position = spawnPosition;
         [ninja setSpawnPoint:spawnPosition];
+        
+//        if (index ==1) {
+//            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
+//            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
+//            //smokeTrail.position = CGPointMake(screenWidth/2, 15);
+//            [ninja addChild:smokeTrail];
+//        }
     }
 }
 
@@ -282,6 +297,10 @@
         }
     }
     
+    for (NJSpecialItem *item in self.items){
+        [item updateWithTimeSinceLastUpdate:timeSinceLast];
+    }
+    
     for (NJHPBar *bar in _hpBars) {
         [bar updateHealthPoint];
     }
@@ -306,6 +325,16 @@
         button.player.jumpRequested = YES;
         button.player.isJumping = YES;
     }
+}
+
+- (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
+{
+    NSArray *ninjas = self.ninjas;
+    if ([ninjas count]<1) {
+        return ;
+    }
+    // Use Item
+    control.player.itemUseRequested = YES;
 }
 
 - (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja
@@ -345,6 +374,11 @@
                 isFree = NO;
             }
         }
+        for (NJSpecialItem *item in self.items){
+            if (CGPointEqualToPoint(pile.position, item.position)) {
+                isFree = NO;
+            }
+        }
         if (isFree) {
             [array addObject:pile];
         }
@@ -368,6 +402,57 @@
     CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
     selectionSystem.position = center;
     [self addChild:selectionSystem];
+    
+    //add notification to actived players Index
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(activateSelectedPlayers:) name:@"activatedPlayerIndex" object:nil];
+}
+
+- (void) activateSelectedPlayers:(NSNotification *)note{
+    NSArray *activePlayerIndices = [note object];
+    NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
+    for (NSNumber *index in activePlayerIndices) {
+        [fullIndices removeObject:index];
+    }
+    for (NSNumber *index in fullIndices){ //inactivate unselected players
+        NSLog(@"activated %d",[index intValue]);
+        int convertedIndex = [self convertIndex:[index intValue]];
+        ((NJPlayer *)self.players[convertedIndex]).isDisabled = YES;
+    }
+    
+    for (int i=0; i<kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        if(player.isDisabled){
+            [player.ninja removeFromParent];
+        }
+    }
+    
+//    [self initHpBars];
+//    [self initButtonsAndItemControls];
+}
+
+- (int)convertIndex:(int)index{
+    switch (index) {
+        case 0:
+            return 3;
+            break;
+        case 1:
+            return 0;
+            break;
+        case 2:
+            return 1;
+            break;
+        case 3:
+            return 2;
+        default:
+            break;
+    }
+    [NSException raise:@"invalid index" format:@""];
+    return -1;
+}
+
+- (void)inActivate{
+    
 }
 
 @end

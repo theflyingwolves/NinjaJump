@@ -15,6 +15,8 @@
 @property (nonatomic) NJNinjaCharacter *ninja;
 @property (nonatomic) SKColor *color;
 
+@property (nonatomic) BOOL isDisabled;
+
 @property (nonatomic) CGPoint spawnPoint;
 @property (nonatomic) BOOL fireAction;
 
@@ -25,5 +27,7 @@
 @property (nonatomic) BOOL jumpRequested;               // used to track whether a move was requested
 
 @property (nonatomic) NJSpecialItem *item;
+
+@property (nonatomic) BOOL itemUseRequested;
 
 @end

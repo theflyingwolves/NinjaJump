@@ -5,7 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>39684EF3-09F3-447B-B5DB-4EF2FAE578E4</string>
+<<<<<<< HEAD
+	<string>F5C00E42-7686-4CCE-A889-05647FFA000C</string>
+=======
+	<string>E08D24AB-6445-4E17-BC13-95BA19D97F01</string>
+>>>>>>> 84586944b3403a93b0001211af0db8e335f54c17
 	<key>IDESourceControlProjectName</key>
 	<string>NinjaJump</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>

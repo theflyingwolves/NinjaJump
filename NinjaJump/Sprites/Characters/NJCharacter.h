@@ -36,7 +36,7 @@ typedef enum : uint8_t {
 @property (nonatomic) NJAnimationState requestedAnimation;
 
 @property (nonatomic) NSUInteger tag;
-
+@property (nonatomic) SKTexture *origTexture;
 +(void)loadSharedAssets;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position;
@@ -78,7 +78,7 @@ typedef enum : uint8_t {
 - (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval;
 // EFFECTS: Only handle the animation of using the given item
 
-//-(void)useItem:(NJSpecialItem *)item;
+-(void)useItem:(NJSpecialItem *)item;
 
 // EFFECTS: Update the next-frame renderring of the character
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval;
@@ -88,6 +88,8 @@ typedef enum : uint8_t {
 
 // EFFECTS: load animation frames for death animation
 - (NSArray *)deathAnimationFrames;
+
+- (NSArray *)attackAnimationFrames;
 
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
 

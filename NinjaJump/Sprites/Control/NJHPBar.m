@@ -66,8 +66,14 @@
 - (void)updateHealthPoint
 {
     float newHp = self.player.ninja.health;
+    if (newHp < 0) {
+        return;
+    }else if(newHp > FULL_HP){
+        newHp = FULL_HP;
+    }
+
     float ratio = newHp / FULL_HP;
-    self.maskNode.yScale = ratio * 0.8;
+    [self.maskNode runAction:[SKAction rotateToAngle:M_PI/2*(1-ratio) duration:1]];
     self.healthPoint = newHp;
 }
 
