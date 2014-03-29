@@ -19,4 +19,7 @@ CGFloat NJRadiansBetweenPoints(CGPoint first, CGPoint second);
 CGFloat NJDistanceBetweenPoints(CGPoint first, CGPoint second);
 CGPoint PositionAfterMovement(CGPoint from, CGFloat radians, CGFloat distance);
 CGVector vectorForMovement(CGFloat radians, CGFloat distance);
+CGFloat normalizeZRotation(CGFloat zRotation);
+bool CGPointEqualToPointApprox(CGPoint point1, CGPoint point2);
+CGPoint CGPointApprox(CGPoint point);
 @end

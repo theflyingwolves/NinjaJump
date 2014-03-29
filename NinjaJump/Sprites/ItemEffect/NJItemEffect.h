@@ -9,9 +9,16 @@
 #import <SpriteKit/SpriteKit.h>
 #import "NJMultiplayerLayeredCharacterScene.h"
 
-@interface NJItemEffect : SKSpriteNode
+@interface NJItemEffect : SKSpriteNode{
+@protected NSInteger _damage;
+}
+
+@property (readonly) NSInteger damage;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position onScene:(NJMultiplayerLayeredCharacterScene*)scene;
 
+
+//methods to be overriden
+- (void)configurePhysicsBody;
 
 @end

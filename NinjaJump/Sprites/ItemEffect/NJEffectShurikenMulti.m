@@ -12,6 +12,7 @@
 #define kShurikenEffectFileName @"shurikenEffect.png"
 #define kShurikenSpeed 800
 #define kShurikenMaxDistance 1500
+#define kShurikenMultiDamage 20
 
 @implementation NJEffectShurikenMulti
 
@@ -21,10 +22,24 @@
         _direction = direction;
         CGVector movement = vectorForMovement(direction, kShurikenMaxDistance);
         [self runAction:[SKAction moveByX:movement.dx y:movement.dy duration:kShurikenMaxDistance/kShurikenSpeed] completion:^{[self removeFromParent];}];
-//        [scene addNode:self atWorldLayer:NJWorldLayerCharacter];
+        _damage = kShurikenMultiDamage;
     }
     return self;
 }
 
+
+#pragma mark - Overridden Methods
+- (void)configurePhysicsBody {
+    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];
+    
+    // Our object type for collisions.
+    self.physicsBody.categoryBitMask = NJColliderTypeItemEffect;
+    
+    // Collides with these objects.
+    self.physicsBody.collisionBitMask = NJColliderTypeCharacter;
+    
+    // We want notifications for colliding with these objects.
+    self.physicsBody.contactTestBitMask = NJColliderTypeCharacter;
+}
 
 @end
