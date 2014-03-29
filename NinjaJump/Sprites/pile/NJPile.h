@@ -40,6 +40,7 @@ typedef enum : uint8_t {
 - (CGPoint)positionAfterTimeinterval:(NSTimeInterval)interval;
 
 - (void)addCharacterToPile:(NJCharacter *)character;
+- (void)setSpeed:(float)aSpeed direction:(NJDirection)direction;
 
 - (void)removeStandingCharacter;
 @end
