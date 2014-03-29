@@ -54,22 +54,14 @@
 {
     self = [super initWithSize:size];
     if (self) {
-        [self initAllProperties];
+        _ninjas = [[NSMutableArray alloc] init];
+        _items = [[NSMutableArray alloc] init];
+        _woodPiles = [[NSMutableArray alloc] init];
         [self buildWorld];
         [self initCharacters];
         [self initSelectionSystem];
     }
     return self;
-}
-
-- (void)initAllProperties
-{
-    _ninjas = [[NSMutableArray alloc] init];
-    _items = [[NSMutableArray alloc] init];
-    _woodPiles = [[NSMutableArray alloc] init];
-    
-//    [self initButtonsAndItemControls];
-//    [self initHpBars];
 }
 
 - (void)initHpBars
@@ -270,12 +262,6 @@
 #pragma mark - Level Start
 - (void)startLevel {
     for (int index=0; index<4; index++) {
-        NJPlayer *player = self.players[index];
-        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-        CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
-        ninja.position = spawnPosition;
-        [ninja setSpawnPoint:spawnPosition];
-        
 //        if (index ==1) {
 //            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
 //            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
