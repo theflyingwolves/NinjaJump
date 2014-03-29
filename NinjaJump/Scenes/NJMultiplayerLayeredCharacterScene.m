@@ -23,7 +23,6 @@
 @property (nonatomic) NSMutableArray *layers;           // different layer nodes within the world
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *items;
-@property (nonatomic, readwrite) NSMutableArray *woodPiles;
 
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
 

@@ -247,7 +247,7 @@
     //add in the spawn pile of ninjas
     for (NSValue *posValue in pilePos){
         CGPoint pos = [posValue CGPointValue];
-        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pos withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
+        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pos withSpeed:0 angularSpeed:3 direction:arc4random()%2 path:nil];
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
     }
@@ -258,18 +258,6 @@
     SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:kBackGroundFileName];
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addNode:background atWorldLayer:NJWorldLayerGround];
-}
-
-#pragma mark - Level Start
-- (void)startLevel {
-    for (int index=0; index<4; index++) {
-//        if (index ==1) {
-//            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
-//            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
-//            //smokeTrail.position = CGPointMake(screenWidth/2, 15);
-//            [ninja addChild:smokeTrail];
-//        }
-    }
 }
 
 #pragma mark - Loop Update
@@ -397,7 +385,8 @@
     [NJNinjaCharacterNormal loadSharedAssets];
 }
 
-/**********Select Player Scene*************/
+#pragma mark - Selection System
+
 - (void)initSelectionSystem{
     NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -433,7 +422,6 @@
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];
-//    [self startLevel];
 }
 
 - (int)convertIndex:(int)index{

@@ -38,7 +38,6 @@
         self.scene = scene;
         // Present the scene.
         [_skView presentScene:scene];
-        [scene startLevel];
     }];
 }
 
