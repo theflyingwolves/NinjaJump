@@ -238,12 +238,12 @@
 - (void)startLevel {
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
-        if (player.isActive) {
+//        if (player.isActive) {
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
             CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
             ninja.position = spawnPosition;
             [ninja setSpawnPoint:spawnPosition];
-        }
+//        }
 //        if (index ==1) {
 //            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
 //            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
