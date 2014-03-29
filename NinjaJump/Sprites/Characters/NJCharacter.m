@@ -47,7 +47,7 @@
     self.zRotation = normalizeZRotation(ang);
 //    self.zRotation = ang;
     if (distRemaining <= dt) {
-        NSLog(@"jump stop");
+//        NSLog(@"jump stop");
         self.position = position;
 //        NSLog(@"self position after snapping: (%f, %f)", self.position.x, self.position.y);
     } else {
