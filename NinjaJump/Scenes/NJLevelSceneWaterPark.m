@@ -50,8 +50,7 @@
 @synthesize ninjas = _ninjas;
 @synthesize woodPiles = _woodPiles;
 @synthesize items = _items;
-@synthesize buttons = _buttons;
-@synthesize itemControls = _itemControls;
+
 - (instancetype)initWithSize:(CGSize)size
 {
     self = [super initWithSize:size];

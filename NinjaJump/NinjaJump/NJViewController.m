@@ -7,6 +7,7 @@
 //
 
 #import "NJViewController.h"
+#import "NJLoadingScene.h"
 #import "NJLevelSceneWaterPark.h"
 #import <SpriteKit/SpriteKit.h>
 
@@ -26,7 +27,11 @@
     _skView.showsDrawCount = YES;
     _skView.showsNodeCount = YES;
     
+    NJLoadingScene *loadingScene = [[NJLoadingScene alloc] initWithSize:_skView.bounds.size];
+    loadingScene.scaleMode = SKSceneScaleModeAspectFill;
+    [_skView presentScene:loadingScene];
     [NJLevelSceneWaterPark loadSceneAssetsWithCompletionHandler:^{
+        NSLog(@"loading assets completed.");
         // Create and configure the scene.
         NJLevelSceneWaterPark * scene = [NJLevelSceneWaterPark sceneWithSize:_skView.bounds.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
