@@ -34,7 +34,8 @@
 - (instancetype)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
     if (self) {
-        _items = [NSMutableArray new];
+//        _items = [NSMutableArray new];
+        _items = [[NSMutableArray alloc] init];
         _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
         
         for (int i=0; i<kNumPlayers ; i++) {
@@ -42,6 +43,7 @@
             [(NSMutableArray *)_players addObject:player];
             player.spawnPoint = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
         }
+        
         _world = [[SKNode alloc] init];
         [_world setName:@"world"];
         _layers = [NSMutableArray arrayWithCapacity:kWorldLayerCount];

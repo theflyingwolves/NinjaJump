@@ -54,92 +54,113 @@
 {
     self = [super initWithSize:size];
     if (self) {
-        _ninjas = [[NSMutableArray alloc] init];
-        _items = [[NSMutableArray alloc] init];
-        _woodPiles = [[NSMutableArray alloc] init];
-        _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
-        _itemControls = [NSMutableArray arrayWithCapacity:kNumPlayers];
-        _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
+        [self initAllProperties];
         [self initSelectionSystem];
-
-        for (int i=0; i < kNumPlayers; i++) {
-            CGPoint position;
-            float size = 250;
-            switch (i) {
-                case 0:
-                    position = CGPointMake(size / 2, size / 2);
-                    break;
-                case 1:
-                    position = CGPointMake(self.frame.size.width - size / 2, size / 2);
-                    break;
-                case 2:
-                    position = CGPointMake(self.frame.size.width - size / 2, self.frame.size.height - size / 2);
-                    break;
-                case 3:
-                    position = CGPointMake(size / 2, self.frame.size.height - size / 2);
-                    break;
-                default:
-                    break;
-            }
-                        
-            NJHPBar *bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
-            float angle = i * M_PI / 2 - M_PI / 2;
-            bar.zRotation = angle;
-            [_hpBars addObject:bar];
-            [self addChild:bar];
-        }
-
-        for (int i = 0; i < kNumPlayers; i++) {
-            NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
-            button.delegate = self;
-            button.player = self.players[i];
-            [_buttons addObject:button];
-            [self addChild:button];
-        }
-        
-        double xDiff = 35, yDiff=80;
-        
-        ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
-        ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
-        ((NJButton*)_buttons[0]).color = [SKColor blackColor];
-        ((NJButton*)_buttons[0]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[0]).player.color = [SKColor blackColor];
-        ((NJButton*)_buttons[1]).position = CGPointMake(1024-yDiff, xDiff);
-        ((NJButton*)_buttons[1]).zRotation = M_PI/4;
-        ((NJButton*)_buttons[1]).color = [SKColor blueColor];
-        ((NJButton*)_buttons[1]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
-        ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
-        ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
-        ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
-        ((NJButton*)_buttons[2]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
-        ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
-        ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
-        ((NJButton*)_buttons[3]).color = [SKColor redColor];
-        ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
-        ((NJButton*)_buttons[3]).player.color = [SKColor redColor];
-        
-        for (int i=0; i<kNumPlayers; i++) {
-            NJItemControl *control = [[NJItemControl alloc] initWithImageNamed:@"itemControl"];
-            control.delegate = self;
-            control.player = self.players[i];
-            [_itemControls addObject:control];
-            [self addChild:control];
-        }
-        
-        ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
-        ((NJItemControl *)_itemControls[0]).zRotation = -M_PI / 4;
-        ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
-        ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
-        ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
-        ((NJItemControl *)_itemControls[2]).zRotation = -3*M_PI / 4;
-        ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
-        ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
-        
         [self buildWorld];
     }
     return self;
+}
+
+- (void)initAllProperties
+{
+    _ninjas = [[NSMutableArray alloc] init];
+    _items = [[NSMutableArray alloc] init];
+    _woodPiles = [[NSMutableArray alloc] init];
+    [self initButtonsAndItemControls];
+    [self initHpBars];
+}
+
+- (void)initHpBars
+{
+    _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
+    for (int i=0; i < kNumPlayers; i++) {
+        CGPoint position;
+        float size = 250;
+        switch (i) {
+            case 0:
+                position = CGPointMake(size / 2, size / 2);
+                break;
+            case 1:
+                position = CGPointMake(self.frame.size.width - size / 2, size / 2);
+                break;
+            case 2:
+                position = CGPointMake(self.frame.size.width - size / 2, self.frame.size.height - size / 2);
+                break;
+            case 3:
+                position = CGPointMake(size / 2, self.frame.size.height - size / 2);
+                break;
+            default:
+                break;
+        }
+        
+        NJHPBar *bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
+        float angle = i * M_PI / 2 - M_PI / 2;
+        bar.zRotation = angle;
+        [_hpBars addObject:bar];
+        NJPlayer *player = self.players[i];
+        if (!player.isDisabled) {
+            [self addChild:bar];
+        }
+    }
+}
+
+- (void)initButtonsAndItemControls
+{
+    _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
+    _itemControls = [NSMutableArray arrayWithCapacity:kNumPlayers];
+    for (int i = 0; i < kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
+        button.delegate = self;
+        button.player = self.players[i];
+        [_buttons addObject:button];
+        if (!player.isDisabled) {
+            [self addChild:button];
+        }
+    }
+    
+    double xDiff = 35, yDiff=80;
+    
+    ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
+    ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
+    ((NJButton*)_buttons[0]).color = [SKColor blackColor];
+    ((NJButton*)_buttons[0]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[0]).player.color = [SKColor blackColor];
+    ((NJButton*)_buttons[1]).position = CGPointMake(1024-yDiff, xDiff);
+    ((NJButton*)_buttons[1]).zRotation = M_PI/4;
+    ((NJButton*)_buttons[1]).color = [SKColor blueColor];
+    ((NJButton*)_buttons[1]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
+    ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
+    ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
+    ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
+    ((NJButton*)_buttons[2]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
+    ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
+    ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
+    ((NJButton*)_buttons[3]).color = [SKColor redColor];
+    ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[3]).player.color = [SKColor redColor];
+    
+    for (int i=0; i<kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        NJItemControl *control = [[NJItemControl alloc] initWithImageNamed:@"itemControl"];
+        control.delegate = self;
+        control.player = self.players[i];
+        [_itemControls addObject:control];
+        if (!player.isDisabled) {
+            [self addChild:control];
+        }
+    }
+    
+    ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
+    ((NJItemControl *)_itemControls[0]).zRotation = -M_PI / 4;
+    ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
+    ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
+    ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
+    ((NJItemControl *)_itemControls[2]).zRotation = -3*M_PI / 4;
+    ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
+    ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
 }
 
 #pragma mark - World Building
@@ -151,7 +172,6 @@
     self.physicsWorld.contactDelegate = self;
     
     [self addBackground];
-    
     [self addWoodPiles];
 }
 
@@ -235,12 +255,11 @@
 - (void)startLevel {
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
-        if (player.isActive) {
-            NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-            CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
-            ninja.position = spawnPosition;
-            [ninja setSpawnPoint:spawnPosition];
-        }
+        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
+        CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
+        ninja.position = spawnPosition;
+        [ninja setSpawnPoint:spawnPosition];
+        
 //        if (index ==1) {
 //            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
 //            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
@@ -286,7 +305,6 @@
     int toSpawnItem = arc4random() % kNumOfFramesToSpawnItem;
     if (toSpawnItem==1) {
         [self addItem];
-        
     }
 }
 
@@ -396,10 +414,18 @@
     for (NSNumber *index in fullIndices){ //inactivate unselected players
         NSLog(@"activated %d",[index intValue]);
         int convertedIndex = [self convertIndex:[index intValue]];
-        ((NJPlayer *)self.players[convertedIndex]).isActive = YES;
-//        [((NJPlayer *)self.players[convertedIndex]).ninja removeFromParent];
-        //((NSMutableArray *)self.players)[convertedIndex] = [NSNull null];
+        ((NJPlayer *)self.players[convertedIndex]).isDisabled = YES;
     }
+    
+    for (int i=0; i<kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        if(player.isDisabled){
+            [player.ninja removeFromParent];
+        }
+    }
+    
+//    [self initHpBars];
+//    [self initButtonsAndItemControls];
 }
 
 - (int)convertIndex:(int)index{
