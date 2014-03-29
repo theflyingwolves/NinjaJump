@@ -183,21 +183,21 @@
         NJSpecialItem *item;
         
         switch (index) {
-            case NJItemThunderScroll:
-                item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position];
-                break;
-                
-            case NJItemWindScroll:
-                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position];
-                break;
-                
-            case NJItemIceScroll:
-                item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position];
-                break;
-                
-            case NJItemFireScroll:
-                item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position];
-                break;
+//            case NJItemThunderScroll:
+//                item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position];
+//                break;
+//                
+//            case NJItemWindScroll:
+//                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position];
+//                break;
+//                
+//            case NJItemIceScroll:
+//                item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position];
+//                break;
+//                
+//            case NJItemFireScroll:
+//                item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position];
+//                break;
                 
             case NJItemMedikit:
                 item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];

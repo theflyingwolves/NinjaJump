@@ -17,7 +17,7 @@
 
 @property (readonly) CGFloat direction; //in radians, same as definition of zPosition
 
--(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene;
+-(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner;
 
 
 

@@ -16,8 +16,8 @@
 
 @implementation NJEffectShurikenMulti
 
--(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene{
-    self = [super initWithTextureNamed:kShurikenEffectFileName atPosition:position onScene:scene];
+-(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner{
+    self = [super initWithTextureNamed:kShurikenEffectFileName atPosition:position onScene:scene andOwner:owner];
     if (self) {
         _direction = direction;
         CGVector movement = vectorForMovement(direction, kShurikenMaxDistance);
@@ -36,7 +36,7 @@
     self.physicsBody.categoryBitMask = NJColliderTypeItemEffect;
     
     // Collides with these objects.
-    self.physicsBody.collisionBitMask = NJColliderTypeCharacter;
+//    self.physicsBody.collisionBitMask = NJColliderTypeCharacter;
     
     // We want notifications for colliding with these objects.
     self.physicsBody.contactTestBitMask = NJColliderTypeCharacter;

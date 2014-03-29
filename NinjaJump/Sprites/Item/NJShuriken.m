@@ -22,7 +22,7 @@
     return self;
 }
 
-- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction{
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character{
     int angle1 = 0 - kShurikenAngle/2;
     int angle2 = 0;
     int angle3 = kShurikenAngle - kShurikenAngle/2;
@@ -49,11 +49,11 @@
     }
     
 //    NSLog(@"finish computing angle");
-    NJEffectShurikenMulti *shuriken1 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction1 onScene:self.myParent];
+    NJEffectShurikenMulti *shuriken1 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction1 onScene:self.myParent andOwner:character];
     
-    NJEffectShurikenMulti *shuriken2 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction2 onScene:self.myParent];
+    NJEffectShurikenMulti *shuriken2 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction2 onScene:self.myParent andOwner:character];
     
-    NJEffectShurikenMulti *shuriken3 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction3 onScene:self.myParent];
+    NJEffectShurikenMulti *shuriken3 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction3 onScene:self.myParent andOwner:character];
     
 //    NSLog(@"d1: %f, d2: %f, d3: %f", direction1, direction2, direction3);
 }

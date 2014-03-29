@@ -60,7 +60,7 @@ const CGFloat medikitRecover = 40.0f;
     if (direction > (2*M_PI)) {
         direction -= 2*M_PI;
     }
-    [item useAtPosition:self.position withDirection: direction];
+    [item useAtPosition:self.position withDirection: direction byCharacter:self];
     self.player.item = nil;
     
     NSLog(@"use item");
@@ -70,7 +70,13 @@ const CGFloat medikitRecover = 40.0f;
 - (void)collidedWith:(SKPhysicsBody *)other{
     [super collidedWith:other];
     if (other.categoryBitMask & NJColliderTypeItemEffect) {
-        [self applyDamage:((NJItemEffect*)other.node).damage];
+        NJItemEffect *effect =(NJItemEffect*)other.node;
+        if (effect.owner != self) {
+            [self applyDamage:effect.damage];
+            [effect removeAllActions];
+            [effect removeFromParent];
+        }
+        
     }
 }
 

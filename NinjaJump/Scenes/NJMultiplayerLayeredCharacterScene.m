@@ -112,8 +112,8 @@
         }
         
         if (![ninja isDying]) {
-            NSLog(@"ninja info: (%f, %f), %f", ninja.position.x, ninja.position.y, ninja.zRotation);
-            self.position = CGPointApprox(self.position);
+//            NSLog(@"ninja info: (%f, %f), %f", ninja.position.x, ninja.position.y, ninja.zRotation);
+            ninja.position = CGPointApprox(ninja.position);
             
             if (player.jumpRequested) {
                 if (!CGPointEqualToPointApprox(player.targetLocation, ninja.position)) {
