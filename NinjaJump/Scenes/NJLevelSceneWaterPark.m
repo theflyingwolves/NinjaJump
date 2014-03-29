@@ -17,6 +17,8 @@
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterNormal.h"
 #import "NJSelectionButtonSystem.h"
+#import "NJResponsibleBG.h"
+#import "NJPausePanel.h"
 
 #import "NJScroll.h"
 #import "NJThunderScroll.h"
@@ -48,7 +50,9 @@
 @property (nonatomic) NSMutableArray *hpBars;
 @end
 
-@implementation NJLevelSceneWaterPark
+@implementation NJLevelSceneWaterPark{
+    bool isSelectionInited;
+}
 @synthesize ninjas = _ninjas;
 @synthesize woodPiles = _woodPiles;
 @synthesize items = _items;
@@ -62,6 +66,7 @@
         _ninjas = [[NSMutableArray alloc] init];
         _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
+        isSelectionInited = NO;
         [self buildWorld];
         [self initCharacters];
         [self initSelectionSystem];
@@ -187,6 +192,7 @@
     
     [self addBackground];
     [self addWoodPiles];
+    [self addClickableArea];
 }
 
 - (void)addItem{
@@ -253,7 +259,7 @@
     //add in the spawn pile of ninjas
     for (NSValue *posValue in pilePos){
         CGPoint pos = [posValue CGPointValue];
-        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pos withSpeed:0 angularSpeed:3 direction:NJDiectionClockwise path:nil];
+        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pos withSpeed:0 angularSpeed:3 direction:arc4random()%2 path:nil];
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
     }
@@ -264,18 +270,6 @@
     SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:kBackGroundFileName];
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addNode:background atWorldLayer:NJWorldLayerGround];
-}
-
-#pragma mark - Level Start
-- (void)startLevel {
-    for (int index=0; index<4; index++) {
-//        if (index ==1) {
-//            NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
-//            SKEmitterNode *smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
-//            //smokeTrail.position = CGPointMake(screenWidth/2, 15);
-//            [ninja addChild:smokeTrail];
-//        }
-    }
 }
 
 #pragma mark - Loop Update
@@ -436,6 +430,8 @@
 
 #pragma mark - Player Selection Scene
 - (void)initSelectionSystem{
+    NSLog(@"initselection");
+    isSelectionInited = YES;
     NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -449,6 +445,7 @@
 }
 
 - (void) activateSelectedPlayers:(NSNotification *)note{
+    isSelectionInited = NO;
     NSArray *activePlayerIndices = [note object];
     NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
     for (NSNumber *index in activePlayerIndices) {
@@ -469,7 +466,6 @@
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];
-//    [self startLevel];
 }
 
 - (int)convertIndex:(int)index{

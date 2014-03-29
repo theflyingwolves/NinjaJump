@@ -52,6 +52,9 @@
         while (self.zRotation>=2*M_PI) {
             self.zRotation -= 2*M_PI;
         }
+        while (self.zRotation<0) {
+            self.zRotation += 2*M_PI;
+        }
     }
     if (isMoving) {
         NJPath *path = self.path;

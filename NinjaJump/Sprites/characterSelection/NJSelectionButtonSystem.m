@@ -15,6 +15,7 @@
     NSMutableArray *selectionButtons;
     NSMutableArray *spotLightList;
     NSMutableArray *activePlayerList;
+    SKSpriteNode *startButton;
 }
 
 - (id) init{
@@ -29,11 +30,12 @@
 }
 
 - (void)addStartButton{
-    SKSpriteNode *startButton = [SKSpriteNode spriteNodeWithImageNamed:@"start button.png"];
+    startButton = [SKSpriteNode spriteNodeWithImageNamed:@"start button.png"];
     SKSpriteNode *shade = [SKSpriteNode spriteNodeWithImageNamed:@"shade.png"];
     [self addChild:shade];
     [self addChild:startButton];
     startButton.position = CGPointMake(30, 0);
+    startButton.hidden = YES;
 }
 
 - (void)addSpotlight{
@@ -54,8 +56,8 @@
     ((SKSpriteNode *)spotLightList[2]).position = CGPointMake(screenHeight/2-r, r-screenWidth/2);
     ((SKSpriteNode *)spotLightList[2]).yScale = -1;
     ((SKSpriteNode *)spotLightList[3]).position = CGPointMake(screenHeight/2-r, screenWidth/2-r);
-
-    NSLog(@"%lu",spotLightList.count);
+    
+    //NSLog(@"%lu",spotLightList.count);
     for (int i=0; i<spotLightList.count; i++) {
         [self addChild:spotLightList[i]];
     }
@@ -76,10 +78,7 @@
 
 - (void)button:(NJSelectCharacterButton *) button touchesEnded:(NSSet *)touches{
     UITouch *touch = [touches anyObject];
-    
     CGPoint touchPoint = [touch locationInNode:self];
-//    NSLog(@"%f %f",touchPoint.x,touchPoint.y);
-    //CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGFloat dist = sqrt(touchPoint.x*touchPoint.x+touchPoint.y*touchPoint.y);
     bool isReacted = NO;
     CGFloat startButtonRadius = 50;
@@ -88,7 +87,6 @@
         NJSelectCharacterButton *button = selectionButtons[i];
         SKSpriteNode *spotLight = spotLightList[i];
         if (CGPathContainsPoint(path, &CGAffineTransformIdentity, touchPoint, YES)) {
-            NSLog(@"%d",i);
             button.hidden = !button.hidden;
             spotLight.hidden = !spotLight.hidden;
             isReacted = YES;
@@ -102,9 +100,15 @@
         CGPathRelease(path);
     }
     //NSLog(@"touchPoint %f",dist);
-    if (!isReacted && dist<startButtonRadius) {
-        [self didStartButtonClicked];
+    if (activePlayerList.count>0) {
+        startButton.hidden = NO;
+        if (!isReacted && dist<startButtonRadius) {
+            [self didStartButtonClicked];
+        }
+    } else {
+        startButton.hidden = YES;
     }
+    
 }
 
 - (void)didStartButtonClicked{
