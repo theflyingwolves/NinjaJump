@@ -315,6 +315,16 @@
             [pile.standingCharacter applyDamage:20];
             pile.isThunderScrollEnabled = NO;
         }
+        
+        if (pile.isWindScrollEnabled) {
+            [pile.standingCharacter applyDamage:20];
+            pile.isThunderScrollEnabled = NO;
+        }
+        
+        if (pile.isFireScrollEnabled) {
+            [pile.standingCharacter applyDamage:20];
+            pile.isThunderScrollEnabled = NO;
+        }
     }
     
     for (NJItemControl *control in _itemControls) {
