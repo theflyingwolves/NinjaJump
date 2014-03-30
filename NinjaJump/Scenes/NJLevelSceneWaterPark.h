@@ -13,6 +13,5 @@
 @interface NJLevelSceneWaterPark : NJMultiplayerLayeredCharacterScene
 
 @property (nonatomic) BOOL startGame;
-- (void)startLevel;
 
 @end

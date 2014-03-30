@@ -154,6 +154,15 @@
     [spawnEffect runAction:[SKAction sequence:@[[SKAction repeatAction:blink count:4],[SKAction removeFromParent]]]];
 }
 
+- (void)reset
+{
+    self.health = FULL_HP;
+    self.dying = NO;
+    self.attacking = NO;
+    self.animated = NO;
+    [self removeAllActions];
+}
+
 #pragma mark - Use Items
 - (void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles
 {

@@ -27,7 +27,6 @@
         restartBtn.position = CGPointMake(btnX, 0);
         [self addChild:continueBtn];
         [self addChild:restartBtn];
-
     }
     return self;
 }
