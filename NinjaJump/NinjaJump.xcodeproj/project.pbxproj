@@ -355,6 +355,7 @@
 		2F63E13618E029F600E9A17B /* Control */ = {
 			isa = PBXGroup;
 			children = (
+				2F8A72B618E44F0A00B88E79 /* itemControl.png */,
 				2FC568B518E1BE0900C6589D /* jumpButton.png */,
 				2F63E12D18E0291500E9A17B /* hp_bar_bottom.png */,
 				2F63E12E18E0291500E9A17B /* hp_bar.png */,
@@ -468,7 +469,6 @@
 		2FC568C218E1BE5A00C6589D /* GameBoard */ = {
 			isa = PBXGroup;
 			children = (
-				2F8A72B618E44F0A00B88E79 /* itemControl.png */,
 				2FC568C318E1BEC000C6589D /* ninja.png */,
 				2FC568B918E1BE0900C6589D /* woodPile.png */,
 				2FC568B618E1BE0900C6589D /* spawnLight.png */,
