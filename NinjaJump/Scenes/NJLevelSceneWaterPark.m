@@ -474,7 +474,6 @@
         }
         for (NJSpecialItem *item in self.items){
             if (CGPointEqualToPointApprox(pile.position, item.position)) {
-//            if (CGPointEqualToPoint(pile.position, item.position)) {
                 isFree = NO;
             }
         }
@@ -494,8 +493,6 @@
 }
 
 #pragma mark - Pause Game
-
-
 - (void)addClickableArea
 {
     NJResponsibleBG *clickableArea = [[NJResponsibleBG alloc] init];
@@ -530,11 +527,6 @@
 {
     NSUInteger actionIndex = [(NSNumber *)[note object]integerValue];
     if (!isSelectionInited && actionIndex == RESTART){
-//        NSLog(@"restart log");
-//        [self resetNinjas];
-//        [self resetWoodPiles];
-//        [self initSelectionSystem];
-        
         for (int i=0; i<[self.players count]; i++) {
             NJPlayer *player = [self.players objectAtIndex:i];
             player.isDisabled = NO;
@@ -581,16 +573,6 @@
     }
 }
 
-- (void)resetNinjas
-{
-    for (int index=0; index<4; index++) {
-        NJPlayer *player = self.players[index];
-        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-        CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
-        ninja.position = spawnPosition;
-        [ninja setSpawnPoint:spawnPosition];
-    }
-}
 
 #pragma mark - Selection System
 
