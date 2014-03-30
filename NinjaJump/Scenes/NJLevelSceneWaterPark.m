@@ -17,7 +17,10 @@
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterNormal.h"
 #import "NJSelectionButtonSystem.h"
+#import "NJResponsibleBG.h"
+#import "NJPausePanel.h"
 
+#import "NJScroll.h"
 #import "NJThunderScroll.h"
 #import "NJWindScroll.h"
 #import "NJIceScroll.h"
@@ -37,7 +40,7 @@
 
 #define kNumOfFramesToSpawnItem 100
 
-@interface NJLevelSceneWaterPark () <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate>
+@interface NJLevelSceneWaterPark ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;
@@ -46,10 +49,14 @@
 @property (nonatomic) NSMutableArray *hpBars;
 @end
 
-@implementation NJLevelSceneWaterPark
+@implementation NJLevelSceneWaterPark{
+    bool isSelectionInited;
+}
 @synthesize ninjas = _ninjas;
 @synthesize woodPiles = _woodPiles;
 @synthesize items = _items;
+@synthesize buttons = _buttons;
+@synthesize itemControls = _itemControls;
 
 - (instancetype)initWithSize:(CGSize)size
 {
@@ -58,6 +65,7 @@
         _ninjas = [[NSMutableArray alloc] init];
         _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
+        isSelectionInited = NO;
         [self buildWorld];
         [self initCharacters];
         [self initSelectionSystem];
@@ -71,18 +79,19 @@
     for (int i=0; i < kNumPlayers; i++) {
         CGPoint position;
         float size = 250;
+        float offset = 10;
         switch (i) {
             case 0:
-                position = CGPointMake(size / 2, size / 2);
+                position = CGPointMake(size / 2 + offset, size / 2 + offset);
                 break;
             case 1:
-                position = CGPointMake(self.frame.size.width - size / 2, size / 2);
+                position = CGPointMake(self.frame.size.width - size / 2 - offset, size / 2+offset);
                 break;
             case 2:
-                position = CGPointMake(self.frame.size.width - size / 2, self.frame.size.height - size / 2);
+                position = CGPointMake(self.frame.size.width - size / 2 - offset, self.frame.size.height - size / 2 - offset);
                 break;
             case 3:
-                position = CGPointMake(size / 2, self.frame.size.height - size / 2);
+                position = CGPointMake(size / 2 + offset, self.frame.size.height - size / 2 - offset);
                 break;
             default:
                 break;
@@ -114,7 +123,7 @@
         }
     }
     
-    double xDiff = 35, yDiff=80;
+    double xDiff = 40, yDiff=90;
     
     ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
     ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
@@ -160,6 +169,7 @@
 
 - (void)initCharacters
 {
+    _ninjas = [NSMutableArray array];
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
@@ -181,6 +191,7 @@
     
     [self addBackground];
     [self addWoodPiles];
+    [self addClickableArea];
 }
 
 - (void)addItem{
@@ -267,10 +278,14 @@
     for (NJNinjaCharacter *ninja in self.ninjas) {
         [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
     }
+    
     for (NJPile *pile in _woodPiles) {
         [pile updateWithTimeSinceLastUpdate:timeSinceLast];
+        BOOL added = NO;
         for (NJNinjaCharacter *ninja in _ninjas) {
             if (CGPointEqualToPoint(ninja.position, pile.position)) {
+                [pile addCharacterToPile:ninja];
+                added = YES;
                 ninja.zRotation += pile.angleRotatedSinceLastUpdate;
                 if (pile.rotateDirection == NJDirectionCounterClockwise) {
                     while (ninja.zRotation>=2*M_PI) {
@@ -283,13 +298,50 @@
                 }
             }
         }
+        
+        if (!added && pile.standingCharacter) {
+            [pile removeStandingCharacter];
+        }
     }
+
+    
+    for (NJPile *pile in _woodPiles) {
+        if (pile.isIceScrollEnabled) {
+            [pile.standingCharacter applyDamage:20];
+            pile.isIceScrollEnabled = NO;
+        }
+        
+        if (pile.isThunderScrollEnabled) {
+            [pile.standingCharacter applyDamage:20];
+            pile.isThunderScrollEnabled = NO;
+        }
+        
+        if (pile.isWindScrollEnabled) {
+            [pile.standingCharacter applyDamage:20];
+            pile.isThunderScrollEnabled = NO;
+        }
+        
+        if (pile.isFireScrollEnabled) {
+            [pile.standingCharacter applyDamage:20];
+            pile.isThunderScrollEnabled = NO;
+        }
+    }
+    
     for (NJItemControl *control in _itemControls) {
         [control updateWithTimeSinceLastUpdate:timeSinceLast];
     }
     
     for (NJSpecialItem *item in self.items){
         [item updateWithTimeSinceLastUpdate:timeSinceLast];
+    }
+    
+    for (NJPlayer *player in self.players) {
+        if (player.itemUseRequested) {
+            if (player.item != nil) {
+                [player.ninja useItem:player.item withWoodPiles:_woodPiles];
+            }
+            player.itemUseRequested = NO;
+        }
     }
     
     for (NJHPBar *bar in _hpBars) {
@@ -315,7 +367,7 @@
         button.player.targetLocation = pile.position;
         button.player.jumpRequested = YES;
         button.player.isJumping = YES;
-    }
+    } 
 }
 
 - (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
@@ -385,9 +437,103 @@
     [NJNinjaCharacterNormal loadSharedAssets];
 }
 
+#pragma makr - Pause Game
+
+
+- (void)addClickableArea
+{
+    NJResponsibleBG *clickableArea = [[NJResponsibleBG alloc] initWithImageNamed:kBackGroundFileName];
+    clickableArea.alpha = 0;
+    clickableArea.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addNode:clickableArea atWorldLayer:NJWorldLayerAboveCharacter];
+    clickableArea.delegate = self;
+}
+
+- (void)backgroundTouchesEnded:(NSSet *)touches{
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInNode:self];
+    if (touchPoint.x>120 && touchPoint.x<1024-120 && touchPoint.y>120 && touchPoint.y<768-120) {
+        [self pauseGame];
+    }
+}
+
+- (void)pauseGame
+{
+    [self pauseWoodpiles];
+    [self pauseItemUpdate];
+    NJPausePanel *pausePanel = [[NJPausePanel alloc]init];
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
+    pausePanel.position = center;
+    [self addChild:pausePanel];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
+}
+
+- (void)restartOrContinue:(NSNotification *)note
+{
+    NSUInteger actionIndex = [(NSNumber *)[note object]integerValue];
+    if (!isSelectionInited && actionIndex == RESTART){
+        NSLog(@"restart log");
+        [self resetNinjas];
+        [self resetWoodPiles];
+        [self initSelectionSystem];
+    } else if(actionIndex == CONTINUE){
+        [self continueItemUpdate];
+        [self continueWoodpiles];
+    }
+}
+
+
+- (void)continueWoodpiles
+{
+    for (NJPile *pile in self.woodPiles) {
+        [pile setSpeed:3 direction:NJDiectionClockwise];
+    }
+}
+
+- (void)continueItemUpdate
+{
+    
+}
+
+- (void)pauseWoodpiles
+{
+    for (NJPile *pile in self.woodPiles) {
+        [pile setSpeed:0 direction:NJDiectionClockwise];
+    }
+}
+
+
+- (void)pauseItemUpdate
+{
+    
+}
+
+- (void)resetWoodPiles
+{
+    for (NJPile *pile in self.woodPiles) {
+        [pile setSpeed:3 direction:NJDiectionClockwise];
+    }
+}
+
+- (void)resetNinjas
+{
+    for (int index=0; index<4; index++) {
+        NJPlayer *player = self.players[index];
+        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
+        CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
+        ninja.position = spawnPosition;
+        [ninja setSpawnPoint:spawnPosition];
+    }
+}
+
 #pragma mark - Selection System
 
 - (void)initSelectionSystem{
+    NSLog(@"initselection");
+    isSelectionInited = YES;
     NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -401,13 +547,14 @@
 }
 
 - (void) activateSelectedPlayers:(NSNotification *)note{
+    isSelectionInited = NO;
     NSArray *activePlayerIndices = [note object];
     NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
     for (NSNumber *index in activePlayerIndices) {
         [fullIndices removeObject:index];
     }
     for (NSNumber *index in fullIndices){ //inactivate unselected players
-        NSLog(@"activated %d",[index intValue]);
+        //NSLog(@"activated %d",[index intValue]);
         int convertedIndex = [self convertIndex:[index intValue]];
         ((NJPlayer *)self.players[convertedIndex]).isDisabled = YES;
     }
@@ -447,5 +594,7 @@
 - (void)inActivate{
     
 }
+
+#pragma mark - Delegate Methods
 
 @end
