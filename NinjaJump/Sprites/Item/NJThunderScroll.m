@@ -32,6 +32,7 @@
         }
     }
     self.isUsed = YES;
+    [character performThunderAnimationInScene:self.myParent];
 }
 
 @end

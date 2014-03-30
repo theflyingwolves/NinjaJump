@@ -91,9 +91,13 @@ typedef enum : uint8_t {
 
 - (NSArray *)attackAnimationFrames;
 
+- (NSArray *)thunderAnimationFrames;
+
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
 
 - (void)pickupItemAtSamePosition:(NSArray *)items;
 
 - (void)collidedWith:(SKPhysicsBody *)other;
+
+- (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene;
 @end

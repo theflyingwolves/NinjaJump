@@ -17,6 +17,8 @@
 #import "NJCircularRange.h"
 #import "NJFanRange.h"
 
+#define kThunderAnimationSpeed 0.125f
+
 @implementation NJCharacter
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position
@@ -154,6 +156,20 @@
 - (void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles
 {
     
+}
+
+- (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene
+{
+    NSLog(@"thunder animation");
+    SKSpriteNode *thunderEffect = [[SKSpriteNode alloc] initWithImageNamed:@"ninja_thunder_001.png"];
+    thunderEffect.position = self.position;
+    
+    [scene addNode:thunderEffect atWorldLayer:NJWorldLayerAboveCharacter];
+    [thunderEffect runAction:[SKAction sequence:@[
+                                         [SKAction animateWithTextures:[self thunderAnimationFrames] timePerFrame:kThunderAnimationSpeed resize:YES restore:YES],
+                                         [SKAction runBlock:^{
+        [thunderEffect removeFromParent];
+    }]]]];
 }
 
 #pragma mark - Animation
