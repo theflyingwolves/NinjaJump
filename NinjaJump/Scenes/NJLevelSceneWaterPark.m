@@ -34,7 +34,7 @@
 #define kWindScrollFileName @"windScroll.png"
 #define kIceScrollFileName @"iceScroll.png"
 #define kFireScrollFileName @"fireScroll.png"
-//#define kMineFileName @"mine.png"
+#define kMineFileName @"mine.png"
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
@@ -222,9 +222,9 @@
                 item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
                 break;
             
-                //        case NJItemMine:
-                //            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
-                //            break;
+            case NJItemMine:
+                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+                break;
                 
             case NJItemShuriken:
                 item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];

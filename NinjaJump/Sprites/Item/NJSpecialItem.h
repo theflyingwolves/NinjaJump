@@ -16,7 +16,7 @@ typedef enum : uint8_t {
     NJItemWindScroll,
     NJItemIceScroll,
     NJItemFireScroll,
-//    NJItemMine,
+    NJItemMine,
     NJItemShuriken,
     NJItemMedikit,
     NJItemCount
