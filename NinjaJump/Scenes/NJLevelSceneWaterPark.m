@@ -38,7 +38,7 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 100
+#define kNumOfFramesToSpawnItem 10
 
 @interface NJLevelSceneWaterPark ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
@@ -202,33 +202,33 @@
         NJSpecialItem *item;
         
         switch (index) {
-            case NJItemThunderScroll:
-                item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position];
-                break;
-                
-            case NJItemWindScroll:
-                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position];
-                break;
+//            case NJItemThunderScroll:
+//                item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position];
+//                break;
+//                
+//            case NJItemWindScroll:
+//                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position];
+//                break;
                 
             case NJItemIceScroll:
                 item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position];
                 break;
                 
-            case NJItemFireScroll:
-                item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position];
-                break;
-                
-            case NJItemMedikit:
-                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
-                break;
-            
-            case NJItemMine:
-                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
-                break;
-                
-            case NJItemShuriken:
-                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-                break;
+//            case NJItemFireScroll:
+//                item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position];
+//                break;
+//                
+//            case NJItemMedikit:
+//                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+//                break;
+//            
+//            case NJItemMine:
+//                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+//                break;
+//                
+//            case NJItemShuriken:
+//                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+//                break;
                 
             default:
                 break;
@@ -309,7 +309,8 @@
     
     for (NJPile *pile in _woodPiles) {
         if (pile.isIceScrollEnabled) {
-            [pile.standingCharacter applyDamage:20];
+//            [pile.standingCharacter applyDamage:20];
+            [pile.standingCharacter performFrozenEffect];
             pile.isIceScrollEnabled = NO;
         }
         
@@ -363,10 +364,9 @@
     if ([ninjas count] < 1) {
         return;
     }
-//    NSLog(@"jump requested!");
+    
     NJPile *pile = [self woodPileToJump:button.player.ninja];
-    if (pile && !button.player.isJumping) {
-//        NSLog(@"wood found!");
+    if (pile && !button.player.isJumping && button.player.ninja.frozenCount == 0) {
         button.player.startLocation = button.player.ninja.position;
         button.player.targetLocation = pile.position;
         button.player.jumpRequested = YES;
@@ -381,14 +381,16 @@
         return ;
     }
     // Use Item
-    control.player.itemUseRequested = YES;
+    if (control.player.ninja.frozenCount == 0) {
+        control.player.itemUseRequested = YES;
+    }
 }
 
 - (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja
 {
     NJPile *nearest = nil;
     for (NJPile *pile in _woodPiles) {
-        if (!CGPointEqualToPointApprox(pile.position, ninja.position)) {
+        if (!CGPointEqualToPointApprox(pile.position, ninja.position) && (!pile.standingCharacter || pile.standingCharacter.frozenCount==0)) {
 //        if (!CGPointEqualToPoint(pile.position, ninja.position)) {
             float dx = pile.position.x - ninja.position.x;
             float dy = pile.position.y - ninja.position.y;

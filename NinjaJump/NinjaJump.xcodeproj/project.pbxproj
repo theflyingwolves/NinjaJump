@@ -71,8 +71,9 @@
 		C42170E718E068E800942374 /* NJFireScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170E618E068E800942374 /* NJFireScroll.m */; };
 		C4AF3C1D18E803410036596A /* NJEffectMine.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AF3C1C18E803410036596A /* NJEffectMine.m */; };
 		C4AF3C1F18E806040036596A /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C1E18E806040036596A /* mine.png */; };
-		C4AF3C2118E806230036596A /* mineEffectInvisible.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2018E806230036596A /* mineEffectInvisible.png */; };
 		C4AF3C2318E852AA0036596A /* Ninja_Thunder.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2218E852AA0036596A /* Ninja_Thunder.atlas */; };
+		C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2818E866490036596A /* mineEffectInvisible.png */; };
+		C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2A18E866550036596A /* freezeEffect.png */; };
 		C4CAA7FF18DB21830070F3D5 /* NJPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FC18DB21830070F3D5 /* NJPath.m */; };
 		C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FE18DB21830070F3D5 /* NJPile.m */; };
 		C4F0821418E4569E00F81C8C /* NJEffectShurikenMulti.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */; };
@@ -207,8 +208,9 @@
 		C4AF3C1B18E803410036596A /* NJEffectMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJEffectMine.h; path = Sprites/ItemEffect/NJEffectMine.h; sourceTree = "<group>"; };
 		C4AF3C1C18E803410036596A /* NJEffectMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJEffectMine.m; path = Sprites/ItemEffect/NJEffectMine.m; sourceTree = "<group>"; };
 		C4AF3C1E18E806040036596A /* mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mine.png; path = Assets/Items/mine.png; sourceTree = "<group>"; };
-		C4AF3C2018E806230036596A /* mineEffectInvisible.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mineEffectInvisible.png; path = Assets/Items/mineEffectInvisible.png; sourceTree = "<group>"; };
 		C4AF3C2218E852AA0036596A /* Ninja_Thunder.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Thunder.atlas; path = "Assets/Texture Altases/Ninja_Thunder.atlas"; sourceTree = "<group>"; };
+		C4AF3C2818E866490036596A /* mineEffectInvisible.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mineEffectInvisible.png; path = Assets/effect/mineEffectInvisible.png; sourceTree = "<group>"; };
+		C4AF3C2A18E866550036596A /* freezeEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = freezeEffect.png; path = Assets/effect/freezeEffect.png; sourceTree = "<group>"; };
 		C4CAA7FB18DB21830070F3D5 /* NJPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPath.h; path = Sprites/pile/NJPath.h; sourceTree = "<group>"; };
 		C4CAA7FC18DB21830070F3D5 /* NJPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPath.m; path = Sprites/pile/NJPath.m; sourceTree = "<group>"; };
 		C4CAA7FD18DB21830070F3D5 /* NJPile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPile.h; path = Sprites/pile/NJPile.h; sourceTree = "<group>"; };
@@ -581,7 +583,8 @@
 		C4F0821818E4707C00F81C8C /* Effects */ = {
 			isa = PBXGroup;
 			children = (
-				C4AF3C2018E806230036596A /* mineEffectInvisible.png */,
+				C4AF3C2A18E866550036596A /* freezeEffect.png */,
+				C4AF3C2818E866490036596A /* mineEffectInvisible.png */,
 				C4F0821918E4708300F81C8C /* shurikenEffect.png */,
 			);
 			name = Effects;
@@ -738,7 +741,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FC568BC18E1BE0900C6589D /* spotlight.png in Resources */,
-				C4AF3C2118E806230036596A /* mineEffectInvisible.png in Resources */,
 				C931A93F18E05EF7002FE154 /* shade.png in Resources */,
 				C41270F118E1D3AF00CAC44A /* iceScroll.png in Resources */,
 				C41270F518E1D41500CAC44A /* medikit.png in Resources */,
@@ -770,6 +772,8 @@
 				C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */,
 				C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */,
 				C931A94418E05EF7002FE154 /* touched button red.png in Resources */,
+				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
+				C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */,
 				C931A94118E05EF7002FE154 /* touched button blue.png in Resources */,
 				C931A94018E05EF7002FE154 /* start button.png in Resources */,
 				2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */,

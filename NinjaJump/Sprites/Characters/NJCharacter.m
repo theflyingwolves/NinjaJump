@@ -18,6 +18,8 @@
 #import "NJFanRange.h"
 
 #define kThunderAnimationSpeed 0.125f
+#define kFrozenEffectFileName @"freezeEffect.png"
+#define kFrozenTime 2.0
 
 @implementation NJCharacter
 
@@ -276,6 +278,17 @@
     //overriden by subclasses
 }
 
+#pragma mark - animation when applied effect
+- (void)performFrozenEffect{
+    SKSpriteNode *frozen = [[SKSpriteNode alloc] initWithImageNamed:kFrozenEffectFileName];
+    frozen.alpha = 0.8;
+    frozen.position = CGPointMake(0, 0);
+    frozen.zPosition = self.zPosition+1;
+    [self addChild:frozen];
+    
+    self.frozenEffect = frozen;
+    self.frozenCount = kFrozenTime;
+}
 
 
 @end
