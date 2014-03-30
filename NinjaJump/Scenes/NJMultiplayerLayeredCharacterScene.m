@@ -12,6 +12,7 @@
 #import "NJNinjaCharacterNormal.h"
 #import "NJButton.h"
 #import "NJSpecialItem.h"
+#import "NJGraphicsUnitilities.h"
 #import "NJItemControl.h"
 
 #define kMaxItemLifeTime 15.0f
@@ -110,8 +111,12 @@
         }
         
         if (![ninja isDying]) {
+//            NSLog(@"ninja info: (%f, %f), %f", ninja.position.x, ninja.position.y, ninja.zRotation);
+            ninja.position = CGPointApprox(ninja.position);
+            
             if (player.jumpRequested) {
-                if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
+                if (!CGPointEqualToPointApprox(player.targetLocation, ninja.position)) {
+//                if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
                     [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast];
                 } else {
                     player.jumpRequested = NO;
@@ -121,7 +126,8 @@
                         if (p == player) {
                             continue;
                         }
-                        if (CGPointEqualToPoint(player.ninja.position, p.ninja.position)) {
+                        if (CGPointEqualToPointApprox(player.ninja.position, p.ninja.position)) {
+//                        if (CGPointEqualToPoint(player.ninja.position, p.ninja.position)) {
                             [player.ninja attackCharacter:p.ninja];
                             CGPoint position = [self spawnAtRandomPosition];
                             [p.ninja resetToPosition:position];

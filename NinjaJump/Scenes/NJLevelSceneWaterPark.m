@@ -246,7 +246,8 @@
 
 - (BOOL)hasItemOnPosition:(CGPoint)position{
     for (NJSpecialItem *item in self.items){
-        if (CGPointEqualToPoint(position, item.position)) {
+        if (CGPointEqualToPointApprox(position, item.position)) {
+//        if (CGPointEqualToPoint(position, item.position)) {
             return YES;
         }
     }
@@ -285,7 +286,7 @@
         [pile updateWithTimeSinceLastUpdate:timeSinceLast];
         BOOL added = NO;
         for (NJNinjaCharacter *ninja in _ninjas) {
-            if (CGPointEqualToPoint(ninja.position, pile.position)) {
+            if (CGPointEqualToPointApprox(ninja.position, pile.position)) {
                 [pile addCharacterToPile:ninja];
                 added = YES;
                 ninja.zRotation += pile.angleRotatedSinceLastUpdate;
@@ -298,6 +299,7 @@
                         ninja.zRotation += 2*M_PI;
                     }
                 }
+                ninja.zRotation = normalizeZRotation(ninja.zRotation);
             }
         }
         
@@ -363,8 +365,10 @@
     if ([ninjas count] < 1) {
         return;
     }
+//    NSLog(@"jump requested!");
     NJPile *pile = [self woodPileToJump:button.player.ninja];
     if (pile && !button.player.isJumping) {
+//        NSLog(@"wood found!");
         button.player.startLocation = button.player.ninja.position;
         button.player.targetLocation = pile.position;
         button.player.jumpRequested = YES;
@@ -386,18 +390,26 @@
 {
     NJPile *nearest = nil;
     for (NJPile *pile in _woodPiles) {
-        if (!CGPointEqualToPoint(pile.position, ninja.position)) {
+        if (!CGPointEqualToPointApprox(pile.position, ninja.position)) {
+//        if (!CGPointEqualToPoint(pile.position, ninja.position)) {
             float dx = pile.position.x - ninja.position.x;
             float dy = pile.position.y - ninja.position.y;
             float zRotation = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(pile.position, ninja.position));
             
+            
             if (zRotation < 0 && zRotation >= -M_PI/2) {
                 zRotation += 2*M_PI;
             }
+            float ninjaZRotation = ninja.zRotation;
+            if (ninjaZRotation < 0) {
+                float diff = ninjaZRotation + M_PI;
+                ninjaZRotation = M_PI + diff;
+            }
+            
             float dist = hypotf(dx, dy);
             float radius = pile.size.width / 2;
             float angleSpaned = atan2f(radius,dist);
-            if (zRotation-3*angleSpaned <= ninja.zRotation && zRotation+3*angleSpaned >= ninja.zRotation) {
+            if (zRotation-3*angleSpaned <= ninjaZRotation && zRotation+3*angleSpaned >= ninjaZRotation) {
                 if (nearest == nil) {
                     nearest = pile;
                 } else if (NJDistanceBetweenPoints(ninja.position, nearest.position)>NJDistanceBetweenPoints(ninja.position, pile.position)) {
@@ -415,12 +427,14 @@
     for (NJPile *pile in _woodPiles) {
         BOOL isFree = YES;
         for (NJPlayer *player in self.players) {
-            if (CGPointEqualToPoint(pile.position, player.ninja.position) || (CGPointEqualToPoint(pile.position, player.targetLocation))) {
+            if (CGPointEqualToPointApprox(pile.position, player.ninja.position) || (CGPointEqualToPointApprox(pile.position, player.targetLocation))) {
+//            if (CGPointEqualToPoint(pile.position, player.ninja.position) || (CGPointEqualToPoint(pile.position, player.targetLocation))) {
                 isFree = NO;
             }
         }
         for (NJSpecialItem *item in self.items){
-            if (CGPointEqualToPoint(pile.position, item.position)) {
+            if (CGPointEqualToPointApprox(pile.position, item.position)) {
+//            if (CGPointEqualToPoint(pile.position, item.position)) {
                 isFree = NO;
             }
         }
@@ -595,6 +609,22 @@
 
 - (void)inActivate{
     
+}
+
+
+#pragma mark - Physics Delegate
+- (void)didBeginContact:(SKPhysicsContact *)contact {
+    // Either bodyA or bodyB in the collision could be a character.
+    SKNode *node = contact.bodyA.node;
+    if ([node isKindOfClass:[NJCharacter class]]) {
+        [(NJCharacter *)node collidedWith:contact.bodyB];
+    }
+    
+    // Check bodyB too.
+    node = contact.bodyB.node;
+    if ([node isKindOfClass:[NJCharacter class]]) {
+        [(NJCharacter *)node collidedWith:contact.bodyA];
+    }
 }
 
 #pragma mark - Delegate Methods

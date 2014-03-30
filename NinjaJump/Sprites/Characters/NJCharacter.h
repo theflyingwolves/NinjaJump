@@ -94,4 +94,6 @@ typedef enum : uint8_t {
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
 
 - (void)pickupItemAtSamePosition:(NSArray *)items;
+
+- (void)collidedWith:(SKPhysicsBody *)other;
 @end

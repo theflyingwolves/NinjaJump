@@ -28,6 +28,7 @@
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
+        [self configurePhysicsBody];
     }
     
 //    NJRectangularRange *range = [[NJRectangularRange alloc] initWithOrigin:CGPointMake(0, 0) farDist:1.0 andFacingDir:M_PI / 4];
@@ -51,9 +52,14 @@
     CGFloat distRemaining = hypotf(dx, dy);
     
     CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(position, curPosition));
-    self.zRotation = ang;
+//    NSLog(@"before jumpping; old zrotation: %f, new zrotation %f", self.zRotation, normalizeZRotation(ang));
+//    NSLog(@"velocity: %f", self.physicsBody.velocity);
+    self.zRotation = normalizeZRotation(ang);
+//    self.zRotation = ang;
     if (distRemaining <= dt) {
+//        NSLog(@"jump stop");
         self.position = position;
+//        NSLog(@"self position after snapping: (%f, %f)", self.position.x, self.position.y);
     } else {
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
                                     curPosition.y + cosf(ang)*dt);
@@ -242,4 +248,18 @@
     // overridden by subclasses
     return nil;
 }
+
+
+
+#pragma mark - physics
+- (void)collidedWith:(SKPhysicsBody *)other{
+    //overriden by subclasses
+}
+
+-(void)configurePhysicsBody{
+    //overriden by subclasses
+}
+
+
+
 @end

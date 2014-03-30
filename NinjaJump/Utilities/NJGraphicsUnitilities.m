@@ -52,4 +52,27 @@ CGVector vectorForMovement(CGFloat radians, CGFloat distance){
     return CGVectorMake(dx, dy);
 }
 
+CGFloat normalizeZRotation(CGFloat zRotation){
+    if (zRotation > M_PI) {
+        float diff = 2*M_PI - zRotation;
+        return (0-diff);
+    } else {
+        return zRotation;
+    }
+}
+
+bool CGPointEqualToPointApprox(CGPoint point1, CGPoint point2){
+    if ((int)point1.x*100 == (int)point2.x*100 && (int)point1.y*100 == (int)point2.y*100) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+CGPoint CGPointApprox(CGPoint point){
+    float x = ((int)point.x*100)/100.0;
+    float y = ((int)point.y*100)/100.0;
+    return CGPointMake(x, y);
+}
+
 @end
