@@ -13,6 +13,7 @@
 #import "NJButton.h"
 #import "NJSpecialItem.h"
 #import "NJGraphicsUnitilities.h"
+#import "NJItemControl.h"
 
 #define kMaxItemLifeTime 15.0f
 
@@ -23,7 +24,6 @@
 @property (nonatomic) NSMutableArray *layers;           // different layer nodes within the world
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *items;
-@property (nonatomic, readwrite) NSMutableArray *woodPiles;
 
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
 
@@ -35,10 +35,9 @@
 - (instancetype)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
     if (self) {
-//        _items = [NSMutableArray new];
         _items = [[NSMutableArray alloc] init];
         _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
-        
+
         for (int i=0; i<kNumPlayers ; i++) {
             NJPlayer *player = [[NJPlayer alloc] init];
             [(NSMutableArray *)_players addObject:player];
@@ -138,13 +137,6 @@
                     [player.ninja pickupItemAtSamePosition:self.items];
                 }
             }
-            
-            if (player.itemUseRequested) {
-                if (player.item != nil) {
-                    [player.ninja useItem:player.item];
-                }
-                player.itemUseRequested = NO;
-            }
         }
     }
     
@@ -154,6 +146,7 @@
             [itemsToRemove addObject:item];
         }
     }
+    
     for (id item in itemsToRemove){
         [(NSMutableArray*)self.items removeObject:item];
     }

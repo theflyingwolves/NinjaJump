@@ -7,7 +7,8 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-@class NJPlayer,NJItemControl;
+
+@class NJPlayer,NJItemControl,NJSpecialItem;
 
 @protocol NJItemControlDelegate <NSObject>
 - (void)itemControl:(NJItemControl *) button touchesEnded:(NSSet *)touches;
@@ -18,6 +19,8 @@
 
 @property (nonatomic, weak) id <NJItemControlDelegate> delegate;
 @property (nonatomic, weak) NJPlayer *player;
+@property (nonatomic, weak) NJSpecialItem *itemHold;
 
 - (id)initWithImageNamed:(NSString *)name;
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 @end

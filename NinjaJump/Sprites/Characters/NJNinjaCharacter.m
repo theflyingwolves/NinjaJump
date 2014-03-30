@@ -33,11 +33,13 @@ const CGFloat medikitRecover = 40.0f;
         if (CGPointEqualToPointApprox(item.position, self.position)) {
 //        if (CGPointEqualToPoint(item.position, self.position)) {
             item.isPickedUp = YES;
-            [item removeFromParent];
             self.player.item = item;
+            [item removeFromParent];
+//            NSLog(@"picked up item: %@",self.player.item);
             
             switch (item.itemType) {
                 case NJItemMedikit:
+                    self.player.item = nil;
                     [self recover:medikitRecover];
                     break;
                 
@@ -48,19 +50,18 @@ const CGFloat medikitRecover = 40.0f;
                 default:
                     break;
             }
-            
         }
     }
 }
 
 #pragma mark - Use Items
-- (void)useItem:(NJSpecialItem *)item
+- (void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles
 {
     CGFloat direction = (self.zRotation + M_PI/2);
     if (direction > (2*M_PI)) {
         direction -= 2*M_PI;
     }
-    [item useAtPosition:self.position withDirection: direction byCharacter:self];
+    [item useAtPosition:self.position withDirection: direction andWoodPiles:piles byCharacter:self];
     self.player.item = nil;
     
     NSLog(@"use item");

@@ -22,7 +22,8 @@
     return self;
 }
 
-- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character{
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction andWoodPiles:(NSArray *)piles byCharacter:(NJCharacter*)character
+{
     int angle1 = 0 - kShurikenAngle/2;
     int angle2 = 0;
     int angle3 = kShurikenAngle - kShurikenAngle/2;

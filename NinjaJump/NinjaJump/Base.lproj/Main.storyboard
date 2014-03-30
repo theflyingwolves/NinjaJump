@@ -1,70 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BRn-mf-8bZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BV1-FR-VrT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="Fv5-CG-vX4">
-            <objects>
-                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="BRn-mf-8bZ" sceneMemberID="viewController">
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ejb-Rk-jYg">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="8Ux-0r-Ja2" kind="relationship" relationship="rootViewController" id="QqV-IB-R6a"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RIb-Ss-oOC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2643" y="-285"/>
-        </scene>
-        <!--Load Scene-->
-        <scene sceneID="sAJ-Q4-1UF">
-            <objects>
-                <viewController id="8Ux-0r-Ja2" customClass="NJLoadScene" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ebV-4i-btl"/>
-                        <viewControllerLayoutGuide type="bottom" id="nFx-sZ-OLQ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="nrz-2j-zOj">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="light.png" translatesAutoresizingMaskIntoConstraints="NO" id="sZE-RK-zvi">
-                                <rect key="frame" x="-49" y="-6" width="1024" height="768"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="096-oP-391">
-                                <rect key="frame" x="82" y="110" width="776" height="535"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <rect key="contentStretch" x="0.0" y="0.0" width="0.44999999999999962" height="1"/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="loading bar.png" translatesAutoresizingMaskIntoConstraints="NO" id="UAw-WV-DPu">
-                                <rect key="frame" x="-33" y="14" width="1024" height="768"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="loading bar2.png" translatesAutoresizingMaskIntoConstraints="NO" id="vza-7k-sLA">
-                                <rect key="frame" x="-33" y="14" width="1024" height="768"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Su7-Md-xQh"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <connections>
-                        <outlet property="light" destination="sZE-RK-zvi" id="ayL-Eg-BHA"/>
-                        <outlet property="loadingBar" destination="vza-7k-sLA" id="a83-Og-h5T"/>
-                        <segue destination="BV1-FR-VrT" kind="modal" identifier="SegueToMainScene" modalTransitionStyle="crossDissolve" id="cEW-gS-egY"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eVE-12-jFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1446" y="-273"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -93,15 +32,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-238" y="-285"/>
+            <point key="canvasLocation" x="-1434" y="-513"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="light.png" width="1024" height="768"/>
-        <image name="loading bar.png" width="1024" height="768"/>
-        <image name="loading bar2.png" width="1024" height="768"/>
-        <image name="logo.png" width="1024" height="768"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

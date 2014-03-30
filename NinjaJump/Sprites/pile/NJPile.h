@@ -14,6 +14,8 @@ typedef enum : uint8_t {
     NJDirectionCounterClockwise
 } NJDirection;
 
+@class NJCharacter;
+
 @interface NJPile : SKSpriteNode
 
 @property float radius; //do we really need it?
@@ -22,6 +24,11 @@ typedef enum : uint8_t {
 @property float angleRotatedSinceLastUpdate;
 @property NJDirection rotateDirection;
 @property NJPath *path; //contains position and path
+@property NJCharacter *standingCharacter;
+@property BOOL isIceScrollEnabled;
+@property BOOL isThunderScrollEnabled;
+@property BOOL isWindScrollEnabled;
+@property BOOL isFireScrollEnabled;
 
 /* Preload texture */
 //+(void)loadSharedAssets;
@@ -34,5 +41,8 @@ typedef enum : uint8_t {
 // EFFECTS: return the position of the pile afte a timeinterval
 - (CGPoint)positionAfterTimeinterval:(NSTimeInterval)interval;
 
+- (void)addCharacterToPile:(NJCharacter *)character;
+- (void)setSpeed:(float)aSpeed direction:(NJDirection)direction;
 
+- (void)removeStandingCharacter;
 @end

@@ -78,10 +78,10 @@ typedef enum : uint8_t {
 - (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval;
 // EFFECTS: Only handle the animation of using the given item
 
--(void)useItem:(NJSpecialItem *)item;
+-(void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles;
 
 // EFFECTS: Update the next-frame renderring of the character
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval;
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
 // EFFECTS: Load animation frames for jumping animation
 - (NSArray *)jumpAnimationFrames;

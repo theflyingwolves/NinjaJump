@@ -52,6 +52,9 @@
         while (self.zRotation>=2*M_PI) {
             self.zRotation -= 2*M_PI;
         }
+        while (self.zRotation<0) {
+            self.zRotation += 2*M_PI;
+        }
     }
     if (isMoving) {
         NJPath *path = self.path;
@@ -67,8 +70,24 @@
     return position;
 }
 
+- (void)addCharacterToPile:(NJCharacter *)character
+{
+    self.standingCharacter = character;
+}
 
+- (void)setSpeed:(float)aSpeed direction:(NJDirection)direction
+{
+    if (direction == NJDiectionClockwise) {
+        self.angularSpeed = -aSpeed;
+    } else {
+        self.angularSpeed = aSpeed;
+    }
+}
 
+- (void)removeStandingCharacter
+{
+    self.standingCharacter = nil;
+}
 
 
 @end

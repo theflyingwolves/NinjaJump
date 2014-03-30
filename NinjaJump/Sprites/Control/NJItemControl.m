@@ -7,6 +7,7 @@
 //
 
 #import "NJItemControl.h"
+#import "NJPlayer.h"
 
 @implementation NJItemControl
 
@@ -24,6 +25,22 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.delegate itemControl:self touchesEnded:touches];
+}
+
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
+{
+    NJSpecialItem *item = _player.item;
+    if (item) {
+        if (item != _itemHold) {
+            [_itemHold removeFromParent];
+            _itemHold = item;
+            _itemHold.position = CGPointZero;
+            [self addChild:_itemHold];
+        }
+    } else {
+        [_itemHold removeFromParent];
+        _itemHold = nil;
+    }
 }
 
 @end

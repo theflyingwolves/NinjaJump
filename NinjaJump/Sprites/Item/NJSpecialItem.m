@@ -26,6 +26,4 @@
     _lifeTime += interval;
 }
 
-
-
 @end
