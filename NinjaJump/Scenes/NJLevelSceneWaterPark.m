@@ -254,10 +254,10 @@
                 item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position];
                 break;
                 
-//            case NJItemFireScroll:
-//                item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position];
-//                break;
-//                
+            case NJItemFireScroll:
+                item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position];
+                break;
+//
 //            case NJItemMedikit:
 //                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
 //                break;
@@ -361,12 +361,12 @@
         
         if (pile.isWindScrollEnabled) {
             [pile.standingCharacter applyDamage:20];
-            pile.isThunderScrollEnabled = NO;
+            pile.isWindScrollEnabled = NO;
         }
         
         if (pile.isFireScrollEnabled) {
             [pile.standingCharacter applyDamage:20];
-            pile.isThunderScrollEnabled = NO;
+            pile.isFireScrollEnabled = NO;
         }
     }
     

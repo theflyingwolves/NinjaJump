@@ -12,6 +12,7 @@
 #import "NJRange.h"
 #import "NJCircularRange.h"
 #import "NJPile.h"
+#import "NJScrollAnimation.h"
 
 @implementation NJIceScroll
 
@@ -34,6 +35,9 @@
         }
     }
     self.isUsed = YES;
+    
+    NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];
+    [animation runFreezeEffect:character];
 }
 
 @end

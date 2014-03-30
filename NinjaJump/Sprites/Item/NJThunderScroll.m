@@ -28,7 +28,7 @@
     self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
     for (NJPile *pile in piles) {
         if ([self.range isPointWithinRange:pile.position]) {
-            pile.isIceScrollEnabled = YES;
+            pile.isThunderScrollEnabled = YES;
         }
     }
     self.isUsed = YES;
