@@ -28,7 +28,7 @@
 {
 //    self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
     double facingDir = self.zRotation;
-    self.range = [[NJRectangularRange alloc] initWithOrigin:self.position farDist:70 andFacingDir:facingDir];
+    self.range = [[NJRectangularRange alloc] initWithOrigin:character.position farDist:70 andFacingDir:facingDir];
     for (NJPile *pile in piles) {
         if ([self.range isPointWithinRange:pile.position]) {
             pile.isWindScrollEnabled = YES;

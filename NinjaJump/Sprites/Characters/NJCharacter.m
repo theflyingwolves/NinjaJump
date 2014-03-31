@@ -14,8 +14,6 @@
 #import "NJGraphicsUnitilities.h"
 
 #import "NJRange.h"
-#import "NJCircularRange.h"
-#import "NJFanRange.h"
 
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"
@@ -34,13 +32,7 @@
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
         [self configurePhysicsBody];
     }
-    
-//    NJRectangularRange *range = [[NJRectangularRange alloc] initWithOrigin:CGPointMake(0, 0) farDist:1.0 andFacingDir:M_PI / 4];
-//    NSLog(@"Within Range:%d",[range isPointWithinRange:CGPointMake(0,-sqrtf(2))]);
-    
-//    NJFanRange *range = [[NJFanRange alloc] initWithOrigin:CGPointMake(0, 0) farDist:2*sqrt(2.0f) andFacingDir:M_PI/4];
-//    NSLog(@"within range: %d",[range isPointWithinRange:CGPointMake(2, -0.5)]);
-    
+        
     return self;
 }
 

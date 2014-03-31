@@ -8,7 +8,7 @@
 
 #import "NJFanRange.h"
 
-#define ANGULAR_TOLERANCE M_PI/4
+#define ANGULAR_TOLERANCE M_PI/3
 
 @implementation NJFanRange
 
