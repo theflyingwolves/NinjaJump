@@ -12,7 +12,7 @@
 #import "NJSpecialItem.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJGraphicsUnitilities.h"
-#import "NJPile.h"
+
 #import "NJRange.h"
 
 #define kThunderAnimationSpeed 0.125f

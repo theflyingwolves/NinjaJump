@@ -40,7 +40,7 @@
 #define kNumOfFramesToSpawnItem 10
 #define NJWoodPileInitialImpluse 3
 
-@interface NJLevelSceneWaterPark ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate>
+@interface NJLevelSceneWaterPark ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;
@@ -245,20 +245,20 @@
         NJSpecialItem *item;
         
         switch (index) {
-//            case NJItemThunderScroll:
-//                item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position];
-//                break;
-//                
-//            case NJItemWindScroll:
-//                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position];
-//                break;
+            case NJItemThunderScroll:
+                item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
+                break;
+                
+            case NJItemWindScroll:
+                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+                break;
                 
             case NJItemIceScroll:
-                item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position];
+                item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
                 break;
                 
             case NJItemFireScroll:
-                item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position];
+                item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
                 break;
 //
 //            case NJItemMedikit:
@@ -348,30 +348,6 @@
         
         if (!added && pile.standingCharacter) {
             [pile removeStandingCharacter];
-        }
-    }
-
-    
-    for (NJPile *pile in _woodPiles) {
-        if (pile.isIceScrollEnabled) {
-//            [pile.standingCharacter applyDamage:20];
-            [pile.standingCharacter performFrozenEffect];
-            pile.isIceScrollEnabled = NO;
-        }
-        
-        if (pile.isThunderScrollEnabled) {
-            [pile.standingCharacter applyDamage:20];
-            pile.isThunderScrollEnabled = NO;
-        }
-        
-        if (pile.isWindScrollEnabled) {
-            [pile.standingCharacter applyDamage:20];
-            pile.isWindScrollEnabled = NO;
-        }
-        
-        if (pile.isFireScrollEnabled) {
-            [pile.standingCharacter applyDamage:20];
-            pile.isFireScrollEnabled = NO;
         }
     }
     
@@ -653,8 +629,8 @@
     
 }
 
+#pragma mark - Delegate Methods
 
-#pragma mark - Physics Delegate
 - (void)didBeginContact:(SKPhysicsContact *)contact {
     // Either bodyA or bodyB in the collision could be a character.
     SKNode *node = contact.bodyA.node;
@@ -669,6 +645,18 @@
     }
 }
 
-#pragma mark - Delegate Methods
+- (NSArray *)getAffectedTargetsWithRange:(NJRange *)range
+{
+    NSMutableArray *affectedNinjas = [NSMutableArray array];
+    for (NJPlayer *player in self.players) {
+        if (!player.isDisabled) {
+            if ([range isPointWithinRange:player.ninja.position]) {
+                [affectedNinjas addObject:player.ninja];
+            }
+        }
+    }
+    
+    return affectedNinjas;
+}
 
 @end

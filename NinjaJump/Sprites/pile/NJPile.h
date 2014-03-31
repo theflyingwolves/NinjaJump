@@ -24,9 +24,6 @@ typedef enum : uint8_t {
 @property NJDirection rotateDirection;
 @property (nonatomic, weak) NJCharacter *standingCharacter;
 @property BOOL isIceScrollEnabled;
-@property BOOL isThunderScrollEnabled;
-@property BOOL isWindScrollEnabled;
-@property BOOL isFireScrollEnabled;
 
 /* Preload texture */
 //+(void)loadSharedAssets;

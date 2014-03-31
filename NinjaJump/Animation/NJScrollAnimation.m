@@ -16,39 +16,35 @@
 - (void)runFireEffect:(NJNinjaCharacter *)ninja{
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
     fireAttack = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-    fireAttack.particleScale = 2;
-    fireAttack.position = CGPointMake(0, 50);
-    [ninja addChild:fireAttack];
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(fireUp:) userInfo:nil repeats:5];
-    SKAction *move = [SKAction moveByX:0 y:100 duration:0.6];
-    SKAction *removeNode = [SKAction removeFromParent];
-    SKAction *sequence = [SKAction sequence:@[move, removeNode]];
-    [fireAttack runAction:sequence completion:^{
-        fireAttack = nil;
-        [timer invalidate];
-    }];
+    fireAttack.zRotation = ninja.zRotation;
+    fireAttack.position = CGPointMake(ninja.position.x-50*sin(ninja.zRotation), ninja.position.y+50*cos(ninja.zRotation));
+    [ninja.parent addChild:fireAttack];
+    
+    NSLog(@"ninja rotate %f",ninja.zRotation);
+    //[fireAttack runAction:sequence];
+    [self performSelector:@selector(moveFire) withObject:nil afterDelay:1.5];
 }
 
-- (void)fireUp:(NSTimer *)timer{
-    fireAttack.particleScale = fireAttack.particleScale+1;
+- (void)moveFire{
+    [fireAttack removeFromParent];
 }
 
 - (void)runFreezeEffect:(NJNinjaCharacter *)ninja{
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"FreezeEffect" ofType:@"sks"];
     freezeEffect = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     freezeEffect.particleBirthRate = 10;
-    [ninja addChild:freezeEffect];
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(freezeUp:) userInfo:nil repeats:5];
+    freezeEffect.position = ninja.position;
+    [ninja.parent addChild:freezeEffect];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(freezeUp:) userInfo:nil repeats:5];
 }
 
 - (void)freezeUp:(NSTimer *)timer{
     freezeEffect.particleBirthRate ++;
     if (freezeEffect.particleBirthRate == 40) {
         freezeEffect.particleBirthRate = 10;
-        freezeEffect.particleAlpha =0.1;
-        SKAction *wait = [SKAction waitForDuration:0.2];
-        SKAction *fadeout = [SKAction fadeAlphaBy:0.3 duration:0.2];
-        [freezeEffect runAction:wait completion:^{
+        //SKAction *wait = [SKAction waitForDuration:0.2];
+        SKAction *fadeout = [SKAction fadeAlphaBy:0.7 duration:0.2];
+        [freezeEffect runAction:fadeout completion:^{
             [freezeEffect removeFromParent];
             [timer invalidate];
         }];

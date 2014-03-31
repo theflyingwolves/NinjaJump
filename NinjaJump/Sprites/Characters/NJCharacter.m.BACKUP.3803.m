@@ -12,8 +12,14 @@
 #import "NJSpecialItem.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJGraphicsUnitilities.h"
-#import "NJPile.h"
+
 #import "NJRange.h"
+<<<<<<< HEAD
+#import "NJCircularRange.h"
+#import "NJFanRange.h"
+#import "NJPile.h"
+=======
+>>>>>>> 64b65ab4bda54f91267e9ce5f198e72e65e29108
 
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"

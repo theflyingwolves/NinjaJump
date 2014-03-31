@@ -62,7 +62,7 @@ const CGFloat medikitRecover = 40.0f;
     if (direction > (2*M_PI)) {
         direction -= 2*M_PI;
     }
-    [item useAtPosition:self.position withDirection: direction andWoodPiles:piles byCharacter:self];
+    [item useAtPosition:self.position withDirection: direction byCharacter:self];
     self.player.item = nil;
     
     NSLog(@"use item");
