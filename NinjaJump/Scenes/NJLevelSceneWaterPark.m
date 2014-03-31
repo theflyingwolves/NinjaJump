@@ -349,7 +349,6 @@
     
     for (NJPile *pile in _woodPiles) {
         if (pile.isIceScrollEnabled) {
-//            [pile.standingCharacter applyDamage:20];
             [pile.standingCharacter performFrozenEffect];
             pile.isIceScrollEnabled = NO;
         }

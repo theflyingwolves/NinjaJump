@@ -17,11 +17,12 @@
     double angle = arctan(point.x, point.y);
     double distance = hypotf(point.x-self.origin.x, point.y - self.origin.y);
     if (distance <= self.farDist) {
-        if (angle-distance <= ANGULAR_TOLERANCE && angle - distance >= ANGULAR_TOLERANCE) {
+        NSLog(@"within distance");
+        if (angle <= self.facingDir + ANGULAR_TOLERANCE && angle >= self.facingDir - ANGULAR_TOLERANCE) {
+            NSLog(@"within angle");
             return YES;
         }
     }
-    
     return NO;
 }
 

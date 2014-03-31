@@ -8,7 +8,7 @@
 
 #import "NJFireScroll.h"
 #import "NJRange.h"
-#import "NJCircularRange.h"
+#import "NJFanRange.h"
 #import "NJPile.h"
 #import "NJScrollAnimation.h"
 
@@ -27,7 +27,9 @@
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction andWoodPiles:(NSArray *)piles byCharacter:(NJCharacter*)character
 {
-    self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
+//    self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
+    double facingDir = self.zRotation + M_PI / 2;
+    self.range = [[NJFanRange alloc] initWithOrigin:self.position farDist:200 andFacingDir:facingDir];
     for (NJPile *pile in piles) {
         if ([self.range isPointWithinRange:pile.position]) {
             pile.isFireScrollEnabled = YES;
