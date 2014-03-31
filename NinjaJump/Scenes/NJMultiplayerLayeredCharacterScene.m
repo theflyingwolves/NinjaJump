@@ -136,9 +136,11 @@
                         }
                         if (CGPointEqualToPointApprox(player.ninja.position, p.ninja.position)) {
 //                        if (CGPointEqualToPoint(player.ninja.position, p.ninja.position)) {
-                            [player.ninja attackCharacter:p.ninja];
-                            CGPoint position = [self spawnAtRandomPosition];
-                            [p.ninja resetToPosition:position];
+                            if (!p.isDisabled) {
+                                [player.ninja attackCharacter:p.ninja];
+                                CGPoint position = [self spawnAtRandomPosition];
+                                [p.ninja resetToPosition:position];
+                            }
                         }
                     }
                     //pick up items if needed
