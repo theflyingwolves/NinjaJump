@@ -19,7 +19,6 @@
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner;
 
-
 //methods to be overriden
 - (void)configurePhysicsBody;
 

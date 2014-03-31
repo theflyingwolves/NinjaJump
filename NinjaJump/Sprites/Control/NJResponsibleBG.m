@@ -10,11 +10,11 @@
 
 @implementation NJResponsibleBG
 
-- (id)initWithImageNamed:(NSString *)name
+- (id)init
 {
-    self = [super initWithImageNamed:name];
-    
+    self = [super initWithColor:[SKColor blackColor] size:CGSizeMake(824, 568)];
     if (self) {
+        self.alpha = 0;
         self.userInteractionEnabled = YES;
     }
     

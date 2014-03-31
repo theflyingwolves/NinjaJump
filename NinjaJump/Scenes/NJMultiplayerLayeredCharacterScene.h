@@ -14,6 +14,7 @@ typedef enum : uint8_t {
 	NJWorldLayerBelowCharacter,
 	NJWorldLayerCharacter,
 	NJWorldLayerAboveCharacter,
+    NJWorldLayerControl,
 	kWorldLayerCount
 } NJWorldLayer;
 

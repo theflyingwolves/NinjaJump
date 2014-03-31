@@ -10,6 +10,7 @@
 #import "NJRange.h"
 #import "NJCircularRange.h"
 #import "NJPile.h"
+#import "NJScrollAnimation.h"
 
 #define AFFECTED_RADIUS 250
 
@@ -29,10 +30,13 @@
     self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
     for (NJPile *pile in piles) {
         if ([self.range isPointWithinRange:pile.position]) {
-            pile.isIceScrollEnabled = YES;
+            pile.isFireScrollEnabled = YES;
         }
     }
     self.isUsed = YES;
+    
+    NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];
+    [animation runFireEffect:character];
 }
 
 @end

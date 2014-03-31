@@ -17,6 +17,10 @@
 #import "NJCircularRange.h"
 #import "NJFanRange.h"
 
+#define kThunderAnimationSpeed 0.125f
+#define kFrozenEffectFileName @"freezeEffect.png"
+#define kFrozenTime 2.0
+
 @implementation NJCharacter
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position
@@ -150,10 +154,33 @@
     [spawnEffect runAction:[SKAction sequence:@[[SKAction repeatAction:blink count:4],[SKAction removeFromParent]]]];
 }
 
+- (void)reset
+{
+    self.health = FULL_HP;
+    self.dying = NO;
+    self.attacking = NO;
+    self.animated = NO;
+    [self removeAllActions];
+}
+
 #pragma mark - Use Items
 - (void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles
 {
     
+}
+
+- (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene
+{
+    NSLog(@"thunder animation");
+    SKSpriteNode *thunderEffect = [[SKSpriteNode alloc] initWithImageNamed:@"ninja_thunder_001.png"];
+    thunderEffect.position = self.position;
+    
+    [scene addNode:thunderEffect atWorldLayer:NJWorldLayerAboveCharacter];
+    [thunderEffect runAction:[SKAction sequence:@[
+                                         [SKAction animateWithTextures:[self thunderAnimationFrames] timePerFrame:kThunderAnimationSpeed resize:YES restore:YES],
+                                         [SKAction runBlock:^{
+        [thunderEffect removeFromParent];
+    }]]]];
 }
 
 #pragma mark - Animation
@@ -260,6 +287,17 @@
     //overriden by subclasses
 }
 
+#pragma mark - animation when applied effect
+- (void)performFrozenEffect{
+    SKSpriteNode *frozen = [[SKSpriteNode alloc] initWithImageNamed:kFrozenEffectFileName];
+    frozen.alpha = 0.8;
+    frozen.position = CGPointMake(0, 0);
+    frozen.zPosition = self.zPosition+1;
+    [self addChild:frozen];
+    
+    self.frozenEffect = frozen;
+    self.frozenCount = kFrozenTime;
+}
 
 
 @end

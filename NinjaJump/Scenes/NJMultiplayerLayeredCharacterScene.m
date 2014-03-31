@@ -113,6 +113,14 @@
         if (![ninja isDying]) {
 //            NSLog(@"ninja info: (%f, %f), %f", ninja.position.x, ninja.position.y, ninja.zRotation);
             ninja.position = CGPointApprox(ninja.position);
+            if (ninja.frozenCount > 0) {
+                ninja.frozenCount -= timeSinceLast;
+            }
+            if (ninja.frozenCount < 0) {
+                ninja.frozenCount = 0;
+                [ninja.frozenEffect removeFromParent];
+                ninja.frozenEffect = nil;
+            }
             
             if (player.jumpRequested) {
                 if (!CGPointEqualToPointApprox(player.targetLocation, ninja.position)) {

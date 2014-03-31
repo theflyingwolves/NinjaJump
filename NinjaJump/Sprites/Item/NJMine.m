@@ -7,6 +7,7 @@
 //
 
 #import "NJMine.h"
+#import "NJEffectMine.h"
 
 @implementation NJMine
 
@@ -21,7 +22,7 @@
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction andWoodPiles:(NSArray *)piles byCharacter:(NJCharacter*)character
 {
-    
+    NJEffectMine *mine = [[NJEffectMine alloc] initAtPosition:position withDirection:direction onScene:self.myParent andOwner:character];
 }
 
 @end

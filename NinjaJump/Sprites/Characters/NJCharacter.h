@@ -25,6 +25,9 @@ typedef enum : uint8_t {
 @property (nonatomic, getter=isDying) BOOL dying;
 @property (nonatomic, getter=isAttacking) BOOL attacking;
 
+@property float frozenCount;
+@property SKSpriteNode *frozenEffect;
+
 @property (nonatomic) CGFloat health;
 @property (nonatomic) CGPoint jumpTargetPosition;
 @property (nonatomic) CGPoint spawnPoint;
@@ -91,9 +94,20 @@ typedef enum : uint8_t {
 
 - (NSArray *)attackAnimationFrames;
 
+- (NSArray *)thunderAnimationFrames;
+
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
 
 - (void)pickupItemAtSamePosition:(NSArray *)items;
 
 - (void)collidedWith:(SKPhysicsBody *)other;
+
+//perform the animation when the character use the scroll
+- (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene;
+
+
+//perform the animation when being applied the effect
+- (void)performFrozenEffect;
+
+
 @end

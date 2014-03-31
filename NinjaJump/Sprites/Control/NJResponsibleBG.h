@@ -18,6 +18,4 @@
 
 @property (nonatomic, weak) id <NJBGclickingDelegate> delegate;
 
-- (id)initWithImageNamed:(NSString *)name;
-
 @end
