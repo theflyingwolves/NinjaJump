@@ -14,6 +14,7 @@
 #import "NJSpecialItem.h"
 #import "NJGraphicsUnitilities.h"
 #import "NJItemControl.h"
+#import "NJPile.h"
 
 #define kMaxItemLifeTime 15.0f
 
@@ -41,7 +42,6 @@
         for (int i=0; i<kNumPlayers ; i++) {
             NJPlayer *player = [[NJPlayer alloc] init];
             [(NSMutableArray *)_players addObject:player];
-            player.spawnPoint = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
         }
         
         _world = [[SKNode alloc] init];
@@ -74,9 +74,7 @@
         [player.ninja removeFromParent];
     }
     
-    CGPoint spawnPos = player.spawnPoint;
-    
-    NJNinjaCharacterNormal *ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:@"ninja.png" atPosition:spawnPos withPlayer:player];
+    NJNinjaCharacterNormal *ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:@"ninja.png" atPosition:CGPointZero withPlayer:player];
     if (ninja) {
         [ninja addToScene:self];
         [(NSMutableArray *)self.ninjas addObject:ninja];
@@ -123,9 +121,9 @@
             }
             
             if (player.jumpRequested) {
-                if (!CGPointEqualToPointApprox(player.targetLocation, ninja.position)) {
+                if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
 //                if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
-                    [ninja jumpToPosition:player.targetLocation fromPosition:player.startLocation withTimeInterval:timeSinceLast];
+                    [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;
@@ -134,15 +132,20 @@
                         if (p == player) {
                             continue;
                         }
-                        if (CGPointEqualToPointApprox(player.ninja.position, p.ninja.position)) {
-//                        if (CGPointEqualToPoint(player.ninja.position, p.ninja.position)) {
-                            [player.ninja attackCharacter:p.ninja];
-                            CGPoint position = [self spawnAtRandomPosition];
-                            [p.ninja resetToPosition:position];
+                        if (hypotf(ninja.position.x-p.ninja.position.x,ninja.position.y-p.ninja.position.y)<=CGRectGetWidth(player.targetPile.frame)/2) {
+                            NSLog(@"detected");
+                            if (!p.isDisabled) {
+                                [ninja attackCharacter:p.ninja];
+                                NJPile *pile = [self spawnAtRandomPile];
+                                pile.standingCharacter = p.ninja;
+                                [p.ninja resetToPosition:pile.position];
+                            }
                         }
                     }
+                    player.targetPile.standingCharacter = ninja;
                     //pick up items if needed
-                    [player.ninja pickupItemAtSamePosition:self.items];
+                    [player.ninja pickupItem:self.items onPile:player.targetPile];
+                    player.targetPile = nil;
                 }
             }
         }
@@ -171,14 +174,19 @@
     }
 }
 
-- (CGPoint)spawnAtRandomPosition
+- (NJPile *)spawnAtRandomPile
 {
-    // Overridden by subclasses.
-    return CGPointZero;
+    // Overridden by subclasses
+    return nil;
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast {
     // Overridden by subclasses.
+}
+
+- (void)didSimulatePhysics
+{
+    
 }
 
 #pragma mark - Shared Assets

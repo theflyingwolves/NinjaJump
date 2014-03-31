@@ -9,7 +9,6 @@
 #import "NJLevelSceneWaterPark.h"
 #import "NJNinjaCharacter.h"
 #import "NJPile.h"
-#import "NJPath.h"
 #import "NJButton.h"
 #import "NJItemControl.h"
 #import "NJHPBar.h"
@@ -39,6 +38,7 @@
 #define kMedikitFileName @"medikit.png"
 
 #define kNumOfFramesToSpawnItem 10
+#define NJWoodPileInitialImpluse 3
 
 @interface NJLevelSceneWaterPark ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
@@ -214,9 +214,9 @@
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-            CGPoint spawnPosition = ((NJPile*)_woodPiles[index]).position;
-            ninja.position = spawnPosition;
-            [ninja setSpawnPoint:spawnPosition];
+            NJPile *pile = ((NJPile*)_woodPiles[index]);
+            pile.standingCharacter = ninja;
+            ninja.position = pile.position;
         }else if(player.ninja){
             [player.ninja removeFromParent];
         }
@@ -237,7 +237,8 @@
 }
 
 - (void)addItem{
-    CGPoint position = [self spawnAtRandomPosition];
+    NJPile *pile = [self spawnAtRandomPile];
+    CGPoint position = pile.position;
     
     if ([self.items count] < 3) {
         int index = arc4random() % NJItemCount;
@@ -301,9 +302,11 @@
     //add in the spawn pile of ninjas
     for (NSValue *posValue in pilePos){
         CGPoint pos = [posValue CGPointValue];
-        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pos withSpeed:0 angularSpeed:3 direction:arc4random()%2 path:nil];
+        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pos withSpeed:0 angularSpeed:3 direction:arc4random()%2];
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
+        CGFloat ang = NJRandomAngle();
+        [pile.physicsBody applyImpulse:CGVectorMake(NJWoodPileInitialImpluse*sinf(ang), NJWoodPileInitialImpluse*cosf(ang))];
     }
 }
 
@@ -399,6 +402,15 @@
     }
 }
 
+- (void)didSimulatePhysics
+{
+    for (NJPile *pile in _woodPiles) {
+        if (pile.standingCharacter && !pile.standingCharacter.player.isJumping) {
+            pile.standingCharacter.position = pile.position;
+        }
+    }
+}
+
 #pragma mark - Event Handling
 
 - (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {    
@@ -409,8 +421,8 @@
     
     NJPile *pile = [self woodPileToJump:button.player.ninja];
     if (pile && !button.player.isJumping && button.player.ninja.frozenCount == 0) {
-        button.player.startLocation = button.player.ninja.position;
-        button.player.targetLocation = pile.position;
+        button.player.fromPile = button.player.targetPile;
+        button.player.targetPile = pile;
         button.player.jumpRequested = YES;
         button.player.isJumping = YES;
     } 
@@ -463,14 +475,13 @@
     return nearest;
 }
 
-- (CGPoint)spawnAtRandomPosition
+- (NJPile *)spawnAtRandomPile
 {
     NSMutableArray *array = [NSMutableArray new];
     for (NJPile *pile in _woodPiles) {
         BOOL isFree = YES;
         for (NJPlayer *player in self.players) {
-            if (CGPointEqualToPointApprox(pile.position, player.ninja.position) || (CGPointEqualToPointApprox(pile.position, player.targetLocation))) {
-//            if (CGPointEqualToPoint(pile.position, player.ninja.position) || (CGPointEqualToPoint(pile.position, player.targetLocation))) {
+            if (pile.standingCharacter || player.targetPile==pile) {
                 isFree = NO;
             }
         }
@@ -484,8 +495,7 @@
         }
     }
     int index = arc4random() % [array count];
-    CGPoint spawnPosition = ((NJPile*)array[index]).position;
-    return spawnPosition;
+    return ((NJPile*)array[index]);
 }
 
 #pragma mark - Shared Assets

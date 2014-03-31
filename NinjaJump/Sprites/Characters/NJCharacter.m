@@ -16,6 +16,7 @@
 #import "NJRange.h"
 #import "NJCircularRange.h"
 #import "NJFanRange.h"
+#import "NJPile.h"
 
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"
@@ -44,25 +45,26 @@
     return self;
 }
 
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval
+- (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval
 {
     [self prepareForJump];
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
     CGPoint curPosition = self.position;
-    CGFloat dx = position.x - curPosition.x;
-    CGFloat dy = position.y - curPosition.y;
+    CGFloat dx = toPile.position.x - curPosition.x;
+    CGFloat dy = toPile.position.y - curPosition.y;
     CGFloat dt = self.movementSpeed * timeInterval;
     CGFloat distRemaining = hypotf(dx, dy);
     
-    CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(position, curPosition));
+    CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(toPile.position, curPosition));
 //    NSLog(@"before jumpping; old zrotation: %f, new zrotation %f", self.zRotation, normalizeZRotation(ang));
 //    NSLog(@"velocity: %f", self.physicsBody.velocity);
     self.zRotation = normalizeZRotation(ang);
 //    self.zRotation = ang;
     if (distRemaining <= dt) {
 //        NSLog(@"jump stop");
-        self.position = position;
+        self.position = toPile.position;
+        toPile.standingCharacter = self;
 //        NSLog(@"self position after snapping: (%f, %f)", self.position.x, self.position.y);
     } else {
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,

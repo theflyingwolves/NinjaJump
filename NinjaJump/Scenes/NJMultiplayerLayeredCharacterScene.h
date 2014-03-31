@@ -21,7 +21,8 @@ typedef enum : uint8_t {
 /* Bitmask for the different entities with physics bodies. */
 typedef enum : uint8_t {
     NJColliderTypeCharacter = 1,
-    NJColliderTypeItemEffect = 2
+    NJColliderTypeItemEffect = 2,
+    NJColliderTypeWoodPile = 4
 } NJColliderType;
 
 #define kMinTimeInterval (1.0f / 60.0f)
@@ -30,7 +31,7 @@ typedef enum : uint8_t {
 /* Completion handler for callback after loading assets asynchronously. */
 typedef void (^NJAssetLoadCompletionHandler)(void);
 
-@class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal;
+@class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile;
 
 @interface NJMultiplayerLayeredCharacterScene : SKScene
 
@@ -59,5 +60,5 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 /* Heroes and players. */
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
 
-- (CGPoint)spawnAtRandomPosition;
+- (NJPile *)spawnAtRandomPile;
 @end

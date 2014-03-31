@@ -9,19 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "NJSpecialItem.h"
 
-@class NJNinjaCharacter, SKColor;
+@class NJNinjaCharacter, SKColor, NJPile;
 
 @interface NJPlayer : NSObject
 @property (nonatomic) NJNinjaCharacter *ninja;
 @property (nonatomic) SKColor *color;
 
 @property (nonatomic) BOOL isDisabled;
-
-@property (nonatomic) CGPoint spawnPoint;
 @property (nonatomic) BOOL fireAction;
 
-@property (nonatomic) CGPoint startLocation;
-@property (nonatomic) CGPoint targetLocation;
+@property (nonatomic) NJPile *fromPile;
+@property (nonatomic) NJPile *targetPile;
 @property (nonatomic) BOOL isJumping;
 
 @property (nonatomic) BOOL jumpRequested;               // used to track whether a move was requested

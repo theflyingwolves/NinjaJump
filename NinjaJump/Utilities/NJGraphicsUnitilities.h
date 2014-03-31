@@ -22,4 +22,5 @@ CGVector vectorForMovement(CGFloat radians, CGFloat distance);
 CGFloat normalizeZRotation(CGFloat zRotation);
 bool CGPointEqualToPointApprox(CGPoint point1, CGPoint point2);
 CGPoint CGPointApprox(CGPoint point);
+CGFloat NJRandomAngle();//random angle between -PI and PI
 @end

@@ -19,9 +19,10 @@ typedef enum : uint8_t {
 
 #import <SpriteKit/SpriteKit.h>
 
-@class NJSpecialItem, NJMultiplayerLayeredCharacterScene;
+@class NJSpecialItem, NJMultiplayerLayeredCharacterScene, NJPlayer, NJPile;
 
 @interface NJCharacter : SKSpriteNode
+@property (nonatomic, weak) NJPlayer *player;
 @property (nonatomic, getter=isDying) BOOL dying;
 @property (nonatomic, getter=isAttacking) BOOL attacking;
 
@@ -78,7 +79,7 @@ typedef enum : uint8_t {
 //-(BOOL)applyDamageFromItem:(NJSpecialItem *)item;
 
 // EFFECTS: character jump to a given position
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval;
+- (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval;
 // EFFECTS: Only handle the animation of using the given item
 
 -(void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles;
@@ -98,7 +99,7 @@ typedef enum : uint8_t {
 
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
 
-- (void)pickupItemAtSamePosition:(NSArray *)items;
+- (void)pickupItem:(NSArray *)items onPile:(NJPile *)pile;
 
 - (void)collidedWith:(SKPhysicsBody *)other;
 

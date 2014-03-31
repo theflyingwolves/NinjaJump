@@ -75,7 +75,6 @@
 		C4AF3C2318E852AA0036596A /* Ninja_Thunder.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2218E852AA0036596A /* Ninja_Thunder.atlas */; };
 		C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2818E866490036596A /* mineEffectInvisible.png */; };
 		C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2A18E866550036596A /* freezeEffect.png */; };
-		C4CAA7FF18DB21830070F3D5 /* NJPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FC18DB21830070F3D5 /* NJPath.m */; };
 		C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FE18DB21830070F3D5 /* NJPile.m */; };
 		C4F0821418E4569E00F81C8C /* NJEffectShurikenMulti.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */; };
 		C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821618E459B700F81C8C /* NJItemEffect.m */; };
@@ -213,8 +212,6 @@
 		C4AF3C2218E852AA0036596A /* Ninja_Thunder.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Thunder.atlas; path = "Assets/Texture Altases/Ninja_Thunder.atlas"; sourceTree = "<group>"; };
 		C4AF3C2818E866490036596A /* mineEffectInvisible.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mineEffectInvisible.png; path = Assets/effect/mineEffectInvisible.png; sourceTree = "<group>"; };
 		C4AF3C2A18E866550036596A /* freezeEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = freezeEffect.png; path = Assets/effect/freezeEffect.png; sourceTree = "<group>"; };
-		C4CAA7FB18DB21830070F3D5 /* NJPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPath.h; path = Sprites/pile/NJPath.h; sourceTree = "<group>"; };
-		C4CAA7FC18DB21830070F3D5 /* NJPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPath.m; path = Sprites/pile/NJPath.m; sourceTree = "<group>"; };
 		C4CAA7FD18DB21830070F3D5 /* NJPile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPile.h; path = Sprites/pile/NJPile.h; sourceTree = "<group>"; };
 		C4CAA7FE18DB21830070F3D5 /* NJPile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPile.m; path = Sprites/pile/NJPile.m; sourceTree = "<group>"; };
 		C4F0821218E4569E00F81C8C /* NJEffectShurikenMulti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJEffectShurikenMulti.h; path = Sprites/ItemEffect/NJEffectShurikenMulti.h; sourceTree = "<group>"; };
@@ -561,8 +558,6 @@
 		C4CAA7F418DB21520070F3D5 /* Pile */ = {
 			isa = PBXGroup;
 			children = (
-				C4CAA7FB18DB21830070F3D5 /* NJPath.h */,
-				C4CAA7FC18DB21830070F3D5 /* NJPath.m */,
 				C4CAA7FD18DB21830070F3D5 /* NJPile.h */,
 				C4CAA7FE18DB21830070F3D5 /* NJPile.m */,
 			);
@@ -843,7 +838,6 @@
 				2BFA6DB318E6BA7300EBA279 /* NJLoadingScene.m in Sources */,
 				C98B5A6C18E8516500CD51D0 /* NJScrollAnimation.m in Sources */,
 				2FC568A018E1BC9B00C6589D /* NJButton.m in Sources */,
-				C4CAA7FF18DB21830070F3D5 /* NJPath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,8 @@
 //
 
 #import "NJPile.h"
+#import "NJCharacter.h"
+#import "NJMultiplayerLayeredCharacterScene.h"
 
 @implementation NJPile{
     BOOL isRotating;
@@ -15,7 +17,7 @@
 
 #define rotatetime 1
 
--(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed direction:(NJDirection)direction path:(NJPath *)path
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed direction:(NJDirection)direction
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
@@ -37,7 +39,7 @@
             self.angularSpeed = aSpeed;
         }
         self.rotateDirection = direction;
-        self.path = path;
+        [self configurePhysicsBody];
     }
     
     return self;
@@ -56,19 +58,8 @@
             self.zRotation += 2*M_PI;
         }
     }
-    if (isMoving) {
-        NJPath *path = self.path;
-        NSDictionary *state = [path updateStateAfterTimeInterval:interval withSpeed:self.speed];
-        CGPoint newPosition = [((NSValue*)state[@"position"]) CGPointValue];
-        self.position = newPosition;
-    }
 }
 
-- (CGPoint)positionAfterTimeinterval:(NSTimeInterval)interval{
-    NSDictionary *state = [self.path  stateAfterTimeInterval:interval withSpeed:self.speed];
-    CGPoint position = [((NSValue*)state[@"position"]) CGPointValue];;
-    return position;
-}
 
 - (void)addCharacterToPile:(NJCharacter *)character
 {
@@ -87,6 +78,19 @@
 - (void)removeStandingCharacter
 {
     self.standingCharacter = nil;
+}
+
+- (void)configurePhysicsBody
+{
+    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:CGRectGetWidth(self.frame)/2];
+    self.physicsBody.categoryBitMask = NJColliderTypeWoodPile;
+    self.physicsBody.collisionBitMask = NJColliderTypeWoodPile;
+    self.physicsBody.dynamic = YES;
+    self.physicsBody.usesPreciseCollisionDetection = YES;
+    self.physicsBody.mass = 0.1;
+    self.physicsBody.friction = 0.0;
+    self.physicsBody.linearDamping = 0.0;
+    self.physicsBody.restitution = 1;
 }
 
 
