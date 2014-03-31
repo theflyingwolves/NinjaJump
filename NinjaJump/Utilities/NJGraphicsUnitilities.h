@@ -3,7 +3,7 @@
 //  NinjaJump
 //
 //  Created by Wang Kunzhen on 18/3/14.
-//  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
+//  Copyright (c) 2014 Wang Kunzheownern. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

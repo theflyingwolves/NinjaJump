@@ -19,10 +19,6 @@
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
-        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:CGRectGetWidth(self.frame)/2];
-        self.physicsBody.dynamic = YES;
-        self.physicsBody.allowsRotation = NO;
-        self.physicsBody.usesPreciseCollisionDetection = YES;
         self.position = position;
         if (speed < 0.1) {
             isMoving = NO;
