@@ -89,6 +89,7 @@
 		C931A94318E05EF7002FE154 /* touched button purple.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93C18E05EF7002FE154 /* touched button purple.png */; };
 		C931A94418E05EF7002FE154 /* touched button red.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93D18E05EF7002FE154 /* touched button red.png */; };
 		C931A94618E06358002FE154 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A94518E06358002FE154 /* logo.png */; };
+		C959C29E18E9A25000F11783 /* WoodFire.sks in Resources */ = {isa = PBXBuildFile; fileRef = C959C29D18E9A25000F11783 /* WoodFire.sks */; };
 		C98B5A6C18E8516500CD51D0 /* NJScrollAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B5A6B18E8516500CD51D0 /* NJScrollAnimation.m */; };
 		C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */; };
 		C9B8F29518E05B3B00FA877E /* NJSelectCharacterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B8F29218E05B3B00FA877E /* NJSelectCharacterButton.m */; };
@@ -231,6 +232,7 @@
 		C931A93C18E05EF7002FE154 /* touched button purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button purple.png"; path = "Assets/selection scene/touched button purple.png"; sourceTree = "<group>"; };
 		C931A93D18E05EF7002FE154 /* touched button red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button red.png"; path = "Assets/selection scene/touched button red.png"; sourceTree = "<group>"; };
 		C931A94518E06358002FE154 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = "Assets/loading scene/logo.png"; sourceTree = "<group>"; };
+		C959C29D18E9A25000F11783 /* WoodFire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = WoodFire.sks; path = Particle/WoodFire.sks; sourceTree = "<group>"; };
 		C98B5A6A18E8516500CD51D0 /* NJScrollAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJScrollAnimation.h; path = Animation/NJScrollAnimation.h; sourceTree = SOURCE_ROOT; };
 		C98B5A6B18E8516500CD51D0 /* NJScrollAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJScrollAnimation.m; path = Animation/NJScrollAnimation.m; sourceTree = SOURCE_ROOT; };
 		C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FreezeEffect.sks; path = Particle/FreezeEffect.sks; sourceTree = "<group>"; };
@@ -654,6 +656,7 @@
 				C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */,
 				C9EC06FA18E1CE7000C43E24 /* spark.png */,
 				2BDFAC7F18E7EAB000B4007D /* fog.sks */,
+				C959C29D18E9A25000F11783 /* WoodFire.sks */,
 			);
 			name = Particle;
 			sourceTree = "<group>";
@@ -773,6 +776,7 @@
 				2FC568C818E1EBC000C6589D /* Ninja_Attack.atlas in Resources */,
 				2F8A72B718E44F0A00B88E79 /* itemControl.png in Resources */,
 				C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */,
+				C959C29E18E9A25000F11783 /* WoodFire.sks in Resources */,
 				C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */,
 				C931A94418E05EF7002FE154 /* touched button red.png in Resources */,
 				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
