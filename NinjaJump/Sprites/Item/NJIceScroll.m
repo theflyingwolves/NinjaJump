@@ -16,26 +16,23 @@
 
 @implementation NJIceScroll
 
--(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){
+        self.delegate = delegate;
         _itemType = NJItemIceScroll;
-        self.isUsed = NO;
     }
     
     return self;
 }
 
-- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction andWoodPiles:(NSArray *)piles byCharacter:(NJCharacter*)character
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
     self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
-    for (NJPile *pile in piles) {
-        if ([self.range isPointWithinRange:pile.position]) {
-            pile.isIceScrollEnabled = YES;
-        }
+    NSArray *affectedTargets = [self.delegate getAffectedTargetsWithRange:self.range];
+    for (NJCharacter *ninja in affectedTargets) {
+        [ninja performFrozenEffect];
     }
-    self.isUsed = YES;
-    
     NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];
     [animation runFreezeEffect:character];
 }

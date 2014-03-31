@@ -9,6 +9,12 @@
 #import "NJSpecialItem.h"
 @class NJRange;
 
+@protocol NJScrollDelegate <NSObject>
+- (NSArray *)getAffectedTargetsWithRange:(NJRange *)range;
+@end
+
 @interface NJScroll : NJSpecialItem
-@property BOOL isUsed;
+@property id<NJScrollDelegate> delegate;
+
+- (id)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate;
 @end

@@ -15,26 +15,24 @@
 
 @implementation NJWindScroll
 
--(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){
+        self.delegate = delegate;
         _itemType = NJItemWindScroll;
     }
     
     return self;
 }
 
-- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction andWoodPiles:(NSArray *)piles byCharacter:(NJCharacter*)character
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
-//    self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
     double facingDir = self.zRotation;
     self.range = [[NJRectangularRange alloc] initWithOrigin:character.position farDist:70 andFacingDir:facingDir];
-    for (NJPile *pile in piles) {
-        if ([self.range isPointWithinRange:pile.position]) {
-            pile.isWindScrollEnabled = YES;
-        }
+    NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
+    for (NJCharacter *character in affectedCharacters) {
+        [character applyDamage:20];
     }
-    self.isUsed = YES;
 }
 
 @end
