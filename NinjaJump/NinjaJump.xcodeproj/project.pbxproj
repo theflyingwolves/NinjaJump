@@ -11,6 +11,7 @@
 		2B21F15118D433D2007220CF /* NJLevelSceneWaterPark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15018D433D2007220CF /* NJLevelSceneWaterPark.m */; };
 		2B21F15418D4342E007220CF /* NJPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15318D4342E007220CF /* NJPlayer.m */; };
 		2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */; };
+		2BDFAC8018E7EAB000B4007D /* fog.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2BDFAC7F18E7EAB000B4007D /* fog.sks */; };
 		2BFA6DB318E6BA7300EBA279 /* NJLoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */; };
 		2F45B43418E6A9E100482453 /* NJRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43318E6A9E100482453 /* NJRange.m */; };
 		2F45B43718E6AC6C00482453 /* NJCircularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43618E6AC6C00482453 /* NJCircularRange.m */; };
@@ -118,6 +119,7 @@
 		2B21F15218D4342E007220CF /* NJPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPlayer.h; path = Scenes/NJPlayer.h; sourceTree = "<group>"; };
 		2B21F15318D4342E007220CF /* NJPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPlayer.m; path = Scenes/NJPlayer.m; sourceTree = "<group>"; };
 		2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Jump.atlas; path = "Assets/Texture Altases/Ninja_Jump.atlas"; sourceTree = "<group>"; };
+		2BDFAC7F18E7EAB000B4007D /* fog.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = fog.sks; path = Particle/fog.sks; sourceTree = "<group>"; };
 		2BFA6DB118E6BA7300EBA279 /* NJLoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLoadingScene.h; path = Scenes/NJLoadingScene.h; sourceTree = "<group>"; };
 		2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLoadingScene.m; path = Scenes/NJLoadingScene.m; sourceTree = "<group>"; };
 		2F45B43218E6A9E100482453 /* NJRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJRange.h; path = "Utilities/Range System/NJRange.h"; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 		2F63E13618E029F600E9A17B /* Control */ = {
 			isa = PBXGroup;
 			children = (
+				2F8A72B618E44F0A00B88E79 /* itemControl.png */,
 				2FC568B518E1BE0900C6589D /* jumpButton.png */,
 				2F63E12D18E0291500E9A17B /* hp_bar_bottom.png */,
 				2F63E12E18E0291500E9A17B /* hp_bar.png */,
@@ -505,7 +508,6 @@
 		2FC568C218E1BE5A00C6589D /* GameBoard */ = {
 			isa = PBXGroup;
 			children = (
-				2F8A72B618E44F0A00B88E79 /* itemControl.png */,
 				2FC568C318E1BEC000C6589D /* ninja.png */,
 				2FC568B918E1BE0900C6589D /* woodPile.png */,
 				2FC568B618E1BE0900C6589D /* spawnLight.png */,
@@ -651,6 +653,7 @@
 				C9EC06F918E1CE7000C43E24 /* FireEffect.sks */,
 				C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */,
 				C9EC06FA18E1CE7000C43E24 /* spark.png */,
+				2BDFAC7F18E7EAB000B4007D /* fog.sks */,
 			);
 			name = Particle;
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 				C41270F318E1D3AF00CAC44A /* windScroll.png in Resources */,
 				2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */,
 				C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */,
+				2BDFAC8018E7EAB000B4007D /* fog.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

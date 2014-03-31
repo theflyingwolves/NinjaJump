@@ -64,6 +64,8 @@
 {
     self = [super initWithSize:size];
     if (self) {
+        self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+        self.physicsBody.usesPreciseCollisionDetection = YES;
         _ninjas = [[NSMutableArray alloc] init];
         _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
