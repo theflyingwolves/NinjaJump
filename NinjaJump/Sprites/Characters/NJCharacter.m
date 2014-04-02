@@ -14,6 +14,7 @@
 #import "NJGraphicsUnitilities.h"
 #import "NJPile.h"
 #import "NJRange.h"
+#import "NJPlayer.h"
 
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"
@@ -65,15 +66,16 @@
 
 - (void)prepareForJump
 {
-    if (!self.texture) {
-        NSLog(@"no texture");
-        self.texture = self.origTexture;
-    }
     [self removeActionForKey:@"anim_attack"];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
 {
+    if (!self.texture) {
+        NSLog(@"no texture");
+        self.texture = self.origTexture;
+    }
+    
     if (self.isAnimated) {
         [self resolveRequestedAnimation];
     }
@@ -230,6 +232,7 @@
     self.activeAnimationKey = nil;
     if (animationState == NJAnimationStateAttack) {
         [self removeActionForKey:@"anim_attack"];
+        self.texture = self.origTexture;
     }
 }
 
@@ -268,8 +271,6 @@
     // overridden by subclasses
     return nil;
 }
-
-
 
 #pragma mark - physics
 - (void)collidedWith:(SKPhysicsBody *)other{
