@@ -35,6 +35,7 @@ const CGFloat medikitRecover = 40.0f;
 //        if (CGPointEqualToPoint(item.position, self.position)) {
             item.isPickedUp = YES;
             self.player.item = item;
+            pile.itemHolded = nil;
             [item removeFromParent];
 //            NSLog(@"picked up item: %@",self.player.item);
             

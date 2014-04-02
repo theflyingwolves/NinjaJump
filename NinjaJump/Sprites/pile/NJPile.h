@@ -23,6 +23,7 @@ typedef enum : uint8_t {
 @property float angleRotatedSinceLastUpdate;
 @property NJDirection rotateDirection;
 @property (nonatomic, weak) NJCharacter *standingCharacter;
+@property (nonatomic, weak) NJSpecialItem *itemHolded;
 @property BOOL isIceScrollEnabled;
 
 /* Preload texture */

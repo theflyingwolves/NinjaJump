@@ -251,6 +251,7 @@
                 
             case NJItemWindScroll:
                 item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+                
                 break;
                 
             case NJItemIceScroll:
@@ -279,6 +280,7 @@
         
         if (item != nil) {
             item.myParent = self;
+            pile.itemHolded = item;
             [self addNode:item atWorldLayer:NJWorldLayerCharacter];
             [_items addObject:item];
         }
@@ -346,6 +348,20 @@
             }
         }
         
+        if (pile.itemHolded) {
+            pile.itemHolded.zRotation += pile.angleRotatedSinceLastUpdate;
+            if (pile.rotateDirection == NJDirectionCounterClockwise) {
+                while (pile.itemHolded.zRotation>=2*M_PI) {
+                    pile.itemHolded.zRotation -= 2*M_PI;
+                }
+            } else {
+                while (pile.itemHolded.zRotation<0) {
+                    pile.itemHolded.zRotation += 2*M_PI;
+                }
+            }
+            pile.itemHolded.zRotation = normalizeZRotation(pile.itemHolded.zRotation);
+        }
+        
         if (!added && pile.standingCharacter) {
             [pile removeStandingCharacter];
         }
@@ -384,6 +400,12 @@
         if (pile.standingCharacter && !pile.standingCharacter.player.isJumping) {
             pile.standingCharacter.position = pile.position;
         }
+        if (pile.itemHolded) {
+            pile.itemHolded.position = pile.position;
+        }
+    }
+    for (NJItemControl *control in _itemControls) {
+        control.itemHold.position = CGPointZero;
     }
 }
 
