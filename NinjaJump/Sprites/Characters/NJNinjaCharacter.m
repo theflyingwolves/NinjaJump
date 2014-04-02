@@ -65,8 +65,6 @@ const CGFloat medikitRecover = 40.0f;
     }
     [item useAtPosition:self.position withDirection: direction byCharacter:self];
     self.player.item = nil;
-    
-    NSLog(@"use item");
 }
 
 #pragma mark - physics
