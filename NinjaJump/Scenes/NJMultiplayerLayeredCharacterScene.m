@@ -90,7 +90,7 @@
 - (void)update:(NSTimeInterval)currentTime {
     // Handle time delta.
     // If we drop below 60fps, we still want everything to move the same distance.
-    CFTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
+    NSTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
     self.lastUpdateTimeInterval = currentTime;
     if (timeSinceLast > 1) { // more than a second since last update
         timeSinceLast = kMinTimeInterval;
@@ -121,6 +121,9 @@
             }
             
             if (player.jumpRequested) {
+                if (player.fromPile.standingCharacter == ninja) {
+                    player.fromPile.standingCharacter = nil;
+                }
                 if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
 //                if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
                     [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
@@ -145,7 +148,7 @@
                     player.targetPile.standingCharacter = ninja;
                     //pick up items if needed
                     [player.ninja pickupItem:self.items onPile:player.targetPile];
-                    player.targetPile = nil;
+                    //player.targetPile = nil;
                 }
             }
         }

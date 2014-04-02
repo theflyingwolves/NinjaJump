@@ -331,7 +331,7 @@
         [pile updateWithTimeSinceLastUpdate:timeSinceLast];
         BOOL added = NO;
         for (NJNinjaCharacter *ninja in _ninjas) {
-            if (CGPointEqualToPointApprox(ninja.position, pile.position)) {
+            if (CGPointEqualToPointApprox(ninja.position, pile.position) && !ninja.player.isJumping) {
                 [pile addCharacterToPile:ninja];
                 added = YES;
                 ninja.zRotation += pile.angleRotatedSinceLastUpdate;
@@ -361,7 +361,6 @@
             }
             pile.itemHolded.zRotation = normalizeZRotation(pile.itemHolded.zRotation);
         }
-        
         if (!added && pile.standingCharacter) {
             [pile removeStandingCharacter];
         }
@@ -443,12 +442,9 @@
     NJPile *nearest = nil;
     for (NJPile *pile in _woodPiles) {
         if (!CGPointEqualToPointApprox(pile.position, ninja.position) && (!pile.standingCharacter || pile.standingCharacter.frozenCount==0)) {
-//        if (!CGPointEqualToPoint(pile.position, ninja.position)) {
             float dx = pile.position.x - ninja.position.x;
             float dy = pile.position.y - ninja.position.y;
             float zRotation = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(pile.position, ninja.position));
-            
-            
             if (zRotation < 0 && zRotation >= -M_PI/2) {
                 zRotation += 2*M_PI;
             }
@@ -457,7 +453,6 @@
                 float diff = ninjaZRotation + M_PI;
                 ninjaZRotation = M_PI + diff;
             }
-            
             float dist = hypotf(dx, dy);
             float radius = pile.size.width / 2;
             float angleSpaned = atan2f(radius,dist);
