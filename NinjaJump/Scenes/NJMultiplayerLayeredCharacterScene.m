@@ -136,7 +136,6 @@
                             continue;
                         }
                         if (hypotf(ninja.position.x-p.ninja.position.x,ninja.position.y-p.ninja.position.y)<=CGRectGetWidth(player.targetPile.frame)/2) {
-                            NSLog(@"detected");
                             if (!p.isDisabled) {
                                 [ninja attackCharacter:p.ninja];
                                 NJPile *pile = [self spawnAtRandomPile];
