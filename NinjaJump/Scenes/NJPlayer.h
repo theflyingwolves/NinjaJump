@@ -27,5 +27,6 @@
 @property (nonatomic) NJSpecialItem *item;
 
 @property (nonatomic) BOOL itemUseRequested;
+@property (nonatomic) NSTimeInterval jumpCooldown;
 
 @end

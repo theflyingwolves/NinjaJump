@@ -118,7 +118,7 @@
                 [ninja.frozenEffect removeFromParent];
                 ninja.frozenEffect = nil;
             }
-            
+            player.jumpCooldown += timeSinceLast;
             if (player.jumpRequested) {
                 if (player.fromPile.standingCharacter == ninja) {
                     player.fromPile.standingCharacter = nil;

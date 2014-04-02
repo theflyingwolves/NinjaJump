@@ -332,7 +332,6 @@
         [pile updateWithTimeSinceLastUpdate:timeSinceLast];
         BOOL added = NO;
         for (NJNinjaCharacter *ninja in _ninjas) {
-            //if (CGPointEqualToPointApprox(ninja.position, pile.position) && !ninja.player.isJumping) {
             if (hypotf(ninja.position.x-pile.position.x, ninja.position.y-pile.position.y)<=CGRectGetWidth(pile.frame)/2 && !ninja.player.isJumping) {
                 [pile addCharacterToPile:ninja];
                 added = YES;
@@ -420,10 +419,15 @@
     
     NJPile *pile = [self woodPileToJump:button.player.ninja];
     if (pile && !button.player.isJumping && button.player.ninja.frozenCount == 0) {
-        button.player.fromPile = button.player.targetPile;
-        button.player.targetPile = pile;
-        button.player.jumpRequested = YES;
-        button.player.isJumping = YES;
+        if (button.player.jumpCooldown >= kJumpCooldownTime) {
+            button.player.jumpCooldown = 0;
+            button.player.fromPile = button.player.targetPile;
+            button.player.targetPile = pile;
+            button.player.jumpRequested = YES;
+            button.player.isJumping = YES;
+        } else {
+            NSLog(@"jump cooling down");
+        }
     } 
 }
 
