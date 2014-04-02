@@ -20,9 +20,9 @@
 
 @interface NJMultiplayerLayeredCharacterScene ()
 
-@property (nonatomic) NSMutableArray *players;          // array of player objects or NSNull for no player
-@property (nonatomic) SKNode *world;                    // root node to which all game renderables are attached
-@property (nonatomic) NSMutableArray *layers;           // different layer nodes within the world
+@property (nonatomic, readwrite) NSMutableArray *players;          // array of player objects or NSNull for no player
+@property (nonatomic, readwrite) SKNode *world;                    // root node to which all game renderables are attached
+@property (nonatomic) NSMutableArray *layers;                      // different layer nodes within the world
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *items;
 
@@ -109,7 +109,6 @@
         }
         
         if (![ninja isDying]) {
-//            NSLog(@"ninja info: (%f, %f), %f", ninja.position.x, ninja.position.y, ninja.zRotation);
             ninja.position = CGPointApprox(ninja.position);
             if (ninja.frozenCount > 0) {
                 ninja.frozenCount -= timeSinceLast;
@@ -125,7 +124,6 @@
                     player.fromPile.standingCharacter = nil;
                 }
                 if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
-//                if (!CGPointEqualToPoint(player.targetLocation, ninja.position)) {
                     [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
                 } else {
                     player.jumpRequested = NO;
@@ -147,7 +145,6 @@
                     player.targetPile.standingCharacter = ninja;
                     //pick up items if needed
                     [player.ninja pickupItem:self.items onPile:player.targetPile];
-                    //player.targetPile = nil;
                 }
             }
         }

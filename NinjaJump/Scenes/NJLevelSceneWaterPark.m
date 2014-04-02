@@ -331,7 +331,8 @@
         [pile updateWithTimeSinceLastUpdate:timeSinceLast];
         BOOL added = NO;
         for (NJNinjaCharacter *ninja in _ninjas) {
-            if (CGPointEqualToPointApprox(ninja.position, pile.position) && !ninja.player.isJumping) {
+            //if (CGPointEqualToPointApprox(ninja.position, pile.position) && !ninja.player.isJumping) {
+            if (hypotf(ninja.position.x-pile.position.x, ninja.position.y-pile.position.y)<=CGRectGetWidth(pile.frame)/2 && !ninja.player.isJumping) {
                 [pile addCharacterToPile:ninja];
                 added = YES;
                 ninja.zRotation += pile.angleRotatedSinceLastUpdate;
