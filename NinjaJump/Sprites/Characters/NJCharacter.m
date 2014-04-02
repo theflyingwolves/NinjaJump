@@ -116,8 +116,7 @@
 //            emitter.position = self.position;
 //            NJRunOneShotEmitter(emitter, 0.15f);
 //        }
-        
-        // Show the damage.
+//        // Show the damage.
 //        SKAction *damageAction = [self damageAction];
 //        if (damageAction) {
 //            [self runAction:damageAction];
@@ -166,7 +165,6 @@
 
 - (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene
 {
-    NSLog(@"thunder animation");
     SKSpriteNode *thunderEffect = [[SKSpriteNode alloc] initWithImageNamed:@"ninja_thunder_001.png"];
     thunderEffect.position = self.position;
     

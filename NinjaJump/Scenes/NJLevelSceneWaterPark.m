@@ -125,52 +125,8 @@
 
 - (void)initButtonsAndItemControls
 {
-    if (!_buttons) {
-        _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
-    }
-    
-    for (int i = 0; i < kNumPlayers; i++) {
-        NJPlayer *player = (NJPlayer *)self.players[i];
-        
-        if ([_buttons count]<kNumPlayers) {
-            NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
-            button.delegate = self;
-            button.player = self.players[i];
-            [_buttons addObject:button];
-        }
-        
-        if (!player.isDisabled) {
-            if (!((NJButton *)_buttons[i]).parent) {
-                [self addChild:_buttons[i]];
-            }
-        }else{
-            [(NJButton *)_buttons[i] removeFromParent];
-        }
-    }
-    
     double xDiff = 40, yDiff=90;
-    
-    ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
-    ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
-    ((NJButton*)_buttons[0]).color = [SKColor blackColor];
-    ((NJButton*)_buttons[0]).colorBlendFactor = 1.0;
-    ((NJButton*)_buttons[0]).player.color = [SKColor blackColor];
-    ((NJButton*)_buttons[1]).position = CGPointMake(1024-yDiff, xDiff);
-    ((NJButton*)_buttons[1]).zRotation = M_PI/4;
-    ((NJButton*)_buttons[1]).color = [SKColor blueColor];
-    ((NJButton*)_buttons[1]).colorBlendFactor = 1.0;
-    ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
-    ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
-    ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
-    ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
-    ((NJButton*)_buttons[2]).colorBlendFactor = 1.0;
-    ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
-    ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
-    ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
-    ((NJButton*)_buttons[3]).color = [SKColor redColor];
-    ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
-    ((NJButton*)_buttons[3]).player.color = [SKColor redColor];
-    
+
     if (!_itemControls) {
         _itemControls = [NSMutableArray arrayWithCapacity:kNumPlayers];
     }
@@ -195,13 +151,58 @@
     }
     
     ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
-    ((NJItemControl *)_itemControls[0]).zRotation = -M_PI / 4;
+    ((NJItemControl *)_itemControls[0]).zRotation = - M_PI / 4;
     ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
     ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
     ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
-    ((NJItemControl *)_itemControls[2]).zRotation = -3*M_PI / 4;
+    ((NJItemControl *)_itemControls[2]).zRotation = -3* M_PI / 4;
     ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
     ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
+    
+    
+    if (!_buttons) {
+        _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
+    }
+    
+    for (int i = 0; i < kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        
+        if ([_buttons count]<kNumPlayers) {
+            NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
+            button.delegate = self;
+            button.player = self.players[i];
+            [_buttons addObject:button];
+        }
+        
+        if (!player.isDisabled) {
+            if (!((NJButton *)_buttons[i]).parent) {
+                [self addChild:_buttons[i]];
+            }
+        }else{
+            [(NJButton *)_buttons[i] removeFromParent];
+        }
+    }
+    
+    ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
+    ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
+    ((NJButton*)_buttons[0]).color = [SKColor blackColor];
+    ((NJButton*)_buttons[0]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[0]).player.color = [SKColor blackColor];
+    ((NJButton*)_buttons[1]).position = CGPointMake(1024-yDiff, xDiff);
+    ((NJButton*)_buttons[1]).zRotation = M_PI/4;
+    ((NJButton*)_buttons[1]).color = [SKColor blueColor];
+    ((NJButton*)_buttons[1]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
+    ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
+    ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
+    ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
+    ((NJButton*)_buttons[2]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
+    ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
+    ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
+    ((NJButton*)_buttons[3]).color = [SKColor redColor];
+    ((NJButton*)_buttons[3]).colorBlendFactor = 1.0;
+    ((NJButton*)_buttons[3]).player.color = [SKColor redColor];
 }
 
 - (void)initCharacters
@@ -587,7 +588,6 @@
 #pragma mark - Selection System
 
 - (void)initSelectionSystem{
-    NSLog(@"initselection");
     isSelectionInited = YES;
     NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
