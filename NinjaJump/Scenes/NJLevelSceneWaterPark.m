@@ -432,7 +432,8 @@
         }
     }
     if (livingNinjas.count <= 1) {
-        if (livingNinjas.count == 1) {
+        if (!isGameEnded && livingNinjas.count == 1) {
+            isGameEnded = YES;
             [self victoryAnimationToPlayer:[livingNinjas[0] integerValue]];
         }
         return true;
