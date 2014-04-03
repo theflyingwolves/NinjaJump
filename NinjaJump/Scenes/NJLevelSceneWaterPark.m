@@ -380,7 +380,11 @@
             if (player.item != nil) {
                 [player.ninja useItem:player.item withWoodPiles:_woodPiles];
             }
+            player.itemIndicatorAdded = NO;
             player.itemUseRequested = NO;
+            if (player.indicatorNode) {
+                [player.indicatorNode removeFromParent];
+            }
         }
     }
     
