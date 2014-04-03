@@ -10,23 +10,49 @@
 
 #define btnX 150
 
+@interface NJPausePanel ()
+@property SKCropNode *pausePanelCrop;
+@property SKSpriteNode *pausePanel;
+@property SKSpriteNode *mask;
+@property SKSpriteNode *continueBtn;
+@property SKSpriteNode *restartBtn;
+@property SKSpriteNode *panelBarLeft;
+@property SKSpriteNode *panelBarRight;
+@property BOOL isReacted;
+@property BOOL isInitDone;
+@end
 
-@implementation NJPausePanel{
-    SKSpriteNode *continueBtn;
-    SKSpriteNode *restartBtn;
-    bool isReacted;
-}
+@implementation NJPausePanel
 
 -(id)init{
-    self = [super initWithImageNamed:@"pause scene.png"];
-    if(self){
+    self = [super init];
+    if (self) {
+        self.pausePanelCrop = [[SKCropNode alloc] init];
+        self.pausePanel = [[SKSpriteNode alloc] initWithImageNamed:@"pause scene bg"];
+        self.mask = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:self.pausePanel.frame.size];
+        self.mask.xScale = 0.05;
+        [self.pausePanelCrop addChild:self.pausePanel];
+        [self.pausePanelCrop setMaskNode:self.mask];
+        
+        self.continueBtn = [[SKSpriteNode alloc]initWithImageNamed:@"continue button.png"];
+        self.restartBtn = [[SKSpriteNode alloc]initWithImageNamed:@"restart button.png"];
+        self.panelBarLeft = [[SKSpriteNode alloc] initWithImageNamed:@"pause_scene_left_bar"];
+        self.panelBarRight = [[SKSpriteNode alloc] initWithImageNamed:@"pause_scene_right_bar"];
+        self.continueBtn.position = CGPointMake(-btnX, 0);
+        self.restartBtn.position = CGPointMake(btnX, 0);
+        self.panelBarLeft.position = CGPointMake(-50, 15);
+        self.panelBarRight.position = CGPointMake(50, 15);
+        
         self.userInteractionEnabled = YES;
-        continueBtn = [[SKSpriteNode alloc]initWithImageNamed:@"continue button.png"];
-        restartBtn = [[SKSpriteNode alloc]initWithImageNamed:@"restart button.png"];
-        continueBtn.position = CGPointMake(-btnX, 0);
-        restartBtn.position = CGPointMake(btnX, 0);
-        [self addChild:continueBtn];
-        [self addChild:restartBtn];
+        [self.pausePanelCrop addChild:self.continueBtn];
+        [self.pausePanelCrop addChild:self.restartBtn];
+        [self addChild:self.pausePanelCrop];
+        [self addChild:self.panelBarLeft];
+        [self addChild:self.panelBarRight];
+        
+        [self.mask runAction:[SKAction scaleXTo:1.0 duration:1.2]];
+        [self.panelBarLeft runAction:[SKAction moveToX:-325 duration:0.8]];
+        [self.panelBarRight runAction:[SKAction moveToX:325 duration:0.8]];
     }
     return self;
 }
@@ -34,24 +60,23 @@
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInNode:self];
-    NSLog(@"%f %f",touchPoint.x,touchPoint.y);
     CGFloat dist2continueBtn = sqrt((touchPoint.x+btnX)*(touchPoint.x+btnX)+touchPoint.y*touchPoint.y);
     CGFloat dist2restartBtn = sqrt((touchPoint.x-btnX)*(touchPoint.x-btnX)+touchPoint.y*touchPoint.y);
     SKAction *fadeAway = [SKAction fadeOutWithDuration:0.5];
     SKAction *scaleUp = [SKAction scaleBy:1.2 duration:0.5];
     SKAction *actionGroup =[SKAction group:@[fadeAway, scaleUp]];
     if (dist2continueBtn<60) {
-        [continueBtn runAction:actionGroup];
+        [self.continueBtn runAction:actionGroup];
         NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:CONTINUE]];
         [[NSNotificationCenter defaultCenter] postNotification:note];
         [self removeFromParent];
-        isReacted = YES;
+        self.isReacted = YES;
     } else if (dist2restartBtn<60) {
-        [restartBtn runAction:actionGroup];
+        [self.restartBtn runAction:actionGroup];
         NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:RESTART]];
         [[NSNotificationCenter defaultCenter] postNotification:note];
         [self removeFromParent];
-        isReacted = YES;
+        self.isReacted = YES;
     }
 }
 
