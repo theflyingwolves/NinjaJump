@@ -33,9 +33,7 @@
 
 @end
 
-@implementation NJMultiplayerLayeredCharacterScene{
-    bool isGameEnded;
-}
+@implementation NJMultiplayerLayeredCharacterScene
 
 #pragma mark - Initialization
 - (instancetype)initWithSize:(CGSize)size {
@@ -59,7 +57,6 @@
             [(NSMutableArray *)_layers addObject:layer];
         }
         [self addChild:_world];
-        isGameEnded = NO;
     }
     return self;
 }
@@ -203,89 +200,9 @@
         [item removeFromParent];
         [(NSMutableArray*)self.items removeObject:item];
     }
-    if (!isGameEnded) {
-        isGameEnded = [self isGameEnded];
-    }
 }
 
-- (bool)isGameEnded
-{
-    NSMutableArray *livingNinjas = [NSMutableArray array];
-    for (int i=0; i<self.players.count; i++) {
-        NJPlayer *player = self.players[i];
-        if (!player.isDisabled && !player.ninja.dying){
-            [livingNinjas addObject:[NSNumber numberWithInt:i]];
-        }
-    }
-    if (livingNinjas.count <= 1) {
-        if (livingNinjas.count == 1) {
-            [self victorySceneToNum:[livingNinjas[0] integerValue]];
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
 
-- (void)victorySceneToNum:(NSInteger)index
-{
-    NSLog(@"%lu",index);
-    float angle = atan(1024/768)+0.1;
-    SKSpriteNode *victoryBackground = [SKSpriteNode spriteNodeWithImageNamed:@"victory bg.png"];
-    victoryBackground.position = CGPointMake(1024/2, 768/2);
-    SKSpriteNode *victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"victory.png"];
-    victoryLabel.position = CGPointMake(1024/2, 768/2);
-    switch (index) {
-        case 0:
-            victoryLabel.zRotation = -angle;
-            break;
-        case 1:
-            victoryLabel.zRotation = angle;
-            break;
-        case 2:
-            victoryLabel.zRotation = M_PI-angle;
-            break;
-        case 3:
-            victoryLabel.zRotation = M_PI+angle;
-            break;
-        default:
-            break;
-    }
-    [self addChild:victoryBackground];
-    [self addChild:victoryLabel];
-    [victoryLabel setScale:0.3];
-    SKAction *scaleUp = [SKAction scaleBy:2 duration:0.5];
-    [victoryLabel runAction:scaleUp];
-    SKSpriteNode *continueButton = [SKSpriteNode spriteNodeWithImageNamed:@"continue.png"];
-    continueButton.position = victoryLabel.position;
-    continueButton.zRotation = victoryLabel.zRotation;
-    [continueButton setScale:1/0.8];
-    SKAction *shrinkDown = [SKAction scaleBy:0.8 duration:0.3];
-    SKAction *shrinkUp = [SKAction scaleBy:1/0.8 duration:0.3];
-    SKAction *shrink = [SKAction sequence:@[shrinkDown,shrinkUp]];
-    SKAction *shrinkRepeatly = [SKAction repeatAction:shrink count:3];
-    SKAction *sequenceScale = [SKAction sequence:@[scaleUp,shrinkRepeatly]];
-    [victoryLabel runAction:sequenceScale completion:^{
-        [self addChild:continueButton];
-        SKAction *shrinkUp = [SKAction scaleBy:1/0.9 duration:0.2];
-        SKAction *shrinkBack = [SKAction scaleBy:0.9 duration:0.2];
-        SKAction *shrink = [SKAction sequence:@[shrinkUp,shrinkBack]];
-        SKAction *shrinkRepeatly = [SKAction repeatActionForever:shrink];
-        [continueButton runAction:shrinkRepeatly];
-    }];
-    NSString *filePath1 = [[NSBundle mainBundle] pathForResource:@"Firework" ofType:@"sks"];
-    SKEmitterNode *firework = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath1];
-    firework.position = CGPointMake(1024/2-100, 768/2-100);
-    firework.zRotation = victoryLabel.zRotation+M_PI/8;
-    firework.zPosition = 1;
-    NSString *filePath2 = [[NSBundle mainBundle] pathForResource:@"FireworkRed" ofType:@"sks"];
-    SKEmitterNode *fireworkRed = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath2];
-    fireworkRed.position = CGPointMake(1024/2+300, 768/2);
-    fireworkRed.zRotation = victoryLabel.zRotation-M_PI/8;
-    fireworkRed.zPosition = 1;
-    [self addChild:firework];
-    [self addChild:fireworkRed];
-}
 
 
 - (NJPile *)spawnAtRandomPile
