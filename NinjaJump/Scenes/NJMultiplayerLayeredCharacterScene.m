@@ -129,7 +129,7 @@
             if (!player.itemIndicatorAdded && fileName) {
                 SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
                 itemIndicator.alpha = 0.2;
-                [self addChild:itemIndicator];
+                [self addNode:itemIndicator atWorldLayer:NJWorldLayerCharacter];
                 player.indicatorNode = itemIndicator;
                 player.itemIndicatorAdded = YES;
             }

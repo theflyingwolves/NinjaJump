@@ -159,7 +159,6 @@
     ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
     ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
     
-    
     if (!_buttons) {
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
     }
