@@ -80,6 +80,9 @@
 		C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821618E459B700F81C8C /* NJItemEffect.m */; };
 		C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0821918E4708300F81C8C /* shurikenEffect.png */; };
 		C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0821B18E472C100F81C8C /* shurikenLong.png */; };
+		C9150B0618EC45EF00645698 /* victory.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0518EC45EF00645698 /* victory.png */; };
+		C9150B0818EC56EF00645698 /* victory bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0718EC56EF00645698 /* victory bg.png */; };
+		C9150B0A18EC5ADD00645698 /* continue.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0918EC5ADD00645698 /* continue.png */; };
 		C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93718E05EF7002FE154 /* ready buttons.png */; };
 		C931A93F18E05EF7002FE154 /* shade.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93818E05EF7002FE154 /* shade.png */; };
 		C931A94018E05EF7002FE154 /* start button.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93918E05EF7002FE154 /* start button.png */; };
@@ -96,6 +99,8 @@
 		C9B8F2A018E05E8400FA877E /* light.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29B18E05E8400FA877E /* light.png */; };
 		C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29C18E05E8400FA877E /* loading bar.png */; };
 		C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29D18E05E8400FA877E /* loading bar2.png */; };
+		C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9D8D08D18ED8D3D00F63E9A /* Firework.sks */; };
+		C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9D8D09018ED940F00F63E9A /* FireworkRed.sks */; };
 		C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06F918E1CE7000C43E24 /* FireEffect.sks */; };
 		C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FA18E1CE7000C43E24 /* spark.png */; };
 		C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FE18E1D16F00C43E24 /* fireArc.png */; };
@@ -221,6 +226,9 @@
 		C4F0821618E459B700F81C8C /* NJItemEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJItemEffect.m; path = Sprites/ItemEffect/NJItemEffect.m; sourceTree = "<group>"; };
 		C4F0821918E4708300F81C8C /* shurikenEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shurikenEffect.png; path = Assets/effect/shurikenEffect.png; sourceTree = "<group>"; };
 		C4F0821B18E472C100F81C8C /* shurikenLong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shurikenLong.png; path = Assets/Items/shurikenLong.png; sourceTree = "<group>"; };
+		C9150B0518EC45EF00645698 /* victory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = victory.png; path = "Assets/victory scene/victory.png"; sourceTree = "<group>"; };
+		C9150B0718EC56EF00645698 /* victory bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "victory bg.png"; path = "Assets/victory scene/victory bg.png"; sourceTree = "<group>"; };
+		C9150B0918EC5ADD00645698 /* continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = continue.png; path = "Assets/victory scene/continue.png"; sourceTree = "<group>"; };
 		C931A93718E05EF7002FE154 /* ready buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ready buttons.png"; path = "Assets/selection scene/ready buttons.png"; sourceTree = "<group>"; };
 		C931A93818E05EF7002FE154 /* shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shade.png; path = "Assets/selection scene/shade.png"; sourceTree = "<group>"; };
 		C931A93918E05EF7002FE154 /* start button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "start button.png"; path = "Assets/selection scene/start button.png"; sourceTree = "<group>"; };
@@ -240,6 +248,8 @@
 		C9B8F29B18E05E8400FA877E /* light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = light.png; path = "Assets/loading scene/light.png"; sourceTree = "<group>"; };
 		C9B8F29C18E05E8400FA877E /* loading bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar.png"; path = "Assets/loading scene/loading bar.png"; sourceTree = "<group>"; };
 		C9B8F29D18E05E8400FA877E /* loading bar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar2.png"; path = "Assets/loading scene/loading bar2.png"; sourceTree = "<group>"; };
+		C9D8D08D18ED8D3D00F63E9A /* Firework.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Firework.sks; path = Particle/Firework.sks; sourceTree = "<group>"; };
+		C9D8D09018ED940F00F63E9A /* FireworkRed.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireworkRed.sks; path = Particle/FireworkRed.sks; sourceTree = "<group>"; };
 		C9EC06F918E1CE7000C43E24 /* FireEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireEffect.sks; path = Particle/FireEffect.sks; sourceTree = "<group>"; };
 		C9EC06FA18E1CE7000C43E24 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Particle/spark.png; sourceTree = "<group>"; };
 		C9EC06FE18E1D16F00C43E24 /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/Particle/fireArc.png; sourceTree = "<group>"; };
@@ -304,6 +314,7 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C9150B0418EC45CF00645698 /* Victory Scene */,
 				2F45B44F18E7332700482453 /* Pause Game */,
 				C4F0821818E4707C00F81C8C /* Effects */,
 				C9EC06FD18E1D12A00C43E24 /* Particle */,
@@ -589,6 +600,16 @@
 			name = Effects;
 			sourceTree = "<group>";
 		};
+		C9150B0418EC45CF00645698 /* Victory Scene */ = {
+			isa = PBXGroup;
+			children = (
+				C9150B0918EC5ADD00645698 /* continue.png */,
+				C9150B0718EC56EF00645698 /* victory bg.png */,
+				C9150B0518EC45EF00645698 /* victory.png */,
+			);
+			name = "Victory Scene";
+			sourceTree = "<group>";
+		};
 		C98B5A6918E8514F00CD51D0 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,6 +673,8 @@
 				C9EC06FA18E1CE7000C43E24 /* spark.png */,
 				2BDFAC7F18E7EAB000B4007D /* fog.sks */,
 				C959C29D18E9A25000F11783 /* WoodFire.sks */,
+				C9D8D08D18ED8D3D00F63E9A /* Firework.sks */,
+				C9D8D09018ED940F00F63E9A /* FireworkRed.sks */,
 			);
 			name = Particle;
 			sourceTree = "<group>";
@@ -751,11 +774,14 @@
 				C9B8F2A018E05E8400FA877E /* light.png in Resources */,
 				2FC568BB18E1BE0900C6589D /* spawnLight.png in Resources */,
 				C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */,
+				C9150B0818EC56EF00645698 /* victory bg.png in Resources */,
 				2F63E13018E0291500E9A17B /* hp_bar.png in Resources */,
+				C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */,
 				2FC568BA18E1BE0900C6589D /* jumpButton.png in Resources */,
 				C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */,
+				C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */,
 				C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */,
 				C931A94318E05EF7002FE154 /* touched button purple.png in Resources */,
 				C931A94218E05EF7002FE154 /* touched button brown.png in Resources */,
@@ -776,6 +802,8 @@
 				C931A94418E05EF7002FE154 /* touched button red.png in Resources */,
 				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
 				C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */,
+				C9150B0618EC45EF00645698 /* victory.png in Resources */,
+				C9150B0A18EC5ADD00645698 /* continue.png in Resources */,
 				C931A94118E05EF7002FE154 /* touched button blue.png in Resources */,
 				C931A94018E05EF7002FE154 /* start button.png in Resources */,
 				2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */,
