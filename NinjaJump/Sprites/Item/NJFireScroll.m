@@ -8,7 +8,7 @@
 
 #import "NJFireScroll.h"
 #import "NJRange.h"
-#import "NJCircularRange.h"
+#import "NJFanRange.h"
 #import "NJPile.h"
 #import "NJScrollAnimation.h"
 
@@ -16,24 +16,24 @@
 
 @implementation NJFireScroll
 
--(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){
+        self.delegate = delegate;
         _itemType = NJItemFireScroll;
     }
     
     return self;
 }
 
-- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction andWoodPiles:(NSArray *)piles byCharacter:(NJCharacter*)character
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
-    self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
-    for (NJPile *pile in piles) {
-        if ([self.range isPointWithinRange:pile.position]) {
-            pile.isFireScrollEnabled = YES;
-        }
+    double facingDir = self.zRotation + M_PI / 2;
+    self.range = [[NJFanRange alloc] initWithOrigin:character.position farDist:200 andFacingDir:facingDir];
+    NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
+    for (NJCharacter *character in affectedCharacters) {
+        [character applyDamage:20];
     }
-    self.isUsed = YES;
     
     NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];
     [animation runFireEffect:character];

@@ -10,28 +10,27 @@
 #import "NJCircularRange.h"
 #import "NJPile.h"
 
-#define AFFECTED_RADIUS 250
+#define AFFECTED_RADIUS 300
 
 @implementation NJThunderScroll
 
--(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){
         _itemType = NJItemThunderScroll;
+        self.delegate = delegate;
     }
     
     return self;
 }
 
-- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction andWoodPiles:(NSArray *)piles byCharacter:(NJCharacter*)character
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
     self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
-    for (NJPile *pile in piles) {
-        if ([self.range isPointWithinRange:pile.position]) {
-            pile.isThunderScrollEnabled = YES;
-        }
+    NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
+    for (NJCharacter *character in affectedCharacters) {
+        [character applyDamage:20];
     }
-    self.isUsed = YES;
     [character performThunderAnimationInScene:self.myParent];
 }
 

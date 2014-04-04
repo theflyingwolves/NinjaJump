@@ -12,10 +12,9 @@
 #import "NJSpecialItem.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJGraphicsUnitilities.h"
-
+#import "NJPile.h"
 #import "NJRange.h"
-#import "NJCircularRange.h"
-#import "NJFanRange.h"
+#import "NJPlayer.h"
 
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"
@@ -34,35 +33,30 @@
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
         [self configurePhysicsBody];
     }
-    
-//    NJRectangularRange *range = [[NJRectangularRange alloc] initWithOrigin:CGPointMake(0, 0) farDist:1.0 andFacingDir:M_PI / 4];
-//    NSLog(@"Within Range:%d",[range isPointWithinRange:CGPointMake(0,-sqrtf(2))]);
-    
-    NJFanRange *range = [[NJFanRange alloc] initWithOrigin:CGPointMake(0, 0) farDist:10 andFacingDir:M_PI/4];
-    NSLog(@"within range: %d",[range isPointWithinRange:CGPointMake(5, 5)]);
-    
+        
     return self;
 }
 
-- (void)jumpToPosition:(CGPoint)position fromPosition:(CGPoint)from withTimeInterval:(NSTimeInterval)timeInterval
+- (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval
 {
     [self prepareForJump];
     self.requestedAnimation = NJAnimationStateJump;
     self.animated = YES;
     CGPoint curPosition = self.position;
-    CGFloat dx = position.x - curPosition.x;
-    CGFloat dy = position.y - curPosition.y;
+    CGFloat dx = toPile.position.x - curPosition.x;
+    CGFloat dy = toPile.position.y - curPosition.y;
     CGFloat dt = self.movementSpeed * timeInterval;
     CGFloat distRemaining = hypotf(dx, dy);
     
-    CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(position, curPosition));
+    CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(toPile.position, curPosition));
 //    NSLog(@"before jumpping; old zrotation: %f, new zrotation %f", self.zRotation, normalizeZRotation(ang));
 //    NSLog(@"velocity: %f", self.physicsBody.velocity);
     self.zRotation = normalizeZRotation(ang);
 //    self.zRotation = ang;
     if (distRemaining <= dt) {
 //        NSLog(@"jump stop");
-        self.position = position;
+        self.position = toPile.position;
+        toPile.standingCharacter = self;
 //        NSLog(@"self position after snapping: (%f, %f)", self.position.x, self.position.y);
     } else {
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
@@ -72,15 +66,16 @@
 
 - (void)prepareForJump
 {
-    if (!self.texture) {
-        NSLog(@"no texture");
-        self.texture = self.origTexture;
-    }
     [self removeActionForKey:@"anim_attack"];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
 {
+    if (!self.texture) {
+        NSLog(@"no texture");
+        self.texture = self.origTexture;
+    }
+    
     if (self.isAnimated) {
         [self resolveRequestedAnimation];
     }
@@ -121,8 +116,7 @@
 //            emitter.position = self.position;
 //            NJRunOneShotEmitter(emitter, 0.15f);
 //        }
-        
-        // Show the damage.
+//        // Show the damage.
 //        SKAction *damageAction = [self damageAction];
 //        if (damageAction) {
 //            [self runAction:damageAction];
@@ -171,7 +165,6 @@
 
 - (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene
 {
-    NSLog(@"thunder animation");
     SKSpriteNode *thunderEffect = [[SKSpriteNode alloc] initWithImageNamed:@"ninja_thunder_001.png"];
     thunderEffect.position = self.position;
     
@@ -237,6 +230,7 @@
     self.activeAnimationKey = nil;
     if (animationState == NJAnimationStateAttack) {
         [self removeActionForKey:@"anim_attack"];
+        self.texture = self.origTexture;
     }
 }
 
@@ -275,8 +269,6 @@
     // overridden by subclasses
     return nil;
 }
-
-
 
 #pragma mark - physics
 - (void)collidedWith:(SKPhysicsBody *)other{

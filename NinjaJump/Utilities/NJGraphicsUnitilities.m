@@ -75,4 +75,10 @@ CGPoint CGPointApprox(CGPoint point){
     return CGPointMake(x, y);
 }
 
+CGFloat NJRandomAngle()
+{
+    CGFloat ang = (arc4random()%11)/10.0*2*M_PI-M_PI;
+    return ang;
+}
+
 @end

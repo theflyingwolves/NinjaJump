@@ -34,7 +34,6 @@
         if (item != _itemHold) {
             [_itemHold removeFromParent];
             _itemHold = item;
-            _itemHold.position = CGPointZero;
             [self addChild:_itemHold];
         }
     } else {

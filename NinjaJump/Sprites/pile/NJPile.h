@@ -7,14 +7,13 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "NJPath.h"
 
 typedef enum : uint8_t {
     NJDiectionClockwise = 0,
     NJDirectionCounterClockwise
 } NJDirection;
 
-@class NJCharacter;
+@class NJCharacter, NJSpecialItem;
 
 @interface NJPile : SKSpriteNode
 
@@ -23,23 +22,17 @@ typedef enum : uint8_t {
 @property float angularSpeed;
 @property float angleRotatedSinceLastUpdate;
 @property NJDirection rotateDirection;
-@property NJPath *path; //contains position and path
-@property NJCharacter *standingCharacter;
+@property (nonatomic, weak) NJCharacter *standingCharacter;
+@property (nonatomic, weak) NJSpecialItem *itemHolded;
 @property BOOL isIceScrollEnabled;
-@property BOOL isThunderScrollEnabled;
-@property BOOL isWindScrollEnabled;
-@property BOOL isFireScrollEnabled;
 
 /* Preload texture */
 //+(void)loadSharedAssets;
 
--(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed direction:(NJDirection)direction path:(NJPath *)path;
+-(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withSpeed:(float)speed angularSpeed:(float)aSpeed direction:(NJDirection)direction;
 
 // EFFECTS: Update the next-frame renderring of the pile
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
-
-// EFFECTS: return the position of the pile afte a timeinterval
-- (CGPoint)positionAfterTimeinterval:(NSTimeInterval)interval;
 
 - (void)addCharacterToPile:(NJCharacter *)character;
 - (void)setSpeed:(float)aSpeed direction:(NJDirection)direction;

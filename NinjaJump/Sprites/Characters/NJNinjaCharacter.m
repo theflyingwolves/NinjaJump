@@ -11,6 +11,7 @@
 #import "NJPlayer.h"
 #import "NJGraphicsUnitilities.h"
 #import "NJItemEffect.h"
+#import "NJPile.h"
 
 @implementation NJNinjaCharacter
 
@@ -21,19 +22,20 @@ const CGFloat medikitRecover = 40.0f;
     self = [super initWithTextureNamed:textureName AtPosition:position];
     
     if (self) {
-        _player = player;
+        self.player = player;
     }
     
     return self;
 }
 
 #pragma mark - Pickup Item
-- (void)pickupItemAtSamePosition:(NSArray *)items{
+- (void)pickupItem:(NSArray *)items onPile:(NJPile *)pile{
     for (NJSpecialItem *item in items) {
         if (CGPointEqualToPointApprox(item.position, self.position)) {
 //        if (CGPointEqualToPoint(item.position, self.position)) {
             item.isPickedUp = YES;
             self.player.item = item;
+            pile.itemHolded = nil;
             [item removeFromParent];
 //            NSLog(@"picked up item: %@",self.player.item);
             
@@ -61,10 +63,8 @@ const CGFloat medikitRecover = 40.0f;
     if (direction > (2*M_PI)) {
         direction -= 2*M_PI;
     }
-    [item useAtPosition:self.position withDirection: direction andWoodPiles:piles byCharacter:self];
+    [item useAtPosition:self.position withDirection: direction byCharacter:self];
     self.player.item = nil;
-    
-    NSLog(@"use item");
 }
 
 #pragma mark - physics
@@ -83,9 +83,6 @@ const CGFloat medikitRecover = 40.0f;
 
 -(void)configurePhysicsBody{
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];
-    float size = self.size.width/2;
-    // Our object type for collisions.
-    SKPhysicsBody *body = self.physicsBody;
     self.physicsBody.categoryBitMask = NJColliderTypeCharacter;
     
     // Collides with these objects.
