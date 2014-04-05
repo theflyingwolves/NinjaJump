@@ -43,10 +43,7 @@ const CGFloat medikitRecover = 40.0f;
                 case NJItemMedikit:
                     self.player.item = nil;
                     [self recover:medikitRecover];
-                    break;
-                
-                case NJItemShuriken:
-//                    [self useItem:item];
+                    [item useAtPosition:self.position withDirection:0 byCharacter:self];
                     break;
                 
                 default:

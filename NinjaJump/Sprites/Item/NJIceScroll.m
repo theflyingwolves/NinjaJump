@@ -14,6 +14,8 @@
 #import "NJPile.h"
 #import "NJScrollAnimation.h"
 
+#define kSoundIce @"ice.mid"
+
 @implementation NJIceScroll
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate{
@@ -35,6 +37,9 @@
     }
     NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];
     [animation runFreezeEffect:character];
+    
+    [self runAction:[SKAction playSoundFileNamed:kSoundIce waitForCompletion:NO]];
+    
 }
 
 @end

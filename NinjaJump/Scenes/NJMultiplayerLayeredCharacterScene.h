@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "AVFoundation/AVfoundation.h"
 
 /* The layers in a scene. */
 typedef enum : uint8_t {
