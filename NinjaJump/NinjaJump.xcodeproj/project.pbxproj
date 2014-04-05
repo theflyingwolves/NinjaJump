@@ -117,6 +117,8 @@
 		C931A94318E05EF7002FE154 /* touched button purple.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93C18E05EF7002FE154 /* touched button purple.png */; };
 		C931A94418E05EF7002FE154 /* touched button red.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93D18E05EF7002FE154 /* touched button red.png */; };
 		C931A94618E06358002FE154 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A94518E06358002FE154 /* logo.png */; };
+		C93DBCA918F03B660036136E /* Bomb.sks in Resources */ = {isa = PBXBuildFile; fileRef = C93DBCA818F03B660036136E /* Bomb.sks */; };
+		C93DBCAB18F03B960036136E /* Soft Cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = C93DBCAA18F03B960036136E /* Soft Cloud.png */; };
 		C959C29E18E9A25000F11783 /* WoodFire.sks in Resources */ = {isa = PBXBuildFile; fileRef = C959C29D18E9A25000F11783 /* WoodFire.sks */; };
 		C98B5A6C18E8516500CD51D0 /* NJScrollAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B5A6B18E8516500CD51D0 /* NJScrollAnimation.m */; };
 		C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */; };
@@ -289,6 +291,8 @@
 		C931A93C18E05EF7002FE154 /* touched button purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button purple.png"; path = "Assets/selection scene/touched button purple.png"; sourceTree = "<group>"; };
 		C931A93D18E05EF7002FE154 /* touched button red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button red.png"; path = "Assets/selection scene/touched button red.png"; sourceTree = "<group>"; };
 		C931A94518E06358002FE154 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = "Assets/loading scene/logo.png"; sourceTree = "<group>"; };
+		C93DBCA818F03B660036136E /* Bomb.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Bomb.sks; path = Particle/Bomb.sks; sourceTree = "<group>"; };
+		C93DBCAA18F03B960036136E /* Soft Cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Soft Cloud.png"; path = "Particle/Soft Cloud.png"; sourceTree = "<group>"; };
 		C959C29D18E9A25000F11783 /* WoodFire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = WoodFire.sks; path = Particle/WoodFire.sks; sourceTree = "<group>"; };
 		C98B5A6A18E8516500CD51D0 /* NJScrollAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJScrollAnimation.h; path = Animation/NJScrollAnimation.h; sourceTree = SOURCE_ROOT; };
 		C98B5A6B18E8516500CD51D0 /* NJScrollAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJScrollAnimation.m; path = Animation/NJScrollAnimation.m; sourceTree = SOURCE_ROOT; };
@@ -763,6 +767,7 @@
 		C9EC06F818E1CDFD00C43E24 /* Particle */ = {
 			isa = PBXGroup;
 			children = (
+				C93DBCAA18F03B960036136E /* Soft Cloud.png */,
 				C9EC06F918E1CE7000C43E24 /* FireEffect.sks */,
 				C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */,
 				C9EC06FA18E1CE7000C43E24 /* spark.png */,
@@ -770,6 +775,7 @@
 				C959C29D18E9A25000F11783 /* WoodFire.sks */,
 				C9D8D08D18ED8D3D00F63E9A /* Firework.sks */,
 				C9D8D09018ED940F00F63E9A /* FireworkRed.sks */,
+				C93DBCA818F03B660036136E /* Bomb.sks */,
 			);
 			name = Particle;
 			sourceTree = "<group>";
@@ -887,6 +893,7 @@
 				C931A94218E05EF7002FE154 /* touched button brown.png in Resources */,
 				C4C8747518F023A9004B6527 /* use skill.mid in Resources */,
 				C4C8746A18F023A9004B6527 /* shadowNinja.mp3 in Resources */,
+				C93DBCA918F03B660036136E /* Bomb.sks in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
 				2FDD9C4318EDB09E0071C712 /* pause_scene_right_bar.png in Resources */,
 				2FC568BD18E1BE0900C6589D /* waterParkBG.png in Resources */,
@@ -914,6 +921,7 @@
 				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
 				C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */,
 				C4C8747918F023A9004B6527 /* wind.mid in Resources */,
+				C93DBCAB18F03B960036136E /* Soft Cloud.png in Resources */,
 				C9150B0618EC45EF00645698 /* victory.png in Resources */,
 				C4C8746F18F023A9004B6527 /* firestrong.mid in Resources */,
 				C9150B0A18EC5ADD00645698 /* continue.png in Resources */,
