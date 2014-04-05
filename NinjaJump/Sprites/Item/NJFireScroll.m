@@ -13,6 +13,7 @@
 #import "NJScrollAnimation.h"
 
 #define AFFECTED_RADIUS 250
+#define kSoundFire @"fire(1).mid"
 
 @implementation NJFireScroll
 
@@ -37,6 +38,9 @@
     
     NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];
     [animation runFireEffect:character];
+    
+    [self runAction:[SKAction playSoundFileNamed:kSoundFire waitForCompletion:NO]];
+
 }
 
 @end

@@ -157,7 +157,8 @@
                 if (player.fromPile.standingCharacter == ninja) {
                     player.fromPile.standingCharacter = nil;
                 }
-                if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
+                //if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
+                if (hypotf(ninja.position.x-player.targetPile.position.x, ninja.position.y-player.targetPile.position.y)>CGRectGetWidth(player.targetPile.frame)/2) {
                     [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
                 } else {
                     player.jumpRequested = NO;

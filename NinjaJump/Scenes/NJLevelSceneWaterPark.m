@@ -56,6 +56,7 @@
     bool isSelectionInited;
     BOOL isFirstTimeInitialized;
     bool isGameEnded;
+    AVAudioPlayer *music;
 }
 
 @synthesize ninjas = _ninjas;
@@ -70,6 +71,9 @@
     if (self) {
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         self.physicsBody.usesPreciseCollisionDetection = YES;
+        self.physicsBody.friction = 0.0;
+        self.physicsBody.linearDamping = 0.0;
+        self.physicsBody.restitution = 1.0;
         _ninjas = [[NSMutableArray alloc] init];
         _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
@@ -79,6 +83,12 @@
         [self buildWorld];
         [self initCharacters];
         [self initSelectionSystem];
+        
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"patrit" ofType:@"mp3"]];
+        
+        NSError *error;
+        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        [music play];
     }
     return self;
 }

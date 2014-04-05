@@ -87,10 +87,10 @@
     self.physicsBody.collisionBitMask = NJColliderTypeWoodPile;
     self.physicsBody.dynamic = YES;
     self.physicsBody.usesPreciseCollisionDetection = YES;
-    self.physicsBody.mass = 0.1;
+    self.physicsBody.density = 0.2;
     self.physicsBody.friction = 0.0;
     self.physicsBody.linearDamping = 0.0;
-    self.physicsBody.restitution = 1;
+    self.physicsBody.restitution = 1.0;
 }
 
 
