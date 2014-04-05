@@ -167,12 +167,20 @@
     
     ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
     ((NJItemControl *)_itemControls[0]).zRotation = - M_PI / 4;
+    ((NJItemControl *)_itemControls[0]).color = [SKColor blackColor];
+    ((NJItemControl *)_itemControls[0]).colorBlendFactor = 1.0;
     ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
     ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
+    ((NJItemControl *)_itemControls[1]).color = [SKColor blueColor];
+    ((NJItemControl *)_itemControls[1]).colorBlendFactor = 1.0;
     ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
     ((NJItemControl *)_itemControls[2]).zRotation = -3* M_PI / 4;
+    ((NJItemControl *)_itemControls[2]).color = [SKColor yellowColor];
+    ((NJItemControl *)_itemControls[2]).colorBlendFactor = 1.0;
     ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
     ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
+    ((NJItemControl *)_itemControls[3]).color = [SKColor redColor];
+    ((NJItemControl *)_itemControls[3]).colorBlendFactor = 1.0;
     
     if (!_buttons) {
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
@@ -537,7 +545,12 @@
     }
 }
 
+- (void)button:(NJButton *)button touchesBegan:(NSSet *)touches {
+    button.colorBlendFactor = 0.0;
+}
+
 - (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {
+    button.colorBlendFactor = 1.0;
     NSArray *ninjas = self.ninjas;
     if ([ninjas count] < 1) {
         return;
@@ -557,8 +570,14 @@
     } 
 }
 
+- (void)itemControl:(NJItemControl *)control touchesBegan:(NSSet *)touches
+{
+    control.colorBlendFactor = 0.0;
+}
+
 - (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
 {
+    control.colorBlendFactor = 1.0;
     NSArray *ninjas = self.ninjas;
     if ([ninjas count]<1) {
         return ;

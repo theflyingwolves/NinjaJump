@@ -11,6 +11,7 @@
 @class NJPlayer,NJItemControl,NJSpecialItem;
 
 @protocol NJItemControlDelegate <NSObject>
+- (void)itemControl:(NJItemControl *) button touchesBegan:(NSSet *)touches;
 - (void)itemControl:(NJItemControl *) button touchesEnded:(NSSet *)touches;
 @end
 

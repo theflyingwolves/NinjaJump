@@ -22,6 +22,11 @@
     return self;
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.delegate itemControl:self touchesBegan:touches];
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.delegate itemControl:self touchesEnded:touches];
