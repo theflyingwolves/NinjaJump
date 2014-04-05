@@ -334,11 +334,9 @@
     
     for (NJPile *pile in _woodPiles) {
         [pile updateWithTimeSinceLastUpdate:timeSinceLast];
-        BOOL added = NO;
         for (NJNinjaCharacter *ninja in _ninjas) {
             if (hypotf(ninja.position.x-pile.position.x, ninja.position.y-pile.position.y)<=CGRectGetWidth(pile.frame)/2 && !ninja.player.isJumping) {
                 [pile addCharacterToPile:ninja];
-                added = YES;
                 ninja.zRotation += pile.angleRotatedSinceLastUpdate;
                 if (pile.rotateDirection == NJDirectionCounterClockwise) {
                     while (ninja.zRotation>=2*M_PI) {
@@ -366,9 +364,19 @@
             }
             pile.itemHolded.zRotation = normalizeZRotation(pile.itemHolded.zRotation);
         }
-        if (!added && pile.standingCharacter) {
-            [pile removeStandingCharacter];
+        
+        if (hypotf(pile.standingCharacter.position.x-pile.position.x, pile.standingCharacter.position.y-pile.position.y) > CGRectGetWidth(pile.frame)/2) {
+            pile.standingCharacter = nil;
         }
+        
+        if (pile.itemHolded && ![self.items containsObject:pile.itemHolded]) {
+            pile.itemHolded = nil;
+        }
+        
+//        if (!added && pile.standingCharacter) {
+//            NSLog(@"removing characger");
+//            [pile removeStandingCharacter];
+//        }
     }
     
     for (NJItemControl *control in _itemControls) {
@@ -592,11 +600,11 @@
                 isFree = NO;
             }
         }
-        for (NJSpecialItem *item in self.items){
-            if (CGPointEqualToPointApprox(pile.position, item.position)) {
-                isFree = NO;
-            }
+        
+        if (pile.itemHolded && [self.items containsObject:pile.itemHolded]) {
+            isFree = NO;
         }
+        
         if (isFree) {
             [array addObject:pile];
         }
@@ -659,6 +667,7 @@
         NJPlayer *player = [self.players objectAtIndex:i];
         player.isDisabled = NO;
         [player.ninja reset];
+        player.item = nil;
     }
     [self resetWoodPiles];
     [self initSelectionSystem];
@@ -693,6 +702,13 @@
 {
     for (NJPile *pile in self.woodPiles) {
         [pile setSpeed:3 direction:NJDiectionClockwise];
+        if (pile.standingCharacter) {
+            pile.standingCharacter = nil;
+        }
+        if (pile.itemHolded) {
+            [pile.itemHolded removeFromParent];
+            pile.itemHolded = nil;
+        }
     }
 }
 
