@@ -11,7 +11,11 @@
 #import "NJPlayer.h"
 #import "NJGraphicsUnitilities.h"
 #import "NJItemEffect.h"
+#import "NJEffectMine.h"
 #import "NJPile.h"
+
+#define kSoundBomb @"hurt.mid"
+#define kSoundShuriken @"hurt.mid"
 
 @implementation NJNinjaCharacter
 
@@ -68,14 +72,23 @@ const CGFloat medikitRecover = 40.0f;
 #pragma mark - physics
 - (void)collidedWith:(SKPhysicsBody *)other{
     [super collidedWith:other];
-    if (other.categoryBitMask & NJColliderTypeItemEffect) {
+    if (other.categoryBitMask & NJColliderTypeItemEffectShuriken) {
         NJItemEffect *effect =(NJItemEffect*)other.node;
         if (effect.owner != self) {
             [self applyDamage:effect.damage];
             [effect removeAllActions];
             [effect removeFromParent];
+            [self runAction:[SKAction playSoundFileNamed:kSoundShuriken waitForCompletion:NO]];
         }
-        
+    } else if (other.categoryBitMask & NJColliderTypeItemEffectMine) {
+        NJEffectMine *effect =(NJEffectMine*)other.node;
+        if (effect.owner != self) {
+            [self applyDamage:effect.damage];
+            [effect removeAllActions];
+            [effect removeFromParent];
+            effect.pile.itemEffectOnPile = nil;
+            [self runAction:[SKAction playSoundFileNamed:kSoundBomb waitForCompletion:NO]];
+        }
     }
 }
 
@@ -84,10 +97,10 @@ const CGFloat medikitRecover = 40.0f;
     self.physicsBody.categoryBitMask = NJColliderTypeCharacter;
     
     // Collides with these objects.
-    self.physicsBody.collisionBitMask = NJColliderTypeItemEffect;
+//    self.physicsBody.collisionBitMask = NJColliderTypeItemEffect;
     
     // We want notifications for colliding with these objects.
-    self.physicsBody.contactTestBitMask = NJColliderTypeItemEffect;
+    self.physicsBody.contactTestBitMask = NJColliderTypeItemEffectShuriken | NJColliderTypeItemEffectMine;
 
     self.physicsBody.dynamic = NO;
 //    self.physicsBody.linearDamping = 0.0f;

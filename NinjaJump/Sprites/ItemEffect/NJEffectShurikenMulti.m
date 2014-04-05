@@ -23,6 +23,7 @@
         CGVector movement = vectorForMovement(direction, kShurikenMaxDistance);
         [self runAction:[SKAction moveByX:movement.dx y:movement.dy duration:kShurikenMaxDistance/kShurikenSpeed] completion:^{[self removeFromParent];}];
         _damage = kShurikenMultiDamage;
+        
     }
     return self;
 }
@@ -33,7 +34,7 @@
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];
     
     // Our object type for collisions.
-    self.physicsBody.categoryBitMask = NJColliderTypeItemEffect;
+    self.physicsBody.categoryBitMask = NJColliderTypeItemEffectShuriken;
     
     // Collides with these objects.
 //    self.physicsBody.collisionBitMask = NJColliderTypeCharacter;

@@ -22,8 +22,9 @@ typedef enum : uint8_t {
 /* Bitmask for the different entities with physics bodies. */
 typedef enum : uint8_t {
     NJColliderTypeCharacter = 1,
-    NJColliderTypeItemEffect = 2,
-    NJColliderTypeWoodPile = 4
+    NJColliderTypeItemEffectShuriken = 2,
+    NJColliderTypeWoodPile = 4,
+    NJColliderTypeItemEffectMine = 8
 } NJColliderType;
 
 #define kMinTimeInterval (1.0f / 60.0f)

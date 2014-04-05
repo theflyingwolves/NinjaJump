@@ -28,6 +28,8 @@
 #import "NJShuriken.h"
 #import "NJMedikit.h"
 
+#import "NJItemEffect.h"
+
 #define kBackGroundFileName @"waterParkBG.png"
 #define kThunderScrollFileName @"thunderScroll.png"
 #define kWindScrollFileName @"windScroll.png"
@@ -98,6 +100,7 @@
         
         NSError *error;
         music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        music.numberOfLoops = 100;
         [music play];
     }
     return self;
@@ -449,6 +452,9 @@
         }
         if (pile.itemHolded) {
             pile.itemHolded.position = pile.position;
+        }
+        if (pile.itemEffectOnPile) {
+            pile.itemEffectOnPile.position = pile.position;
         }
     }
     for (NJItemControl *control in _itemControls) {

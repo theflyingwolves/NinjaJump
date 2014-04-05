@@ -19,6 +19,7 @@
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"
 #define kFrozenTime 2.0
+#define kSoundAttack @"hurt.mid"
 
 @implementation NJCharacter
 
@@ -89,6 +90,7 @@
     }
     [character applyDamage:20];
     self.requestedAnimation = NJAnimationStateAttack;
+    [self runAction:[SKAction playSoundFileNamed:kSoundAttack waitForCompletion:NO]];
 }
 
 #pragma mark - Death
