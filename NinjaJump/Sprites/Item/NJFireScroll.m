@@ -12,7 +12,7 @@
 #import "NJPile.h"
 #import "NJScrollAnimation.h"
 
-#define AFFECTED_RADIUS 350
+#define AFFECTED_RADIUS 1000
 #define kSoundFire @"fire(1).mid"
 
 @implementation NJFireScroll
@@ -34,6 +34,11 @@
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
         [character applyDamage:20];
+    }
+    NSArray *affectedPiles = [self.delegate getAffectedPilesWithRange:self.range];
+    for (NJPile *pile in affectedPiles) {
+        pile.isOnFire = YES;
+        pile.fireTimer = 0;
     }
     
     NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];

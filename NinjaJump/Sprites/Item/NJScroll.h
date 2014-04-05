@@ -11,6 +11,7 @@
 
 @protocol NJScrollDelegate <NSObject>
 - (NSArray *)getAffectedTargetsWithRange:(NJRange *)range;
+- (NSArray *)getAffectedPilesWithRange:(NJRange *)range;
 @end
 
 @interface NJScroll : NJSpecialItem

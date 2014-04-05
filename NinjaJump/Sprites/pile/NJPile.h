@@ -25,6 +25,9 @@ typedef enum : uint8_t {
 @property (nonatomic, weak) NJCharacter *standingCharacter;
 @property (nonatomic, weak) NJSpecialItem *itemHolded;
 @property BOOL isIceScrollEnabled;
+@property BOOL isOnFire;
+@property (nonatomic) NSTimeInterval fireTimer;
+@property (nonatomic) SKEmitterNode *fireEmitter;
 
 /* Preload texture */
 //+(void)loadSharedAssets;
