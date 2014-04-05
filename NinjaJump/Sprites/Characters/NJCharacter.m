@@ -73,7 +73,7 @@
 {
     if (!self.texture) {
         NSLog(@"no texture");
-        self.texture = self.origTexture;
+        //self.texture = self.origTexture;
     }
     
     if (self.isAnimated) {

@@ -70,6 +70,9 @@
     if (self) {
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         self.physicsBody.usesPreciseCollisionDetection = YES;
+        self.physicsBody.friction = 0.0;
+        self.physicsBody.linearDamping = 0.0;
+        self.physicsBody.restitution = 1.0;
         _ninjas = [[NSMutableArray alloc] init];
         _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
