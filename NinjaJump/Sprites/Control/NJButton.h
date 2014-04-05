@@ -11,6 +11,7 @@
 
 @protocol NJButtonDelegate <NSObject>
 
+- (void)button:(NJButton *) button touchesBegan:(NSSet *)touches;
 - (void)button:(NJButton *) button touchesEnded:(NSSet *)touches;
 
 @end
