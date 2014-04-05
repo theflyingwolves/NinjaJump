@@ -83,6 +83,24 @@
 		C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2818E866490036596A /* mineEffectInvisible.png */; };
 		C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2A18E866550036596A /* freezeEffect.png */; };
 		C4C8745318EFCAFA004B6527 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C8745218EFCAFA004B6527 /* AVFoundation.framework */; };
+		C4C8746818F023A9004B6527 /* funnyday.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745518F023A9004B6527 /* funnyday.mp3 */; };
+		C4C8746918F023A9004B6527 /* patrit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745618F023A9004B6527 /* patrit.mp3 */; };
+		C4C8746A18F023A9004B6527 /* shadowNinja.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745718F023A9004B6527 /* shadowNinja.mp3 */; };
+		C4C8746B18F023A9004B6527 /* sunshining.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745818F023A9004B6527 /* sunshining.mp3 */; };
+		C4C8746C18F023A9004B6527 /* water.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745918F023A9004B6527 /* water.mp3 */; };
+		C4C8746D18F023A9004B6527 /* fire(1).mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745B18F023A9004B6527 /* fire(1).mid */; };
+		C4C8746E18F023A9004B6527 /* fire.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745C18F023A9004B6527 /* fire.mid */; };
+		C4C8746F18F023A9004B6527 /* firestrong.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745D18F023A9004B6527 /* firestrong.mid */; };
+		C4C8747018F023A9004B6527 /* hurt.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745E18F023A9004B6527 /* hurt.mid */; };
+		C4C8747118F023A9004B6527 /* recover.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745F18F023A9004B6527 /* recover.mid */; };
+		C4C8747218F023A9004B6527 /* recover2.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746018F023A9004B6527 /* recover2.mid */; };
+		C4C8747318F023A9004B6527 /* snow maybe.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746118F023A9004B6527 /* snow maybe.mid */; };
+		C4C8747418F023A9004B6527 /* thunder.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746218F023A9004B6527 /* thunder.mid */; };
+		C4C8747518F023A9004B6527 /* use skill.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746318F023A9004B6527 /* use skill.mid */; };
+		C4C8747618F023A9004B6527 /* water.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746418F023A9004B6527 /* water.mid */; };
+		C4C8747718F023A9004B6527 /* wind(1).mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746518F023A9004B6527 /* wind(1).mid */; };
+		C4C8747818F023A9004B6527 /* wind(2).mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746618F023A9004B6527 /* wind(2).mid */; };
+		C4C8747918F023A9004B6527 /* wind.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746718F023A9004B6527 /* wind.mid */; };
 		C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FE18DB21830070F3D5 /* NJPile.m */; };
 		C4F0821418E4569E00F81C8C /* NJEffectShurikenMulti.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */; };
 		C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821618E459B700F81C8C /* NJItemEffect.m */; };
@@ -234,6 +252,24 @@
 		C4AF3C2818E866490036596A /* mineEffectInvisible.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mineEffectInvisible.png; path = Assets/effect/mineEffectInvisible.png; sourceTree = "<group>"; };
 		C4AF3C2A18E866550036596A /* freezeEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = freezeEffect.png; path = Assets/effect/freezeEffect.png; sourceTree = "<group>"; };
 		C4C8745218EFCAFA004B6527 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C4C8745518F023A9004B6527 /* funnyday.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = funnyday.mp3; sourceTree = "<group>"; };
+		C4C8745618F023A9004B6527 /* patrit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = patrit.mp3; sourceTree = "<group>"; };
+		C4C8745718F023A9004B6527 /* shadowNinja.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shadowNinja.mp3; sourceTree = "<group>"; };
+		C4C8745818F023A9004B6527 /* sunshining.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sunshining.mp3; sourceTree = "<group>"; };
+		C4C8745918F023A9004B6527 /* water.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = water.mp3; sourceTree = "<group>"; };
+		C4C8745B18F023A9004B6527 /* fire(1).mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = "fire(1).mid"; sourceTree = "<group>"; };
+		C4C8745C18F023A9004B6527 /* fire.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = fire.mid; sourceTree = "<group>"; };
+		C4C8745D18F023A9004B6527 /* firestrong.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = firestrong.mid; sourceTree = "<group>"; };
+		C4C8745E18F023A9004B6527 /* hurt.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = hurt.mid; sourceTree = "<group>"; };
+		C4C8745F18F023A9004B6527 /* recover.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = recover.mid; sourceTree = "<group>"; };
+		C4C8746018F023A9004B6527 /* recover2.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = recover2.mid; sourceTree = "<group>"; };
+		C4C8746118F023A9004B6527 /* snow maybe.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = "snow maybe.mid"; sourceTree = "<group>"; };
+		C4C8746218F023A9004B6527 /* thunder.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = thunder.mid; sourceTree = "<group>"; };
+		C4C8746318F023A9004B6527 /* use skill.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = "use skill.mid"; sourceTree = "<group>"; };
+		C4C8746418F023A9004B6527 /* water.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = water.mid; sourceTree = "<group>"; };
+		C4C8746518F023A9004B6527 /* wind(1).mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = "wind(1).mid"; sourceTree = "<group>"; };
+		C4C8746618F023A9004B6527 /* wind(2).mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = "wind(2).mid"; sourceTree = "<group>"; };
+		C4C8746718F023A9004B6527 /* wind.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = wind.mid; sourceTree = "<group>"; };
 		C4CAA7FD18DB21830070F3D5 /* NJPile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPile.h; path = Sprites/pile/NJPile.h; sourceTree = "<group>"; };
 		C4CAA7FE18DB21830070F3D5 /* NJPile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPile.m; path = Sprites/pile/NJPile.m; sourceTree = "<group>"; };
 		C4F0821218E4569E00F81C8C /* NJEffectShurikenMulti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJEffectShurikenMulti.h; path = Sprites/ItemEffect/NJEffectShurikenMulti.h; sourceTree = "<group>"; };
@@ -331,8 +367,8 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				C4C8743918EFBC42004B6527 /* sound */,
-				C4C8742E18EFBC3D004B6527 /* music */,
+				C4C8745418F023A9004B6527 /* music */,
+				C4C8745A18F023A9004B6527 /* sound */,
 				2FDD9C3718ED940C0071C712 /* Indicator */,
 				2F45B44F18E7332700482453 /* Pause Game */,
 				C4F0821818E4707C00F81C8C /* Effects */,
@@ -603,20 +639,38 @@
 			name = Scroll;
 			sourceTree = "<group>";
 		};
-		C4C8742E18EFBC3D004B6527 /* music */ = {
+		C4C8745418F023A9004B6527 /* music */ = {
 			isa = PBXGroup;
 			children = (
+				C4C8745518F023A9004B6527 /* funnyday.mp3 */,
+				C4C8745618F023A9004B6527 /* patrit.mp3 */,
+				C4C8745718F023A9004B6527 /* shadowNinja.mp3 */,
+				C4C8745818F023A9004B6527 /* sunshining.mp3 */,
+				C4C8745918F023A9004B6527 /* water.mp3 */,
 			);
 			name = music;
-			path = ../../backup/NinjaJump/Assets/music;
+			path = Assets/music;
 			sourceTree = "<group>";
 		};
-		C4C8743918EFBC42004B6527 /* sound */ = {
+		C4C8745A18F023A9004B6527 /* sound */ = {
 			isa = PBXGroup;
 			children = (
+				C4C8745B18F023A9004B6527 /* fire(1).mid */,
+				C4C8745C18F023A9004B6527 /* fire.mid */,
+				C4C8745D18F023A9004B6527 /* firestrong.mid */,
+				C4C8745E18F023A9004B6527 /* hurt.mid */,
+				C4C8745F18F023A9004B6527 /* recover.mid */,
+				C4C8746018F023A9004B6527 /* recover2.mid */,
+				C4C8746118F023A9004B6527 /* snow maybe.mid */,
+				C4C8746218F023A9004B6527 /* thunder.mid */,
+				C4C8746318F023A9004B6527 /* use skill.mid */,
+				C4C8746418F023A9004B6527 /* water.mid */,
+				C4C8746518F023A9004B6527 /* wind(1).mid */,
+				C4C8746618F023A9004B6527 /* wind(2).mid */,
+				C4C8746718F023A9004B6527 /* wind.mid */,
 			);
 			name = sound;
-			path = ../../backup/NinjaJump/Assets/sound;
+			path = Assets/sound;
 			sourceTree = "<group>";
 		};
 		C4CAA7F418DB21520070F3D5 /* Pile */ = {
@@ -805,11 +859,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C8746918F023A9004B6527 /* patrit.mp3 in Resources */,
+				C4C8747718F023A9004B6527 /* wind(1).mid in Resources */,
 				2FC568BC18E1BE0900C6589D /* spotlight.png in Resources */,
 				C931A93F18E05EF7002FE154 /* shade.png in Resources */,
 				C41270F118E1D3AF00CAC44A /* iceScroll.png in Resources */,
 				C41270F518E1D41500CAC44A /* medikit.png in Resources */,
 				2FC568BE18E1BE0900C6589D /* woodPile.png in Resources */,
+				C4C8746E18F023A9004B6527 /* fire.mid in Resources */,
 				2F45B45718E7335900482453 /* continue button.png in Resources */,
 				C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */,
 				C9B8F2A018E05E8400FA877E /* light.png in Resources */,
@@ -820,6 +877,7 @@
 				2FDD9C4218EDB09E0071C712 /* pause_scene_left_bar.png in Resources */,
 				C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */,
 				2FC568BA18E1BE0900C6589D /* jumpButton.png in Resources */,
+				C4C8747318F023A9004B6527 /* snow maybe.mid in Resources */,
 				C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */,
@@ -827,19 +885,27 @@
 				C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */,
 				C931A94318E05EF7002FE154 /* touched button purple.png in Resources */,
 				C931A94218E05EF7002FE154 /* touched button brown.png in Resources */,
+				C4C8747518F023A9004B6527 /* use skill.mid in Resources */,
+				C4C8746A18F023A9004B6527 /* shadowNinja.mp3 in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
 				2FDD9C4318EDB09E0071C712 /* pause_scene_right_bar.png in Resources */,
 				2FC568BD18E1BE0900C6589D /* waterParkBG.png in Resources */,
+				C4C8747218F023A9004B6527 /* recover2.mid in Resources */,
+				C4C8746D18F023A9004B6527 /* fire(1).mid in Resources */,
 				2FC568C418E1BEC000C6589D /* ninja.png in Resources */,
 				C4AF3C2318E852AA0036596A /* Ninja_Thunder.atlas in Resources */,
 				C931A94618E06358002FE154 /* logo.png in Resources */,
 				2F45B45418E7332700482453 /* pause scene.png in Resources */,
+				C4C8747118F023A9004B6527 /* recover.mid in Resources */,
+				C4C8747418F023A9004B6527 /* thunder.mid in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
+				C4C8746B18F023A9004B6527 /* sunshining.mp3 in Resources */,
 				2FDD9C3E18ED940D0071C712 /* indicator_thunder.png in Resources */,
 				C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */,
 				C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */,
 				2FC568C818E1EBC000C6589D /* Ninja_Attack.atlas in Resources */,
 				2F8A72B718E44F0A00B88E79 /* itemControl.png in Resources */,
+				C4C8746C18F023A9004B6527 /* water.mp3 in Resources */,
 				C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */,
 				C959C29E18E9A25000F11783 /* WoodFire.sks in Resources */,
 				C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */,
@@ -847,18 +913,24 @@
 				2FDD9C3D18ED940D0071C712 /* indicator_ice.png in Resources */,
 				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
 				C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */,
+				C4C8747918F023A9004B6527 /* wind.mid in Resources */,
 				C9150B0618EC45EF00645698 /* victory.png in Resources */,
+				C4C8746F18F023A9004B6527 /* firestrong.mid in Resources */,
 				C9150B0A18EC5ADD00645698 /* continue.png in Resources */,
 				C931A94118E05EF7002FE154 /* touched button blue.png in Resources */,
 				C931A94018E05EF7002FE154 /* start button.png in Resources */,
+				C4C8747618F023A9004B6527 /* water.mid in Resources */,
 				2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */,
 				C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */,
 				2FDD9C3C18ED940D0071C712 /* indicator_fire.png in Resources */,
 				2F63E12F18E0291500E9A17B /* hp_bar_bottom.png in Resources */,
+				C4C8747818F023A9004B6527 /* wind(2).mid in Resources */,
 				2F45B45518E7332700482453 /* restart button.png in Resources */,
 				C4AF3C1F18E806040036596A /* mine.png in Resources */,
+				C4C8747018F023A9004B6527 /* hurt.mid in Resources */,
 				C41270F318E1D3AF00CAC44A /* windScroll.png in Resources */,
 				2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */,
+				C4C8746818F023A9004B6527 /* funnyday.mp3 in Resources */,
 				2FDD9C4518EDB1F10071C712 /* pause scene bg.png in Resources */,
 				2FDD9C3F18ED940D0071C712 /* indicator_wind.png in Resources */,
 				C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */,

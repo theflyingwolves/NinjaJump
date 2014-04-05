@@ -40,6 +40,12 @@
 #define kNumOfFramesToSpawnItem 10
 #define NJWoodPileInitialImpluse 3
 
+#define kMusicPatrit @"patrit"
+#define kMusicWater @"water"
+#define kMusicShadow @"shadowNinja"
+#define kMusicFunny @"funnyday"
+#define kMusicSun @"sunshining"
+
 @interface NJLevelSceneWaterPark ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
@@ -56,6 +62,7 @@
     bool isSelectionInited;
     BOOL isFirstTimeInitialized;
     bool isGameEnded;
+    NSArray *musicName;
     AVAudioPlayer *music;
 }
 
@@ -84,11 +91,14 @@
         [self initCharacters];
         [self initSelectionSystem];
         
-//        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"patrit" ofType:@"mp3"]];
+        musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
         
-//        NSError *error;
-//        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-//        [music play];
+        int musicIndex = arc4random() % 5;
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
+        
+        NSError *error;
+        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        [music play];
     }
     return self;
 }
@@ -677,6 +687,8 @@
     [self addChild:pausePanel];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
+    
+    [music pause];
 }
 
 - (void)restartOrContinue:(NSNotification *)note
@@ -684,9 +696,18 @@
     NSUInteger actionIndex = [(NSNumber *)[note object]integerValue];
     if (!isSelectionInited && actionIndex == RESTART){
         [self restartGame];
+        
+        int musicIndex = arc4random() % 5;
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
+        
+        NSError *error;
+        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        [music play];
     } else if(actionIndex == CONTINUE){
         [self continueItemUpdate];
         [self continueWoodpiles];
+        
+        [music play];
     }
 }
 
