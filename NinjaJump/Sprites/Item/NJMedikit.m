@@ -7,6 +7,7 @@
 //
 
 #import "NJMedikit.h"
+#define kSoundRecover @"recover.mid"
 
 @implementation NJMedikit
 
@@ -21,7 +22,7 @@
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
-    
+    [self runAction:[SKAction playSoundFileNamed:kSoundRecover waitForCompletion:NO]];
 }
 
 @end

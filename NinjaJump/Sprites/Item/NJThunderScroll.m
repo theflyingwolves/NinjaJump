@@ -11,6 +11,7 @@
 #import "NJPile.h"
 
 #define AFFECTED_RADIUS 300
+#define kSoundThunder @"thunder.mid"
 
 @implementation NJThunderScroll
 
@@ -32,6 +33,9 @@
         [character applyDamage:20];
     }
     [character performThunderAnimationInScene:self.myParent];
+    
+    [self runAction:[SKAction playSoundFileNamed:kSoundThunder waitForCompletion:NO]];
+    
 }
 
 @end

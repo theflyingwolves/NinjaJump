@@ -12,6 +12,7 @@
 #import "NJPile.h"
 
 #define AFFECTED_RADIUS 250
+#define kSoundWind @"wind.mid"
 
 @implementation NJWindScroll
 
@@ -33,6 +34,8 @@
     for (NJCharacter *character in affectedCharacters) {
         [character applyDamage:20];
     }
+    
+    [self runAction:[SKAction playSoundFileNamed:kSoundWind waitForCompletion:NO]];
 }
 
 @end
