@@ -16,27 +16,49 @@
     NSMutableArray *spotLightList;
     NSMutableArray *activePlayerList;
     SKSpriteNode *startButton;
+    SKSpriteNode *shade;
+    SKSpriteNode *background;
 }
 
 - (id) init{
-    self = [super initWithImageNamed:@"ready buttons.png"];
+    self = [super init];
     if (self) {
         activePlayerList = [NSMutableArray array];
+        [self addBackground];
         [self addStartButton];
         [self addSelectionButtons];
         [self addSpotlight];
+        [self fireTransition];
     }
     return self;
 }
 
+- (void)addBackground{
+    background = [SKSpriteNode spriteNodeWithImageNamed:@"ready buttons.png"];
+    background.position = CGPointMake(55, 700);
+    [self addChild:background];
+}
+
+- (void)fireTransition{
+    SKAction* rotate = [SKAction rotateByAngle:5*M_PI duration:1];
+    SKAction *moveDown = [SKAction moveToY:-10 duration:1];
+    SKAction *fadeIn =[SKAction fadeAlphaTo:1 duration:1];
+    SKAction *rotateIn = [SKAction group:@[rotate,moveDown]];
+    [background runAction:rotateIn];
+    [shade runAction:fadeIn];
+}
+
 - (void)addStartButton{
     startButton = [SKSpriteNode spriteNodeWithImageNamed:@"start button.png"];
-    SKSpriteNode *shade = [SKSpriteNode spriteNodeWithImageNamed:@"shade.png"];
-    [self addChild:shade];
-    [self addChild:startButton];
+    shade = [SKSpriteNode spriteNodeWithImageNamed:@"shade.png"];
     startButton.position = CGPointMake(30, 0);
     startButton.hidden = YES;
+    shade.alpha = 0;
+    [self addChild:shade];
+    [self addChild:startButton];
 }
+
+
 
 - (void)addSpotlight{
     spotLightList = [NSMutableArray array];

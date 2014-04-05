@@ -15,6 +15,10 @@
 #import "NJGraphicsUnitilities.h"
 #import "NJItemControl.h"
 #import "NJPile.h"
+#import "NJThunderScroll.h"
+#import "NJWindScroll.h"
+#import "NJFireScroll.h"
+#import "NJIceScroll.h"
 
 #define kMaxItemLifeTime 15.0f
 
@@ -25,7 +29,6 @@
 @property (nonatomic) NSMutableArray *layers;                      // different layer nodes within the world
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *items;
-
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
 
 @end
@@ -108,6 +111,32 @@
             ninja = player.ninja;
         }
         
+        if (player.item) {
+            NSString *fileName;
+            if ([player.item isKindOfClass:[NJThunderScroll class]]) {
+                fileName = @"indicator_thunder";
+            }else if([player.item isKindOfClass:[NJWindScroll class]]){
+                fileName = @"indicator_wind";
+            }else if([player.item isKindOfClass:[NJFireScroll class]]){
+                fileName = @"indicator_fire";
+            }else if([player.item isKindOfClass:[NJIceScroll class]]){
+                fileName = @"indicator_ice";
+            }
+            
+            if (!player.itemIndicatorAdded && fileName) {
+                SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
+                itemIndicator.alpha = 0.2;
+                [self addNode:itemIndicator atWorldLayer:NJWorldLayerCharacter];
+                player.indicatorNode = itemIndicator;
+                player.itemIndicatorAdded = YES;
+            }
+        }
+        
+        if (player.indicatorNode) {
+            player.indicatorNode.position = player.ninja.position;
+            player.indicatorNode.zRotation = player.ninja.zRotation;
+        }
+        
         if (![ninja isDying]) {
             ninja.position = CGPointApprox(ninja.position);
             if (ninja.frozenCount > 0) {
@@ -172,6 +201,9 @@
         [(NSMutableArray*)self.items removeObject:item];
     }
 }
+
+
+
 
 - (NJPile *)spawnAtRandomPile
 {

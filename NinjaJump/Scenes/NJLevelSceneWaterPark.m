@@ -47,11 +47,15 @@
 @property (nonatomic) NSMutableArray *buttons;
 @property (nonatomic) NSMutableArray *itemControls;
 @property (nonatomic) NSMutableArray *hpBars;
+@property (nonatomic) SKSpriteNode *continueButton;
+@property (nonatomic) NJResponsibleBG *clickableArea;
+@property (nonatomic) SKSpriteNode *victoryBackground;
 @end
 
 @implementation NJLevelSceneWaterPark{
     bool isSelectionInited;
     BOOL isFirstTimeInitialized;
+    bool isGameEnded;
 }
 
 @synthesize ninjas = _ninjas;
@@ -71,6 +75,7 @@
         _woodPiles = [[NSMutableArray alloc] init];
         isSelectionInited = NO;
         isFirstTimeInitialized = YES;
+        isGameEnded = NO;
         [self buildWorld];
         [self initCharacters];
         [self initSelectionSystem];
@@ -158,7 +163,6 @@
     ((NJItemControl *)_itemControls[2]).zRotation = -3* M_PI / 4;
     ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
     ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
-    
     
     if (!_buttons) {
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
@@ -380,7 +384,11 @@
             if (player.item != nil) {
                 [player.ninja useItem:player.item withWoodPiles:_woodPiles];
             }
+            player.itemIndicatorAdded = NO;
             player.itemUseRequested = NO;
+            if (player.indicatorNode) {
+                [player.indicatorNode removeFromParent];
+            }
         }
     }
     
@@ -391,6 +399,9 @@
     int toSpawnItem = arc4random() % kNumOfFramesToSpawnItem;
     if (toSpawnItem==1) {
         [self addItem];
+    }
+    if (!isGameEnded) {
+        isGameEnded = [self isGameEnded];
     }
 }
 
@@ -409,9 +420,106 @@
     }
 }
 
-#pragma mark - Event Handling
+#pragma mark - game ending test
+- (bool)isGameEnded
+{
+    NSMutableArray *livingNinjas = [NSMutableArray array];
+    for (int i=0; i<self.players.count; i++) {
+        NJPlayer *player = self.players[i];
+        if (!player.isDisabled && !player.ninja.dying){
+            [livingNinjas addObject:[NSNumber numberWithInt:i]];
+        }
+    }
+    if (livingNinjas.count <= 1) {
+        if (!isGameEnded && livingNinjas.count == 1) {
+            isGameEnded = YES;
+            [self victoryAnimationToPlayer:[livingNinjas[0] integerValue]];
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
 
-- (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {    
+- (void)victoryAnimationToPlayer:(NSInteger)index
+{
+    float angle = atan(1024/768)+0.1;
+    _victoryBackground = [SKSpriteNode spriteNodeWithImageNamed:@"victory bg.png"];
+    _victoryBackground.position = CGPointMake(1024/2, 768/2);
+    SKSpriteNode *victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"victory.png"];
+    switch (index) {
+        case 0:
+            victoryLabel.zRotation = -angle;
+            break;
+        case 1:
+            victoryLabel.zRotation = angle;
+            break;
+        case 2:
+            victoryLabel.zRotation = M_PI-angle;
+            break;
+        case 3:
+            victoryLabel.zRotation = M_PI+angle;
+            break;
+        default:
+            break;
+    }
+    NSString *filePath1 = [[NSBundle mainBundle] pathForResource:@"Firework" ofType:@"sks"];
+    SKEmitterNode *firework = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath1];
+    firework.position = CGPointMake(-100, -100);
+    firework.zRotation = victoryLabel.zRotation+M_PI/8;
+    NSString *filePath2 = [[NSBundle mainBundle] pathForResource:@"FireworkRed" ofType:@"sks"];
+    SKEmitterNode *fireworkRed = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath2];
+    fireworkRed.position = CGPointMake(200, 0);
+    fireworkRed.zRotation = victoryLabel.zRotation-M_PI/8;
+    firework.userInteractionEnabled = NO;
+    fireworkRed.userInteractionEnabled = NO;
+    _continueButton = [SKSpriteNode spriteNodeWithImageNamed:@"continue.png"];
+    _continueButton.name = @"continueButtonAfterVictory";
+    _continueButton.zRotation = victoryLabel.zRotation;
+    [_continueButton setScale:1/0.8];
+    [self addChild:_victoryBackground];
+    [_victoryBackground addChild:firework];
+    [_victoryBackground addChild:fireworkRed];
+    [_victoryBackground addChild:victoryLabel];
+    [victoryLabel setScale:0.3];
+    SKAction *scaleUp = [SKAction scaleBy:2 duration:0.5];
+    [victoryLabel runAction:scaleUp];
+    SKAction *shrinkDown = [SKAction scaleBy:0.8 duration:0.3];
+    SKAction *shrinkUp = [SKAction scaleBy:1/0.8 duration:0.3];
+    SKAction *shrink = [SKAction sequence:@[shrinkDown,shrinkUp]];
+    SKAction *shrinkRepeatly = [SKAction repeatAction:shrink count:3];
+    SKAction *sequenceScale = [SKAction sequence:@[scaleUp,shrinkRepeatly]];
+    [victoryLabel runAction:sequenceScale completion:^{
+        [_victoryBackground addChild:_continueButton];
+    }];
+
+}
+
+
+#pragma mark - Event Handling
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    if ([node.name isEqual: @"continueButtonAfterVictory"]) {
+        [_continueButton setScale:1.1];
+    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    if ([node.name isEqual: @"continueButtonAfterVictory"]) {
+        SKAction *zoomOut = [SKAction scaleBy:0.1 duration:0.3];
+        [_victoryBackground runAction:zoomOut completion:^{
+            [_victoryBackground removeFromParent];
+            [self restartGame];
+        }];
+    }
+}
+
+- (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {
     NSArray *ninjas = self.ninjas;
     if ([ninjas count] < 1) {
         return;
@@ -506,10 +614,10 @@
 #pragma mark - Pause Game
 - (void)addClickableArea
 {
-    NJResponsibleBG *clickableArea = [[NJResponsibleBG alloc] init];
-    clickableArea.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    [self addNode:clickableArea atWorldLayer:NJWorldLayerAboveCharacter];
-    clickableArea.delegate = self;
+    _clickableArea = [[NJResponsibleBG alloc] init];
+    _clickableArea.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addNode:_clickableArea atWorldLayer:NJWorldLayerAboveCharacter];
+    _clickableArea.delegate = self;
 }
 
 - (void)backgroundTouchesEnded:(NSSet *)touches{
@@ -538,18 +646,22 @@
 {
     NSUInteger actionIndex = [(NSNumber *)[note object]integerValue];
     if (!isSelectionInited && actionIndex == RESTART){
-        for (int i=0; i<[self.players count]; i++) {
-            NJPlayer *player = [self.players objectAtIndex:i];
-            player.isDisabled = NO;
-            [player.ninja reset];
-        }
-        
-        [self resetWoodPiles];
-        [self initSelectionSystem];
+        [self restartGame];
     } else if(actionIndex == CONTINUE){
         [self continueItemUpdate];
         [self continueWoodpiles];
     }
+}
+
+- (void)restartGame{
+    isGameEnded = NO;
+    for (int i=0; i<[self.players count]; i++) {
+        NJPlayer *player = [self.players objectAtIndex:i];
+        player.isDisabled = NO;
+        [player.ninja reset];
+    }
+    [self resetWoodPiles];
+    [self initSelectionSystem];
 }
 
 - (void)continueWoodpiles
