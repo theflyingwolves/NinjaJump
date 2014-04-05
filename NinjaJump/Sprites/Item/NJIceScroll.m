@@ -38,7 +38,7 @@
     NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];
     [animation runFreezeEffect:character];
     
-    [self runAction:[SKAction playSoundFileNamed:kSoundIce waitForCompletion:NO]];
+    //[self runAction:[SKAction playSoundFileNamed:kSoundIce waitForCompletion:NO]];
     
 }
 

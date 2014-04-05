@@ -35,7 +35,7 @@
         [character applyDamage:20];
     }
     
-    [self runAction:[SKAction playSoundFileNamed:kSoundWind waitForCompletion:NO]];
+    //[self runAction:[SKAction playSoundFileNamed:kSoundWind waitForCompletion:NO]];
 }
 
 @end

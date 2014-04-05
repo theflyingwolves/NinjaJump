@@ -39,8 +39,7 @@
     NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];
     [animation runFireEffect:character];
     
-    [self runAction:[SKAction playSoundFileNamed:kSoundFire waitForCompletion:NO]];
-
+    //[self runAction:[SKAction playSoundFileNamed:kSoundFire waitForCompletion:NO]];
 }
 
 @end

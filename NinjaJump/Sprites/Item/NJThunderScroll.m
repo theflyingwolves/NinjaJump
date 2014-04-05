@@ -34,7 +34,7 @@
     }
     [character performThunderAnimationInScene:self.myParent];
     
-    [self runAction:[SKAction playSoundFileNamed:kSoundThunder waitForCompletion:NO]];
+    //[self runAction:[SKAction playSoundFileNamed:kSoundThunder waitForCompletion:NO]];
     
 }
 
