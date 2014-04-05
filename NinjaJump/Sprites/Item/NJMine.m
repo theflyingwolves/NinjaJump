@@ -9,12 +9,19 @@
 #import "NJMine.h"
 #import "NJEffectMine.h"
 
+
 @implementation NJMine
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){
 //        _itemType = NJItemMine;
+        NSString *filePath2 = [[NSBundle mainBundle] pathForResource:@"FireworkRed" ofType:@"sks"];
+        SKEmitterNode *fireworkRed = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath2];
+        fireworkRed.position = CGPointMake(15, 15);
+        [fireworkRed setScale:0.2];
+        fireworkRed.zRotation = self.zRotation;
+        [self addChild:fireworkRed];
     }
     
     return self;

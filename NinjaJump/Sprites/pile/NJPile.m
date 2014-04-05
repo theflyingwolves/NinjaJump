@@ -47,6 +47,19 @@
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
 {
+    if (self.isOnFire) {
+        if (self.fireTimer<kFireLastTime) {
+            self.fireTimer += kFireLastTime;
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"WoodFire" ofType:@"sks"];
+            self.fireEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+            self.fireEmitter.position = CGPointZero;
+            [self addChild:self.fireEmitter];
+        } else {
+            self.fireTimer = 0;
+            self.isOnFire = NO;
+            [self.fireEmitter removeFromParent];
+        }
+    }
     if (isRotating) {
         float angle = self.angularSpeed*interval;
         self.angleRotatedSinceLastUpdate = angle;

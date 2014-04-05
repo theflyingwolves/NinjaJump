@@ -35,6 +35,7 @@
     for (NJCharacter *character in affectedCharacters) {
         [character applyDamage:20];
     }
+    [self runAction:[SKAction playSoundFileNamed:kSoundWind waitForCompletion:NO]];
 }
 
 @end

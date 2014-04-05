@@ -28,6 +28,8 @@
 #import "NJShuriken.h"
 #import "NJMedikit.h"
 
+#import "NJItemEffect.h"
+
 #define kBackGroundFileName @"waterParkBG.png"
 #define kThunderScrollFileName @"thunderScroll.png"
 #define kWindScrollFileName @"windScroll.png"
@@ -39,6 +41,12 @@
 
 #define kNumOfFramesToSpawnItem 10
 #define NJWoodPileInitialImpluse 3
+
+#define kMusicPatrit @"patrit"
+#define kMusicWater @"water"
+#define kMusicShadow @"shadowNinja"
+#define kMusicFunny @"funnyday"
+#define kMusicSun @"sunshining"
 
 @interface NJLevelSceneWaterPark ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate>
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
@@ -56,6 +64,7 @@
     bool isSelectionInited;
     BOOL isFirstTimeInitialized;
     bool isGameEnded;
+    NSArray *musicName;
     AVAudioPlayer *music;
 }
 
@@ -84,11 +93,15 @@
         [self initCharacters];
         [self initSelectionSystem];
         
-//        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"patrit" ofType:@"mp3"]];
+        musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
         
-//        NSError *error;
-//        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-//        [music play];
+        int musicIndex = arc4random() % 5;
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
+        
+        NSError *error;
+        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        music.numberOfLoops = 100;
+        [music play];
     }
     return self;
 }
@@ -167,12 +180,20 @@
     
     ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
     ((NJItemControl *)_itemControls[0]).zRotation = - M_PI / 4;
+    ((NJItemControl *)_itemControls[0]).color = [SKColor blackColor];
+    ((NJItemControl *)_itemControls[0]).colorBlendFactor = 1.0;
     ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
     ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
+    ((NJItemControl *)_itemControls[1]).color = [SKColor blueColor];
+    ((NJItemControl *)_itemControls[1]).colorBlendFactor = 1.0;
     ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
     ((NJItemControl *)_itemControls[2]).zRotation = -3* M_PI / 4;
+    ((NJItemControl *)_itemControls[2]).color = [SKColor yellowColor];
+    ((NJItemControl *)_itemControls[2]).colorBlendFactor = 1.0;
     ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
     ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
+    ((NJItemControl *)_itemControls[3]).color = [SKColor redColor];
+    ((NJItemControl *)_itemControls[3]).colorBlendFactor = 1.0;
     
     if (!_buttons) {
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
@@ -432,6 +453,9 @@
         if (pile.itemHolded) {
             pile.itemHolded.position = pile.position;
         }
+        if (pile.itemEffectOnPile) {
+            pile.itemEffectOnPile.position = pile.position;
+        }
     }
     for (NJItemControl *control in _itemControls) {
         control.itemHold.position = CGPointZero;
@@ -537,7 +561,12 @@
     }
 }
 
+- (void)button:(NJButton *)button touchesBegan:(NSSet *)touches {
+    button.colorBlendFactor = 0.0;
+}
+
 - (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {
+    button.colorBlendFactor = 1.0;
     NSArray *ninjas = self.ninjas;
     if ([ninjas count] < 1) {
         return;
@@ -557,8 +586,14 @@
     } 
 }
 
+- (void)itemControl:(NJItemControl *)control touchesBegan:(NSSet *)touches
+{
+    control.colorBlendFactor = 0.0;
+}
+
 - (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
 {
+    control.colorBlendFactor = 1.0;
     NSArray *ninjas = self.ninjas;
     if ([ninjas count]<1) {
         return ;
@@ -658,6 +693,8 @@
     [self addChild:pausePanel];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
+    
+    [music pause];
 }
 
 - (void)restartOrContinue:(NSNotification *)note
@@ -665,9 +702,18 @@
     NSUInteger actionIndex = [(NSNumber *)[note object]integerValue];
     if (!isSelectionInited && actionIndex == RESTART){
         [self restartGame];
+        
+        int musicIndex = arc4random() % 5;
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
+        
+        NSError *error;
+        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        [music play];
     } else if(actionIndex == CONTINUE){
         [self continueItemUpdate];
         [self continueWoodpiles];
+        
+        [music play];
     }
 }
 

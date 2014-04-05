@@ -33,6 +33,7 @@
         [character applyDamage:20];
     }
     [character performThunderAnimationInScene:self.myParent];
+    [self runAction:[SKAction playSoundFileNamed:kSoundThunder waitForCompletion:NO]];
 }
 
 @end
