@@ -22,11 +22,7 @@
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
-<<<<<<< HEAD
     //[self runAction:[SKAction playSoundFileNamed:kSoundRecover waitForCompletion:NO]];
-=======
-//    [self runAction:[SKAction playSoundFileNamed:kSoundRecover waitForCompletion:NO]];
->>>>>>> 1d37fd9421f86ace1fca3de3c9fb8cc350ffe558
 }
 
 @end
