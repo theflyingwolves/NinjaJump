@@ -124,12 +124,17 @@
             }
             
             if (!player.itemIndicatorAdded && fileName) {
+                if (player.indicatorNode) {
+                    [player.indicatorNode removeFromParent];
+                }
                 SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
                 itemIndicator.alpha = 0.2;
                 [self addNode:itemIndicator atWorldLayer:NJWorldLayerCharacter];
                 player.indicatorNode = itemIndicator;
                 player.itemIndicatorAdded = YES;
             }
+        }else{
+            player.indicatorNode = nil;
         }
         
         if (player.indicatorNode) {
@@ -172,9 +177,14 @@
                             }
                         }
                     }
+                    if (player.targetPile.standingCharacter) {
+                        player.targetPile.standingCharacter = nil;
+                    }
                     player.targetPile.standingCharacter = ninja;
+                    ninja.position = player.targetPile.position;
                     //pick up items if needed
                     [player.ninja pickupItem:self.items onPile:player.targetPile];
+                    player.itemIndicatorAdded = NO;
                 }
             }
         }
@@ -202,9 +212,6 @@
         [(NSMutableArray*)self.items removeObject:item];
     }
 }
-
-
-
 
 - (NJPile *)spawnAtRandomPile
 {
