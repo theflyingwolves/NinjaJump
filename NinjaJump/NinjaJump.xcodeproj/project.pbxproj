@@ -63,6 +63,7 @@
 		2FDD9C4218EDB09E0071C712 /* pause_scene_left_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C4018EDB09E0071C712 /* pause_scene_left_bar.png */; };
 		2FDD9C4318EDB09E0071C712 /* pause_scene_right_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C4118EDB09E0071C712 /* pause_scene_right_bar.png */; };
 		2FDD9C4518EDB1F10071C712 /* pause scene bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C4418EDB1F10071C712 /* pause scene bg.png */; };
+		C408B40A18F0427A004E614C /* ice.mid in Resources */ = {isa = PBXBuildFile; fileRef = C408B40918F0427A004E614C /* ice.mid */; };
 		C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C41270EC18E1D3AF00CAC44A /* fireScroll.png */; };
 		C41270F118E1D3AF00CAC44A /* iceScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C41270ED18E1D3AF00CAC44A /* iceScroll.png */; };
 		C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C41270EE18E1D3AF00CAC44A /* thunderScroll.png */; };
@@ -94,7 +95,6 @@
 		C4C8747018F023A9004B6527 /* hurt.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745E18F023A9004B6527 /* hurt.mid */; };
 		C4C8747118F023A9004B6527 /* recover.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8745F18F023A9004B6527 /* recover.mid */; };
 		C4C8747218F023A9004B6527 /* recover2.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746018F023A9004B6527 /* recover2.mid */; };
-		C4C8747318F023A9004B6527 /* snow maybe.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746118F023A9004B6527 /* snow maybe.mid */; };
 		C4C8747418F023A9004B6527 /* thunder.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746218F023A9004B6527 /* thunder.mid */; };
 		C4C8747518F023A9004B6527 /* use skill.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746318F023A9004B6527 /* use skill.mid */; };
 		C4C8747618F023A9004B6527 /* water.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746418F023A9004B6527 /* water.mid */; };
@@ -222,6 +222,7 @@
 		2FDD9C4018EDB09E0071C712 /* pause_scene_left_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_scene_left_bar.png; sourceTree = "<group>"; };
 		2FDD9C4118EDB09E0071C712 /* pause_scene_right_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_scene_right_bar.png; sourceTree = "<group>"; };
 		2FDD9C4418EDB1F10071C712 /* pause scene bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause scene bg.png"; sourceTree = "<group>"; };
+		C408B40918F0427A004E614C /* ice.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = ice.mid; sourceTree = "<group>"; };
 		C41270EC18E1D3AF00CAC44A /* fireScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireScroll.png; path = Assets/Items/fireScroll.png; sourceTree = "<group>"; };
 		C41270ED18E1D3AF00CAC44A /* iceScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iceScroll.png; path = Assets/Items/iceScroll.png; sourceTree = "<group>"; };
 		C41270EE18E1D3AF00CAC44A /* thunderScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = thunderScroll.png; path = Assets/Items/thunderScroll.png; sourceTree = "<group>"; };
@@ -263,7 +264,6 @@
 		C4C8745E18F023A9004B6527 /* hurt.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = hurt.mid; sourceTree = "<group>"; };
 		C4C8745F18F023A9004B6527 /* recover.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = recover.mid; sourceTree = "<group>"; };
 		C4C8746018F023A9004B6527 /* recover2.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = recover2.mid; sourceTree = "<group>"; };
-		C4C8746118F023A9004B6527 /* snow maybe.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = "snow maybe.mid"; sourceTree = "<group>"; };
 		C4C8746218F023A9004B6527 /* thunder.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = thunder.mid; sourceTree = "<group>"; };
 		C4C8746318F023A9004B6527 /* use skill.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = "use skill.mid"; sourceTree = "<group>"; };
 		C4C8746418F023A9004B6527 /* water.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = water.mid; sourceTree = "<group>"; };
@@ -661,7 +661,7 @@
 				C4C8745E18F023A9004B6527 /* hurt.mid */,
 				C4C8745F18F023A9004B6527 /* recover.mid */,
 				C4C8746018F023A9004B6527 /* recover2.mid */,
-				C4C8746118F023A9004B6527 /* snow maybe.mid */,
+				C408B40918F0427A004E614C /* ice.mid */,
 				C4C8746218F023A9004B6527 /* thunder.mid */,
 				C4C8746318F023A9004B6527 /* use skill.mid */,
 				C4C8746418F023A9004B6527 /* water.mid */,
@@ -877,7 +877,6 @@
 				2FDD9C4218EDB09E0071C712 /* pause_scene_left_bar.png in Resources */,
 				C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */,
 				2FC568BA18E1BE0900C6589D /* jumpButton.png in Resources */,
-				C4C8747318F023A9004B6527 /* snow maybe.mid in Resources */,
 				C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */,
@@ -921,6 +920,7 @@
 				C931A94018E05EF7002FE154 /* start button.png in Resources */,
 				C4C8747618F023A9004B6527 /* water.mid in Resources */,
 				2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */,
+				C408B40A18F0427A004E614C /* ice.mid in Resources */,
 				C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */,
 				2FDD9C3C18ED940D0071C712 /* indicator_fire.png in Resources */,
 				2F63E12F18E0291500E9A17B /* hp_bar_bottom.png in Resources */,
