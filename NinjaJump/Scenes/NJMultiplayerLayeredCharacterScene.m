@@ -75,6 +75,7 @@
     
     if (player.ninja && !player.ninja.dying) {
         [player.ninja removeFromParent];
+        [player.indicatorNode removeFromParent];
     }
     
     NJNinjaCharacterNormal *ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:@"ninja.png" atPosition:CGPointZero withPlayer:player];

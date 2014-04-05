@@ -276,18 +276,18 @@
             case NJItemFireScroll:
                 item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
                 break;
-//
-//            case NJItemMedikit:
-//                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
-//                break;
-//            
-//            case NJItemMine:
-//                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
-//                break;
-//                
-//            case NJItemShuriken:
-//                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-//                break;
+
+            case NJItemMedikit:
+                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+                break;
+            
+            case NJItemMine:
+                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+                break;
+                
+            case NJItemShuriken:
+                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+                break;
                 
             default:
                 break;
@@ -678,6 +678,8 @@
         player.isDisabled = NO;
         [player.ninja reset];
         player.item = nil;
+        [player.indicatorNode removeFromParent];
+        player.indicatorNode = nil;
     }
     [self resetWoodPiles];
     [self initSelectionSystem];
