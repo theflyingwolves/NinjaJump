@@ -7,8 +7,10 @@
 //
 
 #import "NJEffectMine.h"
+#import "NJMine.h"
 
 #define kMineEffectInvisible @"mineEffectInvisible.png"
+#define kMineFileName @"mine.png"
 #define kMineDamage 20
 
 @implementation NJEffectMine
@@ -17,6 +19,12 @@
     self = [super initWithTextureNamed:kMineEffectInvisible atPosition:position onScene:scene andOwner:owner];
     if (self) {
         _damage = kMineDamage;
+        NJMine *mineTexture = [[NJMine alloc]initWithTextureNamed:kMineFileName atPosition:CGPointMake(0, 0) ];
+        [self addChild:mineTexture];
+//        SKAction *wait = [SKAction waitForDuration:1];
+//        SKAction *removeNode = [SKAction removeFromParent];
+//        SKAction *sequence = [SKAction sequence:@[wait,removeNode]];
+//        [mineTexture runAction:sequence];
     }
     return self;
 }
