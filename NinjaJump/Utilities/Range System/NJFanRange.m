@@ -14,7 +14,7 @@
 
 - (BOOL)isPointWithinRange:(CGPoint)point
 {
-    double angle = arctan(point.x, point.y);
+    double angle = arctan(point.x - self.origin.x, point.y - self.origin.y) + M_PI / 2;
     double distance = hypotf(point.x-self.origin.x, point.y - self.origin.y);
     if (distance <= self.farDist && distance >= 0.5) {
         NSLog(@"within distance");

@@ -82,7 +82,7 @@ typedef enum : uint8_t {
 - (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval;
 // EFFECTS: Only handle the animation of using the given item
 
--(void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles;
+-(void)useItem:(NJSpecialItem *)item;
 
 // EFFECTS: Update the next-frame renderring of the character
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;

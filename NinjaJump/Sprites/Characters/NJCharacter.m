@@ -16,6 +16,8 @@
 #import "NJRange.h"
 #import "NJPlayer.h"
 
+//#import "NJFanRange.h"
+
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"
 #define kFrozenTime 2.0
@@ -33,7 +35,10 @@
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
         [self configurePhysicsBody];
     }
-        
+    
+//    NJFanRange *range = [[NJFanRange alloc] initWithOrigin:CGPointMake(0, 0) farDist:10 andFacingDir:M_PI/2];
+//    NSLog(@"testing range: %d",[range isPointWithinRange:CGPointMake(10*cos(5*M_PI / 6 - 0.1), 10*sin(5*M_PI / 6 - 0.1))]);
+    
     return self;
 }
 
@@ -158,7 +163,7 @@
 }
 
 #pragma mark - Use Items
-- (void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles
+- (void)useItem:(NJSpecialItem *)item
 {
     
 }

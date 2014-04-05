@@ -277,17 +277,17 @@
                 item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
                 break;
 
-            case NJItemMedikit:
-                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
-                break;
-            
-            case NJItemMine:
-                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
-                break;
-                
-            case NJItemShuriken:
-                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-                break;
+//            case NJItemMedikit:
+//                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+//                break;
+//            
+//            case NJItemMine:
+//                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+//                break;
+//                
+//            case NJItemShuriken:
+//                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+//                break;
                 
             default:
                 break;
@@ -400,7 +400,7 @@
     for (NJPlayer *player in self.players) {
         if (player.itemUseRequested) {
             if (player.item != nil) {
-                [player.ninja useItem:player.item withWoodPiles:_woodPiles];
+                [player.ninja useItem:player.item];
             }
             player.itemIndicatorAdded = NO;
             player.itemUseRequested = NO;
@@ -821,4 +821,13 @@
     return affectedNinjas;
 }
 
+- (void)applyGlobalScrollAnimationForScroll:(NJScroll *)scroll
+{
+    NJRange *range = scroll.range;
+    for (NJPile *pile in _woodPiles) {
+        if ([range isPointWithinRange:pile.position]) {
+            
+        }
+    }
+}
 @end

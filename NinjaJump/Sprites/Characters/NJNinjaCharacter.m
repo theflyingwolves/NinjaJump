@@ -55,12 +55,19 @@ const CGFloat medikitRecover = 40.0f;
 }
 
 #pragma mark - Use Items
-- (void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles
+- (void)useItem:(NJSpecialItem *)item
 {
-    CGFloat direction = (self.zRotation + M_PI/2);
-    if (direction > (2*M_PI)) {
-        direction -= 2*M_PI;
+    CGFloat direction = self.zRotation;
+    if (direction >= 0 && direction <= M_PI) {
+        direction += M_PI / 2;
+    }else if(direction <= 0 && direction >= - M_PI / 2){
+        direction += M_PI / 2;
+    }else if(direction <= -M_PI / 2 && direction >= - M_PI){
+        direction += 5 * M_PI / 2;
+    }else{
+        NSLog(@"useItem: zRotation Detection Error");
     }
+    
     [item useAtPosition:self.position withDirection: direction byCharacter:self];
     self.player.item = nil;
 }
@@ -75,7 +82,6 @@ const CGFloat medikitRecover = 40.0f;
             [effect removeAllActions];
             [effect removeFromParent];
         }
-        
     }
 }
 

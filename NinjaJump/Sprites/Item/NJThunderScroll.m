@@ -10,7 +10,7 @@
 #import "NJCircularRange.h"
 #import "NJPile.h"
 
-#define AFFECTED_RADIUS 250
+#define AFFECTED_RADIUS 200
 #define kSoundThunder @"thunder.mid"
 
 @implementation NJThunderScroll

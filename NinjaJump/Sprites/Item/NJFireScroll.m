@@ -29,7 +29,8 @@
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
-    double facingDir = self.zRotation + M_PI / 2;
+    double facingDir = direction + M_PI / 2;
+    NSLog(@"zrotation: %f",self.zRotation);
     self.range = [[NJFanRange alloc] initWithOrigin:character.position farDist:200 andFacingDir:facingDir];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
