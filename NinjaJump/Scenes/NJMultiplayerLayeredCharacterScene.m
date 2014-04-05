@@ -128,7 +128,7 @@
                     [player.indicatorNode removeFromParent];
                 }
                 SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
-                itemIndicator.alpha = 0.35;
+                itemIndicator.alpha = 0.2;
                 [self addNode:itemIndicator atWorldLayer:NJWorldLayerCharacter];
                 player.indicatorNode = itemIndicator;
                 player.itemIndicatorAdded = YES;

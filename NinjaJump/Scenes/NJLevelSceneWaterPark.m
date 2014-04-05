@@ -84,11 +84,11 @@
         [self initCharacters];
         [self initSelectionSystem];
         
-        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"patrit" ofType:@"mp3"]];
+//        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"patrit" ofType:@"mp3"]];
         
-        NSError *error;
-        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        [music play];
+//        NSError *error;
+//        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+//        [music play];
     }
     return self;
 }
