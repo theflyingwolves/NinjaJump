@@ -31,7 +31,8 @@ const CGFloat medikitRecover = 40.0f;
 #pragma mark - Pickup Item
 - (void)pickupItem:(NSArray *)items onPile:(NJPile *)pile{
     for (NJSpecialItem *item in items) {
-        if (CGPointEqualToPointApprox(item.position, self.position)) {
+        //if (CGPointEqualToPointApprox(item.position, self.position)) {
+        if (hypotf(self.position.x-item.position.x, self.position.y-item.position.y)<=CGRectGetWidth(pile.frame)/2) {
 //        if (CGPointEqualToPoint(item.position, self.position)) {
             item.isPickedUp = YES;
             self.player.item = item;
