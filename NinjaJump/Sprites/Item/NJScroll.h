@@ -12,6 +12,7 @@
 
 @protocol NJScrollDelegate <NSObject>
 - (NSArray *)getAffectedTargetsWithRange:(NJRange *)range;
+- (NSArray *)getAffectedPilesWithRange:(NJRange *)range;
 - (void)applyGlobalScrollAnimationForScroll:(NJScroll *)scroll;
 @end
 

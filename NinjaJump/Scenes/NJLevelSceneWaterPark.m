@@ -867,6 +867,17 @@
     return affectedNinjas;
 }
 
+- (NSArray *)getAffectedPilesWithRange:(NJRange *)range
+{
+    NSMutableArray *affectedPiles = [NSMutableArray array];
+    for (NJPile *pile in _woodPiles) {
+        if ([range isPointWithinRange:pile.position]) {
+            [affectedPiles addObject:pile];
+        }
+    }
+    return affectedPiles;
+}
+
 - (void)applyGlobalScrollAnimationForScroll:(NJScroll *)scroll
 {
     NJRange *range = scroll.range;
