@@ -678,6 +678,8 @@
         player.isDisabled = NO;
         [player.ninja reset];
         player.item = nil;
+        [player.indicatorNode removeFromParent];
+        player.indicatorNode = nil;
     }
     [self resetWoodPiles];
     [self initSelectionSystem];
