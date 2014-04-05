@@ -109,6 +109,10 @@
 		C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B8F29D18E05E8400FA877E /* loading bar2.png */; };
 		C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9D8D08D18ED8D3D00F63E9A /* Firework.sks */; };
 		C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9D8D09018ED940F00F63E9A /* FireworkRed.sks */; };
+		C9DDBBDA18F034590006CC61 /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = C9DDBBD818F034590006CC61 /* bokeh.png */; };
+		C9DDBBDC18F035F70006CC61 /* Soft Cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = C9DDBBDB18F035F70006CC61 /* Soft Cloud.png */; };
+		C9DDBBDF18F038370006CC61 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9DDBBDD18F038370006CC61 /* MyParticle.sks */; };
+		C9DDBBE018F038370006CC61 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9DDBBDE18F038370006CC61 /* spark.png */; };
 		C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06F918E1CE7000C43E24 /* FireEffect.sks */; };
 		C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FA18E1CE7000C43E24 /* spark.png */; };
 		C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FE18E1D16F00C43E24 /* fireArc.png */; };
@@ -266,6 +270,10 @@
 		C9B8F29D18E05E8400FA877E /* loading bar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading bar2.png"; path = "Assets/loading scene/loading bar2.png"; sourceTree = "<group>"; };
 		C9D8D08D18ED8D3D00F63E9A /* Firework.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Firework.sks; path = Particle/Firework.sks; sourceTree = "<group>"; };
 		C9D8D09018ED940F00F63E9A /* FireworkRed.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireworkRed.sks; path = Particle/FireworkRed.sks; sourceTree = "<group>"; };
+		C9DDBBD818F034590006CC61 /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
+		C9DDBBDB18F035F70006CC61 /* Soft Cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Soft Cloud.png"; path = "Particle/Soft Cloud.png"; sourceTree = "<group>"; };
+		C9DDBBDD18F038370006CC61 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
+		C9DDBBDE18F038370006CC61 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		C9EC06F918E1CE7000C43E24 /* FireEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireEffect.sks; path = Particle/FireEffect.sks; sourceTree = "<group>"; };
 		C9EC06FA18E1CE7000C43E24 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Particle/spark.png; sourceTree = "<group>"; };
 		C9EC06FE18E1D16F00C43E24 /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/Particle/fireArc.png; sourceTree = "<group>"; };
@@ -709,6 +717,7 @@
 		C9EC06F818E1CDFD00C43E24 /* Particle */ = {
 			isa = PBXGroup;
 			children = (
+				C9DDBBDB18F035F70006CC61 /* Soft Cloud.png */,
 				C9EC06F918E1CE7000C43E24 /* FireEffect.sks */,
 				C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */,
 				C9EC06FA18E1CE7000C43E24 /* spark.png */,
@@ -716,6 +725,9 @@
 				C959C29D18E9A25000F11783 /* WoodFire.sks */,
 				C9D8D08D18ED8D3D00F63E9A /* Firework.sks */,
 				C9D8D09018ED940F00F63E9A /* FireworkRed.sks */,
+				C9DDBBDD18F038370006CC61 /* MyParticle.sks */,
+				C9DDBBDE18F038370006CC61 /* spark.png */,
+				C9DDBBD818F034590006CC61 /* bokeh.png */,
 			);
 			name = Particle;
 			sourceTree = "<group>";
@@ -807,12 +819,15 @@
 			files = (
 				2FC568BC18E1BE0900C6589D /* spotlight.png in Resources */,
 				C931A93F18E05EF7002FE154 /* shade.png in Resources */,
+				C9DDBBDC18F035F70006CC61 /* Soft Cloud.png in Resources */,
 				C41270F118E1D3AF00CAC44A /* iceScroll.png in Resources */,
 				C41270F518E1D41500CAC44A /* medikit.png in Resources */,
 				2FC568BE18E1BE0900C6589D /* woodPile.png in Resources */,
+				C9DDBBDA18F034590006CC61 /* bokeh.png in Resources */,
 				2F45B45718E7335900482453 /* continue button.png in Resources */,
 				C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */,
 				C9B8F2A018E05E8400FA877E /* light.png in Resources */,
+				C9DDBBE018F038370006CC61 /* spark.png in Resources */,
 				2FC568BB18E1BE0900C6589D /* spawnLight.png in Resources */,
 				C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */,
 				C9150B0818EC56EF00645698 /* victory bg.png in Resources */,
@@ -861,6 +876,7 @@
 				2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */,
 				2FDD9C4518EDB1F10071C712 /* pause scene bg.png in Resources */,
 				2FDD9C3F18ED940D0071C712 /* indicator_wind.png in Resources */,
+				C9DDBBDF18F038370006CC61 /* MyParticle.sks in Resources */,
 				C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */,
 				2BDFAC8018E7EAB000B4007D /* fog.sks in Resources */,
 			);
