@@ -96,14 +96,8 @@
         [self initSelectionSystem];
         
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
+        [self resetMusic];
         
-        int musicIndex = arc4random() % 5;
-        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
-        
-        NSError *error;
-        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        music.numberOfLoops = 100;
-        [music play];
     }
     return self;
 }
@@ -748,19 +742,25 @@
     NSUInteger actionIndex = [(NSNumber *)[note object]integerValue];
     if (!isSelectionInited && actionIndex == RESTART){
         [self restartGame];
-        
-        int musicIndex = arc4random() % 5;
-        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
-        
-        NSError *error;
-        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        [music play];
     } else if(actionIndex == CONTINUE){
         [self continueItemUpdate];
         [self continueWoodpiles];
         
         [music play];
     }
+}
+
+- (void)resetMusic {
+    if (music) {
+        [music pause];
+    }
+    int musicIndex = 2;
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
+    
+    NSError *error;
+    music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    music.numberOfLoops = 100;
+    [music play];
 }
 
 - (void)restartGame{
@@ -781,6 +781,9 @@
     [self resetItems];
     [self resetWoodPiles];
     [self initSelectionSystem];
+    
+    [self resetMusic];
+    
 }
 
 - (void)removeNinjas
