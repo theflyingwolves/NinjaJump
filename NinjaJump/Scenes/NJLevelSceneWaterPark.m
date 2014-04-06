@@ -287,10 +287,9 @@
                 item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
                 break;
                 
-            case NJItemWindScroll:
-                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
-                
-                break;
+//            case NJItemWindScroll:
+//                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+//                break;
                 
             case NJItemIceScroll:
                 item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
@@ -308,9 +307,9 @@
 //                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
 //                break;
 //                
-//            case NJItemShuriken:
-//                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-//                break;
+            case NJItemShuriken:
+                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+                break;
                 
             default:
                 break;
