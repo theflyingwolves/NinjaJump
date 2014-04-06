@@ -19,7 +19,6 @@
     
     if (updatedX >= 0) {
         if (updatedY <= self.farDist && updatedY >= -self.farDist) {
-            NSLog(@"updated X: %f, updated Y: %f",updatedX,updatedY);
             return YES;
         }
     }
