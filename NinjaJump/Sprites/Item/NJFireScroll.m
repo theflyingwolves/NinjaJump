@@ -30,13 +30,13 @@
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
     double facingDir = direction + M_PI / 2;
-    NSLog(@"zrotation: %f",self.zRotation);
     self.range = [[NJFanRange alloc] initWithOrigin:character.position farDist:200 andFacingDir:facingDir];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
         [character applyDamage:20];
     }
     NSArray *affectedPiles = [self.delegate getAffectedPilesWithRange:self.range];
+    NSLog(@"affected piles: %@",affectedPiles);
     for (NJPile *pile in affectedPiles) {
         pile.isOnFire = YES;
         pile.fireTimer = 0;

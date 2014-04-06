@@ -28,7 +28,7 @@
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
-    double facingDir = self.zRotation;
+    double facingDir = direction + M_PI / 2;
     self.range = [[NJRectangularRange alloc] initWithOrigin:character.position farDist:70 andFacingDir:facingDir];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     [self.delegate applyGlobalScrollAnimationForScroll:self];

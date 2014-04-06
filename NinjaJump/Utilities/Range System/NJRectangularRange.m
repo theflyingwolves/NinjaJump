@@ -16,8 +16,10 @@
     double distance = hypotf(point.x-self.origin.x, point.y - self.origin.y);
     
     if (point.x * cosineTheta >= - point.y * sineTheta && distance >= 0.5) {
+        NSLog(@"first step");
         if (point.x*sineTheta + self.farDist >= point.y * cosineTheta &&
             point.x * sineTheta <= point.y * cosineTheta + self.farDist) {
+            NSLog(@"within wind range");
             return YES;
         }
     }
