@@ -6,22 +6,22 @@
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 <<<<<<< HEAD
-	<string>45FAB368-ABA4-44DE-B492-B70790E8C671</string>
+	<string>7B5446F3-70FD-4214-A57A-3D23D870FB0A</string>
 =======
-	<string>4381B9F9-2C4E-44DF-8810-B83D13D3259E</string>
->>>>>>> 8fe923ac3d4005dccefee4c0063975cd7c6611f5
+	<string>EEFB21E6-5256-407C-99B9-BA0C779ACCBF</string>
+>>>>>>> c8b498c2b154ff26099dd3e54b3728264a3e9672
 	<key>IDESourceControlProjectName</key>
 	<string>NinjaJump</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>DD7456E3-49E3-407D-A52B-5E470B3A1545</key>
+		<key>B8D3760E-25EC-4067-9EC0-2D3B443E3E4C</key>
 		<string>http://cs3217.comp.nus.edu.sg/final-project-group-02/final-project-group-02.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>NinjaJump/NinjaJump.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>DD7456E3-49E3-407D-A52B-5E470B3A1545</key>
+		<key>B8D3760E-25EC-4067-9EC0-2D3B443E3E4C</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -29,14 +29,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>DD7456E3-49E3-407D-A52B-5E470B3A1545</string>
+	<string>B8D3760E-25EC-4067-9EC0-2D3B443E3E4C</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>DD7456E3-49E3-407D-A52B-5E470B3A1545</string>
+			<string>B8D3760E-25EC-4067-9EC0-2D3B443E3E4C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>final-project-group-02</string>
 		</dict>

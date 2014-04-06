@@ -58,12 +58,14 @@
 @property (nonatomic) SKSpriteNode *continueButton;
 @property (nonatomic) NJResponsibleBG *clickableArea;
 @property (nonatomic) SKSpriteNode *victoryBackground;
+@property (nonatomic) NSTimeInterval pileDecreaseTime;
 @end
 
 @implementation NJLevelSceneWaterPark{
-    bool isSelectionInited;
+    BOOL isSelectionInited;
     BOOL isFirstTimeInitialized;
-    bool isGameEnded;
+    BOOL isGameEnded;
+    BOOL shouldPileStartDecreasing;
     NSArray *musicName;
     AVAudioPlayer *music;
 }
@@ -89,6 +91,7 @@
         isSelectionInited = NO;
         isFirstTimeInitialized = YES;
         isGameEnded = NO;
+        shouldPileStartDecreasing = NO;
         [self buildWorld];
         [self initCharacters];
         [self initSelectionSystem];
@@ -361,6 +364,32 @@
     // Update all players' ninjas.
     for (NJNinjaCharacter *ninja in self.ninjas) {
         [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
+    }
+
+    _pileDecreaseTime += timeSinceLast;
+    if (shouldPileStartDecreasing && _pileDecreaseTime >= kPileDecreaseTimeInterval) {
+        _pileDecreaseTime = 0;
+        if ([_woodPiles count]>kMinimumPilesCount) {
+            NSMutableArray *pilesToChoose = [NSMutableArray new];
+            for (NJPile *pile in _woodPiles) {
+                if (!pile.standingCharacter) {
+                    for (NJPlayer *player in self.players) {
+                        if (player.targetPile != pile) {
+                            [pilesToChoose addObject:pile];
+                        }
+                    }
+                }
+            }
+            if ([pilesToChoose count] > 0) {
+                int index = arc4random() % [_woodPiles count];
+                NJPile *pileToRemove = [pilesToChoose objectAtIndex:index];
+                NJSpecialItem *itemToRemove = pileToRemove.itemHolded;
+                [itemToRemove removeFromParent];
+                [_items removeObject:itemToRemove];
+                [pileToRemove removeFromParent];
+                [_woodPiles removeObject:pileToRemove];
+            }
+        }
     }
     
     for (NJPile *pile in _woodPiles) {
@@ -775,6 +804,7 @@
 
 - (void)initSelectionSystem{
     isSelectionInited = YES;
+    shouldPileStartDecreasing = NO;
     NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -789,6 +819,7 @@
 
 - (void) activateSelectedPlayers:(NSNotification *)note{
     isSelectionInited = NO;
+    shouldPileStartDecreasing = YES;
     NSArray *activePlayerIndices = [note object];
     NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
     for (NSNumber *index in activePlayerIndices) {
