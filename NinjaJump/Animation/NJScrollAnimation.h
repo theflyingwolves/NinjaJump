@@ -11,8 +11,6 @@
 #import "NJNinjaCharacter.h"
 
 @interface NJScrollAnimation : NSObject
-
 - (void) runFireEffect:(NJNinjaCharacter *)ninja;
-
 - (void)runFreezeEffect:(NJNinjaCharacter *)ninja;
 @end

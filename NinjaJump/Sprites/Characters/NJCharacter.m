@@ -271,11 +271,18 @@
 }
 
 #pragma mark - physics
-- (void)collidedWith:(SKPhysicsBody *)other{
+- (void)collidedWith:(SKPhysicsBody *)other
+{
     //overriden by subclasses
 }
 
--(void)configurePhysicsBody{
+-(void)configurePhysicsBody
+{
+    //overriden by subclasses
+}
+
+- (void)pickupItem:(NSArray *)items onPile:(NJPile *)pile
+{
     //overriden by subclasses
 }
 
