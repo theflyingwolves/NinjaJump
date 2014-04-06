@@ -261,7 +261,7 @@
             [player.ninja removeFromParent];
         }
     }
-    NSLog(@"ninja count: %d",[_ninjas count]);
+    NSLog(@"ninja count: %lu",[_ninjas count]);
 }
 
 #pragma mark - World Building

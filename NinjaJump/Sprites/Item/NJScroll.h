@@ -20,4 +20,7 @@
 @property id<NJScrollDelegate> delegate;
 
 - (id)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate;
+
+- (void)fireAttackedAnimation:(NJCharacter *)character;
+
 @end
