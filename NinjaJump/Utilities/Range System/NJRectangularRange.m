@@ -11,19 +11,18 @@
 @implementation NJRectangularRange
 - (BOOL)isPointWithinRange:(CGPoint)point
 {
-    double sineTheta = sinf(self.facingDir);
-    double cosineTheta = cosf(self.facingDir);
-    double distance = hypotf(point.x-self.origin.x, point.y - self.origin.y);
+    double x = point.x - self.origin.x;
+    double y = point.y - self.origin.y;
+    double direction = self.facingDir;
+    double updatedX = x*cos(direction) + y * sin(direction);
+    double updatedY = -x*sin(direction) + y * sin(direction);
     
-    if (point.x * cosineTheta >= - point.y * sineTheta && distance >= 0.5) {
-        NSLog(@"first step");
-        if (point.x*sineTheta + self.farDist >= point.y * cosineTheta &&
-            point.x * sineTheta <= point.y * cosineTheta + self.farDist) {
-            NSLog(@"within wind range");
+    if (updatedX >= 0) {
+        if (updatedY <= self.farDist && updatedY >= -self.farDist) {
+            NSLog(@"updated X: %f, updated Y: %f",updatedX,updatedY);
             return YES;
         }
     }
-    
     return NO;
 }
 

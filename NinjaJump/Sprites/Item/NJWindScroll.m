@@ -11,7 +11,7 @@
 #import "NJRectangularRange.h"
 #import "NJPile.h"
 
-#define AFFECTED_RADIUS 250
+#define AFFECTED_RADIUS 100
 #define kSoundWind @"wind.mid"
 
 @implementation NJWindScroll
@@ -28,8 +28,8 @@
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
-    double facingDir = direction + M_PI / 2;
-    self.range = [[NJRectangularRange alloc] initWithOrigin:character.position farDist:70 andFacingDir:facingDir];
+    double facingDir = direction;
+    self.range = [[NJRectangularRange alloc] initWithOrigin:character.position farDist:AFFECTED_RADIUS andFacingDir:facingDir];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     [self.delegate applyGlobalScrollAnimationForScroll:self];
     for (NJCharacter *character in affectedCharacters) {

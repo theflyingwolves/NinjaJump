@@ -254,6 +254,9 @@
         if (!player.isDisabled) {
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
             NJPile *pile = [self spawnAtRandomPileForNinja:NO];
+            if (!pile) {
+                NSLog(@"no wood piles detected");
+            }
             pile.standingCharacter = ninja;
             ninja.position = pile.position;
         }else if(player.ninja){
@@ -686,6 +689,7 @@
         for (NJPlayer *player in self.players) {
             if (pile.standingCharacter || player.targetPile==pile) {
                 isFree = NO;
+                break;
             }
         }
         
