@@ -39,7 +39,7 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 10
+#define kNumOfFramesToSpawnItem 1000
 #define NJWoodPileInitialImpluse 3
 
 #define kMusicPatrit @"patrit"
@@ -96,14 +96,8 @@
         [self initSelectionSystem];
         
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
+        [self resetMusic];
         
-        int musicIndex = arc4random() % 5;
-        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
-        
-        NSError *error;
-        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        music.numberOfLoops = 100;
-        [music play];
     }
     return self;
 }
@@ -264,7 +258,7 @@
             [player.ninja removeFromParent];
         }
     }
-    NSLog(@"ninja count: %d",[_ninjas count]);
+    NSLog(@"ninja count: %lu",[_ninjas count]);
 }
 
 #pragma mark - World Building
@@ -296,10 +290,9 @@
                 item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
                 break;
                 
-            case NJItemWindScroll:
-                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
-                
-                break;
+//            case NJItemWindScroll:
+//                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+//                break;
                 
             case NJItemIceScroll:
                 item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
@@ -317,9 +310,9 @@
 //                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
 //                break;
 //                
-//            case NJItemShuriken:
-//                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-//                break;
+            case NJItemShuriken:
+                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+                break;
                 
             default:
                 break;
@@ -752,19 +745,25 @@
     NSUInteger actionIndex = [(NSNumber *)[note object]integerValue];
     if (!isSelectionInited && actionIndex == RESTART){
         [self restartGame];
-        
-        int musicIndex = arc4random() % 5;
-        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
-        
-        NSError *error;
-        music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        [music play];
     } else if(actionIndex == CONTINUE){
         [self continueItemUpdate];
         [self continueWoodpiles];
         
         [music play];
     }
+}
+
+- (void)resetMusic {
+    if (music) {
+        [music pause];
+    }
+    int musicIndex = 2;
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
+    
+    NSError *error;
+    music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    music.numberOfLoops = 100;
+    [music play];
 }
 
 - (void)restartGame{
@@ -785,6 +784,9 @@
     [self resetItems];
     [self resetWoodPiles];
     [self initSelectionSystem];
+    
+    [self resetMusic];
+    
 }
 
 - (void)removeNinjas

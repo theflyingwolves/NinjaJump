@@ -34,6 +34,8 @@
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
         [character applyDamage:20];
+        [self fireAttackedAnimation:character];
+
     }
     NSArray *affectedPiles = [self.delegate getAffectedPilesWithRange:self.range];
     for (NJPile *pile in affectedPiles) {

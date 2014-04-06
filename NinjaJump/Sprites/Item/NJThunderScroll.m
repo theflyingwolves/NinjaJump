@@ -31,9 +31,13 @@
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
         [character applyDamage:20];
+        [self fireAttackedAnimation:character];
     }
     [character performThunderAnimationInScene:self.myParent];
     [self runAction:[SKAction playSoundFileNamed:kSoundThunder waitForCompletion:NO]];
 }
+
+
+
 
 @end
