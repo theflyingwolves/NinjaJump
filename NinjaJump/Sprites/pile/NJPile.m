@@ -50,13 +50,16 @@
     if (self.isOnFire) {
         if (self.fireTimer<kFireLastTime) {
             self.fireTimer += interval;
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"WoodFire" ofType:@"sks"];
-            self.fireEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-            [self addChild:self.fireEmitter];
+            if (!self.fireEmitter) {
+                NSString *filePath = [[NSBundle mainBundle] pathForResource:@"WoodFire" ofType:@"sks"];
+                self.fireEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+                [self addChild:self.fireEmitter];
+            }
         } else {
             self.fireTimer = 0;
             self.isOnFire = NO;
             [self.fireEmitter removeFromParent];
+            self.fireEmitter = nil;
         }
     }
     if (isRotating) {
