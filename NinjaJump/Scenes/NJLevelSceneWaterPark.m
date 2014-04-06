@@ -253,7 +253,7 @@
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-            NJPile *pile = [self spawnAtRandomPileForNinja:YES];
+            NJPile *pile = [self spawnAtRandomPileForNinja:NO];
             pile.standingCharacter = ninja;
             ninja.position = pile.position;
         }else if(player.ninja){
@@ -383,16 +383,19 @@
         if ([_woodPiles count] > [_ninjas count]+1) {
             NSMutableArray *pilesToChoose = [NSMutableArray new];
             for (NJPile *pile in _woodPiles) {
-                if (!pile.standingCharacter) {
-                    for (NJPlayer *player in self.players) {
-                        if (player.targetPile != pile) {
-                            [pilesToChoose addObject:pile];
-                        }
+                BOOL isFree = !pile.standingCharacter;
+                for (NJPlayer *player in self.players) {
+                    if (player.targetPile == pile) {
+                        isFree = NO;
+                        break;
                     }
+                }
+                if (isFree) {
+                    [pilesToChoose addObject:pile];
                 }
             }
             if ([pilesToChoose count] > 0) {
-                int index = arc4random() % [_woodPiles count];
+                int index = arc4random() % [pilesToChoose count];
                 NJPile *pileToRemove = [pilesToChoose objectAtIndex:index];
                 NJSpecialItem *itemToRemove = pileToRemove.itemHolded;
                 [itemToRemove removeFromParent];
@@ -769,6 +772,10 @@
         player.item = nil;
         [player.indicatorNode removeFromParent];
         player.indicatorNode = nil;
+        player.targetPile = nil;
+        player.fromPile = nil;
+        player.isJumping = NO;
+        player.jumpRequested = NO;
     }
     [self removeNinjas];
     [self resetItems];
