@@ -39,7 +39,7 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 10
+#define kNumOfFramesToSpawnItem 1000
 #define NJWoodPileInitialImpluse 3
 
 #define kMusicPatrit @"patrit"
