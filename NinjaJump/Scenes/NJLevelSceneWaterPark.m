@@ -247,12 +247,13 @@
     if (!_ninjas) {
         _ninjas = [NSMutableArray array];
     }
+    [_ninjas removeAllObjects];
     
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-            NJPile *pile = ((NJPile*)_woodPiles[index]);
+            NJPile *pile = [self spawnAtRandomPileForNinja:YES];
             pile.standingCharacter = ninja;
             ninja.position = pile.position;
         }else if(player.ninja){
@@ -366,10 +367,16 @@
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     // Update all players' ninjas.
+    NSMutableArray *ninjasToRemove = [NSMutableArray new];
+    for (NJNinjaCharacter *ninja in self.ninjas) {
+        if (ninja.isDying) {
+            [ninjasToRemove addObject:ninja];
+        }
+    }
+    [self.ninjas removeObjectsInArray:ninjasToRemove];
     for (NJNinjaCharacter *ninja in self.ninjas) {
         [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
     }
-
     _pileDecreaseTime += timeSinceLast;
     if (shouldPileStartDecreasing && _pileDecreaseTime >= kPileDecreaseTimeInterval) {
         _pileDecreaseTime = 0;
@@ -763,8 +770,19 @@
         [player.indicatorNode removeFromParent];
         player.indicatorNode = nil;
     }
+    [self removeNinjas];
+    [self resetItems];
     [self resetWoodPiles];
     [self initSelectionSystem];
+}
+
+- (void)removeNinjas
+{
+    for (NJNinjaCharacter *ninja in _ninjas) {
+        [ninja removeFromParent];
+        ninja.player.ninja = nil;
+    }
+    [_ninjas removeAllObjects];
 }
 
 - (void)continueWoodpiles
@@ -792,18 +810,21 @@
     
 }
 
+- (void)resetItems
+{
+    for (NJSpecialItem *item in _items) {
+        [item removeFromParent];
+    }
+    [_items removeAllObjects];
+}
+
 - (void)resetWoodPiles
 {
-    for (NJPile *pile in self.woodPiles) {
-        [pile setSpeed:3 direction:NJDiectionClockwise];
-        if (pile.standingCharacter) {
-            pile.standingCharacter = nil;
-        }
-        if (pile.itemHolded) {
-            [pile.itemHolded removeFromParent];
-            pile.itemHolded = nil;
-        }
+    for (NJPile *pile in _woodPiles) {
+        [pile removeFromParent];
     }
+    [_woodPiles removeAllObjects];
+    [self addWoodPiles];
 }
 
 
