@@ -49,10 +49,9 @@
 {
     if (self.isOnFire) {
         if (self.fireTimer<kFireLastTime) {
-            self.fireTimer += kFireLastTime;
+            self.fireTimer += interval;
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"WoodFire" ofType:@"sks"];
             self.fireEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-            self.fireEmitter.position = CGPointZero;
             [self addChild:self.fireEmitter];
         } else {
             self.fireTimer = 0;
