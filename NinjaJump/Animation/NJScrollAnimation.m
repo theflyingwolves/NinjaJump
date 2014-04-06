@@ -8,47 +8,38 @@
 
 #import "NJScrollAnimation.h"
 
-@implementation NJScrollAnimation{
-    SKEmitterNode *fireAttack;
-    SKEmitterNode *freezeEffect;
-}
+@implementation NJScrollAnimation
 
 - (void)runFireEffect:(NJNinjaCharacter *)ninja{
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"FireEffect" ofType:@"sks"];
-    fireAttack = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    SKEmitterNode *fireAttack = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     fireAttack.zRotation = ninja.zRotation;
     fireAttack.position = CGPointMake(ninja.position.x-50*sin(ninja.zRotation), ninja.position.y+50*cos(ninja.zRotation));
     [ninja.parent addChild:fireAttack];
     
     NSLog(@"ninja rotate %f",ninja.zRotation);
     //[fireAttack runAction:sequence];
-    [self performSelector:@selector(moveFire) withObject:nil afterDelay:1.5];
+    [self performSelector:@selector(fadeOut:) withObject:fireAttack afterDelay:1.5];
 }
 
-- (void)moveFire{
-    [fireAttack removeFromParent];
-}
+
 
 - (void)runFreezeEffect:(NJNinjaCharacter *)ninja{
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"FreezeEffect" ofType:@"sks"];
-    freezeEffect = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    SKEmitterNode *freezeEffect = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     freezeEffect.particleBirthRate = 10;
     freezeEffect.position = ninja.position;
     [ninja.parent addChild:freezeEffect];
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(freezeUp:) userInfo:nil repeats:5];
+    [self performSelector:@selector(fadeOut:) withObject:freezeEffect afterDelay:0.8];
+
 }
 
-- (void)freezeUp:(NSTimer *)timer{
-    freezeEffect.particleBirthRate ++;
-    if (freezeEffect.particleBirthRate == 40) {
-        freezeEffect.particleBirthRate = 10;
-        //SKAction *wait = [SKAction waitForDuration:0.2];
-        SKAction *fadeout = [SKAction fadeAlphaBy:0.7 duration:0.2];
-        [freezeEffect runAction:fadeout completion:^{
-            [freezeEffect removeFromParent];
-            [timer invalidate];
-        }];
-    }
+- (void)fadeOut:(SKEmitterNode *)particleEmitter{
+    particleEmitter.particleBirthRate = 0;
+    SKAction *wait = [SKAction waitForDuration:0.5];
+    SKAction *removeNode = [SKAction removeFromParent];
+    SKAction *sequence = [SKAction sequence:@[wait,removeNode]];
+    [particleEmitter runAction:sequence];
 }
 
 @end
