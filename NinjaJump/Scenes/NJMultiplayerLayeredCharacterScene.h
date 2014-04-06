@@ -31,8 +31,7 @@ typedef enum : uint8_t {
 #define kNumPlayers 4
 #define kJumpCooldownTime 0.5f
 #define kFireLastTime 5.0f
-#define kPileDecreaseTimeInterval 10.0f
-#define kMinimumPilesCount 3
+#define kPileDecreaseTimeInterval 2.0f
 
 /* Completion handler for callback after loading assets asynchronously. */
 typedef void (^NJAssetLoadCompletionHandler)(void);
@@ -67,5 +66,5 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 /* Heroes and players. */
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
 
-- (NJPile *)spawnAtRandomPile;
+- (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja;
 @end
