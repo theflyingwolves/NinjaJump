@@ -71,8 +71,6 @@
 
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player
 {
-    NSAssert(![player isKindOfClass:[NSNull class]], @"Player should not be NSNull");
-    
     if (player.ninja && !player.ninja.dying) {
         [player.ninja removeFromParent];
         [player.indicatorNode removeFromParent];
@@ -172,8 +170,12 @@
                         if (hypotf(ninja.position.x-p.ninja.position.x,ninja.position.y-p.ninja.position.y)<=CGRectGetWidth(player.targetPile.frame)/2) {
                             if (!p.isDisabled) {
                                 [ninja attackCharacter:p.ninja];
-                                NJPile *pile = [self spawnAtRandomPile];
+                                NJPile *pile = [self spawnAtRandomPileForNinja:YES];
                                 pile.standingCharacter = p.ninja;
+                                if (pile.itemHolded) {
+                                    [(NSMutableArray*)self.items removeObject:pile.itemHolded];
+                                    [pile.itemHolded removeFromParent];
+                                }
                                 [p.ninja resetToPosition:pile.position];
                             }
                         }
@@ -214,7 +216,7 @@
     }
 }
 
-- (NJPile *)spawnAtRandomPile
+- (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja
 {
     // Overridden by subclasses
     return nil;

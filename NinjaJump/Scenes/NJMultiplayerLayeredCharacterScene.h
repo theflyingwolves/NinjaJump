@@ -65,5 +65,5 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 /* Heroes and players. */
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
 
-- (NJPile *)spawnAtRandomPile;
+- (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja;
 @end

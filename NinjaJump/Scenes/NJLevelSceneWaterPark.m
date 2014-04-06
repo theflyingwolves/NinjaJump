@@ -93,7 +93,6 @@
         isGameEnded = NO;
         shouldPileStartDecreasing = NO;
         [self buildWorld];
-        [self initCharacters];
         [self initSelectionSystem];
         
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
@@ -257,9 +256,11 @@
             pile.standingCharacter = ninja;
             ninja.position = pile.position;
         }else if(player.ninja){
+            [_ninjas removeObject:player.ninja];
             [player.ninja removeFromParent];
         }
     }
+    NSLog(@"ninja count: %d",[_ninjas count]);
 }
 
 #pragma mark - World Building
@@ -276,7 +277,10 @@
 }
 
 - (void)addItem{
-    NJPile *pile = [self spawnAtRandomPile];
+    NJPile *pile = [self spawnAtRandomPileForNinja:NO];
+    if (!pile) {
+        return;
+    }
     CGPoint position = pile.position;
     
     if ([self.items count] < 3) {
@@ -369,7 +373,7 @@
     _pileDecreaseTime += timeSinceLast;
     if (shouldPileStartDecreasing && _pileDecreaseTime >= kPileDecreaseTimeInterval) {
         _pileDecreaseTime = 0;
-        if ([_woodPiles count]>kMinimumPilesCount) {
+        if ([_woodPiles count] > [_ninjas count]+1) {
             NSMutableArray *pilesToChoose = [NSMutableArray new];
             for (NJPile *pile in _woodPiles) {
                 if (!pile.standingCharacter) {
@@ -664,7 +668,7 @@
     return nearest;
 }
 
-- (NJPile *)spawnAtRandomPile
+- (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja
 {
     NSMutableArray *array = [NSMutableArray new];
     for (NJPile *pile in _woodPiles) {
@@ -675,13 +679,16 @@
             }
         }
         
-        if (pile.itemHolded && [self.items containsObject:pile.itemHolded]) {
+        if (!isNinja && pile.itemHolded && [self.items containsObject:pile.itemHolded]) {
             isFree = NO;
         }
         
         if (isFree) {
             [array addObject:pile];
         }
+    }
+    if ([array count]<=0) {
+        return nil;
     }
     int index = arc4random() % [array count];
     return ((NJPile*)array[index]);
@@ -835,6 +842,7 @@
     for (int i=0; i<kNumPlayers; i++) {
         NJPlayer *player = (NJPlayer *)self.players[i];
         if(player.isDisabled){
+            [_ninjas removeObject:player.ninja];
             [player.ninja removeFromParent];
         }
     }
