@@ -11,7 +11,11 @@
 #import "NJPlayer.h"
 #import "NJGraphicsUnitilities.h"
 #import "NJItemEffect.h"
+#import "NJEffectMine.h"
 #import "NJPile.h"
+
+#define kSoundBomb @"hurt.mid"
+#define kSoundShuriken @"hurt.mid"
 
 @implementation NJNinjaCharacter
 
@@ -55,12 +59,19 @@ const CGFloat medikitRecover = 40.0f;
 }
 
 #pragma mark - Use Items
-- (void)useItem:(NJSpecialItem *)item withWoodPiles:(NSArray *)piles
+- (void)useItem:(NJSpecialItem *)item
 {
-    CGFloat direction = (self.zRotation + M_PI/2);
-    if (direction > (2*M_PI)) {
-        direction -= 2*M_PI;
+    CGFloat direction = self.zRotation;
+    if (direction >= 0 && direction <= M_PI) {
+        direction += M_PI / 2;
+    }else if(direction <= 0 && direction >= - M_PI / 2){
+        direction += M_PI / 2;
+    }else if(direction <= -M_PI / 2 && direction >= - M_PI){
+        direction += 5 * M_PI / 2;
+    }else{
+        NSLog(@"useItem: zRotation Detection Error");
     }
+    
     [item useAtPosition:self.position withDirection: direction byCharacter:self];
     self.player.item = nil;
 }
@@ -68,14 +79,30 @@ const CGFloat medikitRecover = 40.0f;
 #pragma mark - physics
 - (void)collidedWith:(SKPhysicsBody *)other{
     [super collidedWith:other];
-    if (other.categoryBitMask & NJColliderTypeItemEffect) {
+    if (other.categoryBitMask & NJColliderTypeItemEffectShuriken) {
         NJItemEffect *effect =(NJItemEffect*)other.node;
         if (effect.owner != self) {
             [self applyDamage:effect.damage];
             [effect removeAllActions];
             [effect removeFromParent];
+            [self runAction:[SKAction playSoundFileNamed:kSoundShuriken waitForCompletion:NO]];
         }
-        
+    } else if (other.categoryBitMask & NJColliderTypeItemEffectMine) {
+        NJEffectMine *effect =(NJEffectMine*)other.node;
+        if (effect.owner != self) {
+            [self applyDamage:effect.damage];
+            [effect removeAllActions];
+            [effect removeFromParent];
+            effect.pile.itemEffectOnPile = nil;
+            [self runAction:[SKAction playSoundFileNamed:kSoundBomb waitForCompletion:NO]];
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Bomb" ofType:@"sks"];
+            SKEmitterNode *bombEffect = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+            [self addChild:bombEffect];
+            SKAction *wait = [SKAction waitForDuration:0.5];
+            SKAction *removeNode = [SKAction removeFromParent];
+            SKAction *sequence = [SKAction sequence:@[wait, removeNode]];
+            [bombEffect runAction:sequence];
+        }
     }
 }
 
@@ -84,10 +111,10 @@ const CGFloat medikitRecover = 40.0f;
     self.physicsBody.categoryBitMask = NJColliderTypeCharacter;
     
     // Collides with these objects.
-    self.physicsBody.collisionBitMask = NJColliderTypeItemEffect;
+//    self.physicsBody.collisionBitMask = NJColliderTypeItemEffect;
     
     // We want notifications for colliding with these objects.
-    self.physicsBody.contactTestBitMask = NJColliderTypeItemEffect;
+    self.physicsBody.contactTestBitMask = NJColliderTypeItemEffectShuriken | NJColliderTypeItemEffectMine;
 
     self.physicsBody.dynamic = NO;
 //    self.physicsBody.linearDamping = 0.0f;

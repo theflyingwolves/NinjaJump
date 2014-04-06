@@ -13,7 +13,7 @@ typedef enum : uint8_t {
     NJDirectionCounterClockwise
 } NJDirection;
 
-@class NJCharacter, NJSpecialItem;
+@class NJCharacter, NJSpecialItem, NJItemEffect;
 
 @interface NJPile : SKSpriteNode
 
@@ -24,6 +24,7 @@ typedef enum : uint8_t {
 @property NJDirection rotateDirection;
 @property (nonatomic, weak) NJCharacter *standingCharacter;
 @property (nonatomic, weak) NJSpecialItem *itemHolded;
+@property (nonatomic, weak) NJItemEffect *itemEffectOnPile;
 @property BOOL isIceScrollEnabled;
 @property BOOL isOnFire;
 @property (nonatomic) NSTimeInterval fireTimer;

@@ -8,6 +8,7 @@
 
 #import "NJEffectMine.h"
 #import "NJMine.h"
+#import "NJPile.h"
 
 #define kMineEffectInvisible @"mineEffectInvisible.png"
 #define kMineFileName @"mine.png"
@@ -21,10 +22,14 @@
         _damage = kMineDamage;
         NJMine *mineTexture = [[NJMine alloc]initWithTextureNamed:kMineFileName atPosition:CGPointMake(0, 0) ];
         [self addChild:mineTexture];
-//        SKAction *wait = [SKAction waitForDuration:1];
-//        SKAction *removeNode = [SKAction removeFromParent];
-//        SKAction *sequence = [SKAction sequence:@[wait,removeNode]];
-//        [mineTexture runAction:sequence];
+        [self runAction:[SKAction moveBy:CGVectorMake(0, 0) duration:1] completion:^{[mineTexture removeFromParent];}];
+        
+        for (NJPile *pile in scene.woodPiles){
+            if (hypotf(owner.position.x-pile.position.x, owner.position.y-pile.position.y)<=CGRectGetWidth(pile.frame)/2){
+                pile.itemEffectOnPile = self;
+                _pile = pile;
+            }
+        }
     }
     return self;
 }
@@ -35,7 +40,7 @@
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];
     
     // Our object type for collisions.
-    self.physicsBody.categoryBitMask = NJColliderTypeItemEffect;
+    self.physicsBody.categoryBitMask = NJColliderTypeItemEffectMine;
     
     // Collides with these objects.
     //    self.physicsBody.collisionBitMask = NJColliderTypeCharacter;

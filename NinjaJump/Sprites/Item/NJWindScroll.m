@@ -31,9 +31,11 @@
     double facingDir = self.zRotation;
     self.range = [[NJRectangularRange alloc] initWithOrigin:character.position farDist:70 andFacingDir:facingDir];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
+    [self.delegate applyGlobalScrollAnimationForScroll:self];
     for (NJCharacter *character in affectedCharacters) {
         [character applyDamage:20];
     }
+    [self runAction:[SKAction playSoundFileNamed:kSoundWind waitForCompletion:NO]];
 }
 
 @end

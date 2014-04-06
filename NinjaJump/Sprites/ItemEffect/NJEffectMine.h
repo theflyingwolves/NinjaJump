@@ -10,6 +10,8 @@
 
 @interface NJEffectMine : NJItemEffect
 
+@property (readonly) NJPile *pile;
+
 -(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner;
 
 @end

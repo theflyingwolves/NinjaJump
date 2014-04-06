@@ -13,7 +13,7 @@
 #import "NJScrollAnimation.h"
 
 #define AFFECTED_RADIUS 1000
-#define kSoundFire @"fire(1).mid"
+#define kSoundFire @"firestrong.mid"
 
 @implementation NJFireScroll
 
@@ -29,7 +29,8 @@
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
-    double facingDir = self.zRotation + M_PI / 2;
+    double facingDir = direction + M_PI / 2;
+    NSLog(@"zrotation: %f",self.zRotation);
     self.range = [[NJFanRange alloc] initWithOrigin:character.position farDist:200 andFacingDir:facingDir];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
@@ -43,6 +44,8 @@
     
     NJScrollAnimation *animation = [[NJScrollAnimation alloc] init];
     [animation runFireEffect:character];
+    
+    [self runAction:[SKAction playSoundFileNamed:kSoundFire waitForCompletion:NO]];
 }
 
 @end
