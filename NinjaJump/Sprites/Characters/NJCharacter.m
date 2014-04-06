@@ -16,8 +16,8 @@
 #import "NJRange.h"
 #import "NJPlayer.h"
 
-#import "NJFanRange.h"
-#import "NJRectangularRange.h"
+//#import "NJFanRange.h"
+//#import "NJRectangularRange.h"
 
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"
@@ -37,15 +37,6 @@
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
         [self configurePhysicsBody];
     }
-    
-//    NJFanRange *range = [[NJFanRange alloc] initWithOrigin:CGPointMake(0, 0) farDist:10 andFacingDir:M_PI/2];
-//    NSLog(@"testing range: %d",[range isPointWithinRange:CGPointMake(10*cos(5*M_PI / 6 - 0.1), 10*sin(5*M_PI / 6 - 0.1))]);
-    
-    NJFanRange *range = [[NJFanRange alloc] initWithOrigin:CGPointMake(1, 1) farDist:10 andFacingDir:M_PI];
-    NSLog(@"testing range: %d",[range isPointWithinRange:CGPointMake(-4, 0)]);
-        
-//    NJRectangularRange *range = [[NJRectangularRange alloc] initWithOrigin:CGPointZero farDist:4.0f andFacingDir:M_PI/4];
-//    NSLog(@"testing range: %d",[range isPointWithinRange:CGPointMake(3.89,3.89-4*sqrt(2))]);
 
     return self;
 }
@@ -62,15 +53,10 @@
     CGFloat distRemaining = hypotf(dx, dy);
     
     CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(toPile.position, curPosition));
-//    NSLog(@"before jumpping; old zrotation: %f, new zrotation %f", self.zRotation, normalizeZRotation(ang));
-//    NSLog(@"velocity: %f", self.physicsBody.velocity);
     self.zRotation = normalizeZRotation(ang);
-//    self.zRotation = ang;
     if (distRemaining <= dt) {
-//        NSLog(@"jump stop");
         self.position = toPile.position;
         toPile.standingCharacter = self;
-//        NSLog(@"self position after snapping: (%f, %f)", self.position.x, self.position.y);
     } else {
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
                                     curPosition.y + cosf(ang)*dt);
