@@ -8,13 +8,13 @@
 
 #import "NJFanRange.h"
 
-#define ANGULAR_TOLERANCE M_PI
+#define ANGULAR_TOLERANCE M_PI/3
 
 @implementation NJFanRange
 
 - (BOOL)isPointWithinRange:(CGPoint)point
 {
-    double angle = arctan(point.x - self.origin.x, point.y - self.origin.y) + M_PI / 2;
+    double angle = arctan(point.x - self.origin.x, point.y - self.origin.y);
     double distance = hypotf(point.x-self.origin.x, point.y - self.origin.y);
     if (distance <= self.farDist && distance >= 0.5) {
         NSLog(@"within distance");

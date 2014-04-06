@@ -16,7 +16,7 @@
 #import "NJRange.h"
 #import "NJPlayer.h"
 
-//#import "NJFanRange.h"
+#import "NJFanRange.h"
 #import "NJRectangularRange.h"
 
 #define kThunderAnimationSpeed 0.125f
@@ -41,6 +41,9 @@
 //    NJFanRange *range = [[NJFanRange alloc] initWithOrigin:CGPointMake(0, 0) farDist:10 andFacingDir:M_PI/2];
 //    NSLog(@"testing range: %d",[range isPointWithinRange:CGPointMake(10*cos(5*M_PI / 6 - 0.1), 10*sin(5*M_PI / 6 - 0.1))]);
     
+    NJFanRange *range = [[NJFanRange alloc] initWithOrigin:CGPointMake(1, 1) farDist:10 andFacingDir:M_PI];
+    NSLog(@"testing range: %d",[range isPointWithinRange:CGPointMake(-4, 0)]);
+        
 //    NJRectangularRange *range = [[NJRectangularRange alloc] initWithOrigin:CGPointZero farDist:4.0f andFacingDir:M_PI/4];
 //    NSLog(@"testing range: %d",[range isPointWithinRange:CGPointMake(3.89,3.89-4*sqrt(2))]);
 

@@ -72,7 +72,8 @@ const CGFloat medikitRecover = 40.0f;
         NSLog(@"useItem: zRotation Detection Error");
     }
     
-    [item useAtPosition:self.position withDirection: direction byCharacter:self];
+    NSLog(@"direction: %f",direction);
+    [item useAtPosition:self.position withDirection:direction byCharacter:self];
     self.player.item = nil;
 }
 

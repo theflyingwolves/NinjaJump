@@ -31,6 +31,7 @@ typedef enum : uint8_t {
 #define kNumPlayers 4
 #define kJumpCooldownTime 0.5f
 #define kFireLastTime 5.0f
+#define kPileDecreaseTimeInterval 10.0f
 
 /* Completion handler for callback after loading assets asynchronously. */
 typedef void (^NJAssetLoadCompletionHandler)(void);
