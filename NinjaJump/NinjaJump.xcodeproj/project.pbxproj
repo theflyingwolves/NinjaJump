@@ -54,7 +54,6 @@
 		2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568BF18E1BE3B00C6589D /* shuriken.png */; };
 		2FC568C418E1BEC000C6589D /* ninja.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568C318E1BEC000C6589D /* ninja.png */; };
 		2FC568C818E1EBC000C6589D /* Ninja_Attack.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568C718E1EBC000C6589D /* Ninja_Attack.atlas */; };
-		2FDBC06318F4285900814C70 /* NJLevelSceneLakeMoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDBC06218F4285900814C70 /* NJLevelSceneLakeMoon.m */; };
 		2FDBC06518F42DAC00814C70 /* lakeMoonBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDBC06418F42DAC00814C70 /* lakeMoonBG.png */; };
 		2FDD9C3C18ED940D0071C712 /* indicator_fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C3818ED940D0071C712 /* indicator_fire.png */; };
 		2FDD9C3D18ED940D0071C712 /* indicator_ice.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C3918ED940D0071C712 /* indicator_ice.png */; };
@@ -214,8 +213,6 @@
 		2FC568BF18E1BE3B00C6589D /* shuriken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shuriken.png; path = Assets/Items/shuriken.png; sourceTree = "<group>"; };
 		2FC568C318E1BEC000C6589D /* ninja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ninja.png; path = Assets/GameBoard/ninja.png; sourceTree = "<group>"; };
 		2FC568C718E1EBC000C6589D /* Ninja_Attack.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Attack.atlas; path = "Assets/Texture Altases/Ninja_Attack.atlas"; sourceTree = "<group>"; };
-		2FDBC06118F4285900814C70 /* NJLevelSceneLakeMoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLevelSceneLakeMoon.h; path = Scenes/NJLevelSceneLakeMoon.h; sourceTree = "<group>"; };
-		2FDBC06218F4285900814C70 /* NJLevelSceneLakeMoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLevelSceneLakeMoon.m; path = Scenes/NJLevelSceneLakeMoon.m; sourceTree = "<group>"; };
 		2FDBC06418F42DAC00814C70 /* lakeMoonBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lakeMoonBG.png; path = Assets/GameBoard/lakeMoonBG.png; sourceTree = "<group>"; };
 		2FDD9C3818ED940D0071C712 /* indicator_fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_fire.png; sourceTree = "<group>"; };
 		2FDD9C3918ED940D0071C712 /* indicator_ice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_ice.png; sourceTree = "<group>"; };
@@ -358,8 +355,6 @@
 			children = (
 				2B21F14F18D433D2007220CF /* NJMultiplayerLayeredCharacterScene.h */,
 				2B21F15018D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m */,
-				2FDBC06118F4285900814C70 /* NJLevelSceneLakeMoon.h */,
-				2FDBC06218F4285900814C70 /* NJLevelSceneLakeMoon.m */,
 				2BFA6DB118E6BA7300EBA279 /* NJLoadingScene.h */,
 				2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */,
 				2B21F15218D4342E007220CF /* NJPlayer.h */,
@@ -967,7 +962,6 @@
 				2FC568B118E1BD5000C6589D /* NJScroll.m in Sources */,
 				C9B8F29618E05B3B00FA877E /* NJSelectionButtonSystem.m in Sources */,
 				2F45B43718E6AC6C00482453 /* NJCircularRange.m in Sources */,
-				2FDBC06318F4285900814C70 /* NJLevelSceneLakeMoon.m in Sources */,
 				C4AF3C1D18E803410036596A /* NJEffectMine.m in Sources */,
 				2FC568A918E1BCA900C6589D /* NJNinjaCharacter.m in Sources */,
 				2FC568A118E1BC9B00C6589D /* NJHPBar.m in Sources */,

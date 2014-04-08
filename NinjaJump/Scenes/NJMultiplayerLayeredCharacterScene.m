@@ -379,7 +379,9 @@
 
 - (void)addBackground
 {
-    
+    SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:@"lakeMoonBG"];
+    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addNode:background atWorldLayer:NJWorldLayerGround];
 }
 
 #pragma mark - Loop Update
@@ -417,7 +419,10 @@
                 fileName = @"indicator_ice";
             }
             
-            if (!player.itemIndicatorAdded && fileName) {
+            if (!fileName) {
+                [player.indicatorNode removeFromParent];
+                player.indicatorNode = nil;
+            }else if (!player.itemIndicatorAdded && fileName) {
                 if (player.indicatorNode) {
                     [player.indicatorNode removeFromParent];
                 }
