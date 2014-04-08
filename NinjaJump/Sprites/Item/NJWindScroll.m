@@ -31,7 +31,6 @@
     double facingDir = direction;
     self.range = [[NJRectangularRange alloc] initWithOrigin:character.position farDist:AFFECTED_RADIUS andFacingDir:facingDir];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
-    [self.delegate applyGlobalScrollAnimationForScroll:self];
     for (NJCharacter *character in affectedCharacters) {
         [character applyDamage:20];
     }

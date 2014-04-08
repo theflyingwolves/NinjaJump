@@ -39,7 +39,7 @@
 #define kShurikenFileName @"shuriken.png"
 #define kMedikitFileName @"medikit.png"
 
-#define kNumOfFramesToSpawnItem 1000
+#define kNumOfFramesToSpawnItem 100
 #define NJWoodPileInitialImpluse 3
 
 #define kMusicPatrit @"patrit"
@@ -290,9 +290,9 @@
                 item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
                 break;
                 
-//            case NJItemWindScroll:
-//                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
-//                break;
+            case NJItemWindScroll:
+                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+                break;
                 
             case NJItemIceScroll:
                 item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
@@ -951,13 +951,4 @@
     return affectedPiles;
 }
 
-- (void)applyGlobalScrollAnimationForScroll:(NJScroll *)scroll
-{
-    NJRange *range = scroll.range;
-    for (NJPile *pile in _woodPiles) {
-        if ([range isPointWithinRange:pile.position]) {
-            
-        }
-    }
-}
 @end
