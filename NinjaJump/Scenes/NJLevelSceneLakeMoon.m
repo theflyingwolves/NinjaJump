@@ -10,4 +10,11 @@
 
 @implementation NJLevelSceneLakeMoon
 
+- (void)addBackground
+{
+    SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:@"lakeMoonBG"];
+    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addNode:background atWorldLayer:NJWorldLayerGround];
+}
+
 @end

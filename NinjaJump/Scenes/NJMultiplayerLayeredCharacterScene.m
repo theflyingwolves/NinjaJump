@@ -29,7 +29,6 @@
 
 #import "NJItemEffect.h"
 
-#define kBackGroundFileName @"waterParkBG.png"
 #define kThunderScrollFileName @"thunderScroll.png"
 #define kWindScrollFileName @"windScroll.png"
 #define kIceScrollFileName @"iceScroll.png"
@@ -384,9 +383,7 @@
 
 - (void)addBackground
 {
-    SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:kBackGroundFileName];
-    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    [self addNode:background atWorldLayer:NJWorldLayerGround];
+    
 }
 
 #pragma mark - Loop Update
@@ -600,11 +597,6 @@
         if (pile.itemHolded && ![self.items containsObject:pile.itemHolded]) {
             pile.itemHolded = nil;
         }
-        
-//        if (!added && pile.standingCharacter) {
-//            NSLog(@"removing characger");
-//            [pile removeStandingCharacter];
-//        }
     }
     
     for (NJItemControl *control in _itemControls) {

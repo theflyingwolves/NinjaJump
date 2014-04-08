@@ -50,12 +50,12 @@
 		2FC568BA18E1BE0900C6589D /* jumpButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568B518E1BE0900C6589D /* jumpButton.png */; };
 		2FC568BB18E1BE0900C6589D /* spawnLight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568B618E1BE0900C6589D /* spawnLight.png */; };
 		2FC568BC18E1BE0900C6589D /* spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568B718E1BE0900C6589D /* spotlight.png */; };
-		2FC568BD18E1BE0900C6589D /* waterParkBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568B818E1BE0900C6589D /* waterParkBG.png */; };
 		2FC568BE18E1BE0900C6589D /* woodPile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568B918E1BE0900C6589D /* woodPile.png */; };
 		2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568BF18E1BE3B00C6589D /* shuriken.png */; };
 		2FC568C418E1BEC000C6589D /* ninja.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568C318E1BEC000C6589D /* ninja.png */; };
 		2FC568C818E1EBC000C6589D /* Ninja_Attack.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2FC568C718E1EBC000C6589D /* Ninja_Attack.atlas */; };
 		2FDBC06318F4285900814C70 /* NJLevelSceneLakeMoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDBC06218F4285900814C70 /* NJLevelSceneLakeMoon.m */; };
+		2FDBC06518F42DAC00814C70 /* lakeMoonBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDBC06418F42DAC00814C70 /* lakeMoonBG.png */; };
 		2FDD9C3C18ED940D0071C712 /* indicator_fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C3818ED940D0071C712 /* indicator_fire.png */; };
 		2FDD9C3D18ED940D0071C712 /* indicator_ice.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C3918ED940D0071C712 /* indicator_ice.png */; };
 		2FDD9C3E18ED940D0071C712 /* indicator_thunder.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C3A18ED940D0071C712 /* indicator_thunder.png */; };
@@ -210,13 +210,13 @@
 		2FC568B518E1BE0900C6589D /* jumpButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = jumpButton.png; path = Assets/GameBoard/jumpButton.png; sourceTree = "<group>"; };
 		2FC568B618E1BE0900C6589D /* spawnLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spawnLight.png; path = Assets/GameBoard/spawnLight.png; sourceTree = "<group>"; };
 		2FC568B718E1BE0900C6589D /* spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spotlight.png; path = Assets/GameBoard/spotlight.png; sourceTree = "<group>"; };
-		2FC568B818E1BE0900C6589D /* waterParkBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = waterParkBG.png; path = Assets/GameBoard/waterParkBG.png; sourceTree = "<group>"; };
 		2FC568B918E1BE0900C6589D /* woodPile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = woodPile.png; path = Assets/GameBoard/woodPile.png; sourceTree = "<group>"; };
 		2FC568BF18E1BE3B00C6589D /* shuriken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shuriken.png; path = Assets/Items/shuriken.png; sourceTree = "<group>"; };
 		2FC568C318E1BEC000C6589D /* ninja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ninja.png; path = Assets/GameBoard/ninja.png; sourceTree = "<group>"; };
 		2FC568C718E1EBC000C6589D /* Ninja_Attack.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Attack.atlas; path = "Assets/Texture Altases/Ninja_Attack.atlas"; sourceTree = "<group>"; };
 		2FDBC06118F4285900814C70 /* NJLevelSceneLakeMoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLevelSceneLakeMoon.h; path = Scenes/NJLevelSceneLakeMoon.h; sourceTree = "<group>"; };
 		2FDBC06218F4285900814C70 /* NJLevelSceneLakeMoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLevelSceneLakeMoon.m; path = Scenes/NJLevelSceneLakeMoon.m; sourceTree = "<group>"; };
+		2FDBC06418F42DAC00814C70 /* lakeMoonBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lakeMoonBG.png; path = Assets/GameBoard/lakeMoonBG.png; sourceTree = "<group>"; };
 		2FDD9C3818ED940D0071C712 /* indicator_fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_fire.png; sourceTree = "<group>"; };
 		2FDD9C3918ED940D0071C712 /* indicator_ice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_ice.png; sourceTree = "<group>"; };
 		2FDD9C3A18ED940D0071C712 /* indicator_thunder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_thunder.png; sourceTree = "<group>"; };
@@ -401,7 +401,7 @@
 		2B21F15618D43A2A007220CF /* Background */ = {
 			isa = PBXGroup;
 			children = (
-				2FC568B818E1BE0900C6589D /* waterParkBG.png */,
+				2FDBC06418F42DAC00814C70 /* lakeMoonBG.png */,
 			);
 			name = Background;
 			sourceTree = "<group>";
@@ -895,7 +895,6 @@
 				C93DBCA918F03B660036136E /* Bomb.sks in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
 				2FDD9C4318EDB09E0071C712 /* pause_scene_right_bar.png in Resources */,
-				2FC568BD18E1BE0900C6589D /* waterParkBG.png in Resources */,
 				C4C8747218F023A9004B6527 /* recover2.mid in Resources */,
 				C4C8746D18F023A9004B6527 /* fire(1).mid in Resources */,
 				2FC568C418E1BEC000C6589D /* ninja.png in Resources */,
@@ -942,6 +941,7 @@
 				2FDD9C4518EDB1F10071C712 /* pause scene bg.png in Resources */,
 				2FDD9C3F18ED940D0071C712 /* indicator_wind.png in Resources */,
 				C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */,
+				2FDBC06518F42DAC00814C70 /* lakeMoonBG.png in Resources */,
 				2BDFAC8018E7EAB000B4007D /* fog.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
