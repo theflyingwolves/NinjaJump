@@ -11,6 +11,12 @@
 
 @implementation NJScroll
 
+- (id)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate
+{
+    // Overridden By Subclasses
+    return nil;
+}
+
 - (void)fireAttackedAnimation:(NJCharacter *)character
 {
     UIColor *ninjaColor = character.color;

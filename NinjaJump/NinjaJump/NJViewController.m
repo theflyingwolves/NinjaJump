@@ -8,12 +8,12 @@
 
 #import "NJViewController.h"
 #import "NJLoadingScene.h"
-#import "NJLevelSceneWaterPark.h"
+#import "NJLevelSceneLakeMoon.h"
 #import <SpriteKit/SpriteKit.h>
 
 @interface NJViewController ()
 @property (weak, nonatomic) IBOutlet SKView *skView;
-@property (strong, nonatomic) NJLevelSceneWaterPark *scene;
+@property (strong, nonatomic) NJLevelSceneLakeMoon *scene;
 @end
 
 @implementation NJViewController
@@ -30,10 +30,10 @@
     NJLoadingScene *loadingScene = [[NJLoadingScene alloc] initWithSize:_skView.bounds.size];
     loadingScene.scaleMode = SKSceneScaleModeAspectFill;
     [_skView presentScene:loadingScene];
-    [NJLevelSceneWaterPark loadSceneAssetsWithCompletionHandler:^{
+    [NJLevelSceneLakeMoon loadSceneAssetsWithCompletionHandler:^{
         NSLog(@"loading assets completed.");
         // Create and configure the scene.
-        NJLevelSceneWaterPark * scene = [NJLevelSceneWaterPark sceneWithSize:_skView.bounds.size];
+        NJLevelSceneLakeMoon * scene = [NJLevelSceneLakeMoon sceneWithSize:_skView.bounds.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         self.scene = scene;
         // Present the scene.

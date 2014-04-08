@@ -103,21 +103,6 @@
 {
     self.health -= damage;
     if (self.health > 0.0f) {
-//        MultiplayerLayeredCharacterScene *scene = [self characterScene];
-//        
-//        // Build up "one shot" particle.
-//        SKEmitterNode *emitter = [[self damageEmitter] copy];
-//        if (emitter) {
-//            [scene addNode:emitter atWorldLayer:APAWorldLayerAboveCharacter];
-//            
-//            emitter.position = self.position;
-//            NJRunOneShotEmitter(emitter, 0.15f);
-//        }
-//        // Show the damage.
-//        SKAction *damageAction = [self damageAction];
-//        if (damageAction) {
-//            [self runAction:damageAction];
-//        }
         return NO;
     }else{
         [self performDeath];
@@ -282,7 +267,35 @@
     return nil;
 }
 
-#pragma mark - physics
+#pragma mark - animation when applied effect
+- (void)performFrozenEffect{
+    SKSpriteNode *frozen = [[SKSpriteNode alloc] initWithImageNamed:kFrozenEffectFileName];
+    frozen.alpha = 0.8;
+    frozen.position = CGPointMake(0, 0);
+    frozen.zPosition = self.zPosition+1;
+    [self addChild:frozen];
+    
+    self.frozenEffect = frozen;
+    self.frozenCount = kFrozenTime;
+}
+
+#pragma mark - Abstract Methods
+- (void)animationDidComplete
+{
+    // Overridden by Subclasses
+}
+
+- (void)updateAngularSpeed:(float)angularSpeed
+{
+    // Overridden by Subclasses
+}
+
+- (NSArray *)thunderAnimationFrames
+{
+    // Overridden by Subclasses
+    return nil;
+}
+
 - (void)collidedWith:(SKPhysicsBody *)other
 {
     //overriden by subclasses
@@ -297,18 +310,4 @@
 {
     //overriden by subclasses
 }
-
-#pragma mark - animation when applied effect
-- (void)performFrozenEffect{
-    SKSpriteNode *frozen = [[SKSpriteNode alloc] initWithImageNamed:kFrozenEffectFileName];
-    frozen.alpha = 0.8;
-    frozen.position = CGPointMake(0, 0);
-    frozen.zPosition = self.zPosition+1;
-    [self addChild:frozen];
-    
-    self.frozenEffect = frozen;
-    self.frozenCount = kFrozenTime;
-}
-
-
 @end

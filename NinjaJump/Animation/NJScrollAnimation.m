@@ -24,7 +24,7 @@
 
 
 
-- (void)runFreezeEffect:(NJNinjaCharacter *)ninja{
+- (void)runFreezeEffect:(NJCharacter *)ninja{
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"FreezeEffect" ofType:@"sks"];
     SKEmitterNode *freezeEffect = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     freezeEffect.particleBirthRate = 10;
