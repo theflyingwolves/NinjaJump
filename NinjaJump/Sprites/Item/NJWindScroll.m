@@ -33,7 +33,9 @@
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
         [character applyDamage:20];
+        [self fireAttackedAnimation:character];
     }
+    [character performWindAnimationInScene:self.myParent direction:direction];
     [self runAction:[SKAction playSoundFileNamed:kSoundWind waitForCompletion:NO]];
 }
 

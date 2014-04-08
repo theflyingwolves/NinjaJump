@@ -106,6 +106,7 @@ typedef enum : uint8_t {
 //perform the animation when the character use the scroll
 - (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene;
 
+- (void)performWindAnimationInScene:(NJMultiplayerLayeredCharacterScene *)scene direction:(CGFloat)direction;
 
 //perform the animation when being applied the effect
 - (void)performFrozenEffect;
