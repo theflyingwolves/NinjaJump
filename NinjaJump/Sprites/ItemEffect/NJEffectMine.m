@@ -35,7 +35,6 @@
     return self;
 }
 
-
 #pragma mark - Overridden Methods
 - (void)configurePhysicsBody {
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];

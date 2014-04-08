@@ -257,9 +257,6 @@
         if (!player.isDisabled) {
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
             NJPile *pile = [self spawnAtRandomPileForNinja:NO];
-            if (!pile) {
-                NSLog(@"no wood piles detected");
-            }
             pile.standingCharacter = ninja;
             ninja.position = pile.position;
         }else if(player.ninja){
@@ -267,7 +264,6 @@
             [player.ninja removeFromParent];
         }
     }
-    NSLog(@"ninja count: %lu",[_ninjas count]);
 }
 
 #pragma mark - Heroes and Players
@@ -360,7 +356,6 @@
 - (BOOL)hasItemOnPosition:(CGPoint)position{
     for (NJSpecialItem *item in self.items){
         if (CGPointEqualToPointApprox(position, item.position)) {
-//        if (CGPointEqualToPoint(position, item.position)) {
             return YES;
         }
     }
