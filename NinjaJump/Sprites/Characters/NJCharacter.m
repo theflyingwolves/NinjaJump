@@ -158,6 +158,21 @@
     }]]]];
 }
 
+- (void)performWindAnimationInScene:(NJMultiplayerLayeredCharacterScene *)scene direction:(CGFloat)direction
+{
+    SKSpriteNode *windEffect= [[SKSpriteNode alloc] initWithImageNamed:@"wind.png"];
+    windEffect.position = self.position;
+    [scene addNode:windEffect atWorldLayer:NJWorldLayerAboveCharacter];
+    CGVector vector = CGVectorMake(2000*cos(direction), 2000*sin(direction));
+    SKAction *move = [SKAction moveBy:vector duration:1];
+    SKAction *rotate = [SKAction rotateByAngle:M_PI*6 duration:1];
+    SKAction *group = [SKAction group:@[move,rotate]];
+    [windEffect runAction:group completion:^{
+        [windEffect removeFromParent];
+    }];
+}
+
+
 #pragma mark - Animation
 - (void)resolveRequestedAnimation
 {
