@@ -1,13 +1,15 @@
 //
-//  NJMultiplayerLayeredCharacterScene.h
+//  NJLevelSceneWaterPark.h
 //  NinjaJump
 //
 //  Created by Zijian on 15/3/14.
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
+#import "NJMultiplayerLayeredCharacterScene.h"
+#import "NJResponsibleBG.h"
 #import <SpriteKit/SpriteKit.h>
-#import "AVFoundation/AVfoundation.h"
+#import <AVFoundation/AVFoundation.h>
 
 /* The layers in a scene. */
 typedef enum : uint8_t {
@@ -32,6 +34,7 @@ typedef enum : uint8_t {
 #define kJumpCooldownTime 0.5f
 #define kFireLastTime 5.0f
 #define kPileDecreaseTimeInterval 10.0f
+#define kMaxItemLifeTime 15.0f
 
 /* Completion handler for callback after loading assets asynchronously. */
 typedef void (^NJAssetLoadCompletionHandler)(void);
@@ -39,13 +42,32 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 /* Forward declarations */
 @class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile;
 
-@interface NJMultiplayerLayeredCharacterScene : SKScene
+@interface NJMultiplayerLayeredCharacterScene:SKScene
 
-@property (nonatomic, readonly) NSArray *players;               // array of player objects or NSNull for no playerf
-@property (nonatomic, readonly) SKNode *world;                  // root node to which all game renderables are attached
-@property (nonatomic, readonly) NSArray *ninjas;                // all ninjas in the game
-@property (nonatomic, readonly) NSArray *items;                 // all items currently in the game
-@property (nonatomic, readonly) NSArray *woodPiles;             // all wood piles in the game
+@property (nonatomic) BOOL startGame;
+
+@property (nonatomic, readwrite) NSMutableArray *ninjas;
+@property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
+@property (nonatomic ,readwrite) NSMutableArray *items;
+@property (nonatomic) NSMutableArray *buttons;
+@property (nonatomic) NSMutableArray *itemControls;
+@property (nonatomic) NSMutableArray *hpBars;
+@property (nonatomic) SKSpriteNode *continueButton;
+@property (nonatomic) NJResponsibleBG *clickableArea;
+@property (nonatomic) SKSpriteNode *victoryBackground;
+@property (nonatomic) NSTimeInterval pileDecreaseTime;
+
+
+@property (nonatomic, readwrite) NSMutableArray *players;          // array of player objects or NSNull for no player
+@property (nonatomic, readwrite) SKNode *world;                    // root node to which all game renderables are attached
+@property (nonatomic) NSMutableArray *layers;                      // different layer nodes within the world
+@property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
+
+//@property (nonatomic, readonly) NSArray *players;               // array of player objects or NSNull for no playerf
+//@property (nonatomic, readonly) SKNode *world;                  // root node to which all game renderables are attached
+//@property (nonatomic, readonly) NSArray *ninjas;                // all ninjas in the game
+//@property (nonatomic, readonly) NSArray *items;                 // all items currently in the game
+//@property (nonatomic, readonly) NSArray *woodPiles;             // all wood piles in the game
 
 /* All sprites in the scene should be added through this method to ensure they are placed in the correct world layer. */
 - (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer;
@@ -67,4 +89,5 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
 
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja;
+
 @end

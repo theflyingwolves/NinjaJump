@@ -9,6 +9,7 @@
 #import "NJEffectMine.h"
 #import "NJMine.h"
 #import "NJPile.h"
+#import "NJMultiPlayerLayeredCharacterScene.h"
 
 #define kMineEffectInvisible @"mineEffectInvisible.png"
 #define kMineFileName @"mine.png"
