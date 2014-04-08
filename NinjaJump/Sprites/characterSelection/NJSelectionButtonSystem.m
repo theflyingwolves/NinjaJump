@@ -58,8 +58,6 @@
     [self addChild:startButton];
 }
 
-
-
 - (void)addSpotlight{
     spotLightList = [NSMutableArray array];
     for (int i=0; i<4; i++) {

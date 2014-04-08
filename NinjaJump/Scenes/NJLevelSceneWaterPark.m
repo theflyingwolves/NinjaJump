@@ -859,6 +859,7 @@
 }
 
 - (void) activateSelectedPlayers:(NSNotification *)note{
+    NSLog(@"init");
     isSelectionInited = NO;
     shouldPileStartDecreasing = YES;
     NSArray *activePlayerIndices = [note object];

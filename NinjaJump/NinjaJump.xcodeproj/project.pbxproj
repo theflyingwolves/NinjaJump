@@ -106,6 +106,7 @@
 		C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821618E459B700F81C8C /* NJItemEffect.m */; };
 		C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0821918E4708300F81C8C /* shurikenEffect.png */; };
 		C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0821B18E472C100F81C8C /* shurikenLong.png */; };
+		C9102FCA18F42A9E00173119 /* wind.png in Resources */ = {isa = PBXBuildFile; fileRef = C9102FC918F42A9E00173119 /* wind.png */; };
 		C9150B0618EC45EF00645698 /* victory.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0518EC45EF00645698 /* victory.png */; };
 		C9150B0818EC56EF00645698 /* victory bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0718EC56EF00645698 /* victory bg.png */; };
 		C9150B0A18EC5ADD00645698 /* continue.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0918EC5ADD00645698 /* continue.png */; };
@@ -280,6 +281,7 @@
 		C4F0821618E459B700F81C8C /* NJItemEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJItemEffect.m; path = Sprites/ItemEffect/NJItemEffect.m; sourceTree = "<group>"; };
 		C4F0821918E4708300F81C8C /* shurikenEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shurikenEffect.png; path = Assets/effect/shurikenEffect.png; sourceTree = "<group>"; };
 		C4F0821B18E472C100F81C8C /* shurikenLong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shurikenLong.png; path = Assets/Items/shurikenLong.png; sourceTree = "<group>"; };
+		C9102FC918F42A9E00173119 /* wind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wind.png; path = Assets/effect/wind.png; sourceTree = "<group>"; };
 		C9150B0518EC45EF00645698 /* victory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = victory.png; path = "Assets/victory scene/victory.png"; sourceTree = "<group>"; };
 		C9150B0718EC56EF00645698 /* victory bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "victory bg.png"; path = "Assets/victory scene/victory bg.png"; sourceTree = "<group>"; };
 		C9150B0918EC5ADD00645698 /* continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = continue.png; path = "Assets/victory scene/continue.png"; sourceTree = "<group>"; };
@@ -702,6 +704,7 @@
 		C4F0821818E4707C00F81C8C /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				C9102FC918F42A9E00173119 /* wind.png */,
 				C4AF3C2A18E866550036596A /* freezeEffect.png */,
 				C4AF3C2818E866490036596A /* mineEffectInvisible.png */,
 				C4F0821918E4708300F81C8C /* shurikenEffect.png */,
@@ -920,6 +923,7 @@
 				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
 				C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */,
 				C4C8747918F023A9004B6527 /* wind.mid in Resources */,
+				C9102FCA18F42A9E00173119 /* wind.png in Resources */,
 				C93DBCAB18F03B960036136E /* Soft Cloud.png in Resources */,
 				C9150B0618EC45EF00645698 /* victory.png in Resources */,
 				C4C8746F18F023A9004B6527 /* firestrong.mid in Resources */,
