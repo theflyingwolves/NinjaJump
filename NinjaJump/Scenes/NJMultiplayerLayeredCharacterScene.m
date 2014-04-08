@@ -59,6 +59,7 @@
     AVAudioPlayer *music;
 }
 
+#pragma mark - Initialization
 - (instancetype)initWithSize:(CGSize)size
 {
     self = [super initWithSize:size];

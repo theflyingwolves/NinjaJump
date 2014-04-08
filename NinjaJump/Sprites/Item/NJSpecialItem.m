@@ -27,4 +27,9 @@
     _lifeTime += interval;
 }
 
+- (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter *)character
+{
+    //Overridden by Subclasses
+}
+
 @end
