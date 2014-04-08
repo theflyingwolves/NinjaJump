@@ -38,7 +38,7 @@
     self.physicsBody.categoryBitMask = NJColliderTypeItemEffectShuriken;
     
     // Collides with these objects.
-//    self.physicsBody.collisionBitMask = NJColliderTypeCharacter;
+    self.physicsBody.collisionBitMask = 0;
     
     // We want notifications for colliding with these objects.
     self.physicsBody.contactTestBitMask = NJColliderTypeCharacter;
