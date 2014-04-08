@@ -1022,6 +1022,7 @@
     
     //add notification to actived players Index
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:@"activatedPlayerIndex" object:nil];
     [nc addObserver:self selector:@selector(activateSelectedPlayers:) name:@"activatedPlayerIndex" object:nil];
 }
 
