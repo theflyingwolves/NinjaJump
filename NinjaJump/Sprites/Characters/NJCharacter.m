@@ -58,6 +58,7 @@
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
                                     curPosition.y + cosf(ang)*dt);
     }
+    self.player.jumpTimerSprite.position = self.position;
 }
 
 - (void)prepareForJump
