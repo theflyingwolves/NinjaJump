@@ -56,18 +56,11 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @property (nonatomic) NJResponsibleBG *clickableArea;
 @property (nonatomic) SKSpriteNode *victoryBackground;
 @property (nonatomic) NSTimeInterval pileDecreaseTime;
-
-
 @property (nonatomic, readwrite) NSMutableArray *players;          // array of player objects or NSNull for no player
 @property (nonatomic, readwrite) SKNode *world;                    // root node to which all game renderables are attached
 @property (nonatomic) NSMutableArray *layers;                      // different layer nodes within the world
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
 
-//@property (nonatomic, readonly) NSArray *players;               // array of player objects or NSNull for no playerf
-//@property (nonatomic, readonly) SKNode *world;                  // root node to which all game renderables are attached
-//@property (nonatomic, readonly) NSArray *ninjas;                // all ninjas in the game
-//@property (nonatomic, readonly) NSArray *items;                 // all items currently in the game
-//@property (nonatomic, readonly) NSArray *woodPiles;             // all wood piles in the game
 
 /* All sprites in the scene should be added through this method to ensure they are placed in the correct world layer. */
 - (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer;
@@ -78,9 +71,6 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 /* Overridden by subclasses to load scene-specific assets. */
 + (void)loadSceneAssets;
-
-/* Overridden by subclasses to release assets used only by this scene. */
-+ (void)releaseSceneAssets;
 
 /* Overridden by subclasses to update the scene - called once per frame. */
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast;

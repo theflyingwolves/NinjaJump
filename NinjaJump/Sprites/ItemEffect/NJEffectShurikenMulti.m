@@ -13,21 +13,22 @@
 #define kShurikenSpeed 800
 #define kShurikenMaxDistance 1500
 #define kShurikenMultiDamage 20
-
 @implementation NJEffectShurikenMulti
 
 -(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner{
     self = [super initWithTextureNamed:kShurikenEffectFileName atPosition:position onScene:scene andOwner:owner];
     if (self) {
         _direction = direction;
-        CGVector movement = vectorForMovement(direction, kShurikenMaxDistance);
-        [self runAction:[SKAction moveByX:movement.dx y:movement.dy duration:kShurikenMaxDistance/kShurikenSpeed] completion:^{[self removeFromParent];}];
         _damage = kShurikenMultiDamage;
-        
     }
     return self;
 }
 
+- (void)fireShuriken
+{
+    CGVector movement = vectorForMovement(_direction, kShurikenMaxDistance);
+    [self runAction:[SKAction moveByX:movement.dx y:movement.dy duration:kShurikenMaxDistance/kShurikenSpeed] completion:^{[self removeFromParent];}];
+}
 
 #pragma mark - Overridden Methods
 - (void)configurePhysicsBody {
@@ -37,7 +38,7 @@
     self.physicsBody.categoryBitMask = NJColliderTypeItemEffectShuriken;
     
     // Collides with these objects.
-//    self.physicsBody.collisionBitMask = NJColliderTypeCharacter;
+    self.physicsBody.collisionBitMask = 0;
     
     // We want notifications for colliding with these objects.
     self.physicsBody.contactTestBitMask = NJColliderTypeCharacter;

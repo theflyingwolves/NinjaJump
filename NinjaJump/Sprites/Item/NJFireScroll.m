@@ -11,6 +11,7 @@
 #import "NJFanRange.h"
 #import "NJPile.h"
 #import "NJScrollAnimation.h"
+#import "NJConstants.h"
 
 #define AFFECTED_RADIUS 350
 #define kSoundFire @"firestrong.mid"
@@ -33,9 +34,8 @@
     self.range = [[NJFanRange alloc] initWithOrigin:character.position farDist:AFFECTED_RADIUS andFacingDir:facingDir];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
-        [character applyDamage:20];
+        [character applyMagicalDamage:kFireScrollDamage];
         [self fireAttackedAnimation:character];
-
     }
     NSArray *affectedPiles = [self.delegate getAffectedPilesWithRange:self.range];
     for (NJPile *pile in affectedPiles) {

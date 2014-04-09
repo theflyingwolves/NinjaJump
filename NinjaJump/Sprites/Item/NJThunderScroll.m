@@ -9,6 +9,7 @@
 #import "NJThunderScroll.h"
 #import "NJCircularRange.h"
 #import "NJPile.h"
+#import "NJConstants.h"
 
 #define AFFECTED_RADIUS 200
 #define kSoundThunder @"thunder.mid"
@@ -30,7 +31,7 @@
     self.range = [[NJCircularRange alloc] initWithOrigin:position farDist:AFFECTED_RADIUS andFacingDir:direction];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
-        [character applyDamage:20];
+        [character applyMagicalDamage:kThunderScrollDamage];
         [self fireAttackedAnimation:character];
     }
     [character performThunderAnimationInScene:self.myParent];

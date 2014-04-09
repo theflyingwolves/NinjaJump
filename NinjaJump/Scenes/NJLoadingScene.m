@@ -50,6 +50,4 @@ static NSString *kLightImageName = @"light.png";
     [_light runAction:[SKAction repeatActionForever:blink]];
 }
 
-
-
 @end

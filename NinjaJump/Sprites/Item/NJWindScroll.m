@@ -10,6 +10,7 @@
 #import "NJRange.h"
 #import "NJRectangularRange.h"
 #import "NJPile.h"
+#import "NJConstants.h"
 
 #define AFFECTED_RADIUS 100
 #define kSoundWind @"wind.mid"
@@ -32,8 +33,10 @@
     self.range = [[NJRectangularRange alloc] initWithOrigin:character.position farDist:AFFECTED_RADIUS andFacingDir:facingDir];
     NSArray *affectedCharacters = [self.delegate getAffectedTargetsWithRange:self.range];
     for (NJCharacter *character in affectedCharacters) {
-        [character applyDamage:20];
+        [character applyMagicalDamage:kWindScrollDamage];
+        [self fireAttackedAnimation:character];
     }
+    [character performWindAnimationInScene:self.myParent direction:direction];
     [self runAction:[SKAction playSoundFileNamed:kSoundWind waitForCompletion:NO]];
 }
 

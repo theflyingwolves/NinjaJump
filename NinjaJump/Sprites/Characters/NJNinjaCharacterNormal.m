@@ -14,6 +14,17 @@
 #import "NJGraphicsUnitilities.h"
 
 @implementation NJNinjaCharacterNormal
+
+- (instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withPlayer:(NJPlayer *)player
+{
+    self = [super initWithTextureNamed:textureName atPosition:position withPlayer:player];
+    if (self) {
+        self.magicalDamageMultiplier = 1.0f;
+        self.physicalDamageMultiplier = 1.0f;
+    }
+    return self;
+}
+
 + (void)loadSharedAssets
 {
     [super loadSharedAssets];

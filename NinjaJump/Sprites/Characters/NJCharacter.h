@@ -41,6 +41,9 @@ typedef enum : uint8_t {
 
 @property (nonatomic) NSUInteger tag;
 @property (nonatomic) SKTexture *origTexture;
+
+@property (nonatomic) float physicalDamageMultiplier;
+@property (nonatomic) float magicalDamageMultiplier;
 +(void)loadSharedAssets;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position;
@@ -56,9 +59,6 @@ typedef enum : uint8_t {
 // EFFECTS: Update the angular speed for ninja's spinning when idle
 - (void)updateAngularSpeed:(float) angularSpeed;
 
-// EFFECTS: Handle physical collision
--(void)collideWith:(id)object;
-
 // EFFECTS: Remove ninja from game
 -(void)performDeath;
 
@@ -70,13 +70,14 @@ typedef enum : uint8_t {
 // EFFECTS: apply a given amount of damage to the character.
 -(BOOL)applyDamage:(CGFloat)amount;
 
+- (BOOL)applyMagicalDamage:(CGFloat)damage;
+
+- (BOOL)applyPhysicalDamage:(CGFloat)damage;
+
 // EFFECTS:  a given amount of recover to the character.
 -(void)recover:(CGFloat)amount;
 
 - (void)attackCharacter:(NJCharacter *)character;
-
-// EFFECTS: apply damage to the character according to the item causing the damage
-//-(BOOL)applyDamageFromItem:(NJSpecialItem *)item;
 
 // EFFECTS: character jump to a given position
 - (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval;
@@ -106,9 +107,9 @@ typedef enum : uint8_t {
 //perform the animation when the character use the scroll
 - (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene;
 
+- (void)performWindAnimationInScene:(NJMultiplayerLayeredCharacterScene *)scene direction:(CGFloat)direction;
 
 //perform the animation when being applied the effect
 - (void)performFrozenEffect;
-
 
 @end

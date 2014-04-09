@@ -28,23 +28,7 @@
 #import "NJMedikit.h"
 
 #import "NJItemEffect.h"
-
-#define kThunderScrollFileName @"thunderScroll.png"
-#define kWindScrollFileName @"windScroll.png"
-#define kIceScrollFileName @"iceScroll.png"
-#define kFireScrollFileName @"fireScroll.png"
-#define kMineFileName @"mine.png"
-#define kShurikenFileName @"shuriken.png"
-#define kMedikitFileName @"medikit.png"
-
-#define kNumOfFramesToSpawnItem 100
-#define NJWoodPileInitialImpluse 3
-
-#define kMusicPatrit @"patrit"
-#define kMusicWater @"water"
-#define kMusicShadow @"shadowNinja"
-#define kMusicFunny @"funnyday"
-#define kMusicSun @"sunshining"
+#import "NJConstants.h"
 
 @interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate>
 
@@ -59,6 +43,7 @@
     AVAudioPlayer *music;
 }
 
+#pragma mark - Initialization
 - (instancetype)initWithSize:(CGSize)size
 {
     self = [super initWithSize:size];
@@ -256,9 +241,6 @@
         if (!player.isDisabled) {
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
             NJPile *pile = [self spawnAtRandomPileForNinja:NO];
-            if (!pile) {
-                NSLog(@"no wood piles detected");
-            }
             pile.standingCharacter = ninja;
             ninja.position = pile.position;
         }else if(player.ninja){
@@ -266,7 +248,6 @@
             [player.ninja removeFromParent];
         }
     }
-    NSLog(@"ninja count: %lu",[_ninjas count]);
 }
 
 #pragma mark - Heroes and Players
@@ -331,14 +312,14 @@
                 item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
                 break;
 
-//            case NJItemMedikit:
-//                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
-//                break;
-//            
-//            case NJItemMine:
-//                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
-//                break;
-//                
+            case NJItemMedikit:
+                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+                break;
+
+            case NJItemMine:
+                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+                break;
+                
             case NJItemShuriken:
                 item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
                 break;
@@ -359,7 +340,6 @@
 - (BOOL)hasItemOnPosition:(CGPoint)position{
     for (NJSpecialItem *item in self.items){
         if (CGPointEqualToPointApprox(position, item.position)) {
-//        if (CGPointEqualToPoint(position, item.position)) {
             return YES;
         }
     }
@@ -383,7 +363,9 @@
 
 - (void)addBackground
 {
-    
+    SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:@"lakeMoonBG"];
+    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addNode:background atWorldLayer:NJWorldLayerGround];
 }
 
 #pragma mark - Loop Update
@@ -421,7 +403,10 @@
                 fileName = @"indicator_ice";
             }
             
-            if (!player.itemIndicatorAdded && fileName) {
+            if (!fileName) {
+                [player.indicatorNode removeFromParent];
+                player.indicatorNode = nil;
+            }else if (!player.itemIndicatorAdded && fileName) {
                 if (player.indicatorNode) {
                     [player.indicatorNode removeFromParent];
                 }

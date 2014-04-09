@@ -8,12 +8,12 @@
 
 #import "NJViewController.h"
 #import "NJLoadingScene.h"
-#import "NJLevelSceneLakeMoon.h"
+#import "NJMultiplayerLayeredCharacterScene.h"
 #import <SpriteKit/SpriteKit.h>
 
 @interface NJViewController ()
 @property (weak, nonatomic) IBOutlet SKView *skView;
-@property (strong, nonatomic) NJLevelSceneLakeMoon *scene;
+@property (strong, nonatomic) NJMultiplayerLayeredCharacterScene *scene;
 @end
 
 @implementation NJViewController
@@ -30,10 +30,10 @@
     NJLoadingScene *loadingScene = [[NJLoadingScene alloc] initWithSize:_skView.bounds.size];
     loadingScene.scaleMode = SKSceneScaleModeAspectFill;
     [_skView presentScene:loadingScene];
-    [NJLevelSceneLakeMoon loadSceneAssetsWithCompletionHandler:^{
+    [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
         NSLog(@"loading assets completed.");
         // Create and configure the scene.
-        NJLevelSceneLakeMoon * scene = [NJLevelSceneLakeMoon sceneWithSize:_skView.bounds.size];
+        NJMultiplayerLayeredCharacterScene * scene = [NJMultiplayerLayeredCharacterScene sceneWithSize:_skView.bounds.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         self.scene = scene;
         // Present the scene.

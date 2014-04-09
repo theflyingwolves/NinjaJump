@@ -17,13 +17,16 @@
 
 @implementation NJEffectMine
 
+- (void)performEffect {
+    NJMine *mineTexture = [[NJMine alloc]initWithTextureNamed:kMineFileName atPosition:CGPointMake(0, 0) ];
+    [self addChild:mineTexture];
+    [self runAction:[SKAction moveBy:CGVectorMake(0, 0) duration:1] completion:^{[mineTexture removeFromParent];}];
+}
+
 -(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner{
     self = [super initWithTextureNamed:kMineEffectInvisible atPosition:position onScene:scene andOwner:owner];
     if (self) {
         _damage = kMineDamage;
-        NJMine *mineTexture = [[NJMine alloc]initWithTextureNamed:kMineFileName atPosition:CGPointMake(0, 0) ];
-        [self addChild:mineTexture];
-        [self runAction:[SKAction moveBy:CGVectorMake(0, 0) duration:1] completion:^{[mineTexture removeFromParent];}];
         
         for (NJPile *pile in scene.woodPiles){
             if (hypotf(owner.position.x-pile.position.x, owner.position.y-pile.position.y)<=CGRectGetWidth(pile.frame)/2){
@@ -31,10 +34,11 @@
                 _pile = pile;
             }
         }
+        
+        [self performEffect];
     }
     return self;
 }
-
 
 #pragma mark - Overridden Methods
 - (void)configurePhysicsBody {

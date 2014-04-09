@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
-#define FULL_HP 100
-
 #import "NJCharacter.h"
 #import "NJSpecialItem.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
@@ -15,6 +13,7 @@
 #import "NJPile.h"
 #import "NJRange.h"
 #import "NJPlayer.h"
+#import "NJConstants.h"
 
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"
@@ -32,6 +31,8 @@
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
+        self.physicalDamageMultiplier = 1.0f;
+        self.magicalDamageMultiplier = 1.0f;
         [self configurePhysicsBody];
     }
     
@@ -84,7 +85,7 @@
     if (character.health <= 0) {
         return ; // to prevent the attack animation to be wrongly performed
     }
-    [character applyDamage:20];
+    [character applyDamage:kAttackDamage];
     self.requestedAnimation = NJAnimationStateAttack;
     [self runAction:[SKAction playSoundFileNamed:kSoundAttack waitForCompletion:NO]];
 }
@@ -104,26 +105,23 @@
 {
     self.health -= damage;
     if (self.health > 0.0f) {
-//        MultiplayerLayeredCharacterScene *scene = [self characterScene];
-//        
-//        // Build up "one shot" particle.
-//        SKEmitterNode *emitter = [[self damageEmitter] copy];
-//        if (emitter) {
-//            [scene addNode:emitter atWorldLayer:APAWorldLayerAboveCharacter];
-//            
-//            emitter.position = self.position;
-//            NJRunOneShotEmitter(emitter, 0.15f);
-//        }
-//        // Show the damage.
-//        SKAction *damageAction = [self damageAction];
-//        if (damageAction) {
-//            [self runAction:damageAction];
-//        }
         return NO;
     }else{
         [self performDeath];
         return YES;
     }
+}
+
+- (BOOL)applyMagicalDamage:(CGFloat)damage
+{
+    float multiplier = self.magicalDamageMultiplier;
+    return [self applyDamage:damage * multiplier];
+}
+
+- (BOOL)applyPhysicalDamage:(CGFloat)damage
+{
+    float multiplier = self.physicalDamageMultiplier;
+    return [self applyDamage:damage * multiplier];
 }
 
 // EFFECTS:  a given amount of recover to the character.
@@ -173,6 +171,21 @@
         [thunderEffect removeFromParent];
     }]]]];
 }
+
+- (void)performWindAnimationInScene:(NJMultiplayerLayeredCharacterScene *)scene direction:(CGFloat)direction
+{
+    SKSpriteNode *windEffect= [[SKSpriteNode alloc] initWithImageNamed:@"wind.png"];
+    windEffect.position = self.position;
+    [scene addNode:windEffect atWorldLayer:NJWorldLayerAboveCharacter];
+    CGVector vector = CGVectorMake(2000*cos(direction), 2000*sin(direction));
+    SKAction *move = [SKAction moveBy:vector duration:1];
+    SKAction *rotate = [SKAction rotateByAngle:M_PI*6 duration:1];
+    SKAction *group = [SKAction group:@[move,rotate]];
+    [windEffect runAction:group completion:^{
+        [windEffect removeFromParent];
+    }];
+}
+
 
 #pragma mark - Animation
 - (void)resolveRequestedAnimation
@@ -268,7 +281,35 @@
     return nil;
 }
 
-#pragma mark - physics
+#pragma mark - animation when applied effect
+- (void)performFrozenEffect{
+    SKSpriteNode *frozen = [[SKSpriteNode alloc] initWithImageNamed:kFrozenEffectFileName];
+    frozen.alpha = 0.8;
+    frozen.position = CGPointMake(0, 0);
+    frozen.zPosition = self.zPosition+1;
+    [self addChild:frozen];
+    
+    self.frozenEffect = frozen;
+    self.frozenCount = kFrozenTime;
+}
+
+#pragma mark - Abstract Methods
+- (void)animationDidComplete
+{
+    // Overridden by Subclasses
+}
+
+- (void)updateAngularSpeed:(float)angularSpeed
+{
+    // Overridden by Subclasses
+}
+
+- (NSArray *)thunderAnimationFrames
+{
+    // Overridden by Subclasses
+    return nil;
+}
+
 - (void)collidedWith:(SKPhysicsBody *)other
 {
     //overriden by subclasses
@@ -283,18 +324,4 @@
 {
     //overriden by subclasses
 }
-
-#pragma mark - animation when applied effect
-- (void)performFrozenEffect{
-    SKSpriteNode *frozen = [[SKSpriteNode alloc] initWithImageNamed:kFrozenEffectFileName];
-    frozen.alpha = 0.8;
-    frozen.position = CGPointMake(0, 0);
-    frozen.zPosition = self.zPosition+1;
-    [self addChild:frozen];
-    
-    self.frozenEffect = frozen;
-    self.frozenCount = kFrozenTime;
-}
-
-
 @end

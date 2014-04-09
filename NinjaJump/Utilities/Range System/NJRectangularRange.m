@@ -17,11 +17,16 @@
     double updatedX = x*cos(direction) + y * sin(direction);
     double updatedY = -x*sin(direction) + y * sin(direction);
     
-    if (updatedX >= 0) {
-        if (updatedY <= self.farDist && updatedY >= -self.farDist) {
-            return YES;
+    double distance = hypotf(point.x-self.origin.x, point.y - self.origin.y);
+    
+    if (distance > 0.5f) {
+        if (updatedX >= 0) {
+            if (updatedY <= self.farDist && updatedY >= -self.farDist) {
+                return YES;
+            }
         }
     }
+
     return NO;
 }
 

@@ -49,14 +49,15 @@
         direction3 += 2*M_PI;
     }
     
-//    NSLog(@"finish computing angle");
     NJEffectShurikenMulti *shuriken1 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction1 onScene:self.myParent andOwner:character];
     
     NJEffectShurikenMulti *shuriken2 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction2 onScene:self.myParent andOwner:character];
     
     NJEffectShurikenMulti *shuriken3 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction3 onScene:self.myParent andOwner:character];
     
-//    NSLog(@"d1: %f, d2: %f, d3: %f", direction1, direction2, direction3);
+    [shuriken1 fireShuriken];
+    [shuriken2 fireShuriken];
+    [shuriken3 fireShuriken];
 }
 
 @end
