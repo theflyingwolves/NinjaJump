@@ -19,6 +19,9 @@
 - (void)runJumpTimerAction
 {
     if (self.ninja) {
+        if (self.jumpTimerSprite.parent) {
+            [self.jumpTimerSprite removeFromParent];
+        }
         self.jumpTimerSprite.position = self.ninja.position;
         [self.ninja.parent addChild:self.jumpTimerSprite];
         [self.jumpTimerSprite runAction:[SKAction animateWithTextures:sSharedJumpTimerFrames timePerFrame:kJumpAnimationSpeed resize:YES restore:YES] completion:^{

@@ -31,7 +31,7 @@ typedef enum : uint8_t {
 
 #define kMinTimeInterval (1.0f / 60.0f)
 #define kNumPlayers 4
-#define kJumpCooldownTime 5.0f
+#define kJumpCooldownTime 0.5f
 #define kFireLastTime 5.0f
 #define kPileDecreaseTimeInterval 10.0f
 #define kMaxItemLifeTime 15.0f
