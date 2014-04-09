@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
-#define FULL_HP 100
-
 #import "NJCharacter.h"
 #import "NJSpecialItem.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
@@ -15,6 +13,7 @@
 #import "NJPile.h"
 #import "NJRange.h"
 #import "NJPlayer.h"
+#import "NJConstants.h"
 
 #define kThunderAnimationSpeed 0.125f
 #define kFrozenEffectFileName @"freezeEffect.png"
@@ -32,6 +31,8 @@
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
+        self.physicalDamageMultiplier = 1.0f;
+        self.magicalDamageMultiplier = 1.0f;
         [self configurePhysicsBody];
     }
     
@@ -83,7 +84,7 @@
     if (character.health <= 0) {
         return ; // to prevent the attack animation to be wrongly performed
     }
-    [character applyDamage:20];
+    [character applyDamage:kAttackDamage];
     self.requestedAnimation = NJAnimationStateAttack;
     [self runAction:[SKAction playSoundFileNamed:kSoundAttack waitForCompletion:NO]];
 }
@@ -108,6 +109,18 @@
         [self performDeath];
         return YES;
     }
+}
+
+- (BOOL)applyMagicalDamage:(CGFloat)damage
+{
+    float multiplier = self.magicalDamageMultiplier;
+    return [self applyDamage:damage * multiplier];
+}
+
+- (BOOL)applyPhysicalDamage:(CGFloat)damage
+{
+    float multiplier = self.physicalDamageMultiplier;
+    return [self applyDamage:damage * multiplier];
 }
 
 // EFFECTS:  a given amount of recover to the character.

@@ -41,6 +41,9 @@ typedef enum : uint8_t {
 
 @property (nonatomic) NSUInteger tag;
 @property (nonatomic) SKTexture *origTexture;
+
+@property (nonatomic) float physicalDamageMultiplier;
+@property (nonatomic) float magicalDamageMultiplier;
 +(void)loadSharedAssets;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position;
@@ -66,6 +69,10 @@ typedef enum : uint8_t {
 
 // EFFECTS: apply a given amount of damage to the character.
 -(BOOL)applyDamage:(CGFloat)amount;
+
+- (BOOL)applyMagicalDamage:(CGFloat)damage;
+
+- (BOOL)applyPhysicalDamage:(CGFloat)damage;
 
 // EFFECTS:  a given amount of recover to the character.
 -(void)recover:(CGFloat)amount;

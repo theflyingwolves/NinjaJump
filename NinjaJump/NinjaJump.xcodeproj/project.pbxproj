@@ -152,6 +152,7 @@
 		2BDFAC7F18E7EAB000B4007D /* fog.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = fog.sks; path = Particle/fog.sks; sourceTree = "<group>"; };
 		2BFA6DB118E6BA7300EBA279 /* NJLoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLoadingScene.h; path = Scenes/NJLoadingScene.h; sourceTree = "<group>"; };
 		2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLoadingScene.m; path = Scenes/NJLoadingScene.m; sourceTree = "<group>"; };
+		2F050DBA18F56D060094F07F /* NJConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NJConstants.h; path = Utilities/NJConstants.h; sourceTree = "<group>"; };
 		2F45B43218E6A9E100482453 /* NJRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJRange.h; path = "Utilities/Range System/NJRange.h"; sourceTree = "<group>"; };
 		2F45B43318E6A9E100482453 /* NJRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJRange.m; path = "Utilities/Range System/NJRange.m"; sourceTree = "<group>"; };
 		2F45B43518E6AC6C00482453 /* NJCircularRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJCircularRange.h; path = "Utilities/Range System/NJCircularRange.h"; sourceTree = "<group>"; };
@@ -554,6 +555,7 @@
 				2F45B43118E6A9B700482453 /* Range System */,
 				2FC568AC18E1BCFF00C6589D /* NJGraphicsUnitilities.h */,
 				2FC568AD18E1BCFF00C6589D /* NJGraphicsUnitilities.m */,
+				2F050DBA18F56D060094F07F /* NJConstants.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
