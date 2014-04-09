@@ -28,6 +28,10 @@
 
 @property (nonatomic) BOOL itemUseRequested;
 @property (nonatomic) NSTimeInterval jumpCooldown;
+@property (nonatomic, strong) SKSpriteNode *jumpTimerSprite;
 @property (nonatomic) BOOL itemIndicatorAdded;
 @property (nonatomic) SKSpriteNode *indicatorNode;
+
++ (void)loadSharedAssets;
+- (void)runJumpTimerAction;
 @end

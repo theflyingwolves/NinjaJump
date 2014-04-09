@@ -624,6 +624,7 @@
     for (NJPile *pile in _woodPiles) {
         if (pile.standingCharacter && !pile.standingCharacter.player.isJumping) {
             pile.standingCharacter.position = pile.position;
+            pile.standingCharacter.player.jumpTimerSprite.position = pile.position;
         }
         if (pile.itemHolded) {
             pile.itemHolded.position = pile.position;
@@ -772,6 +773,7 @@
             button.player.targetPile = pile;
             button.player.jumpRequested = YES;
             button.player.isJumping = YES;
+            [button.player runJumpTimerAction];
         } else {
             NSLog(@"jump cooling down");
         }
@@ -858,6 +860,7 @@
 + (void)loadSceneAssets
 {
     [NJNinjaCharacterNormal loadSharedAssets];
+    [NJPlayer loadSharedAssets];
 }
 
 #pragma mark - Pause Game
