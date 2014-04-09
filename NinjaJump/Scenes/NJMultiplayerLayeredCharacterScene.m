@@ -404,6 +404,7 @@
             }
             
             if (!fileName) {
+                NSLog(@"no file name");
                 [player.indicatorNode removeFromParent];
                 player.indicatorNode = nil;
             }else if (!player.itemIndicatorAdded && fileName) {
@@ -774,7 +775,7 @@
         } else {
             NSLog(@"jump cooling down");
         }
-    } 
+    }
 }
 
 - (void)itemControl:(NJItemControl *)control touchesBegan:(NSSet *)touches

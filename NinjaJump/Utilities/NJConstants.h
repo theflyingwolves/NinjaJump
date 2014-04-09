@@ -20,13 +20,13 @@
 #define kFireScrollDamage 10
 #define kShurikenDamage 10
 #define kMineDamage 20
-#define kThunderScrollFileName @"thunderScroll.png"
-#define kWindScrollFileName @"windScroll.png"
-#define kIceScrollFileName @"iceScroll.png"
-#define kFireScrollFileName @"fireScroll.png"
-#define kMineFileName @"mine.png"
-#define kShurikenFileName @"shuriken.png"
-#define kMedikitFileName @"medikit.png"
+#define kThunderScrollFileName @"thunderScroll"
+#define kWindScrollFileName @"windScroll"
+#define kIceScrollFileName @"iceScroll"
+#define kFireScrollFileName @"fireScroll"
+#define kMineFileName @"mine"
+#define kShurikenFileName @"shuriken"
+#define kMedikitFileName @"medikit"
 
 #pragma mark - Music
 #define kMusicPatrit @"patrit"

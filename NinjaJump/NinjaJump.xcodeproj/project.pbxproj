@@ -12,6 +12,8 @@
 		2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */; };
 		2BDFAC8018E7EAB000B4007D /* fog.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2BDFAC7F18E7EAB000B4007D /* fog.sks */; };
 		2BFA6DB318E6BA7300EBA279 /* NJLoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */; };
+		2F050DBD18F574290094F07F /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBB18F574290094F07F /* fireArc.png */; };
+		2F050DBE18F574290094F07F /* wind.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBC18F574290094F07F /* wind.png */; };
 		2F45B43418E6A9E100482453 /* NJRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43318E6A9E100482453 /* NJRange.m */; };
 		2F45B43718E6AC6C00482453 /* NJCircularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43618E6AC6C00482453 /* NJCircularRange.m */; };
 		2F45B43A18E6AC8E00482453 /* NJRectangularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43918E6AC8E00482453 /* NJRectangularRange.m */; };
@@ -130,7 +132,6 @@
 		C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9D8D09018ED940F00F63E9A /* FireworkRed.sks */; };
 		C9EC06FB18E1CE7000C43E24 /* FireEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06F918E1CE7000C43E24 /* FireEffect.sks */; };
 		C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FA18E1CE7000C43E24 /* spark.png */; };
-		C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = C9EC06FE18E1D16F00C43E24 /* fireArc.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,8 @@
 		2BFA6DB118E6BA7300EBA279 /* NJLoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLoadingScene.h; path = Scenes/NJLoadingScene.h; sourceTree = "<group>"; };
 		2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLoadingScene.m; path = Scenes/NJLoadingScene.m; sourceTree = "<group>"; };
 		2F050DBA18F56D060094F07F /* NJConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NJConstants.h; path = Utilities/NJConstants.h; sourceTree = "<group>"; };
+		2F050DBB18F574290094F07F /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/effect/fireArc.png; sourceTree = "<group>"; };
+		2F050DBC18F574290094F07F /* wind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wind.png; path = Assets/effect/wind.png; sourceTree = "<group>"; };
 		2F45B43218E6A9E100482453 /* NJRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJRange.h; path = "Utilities/Range System/NJRange.h"; sourceTree = "<group>"; };
 		2F45B43318E6A9E100482453 /* NJRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJRange.m; path = "Utilities/Range System/NJRange.m"; sourceTree = "<group>"; };
 		2F45B43518E6AC6C00482453 /* NJCircularRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJCircularRange.h; path = "Utilities/Range System/NJCircularRange.h"; sourceTree = "<group>"; };
@@ -306,7 +309,6 @@
 		C9D8D09018ED940F00F63E9A /* FireworkRed.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireworkRed.sks; path = Particle/FireworkRed.sks; sourceTree = "<group>"; };
 		C9EC06F918E1CE7000C43E24 /* FireEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireEffect.sks; path = Particle/FireEffect.sks; sourceTree = "<group>"; };
 		C9EC06FA18E1CE7000C43E24 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Particle/spark.png; sourceTree = "<group>"; };
-		C9EC06FE18E1D16F00C43E24 /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/Particle/fireArc.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,7 +374,6 @@
 				2FDD9C3718ED940C0071C712 /* Indicator */,
 				2F45B44F18E7332700482453 /* Pause Game */,
 				C4F0821818E4707C00F81C8C /* Effects */,
-				C9EC06FD18E1D12A00C43E24 /* Particle */,
 				2FC568C218E1BE5A00C6589D /* GameBoard */,
 				2FC568C118E1BE4300C6589D /* Items */,
 				C9B8F2A518E05E9E00FA877E /* selection scene */,
@@ -699,6 +700,8 @@
 		C4F0821818E4707C00F81C8C /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				2F050DBB18F574290094F07F /* fireArc.png */,
+				2F050DBC18F574290094F07F /* wind.png */,
 				C4AF3C2A18E866550036596A /* freezeEffect.png */,
 				C4AF3C2818E866490036596A /* mineEffectInvisible.png */,
 				C4F0821918E4708300F81C8C /* shurikenEffect.png */,
@@ -773,14 +776,6 @@
 				C9D8D08D18ED8D3D00F63E9A /* Firework.sks */,
 				C9D8D09018ED940F00F63E9A /* FireworkRed.sks */,
 				C93DBCA818F03B660036136E /* Bomb.sks */,
-			);
-			name = Particle;
-			sourceTree = "<group>";
-		};
-		C9EC06FD18E1D12A00C43E24 /* Particle */ = {
-			isa = PBXGroup;
-			children = (
-				C9EC06FE18E1D16F00C43E24 /* fireArc.png */,
 			);
 			name = Particle;
 			sourceTree = "<group>";
@@ -864,6 +859,7 @@
 			files = (
 				C4C8746918F023A9004B6527 /* patrit.mp3 in Resources */,
 				C4C8747718F023A9004B6527 /* wind(1).mid in Resources */,
+				2F050DBD18F574290094F07F /* fireArc.png in Resources */,
 				2FC568BC18E1BE0900C6589D /* spotlight.png in Resources */,
 				C931A93F18E05EF7002FE154 /* shade.png in Resources */,
 				C41270F118E1D3AF00CAC44A /* iceScroll.png in Resources */,
@@ -916,6 +912,7 @@
 				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
 				C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */,
 				C4C8747918F023A9004B6527 /* wind.mid in Resources */,
+				2F050DBE18F574290094F07F /* wind.png in Resources */,
 				C93DBCAB18F03B960036136E /* Soft Cloud.png in Resources */,
 				C9150B0618EC45EF00645698 /* victory.png in Resources */,
 				C4C8746F18F023A9004B6527 /* firestrong.mid in Resources */,
@@ -925,7 +922,6 @@
 				C4C8747618F023A9004B6527 /* water.mid in Resources */,
 				2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */,
 				C408B40A18F0427A004E614C /* ice.mid in Resources */,
-				C9EC06FF18E1D16F00C43E24 /* fireArc.png in Resources */,
 				2FDD9C3C18ED940D0071C712 /* indicator_fire.png in Resources */,
 				2F63E12F18E0291500E9A17B /* hp_bar_bottom.png in Resources */,
 				C4C8747818F023A9004B6527 /* wind(2).mid in Resources */,
