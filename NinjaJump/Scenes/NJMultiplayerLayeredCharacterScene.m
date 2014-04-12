@@ -320,34 +320,34 @@
     NJSpecialItem *item;
     
     switch (index) {
-        case NJItemThunderScroll:
-            item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
-            break;
-            
-        case NJItemWindScroll:
-            item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
-            break;
-            
-        case NJItemIceScroll:
-            item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
-            break;
-            
+//        case NJItemThunderScroll:
+//            item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
+//            break;
+//            
+//        case NJItemWindScroll:
+//            item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+//            break;
+//            
+//        case NJItemIceScroll:
+//            item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
+//            break;
+//            
         case NJItemFireScroll:
             item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
             break;
-            
+
         case NJItemMedikit:
             item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
             break;
-            
-        case NJItemMine:
-            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
-            break;
-            
-        case NJItemShuriken:
-            item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-            break;
-            
+//
+//        case NJItemMine:
+//            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+//            break;
+//            
+//        case NJItemShuriken:
+//            item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+//            break;
+        
         default:
             break;
     }
@@ -504,6 +504,18 @@
                                     [pile.itemHolded removeFromParent];
                                     [pile.itemHolded.itemShadow removeFromParent];
                                 }
+                                if (pile.itemEffectOnPile){
+                                    NJItemEffect *effect = pile.itemEffectOnPile;
+                                    if (effect.owner != p.ninja) {
+                                        [effect removeAllActions];
+                                        [effect removeFromParent];
+                                        pile.itemEffectOnPile = nil;
+                                    }
+                                }
+                                if (pile.isOnFire){
+                                    pile.isOnFire = NO;
+                                }
+                                
                                 [p.ninja resetToPosition:pile.position];
                                 p.targetPile = nil;
                                 p.jumpRequested = NO;
@@ -656,7 +668,11 @@
     for (NJPlayer *player in self.players) {
         if (player.itemUseRequested) {
             if (player.item != nil) {
-                [player.ninja useItem:player.item];
+                // prevent player from using mine when jumping
+                if (![player.item isKindOfClass:[NJMine class]] || !player.isJumping) {
+                    [player.ninja useItem:player.item];
+                }
+                
             }
             player.itemIndicatorAdded = NO;
             player.itemUseRequested = NO;
