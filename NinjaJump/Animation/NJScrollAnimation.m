@@ -22,8 +22,6 @@
     [self performSelector:@selector(fadeOut:) withObject:fireAttack afterDelay:1.5];
 }
 
-
-
 - (void)runFreezeEffect:(NJCharacter *)ninja{
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"FreezeEffect" ofType:@"sks"];
     SKEmitterNode *freezeEffect = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];

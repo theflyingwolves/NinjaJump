@@ -464,9 +464,16 @@
                             }
                         }
                     }
+                    
+                    if (player.targetPile.isOnFire) {
+                        NSLog(@"target on fire");
+                        [player.ninja applyDamage:10];
+                    }
+                    
                     if (player.targetPile.standingCharacter) {
                         player.targetPile.standingCharacter = nil;
                     }
+
                     player.targetPile.standingCharacter = ninja;
                     ninja.position = player.targetPile.position;
                     //pick up items if needed
