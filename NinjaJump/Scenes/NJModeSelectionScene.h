@@ -6,17 +6,11 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
-typedef enum {
-    kTutorialModeIndex = 0,
-    kBeginnerModeIndex,
-    kSurvivalModeIndex,
-    kTotalNumberOfModes
-} modeIndex;
-
 #import <SpriteKit/SpriteKit.h>
+#import "NJConstants.h"
 
 @protocol NJModeSelectionSceneDelegate <NSObject>
-- (void)modeSelected:(modeIndex)index;
+- (void)modeSelected:(NJGameMode)mode;
 @end
 
 @interface NJModeSelectionScene : SKScene

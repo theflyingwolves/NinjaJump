@@ -46,7 +46,7 @@
 {
     _tutorialMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
     _tutorialMode.delegate = self;
-    _tutorialMode.index = kTutorialModeIndex;
+    _tutorialMode.index = NJGameModeTutorial;
     _tutorialMode.position = CGPointMake(200, 220);
 }
 
@@ -54,7 +54,7 @@
 {
     _beginnerMode = [[NJButton alloc] initWithImageNamed:kBeginnerModeBtnFileName];
     _beginnerMode.delegate = self;
-    _beginnerMode.index = kBeginnerModeIndex;
+    _beginnerMode.index = NJGameModeBeginner;
     _beginnerMode.position = CGPointMake(500, 220);
 }
 
@@ -62,7 +62,7 @@
 {
     _survivalMode = [[NJButton alloc] initWithImageNamed:kSurvivalModeBtnFilename];
     _survivalMode.delegate = self;
-    _survivalMode.index = kSurvivalModeIndex;
+    _survivalMode.index = NJGameModeSurvival;
     _survivalMode.position = CGPointMake(850, 220);
 }
 

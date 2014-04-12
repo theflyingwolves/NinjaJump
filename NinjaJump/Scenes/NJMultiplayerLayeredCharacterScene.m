@@ -28,7 +28,6 @@
 #import "NJMedikit.h"
 
 #import "NJItemEffect.h"
-#import "NJConstants.h"
 
 @interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate>
 
@@ -47,18 +46,9 @@
 #pragma mark - Initialization
 - (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode
 {
-    self = [self initWithSizeWithoutSelection:size];
-    if (self) {
-        [self initSelectionSystem];
-    }
-    return self;
-}
-
-- (instancetype)initWithSizeWithoutSelection:(CGSize)size {
-    self = [super initWithSize:size];
+    self = [self initWithSize:size];
     if (self) {
         _gameMode = mode;
-        
         _items = [[NSMutableArray alloc] init];
         _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
         
@@ -94,7 +84,9 @@
         
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
         [self resetMusic];
-        
+        if (_gameMode != NJGameModeTutorial) {
+            [self initSelectionSystem];
+        }
     }
     return self;
 }

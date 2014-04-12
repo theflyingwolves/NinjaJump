@@ -10,6 +10,7 @@
 #import "NJResponsibleBG.h"
 #import <SpriteKit/SpriteKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "NJConstants.h"
 
 /* The layers in a scene. */
 typedef enum : uint8_t {
@@ -38,13 +39,6 @@ typedef enum : uint8_t {
 
 /* Completion handler for callback after loading assets asynchronously. */
 typedef void (^NJAssetLoadCompletionHandler)(void);
-
-typedef enum : uint8_t {
-    NJGameModeBeginner=0,
-    NJGameModeSurvival,
-    NJGameModeOneVsThree,
-    NJGameModeCount
-} NJGameMode;
 
 /* Forward declarations */
 @class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile;
@@ -88,8 +82,5 @@ typedef enum : uint8_t {
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
 
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja;
-
-/* init without selection scene, for the use of tutorial scene */
-- (instancetype)initWithSizeWithoutSelection:(CGSize)size;
 
 @end

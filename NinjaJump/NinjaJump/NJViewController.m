@@ -38,21 +38,17 @@
     [_skView presentScene:modeSelectionScene];
 }
 
-- (void)modeSelected:(modeIndex)index
+- (void)modeSelected:(NJGameMode)mode
 {
-    if (index == kSurvivalModeIndex) {
         [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
             NSLog(@"loading assets completed.");
             // Create and configure the scene.
-            NJMultiplayerLayeredCharacterScene * scene = [NJMultiplayerLayeredCharacterScene sceneWithSize:_skView.bounds.size];
+            NJMultiplayerLayeredCharacterScene * scene = [[NJMultiplayerLayeredCharacterScene alloc] initWithSize:_skView.bounds.size mode:mode];
             scene.scaleMode = SKSceneScaleModeAspectFill;
             self.scene = scene;
             // Present the scene.
             [_skView presentScene:scene transition:[SKTransition crossFadeWithDuration:0.5f]];
         }];
-    }else{
-        NSLog(@"index not found");
-    }
 }
 
 - (BOOL)prefersStatusBarHidden

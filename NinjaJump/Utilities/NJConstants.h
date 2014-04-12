@@ -40,3 +40,11 @@
 #define kBeginnerModeBtnFileName @"beginnerBtn"
 #define kSurvivalModeBtnFilename @"survivalBtn"
 #define kModeSelectionBackground @"selectionBG"
+
+typedef enum : uint8_t {
+    NJGameModeBeginner=0,
+    NJGameModeTutorial,
+    NJGameModeSurvival,
+    NJGameModeOneVsThree,
+    NJGameModeCount
+} NJGameMode;
