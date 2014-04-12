@@ -11,6 +11,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+
 /* The layers in a scene. */
 typedef enum : uint8_t {
 	NJWorldLayerGround = 0,
@@ -49,17 +50,24 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;
+@property (nonatomic, readwrite) NSMutableArray *players;          // array of player objects or NSNull for no player
+
+@property (nonatomic, readwrite) SKNode *world;                    // root node to which all game renderables are attached
+@property (nonatomic) NSMutableArray *layers;                      // different layer nodes within the world
 @property (nonatomic) NSMutableArray *buttons;
 @property (nonatomic) NSMutableArray *itemControls;
 @property (nonatomic) NSMutableArray *hpBars;
 @property (nonatomic) SKSpriteNode *continueButton;
 @property (nonatomic) NJResponsibleBG *clickableArea;
+
 @property (nonatomic) SKSpriteNode *victoryBackground;
+
 @property (nonatomic) NSTimeInterval pileDecreaseTime;
-@property (nonatomic, readwrite) NSMutableArray *players;          // array of player objects or NSNull for no player
-@property (nonatomic, readwrite) SKNode *world;                    // root node to which all game renderables are attached
-@property (nonatomic) NSMutableArray *layers;                      // different layer nodes within the world
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
+@property BOOL doAddItemRandomly;
+
+
+
 
 
 /* All sprites in the scene should be added through this method to ensure they are placed in the correct world layer. */

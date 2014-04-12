@@ -17,8 +17,9 @@
 #import "NJSelectionButtonSystem.h"
 #import "NJResponsibleBG.h"
 #import "NJPausePanel.h"
-
 #import "NJScroll.h"
+
+
 #import "NJThunderScroll.h"
 #import "NJWindScroll.h"
 #import "NJIceScroll.h"
@@ -88,6 +89,8 @@
         isGameEnded = NO;
         shouldPileStartDecreasing = NO;
         [self buildWorld];
+        
+        self.doAddItemRandomly = YES;
         
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
         [self resetMusic];
@@ -624,7 +627,7 @@
     }
     
     int toSpawnItem = arc4random() % kNumOfFramesToSpawnItem;
-    if (toSpawnItem==1) {
+    if (toSpawnItem==1 && self.doAddItemRandomly) {
         [self addItem];
     }
     if (!isGameEnded) {
