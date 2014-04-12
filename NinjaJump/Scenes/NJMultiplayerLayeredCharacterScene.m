@@ -1072,8 +1072,8 @@
     
     //add notification to actived players Index
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:@"activatedPlayerIndex" object:nil];
-    [nc addObserver:self selector:@selector(activateSelectedPlayers:) name:@"activatedPlayerIndex" object:nil];
+    [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
+    [nc addObserver:self selector:@selector(activateSelectedPlayers:) name:kNotificationPlayerIndex object:nil];
 }
 
 - (void) activateSelectedPlayers:(NSNotification *)note{
@@ -1086,8 +1086,8 @@
     
     for (NSNumber *index in fullIndices){ //inactivate unselected players
         //NSLog(@"activated %d",[index intValue]);
-        int convertedIndex = [self convertIndex:[index intValue]];
-        ((NJPlayer *)self.players[convertedIndex]).isDisabled = YES;
+        //int convertedIndex = [self convertIndex:[index intValue]];
+        ((NJPlayer *)self.players[[index intValue]]).isDisabled = YES;
     }
     
     for (int i=0; i<kNumPlayers; i++) {
@@ -1106,29 +1106,7 @@
     }
 }
 
-- (int)convertIndex:(int)index{
-    switch (index) {
-        case 0:
-            return 3;
-            break;
-        case 1:
-            return 0;
-            break;
-        case 2:
-            return 1;
-            break;
-        case 3:
-            return 2;
-        default:
-            break;
-    }
-    [NSException raise:@"invalid index" format:@""];
-    return -1;
-}
 
-- (void)inActivate{
-    
-}
 
 #pragma mark - Delegate Methods
 

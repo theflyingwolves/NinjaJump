@@ -7,6 +7,7 @@
 //
 
 #import "NJSelectCharacterButton.h"
+#import "NJConstants.h"
 
 @implementation NJSelectCharacterButton
 
@@ -21,7 +22,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -30,14 +31,14 @@
 }
 
 - (NSString *)imageNameFromType:(NJSelectionButtonType) type{
-    if (type == BLUE) {
-        return @"touched button blue.png";
-    } else if(type == RED){
-        return @"touched button red.png";
-    } else if (type == BROWN){
-        return @"touched button brown.png";
+    if(type == ORANGE){
+        return kShurikenButtonOrange;
+    } else if (type == BLUE) {
+        return kShurikenButtonBlue;
+    } else if (type == YELLOW){
+        return kShurikenButtonYellow;
     } else {
-        return @"touched button purple.png";
+        return kShurikenButtonPurple;
     }
 }
 
