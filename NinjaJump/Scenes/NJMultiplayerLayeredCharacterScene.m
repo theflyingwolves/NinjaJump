@@ -645,7 +645,11 @@
     for (NJPlayer *player in self.players) {
         if (player.itemUseRequested) {
             if (player.item != nil) {
-                [player.ninja useItem:player.item];
+                // prevent player from using mine when jumping
+                if (![player.item isKindOfClass:[NJMine class]] || !player.isJumping) {
+                    [player.ninja useItem:player.item];
+                }
+                
             }
             player.itemIndicatorAdded = NO;
             player.itemUseRequested = NO;
