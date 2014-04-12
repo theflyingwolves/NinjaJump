@@ -83,4 +83,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 /* init without selection scene, for the use of tutorial scene */
 - (instancetype)initWithSizeWithoutSelection:(CGSize)size;
 
+/* for the use of tutorial scene */
+- (void) activateSelectedPlayersWithPreSetting;
+
 @end

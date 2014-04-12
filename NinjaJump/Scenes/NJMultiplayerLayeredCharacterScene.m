@@ -1051,6 +1051,10 @@
         }
     }
     
+    [self activateSelectedPlayersWithPreSetting];
+}
+
+- (void) activateSelectedPlayersWithPreSetting{
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];

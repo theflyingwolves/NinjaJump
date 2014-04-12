@@ -9,6 +9,7 @@
 #import "NJViewController.h"
 #import "NJLoadingScene.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
+#import "NJTutorialScene.h"
 #import <SpriteKit/SpriteKit.h>
 
 @interface NJViewController ()
@@ -33,7 +34,8 @@
     [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
         NSLog(@"loading assets completed.");
         // Create and configure the scene.
-        NJMultiplayerLayeredCharacterScene * scene = [NJMultiplayerLayeredCharacterScene sceneWithSize:_skView.bounds.size];        
+        NJTutorialScene *scene = [[NJTutorialScene alloc] initWithSizeWithoutSelection:_skView.bounds.size];
+//        NJMultiplayerLayeredCharacterScene * scene = [NJMultiplayerLayeredCharacterScene sceneWithSize:_skView.bounds.size];        
         scene.scaleMode = SKSceneScaleModeAspectFill;
         self.scene = scene;
         // Present the scene.

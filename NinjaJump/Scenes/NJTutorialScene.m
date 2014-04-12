@@ -9,16 +9,16 @@
 #import "NJTutorialScene.h"
 #import "NJPlayer.h"
 
-#define kMainPlayerIndex 0
-#define kPuppetPlayerIndex 1
-
 @implementation NJTutorialScene
 
 - (instancetype)initWithSizeWithoutSelection:(CGSize)size{
     self = [super initWithSizeWithoutSelection:size];
     if (self){
-        ((NJPlayer*)self.players[kMainPlayerIndex]).isDisabled = NO;
-        ((NJPlayer*)self.players[kPuppetPlayerIndex]).isDisabled = NO;
+        ((NJPlayer*)self.players[0]).isDisabled = NO;
+        ((NJPlayer*)self.players[1]).isDisabled = NO;
+        ((NJPlayer*)self.players[2]).isDisabled = YES;
+        ((NJPlayer*)self.players[3]).isDisabled = YES;
+        [self activateSelectedPlayersWithPreSetting];
     }
     
     return  self;
