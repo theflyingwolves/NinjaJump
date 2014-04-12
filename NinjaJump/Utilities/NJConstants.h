@@ -7,7 +7,7 @@
 //
 
 #pragma mark - Game World
-#define kNumOfFramesToSpawnItem 200
+#define kNumOfFramesToSpawnItem 10
 #define NJWoodPileInitialImpluse 3
 #define FRAME CGRectMake(1024/2, 768/2, 1024, 768)
 

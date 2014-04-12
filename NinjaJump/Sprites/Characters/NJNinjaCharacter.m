@@ -90,7 +90,7 @@ const CGFloat medikitRecover = 40.0f;
         }
     } else if (other.categoryBitMask & NJColliderTypeItemEffectMine) {
         NJEffectMine *effect =(NJEffectMine*)other.node;
-        if (effect.owner != self) {
+        if (effect.owner != self && effect.pile.standingCharacter == self) {
             [self applyDamage:effect.damage];
             [effect removeAllActions];
             [effect removeFromParent];
