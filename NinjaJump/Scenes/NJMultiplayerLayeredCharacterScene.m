@@ -47,6 +47,14 @@
 #pragma mark - Initialization
 - (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode
 {
+    self = [self initWithSizeWithoutSelection:size];
+    if (self) {
+        [self initSelectionSystem];
+    }
+    return self;
+}
+
+- (instancetype)initWithSizeWithoutSelection:(CGSize)size {
     self = [super initWithSize:size];
     if (self) {
         _gameMode = mode;
@@ -83,7 +91,6 @@
         isGameEnded = NO;
         shouldPileStartDecreasing = NO;
         [self buildWorld];
-        [self initSelectionSystem];
         
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
         [self resetMusic];

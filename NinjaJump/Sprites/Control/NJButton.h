@@ -20,6 +20,7 @@
 
 @property (nonatomic, weak) id <NJButtonDelegate> delegate;
 @property (nonatomic, weak) NJPlayer *player;
+@property (nonatomic) int index;
 
 - (id)initWithImageNamed:(NSString *)name;
 
