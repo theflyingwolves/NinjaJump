@@ -18,6 +18,7 @@
 #define kNinjaTwoColor [SKColor colorWithRed:0.2 green:0.6 blue:1 alpha:1]
 #define kNinjaThreeColor [SKColor colorWithRed:1 green:1 blue:0 alpha:1]
 #define kNinjaFourColor [SKColor colorWithRed:0.5 green:0 blue:1 alpha:1]
+#define shadowImageName @"shadow"
 
 #pragma mark - Special Items
 #define kAttackDamage 20

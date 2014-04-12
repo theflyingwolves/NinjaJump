@@ -44,6 +44,8 @@ typedef enum : uint8_t {
 
 @property (nonatomic) float physicalDamageMultiplier;
 @property (nonatomic) float magicalDamageMultiplier;
+
+@property (nonatomic) SKSpriteNode *shadow;
 +(void)loadSharedAssets;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position;

@@ -48,6 +48,7 @@
 		2FBFDCFC18F9108800A59A77 /* survivalBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFDCF918F9108800A59A77 /* survivalBtn.png */; };
 		2FBFDCFD18F9108800A59A77 /* tutorialBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFDCFA18F9108800A59A77 /* tutorialBtn.png */; };
 		2FBFDCFF18F95CCF00A59A77 /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFDCFE18F95CCF00A59A77 /* banner.png */; };
+		2FBFDD0118F96E2100A59A77 /* shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFDD0018F96E2100A59A77 /* shadow.png */; };
 		2FC568A018E1BC9B00C6589D /* NJButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC5689D18E1BC9B00C6589D /* NJButton.m */; };
 		2FC568A118E1BC9B00C6589D /* NJHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC5689F18E1BC9B00C6589D /* NJHPBar.m */; };
 		2FC568A818E1BCA900C6589D /* NJCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC568A318E1BCA900C6589D /* NJCharacter.m */; };
@@ -209,6 +210,7 @@
 		2FBFDCF918F9108800A59A77 /* survivalBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survivalBtn.png; sourceTree = "<group>"; };
 		2FBFDCFA18F9108800A59A77 /* tutorialBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorialBtn.png; sourceTree = "<group>"; };
 		2FBFDCFE18F95CCF00A59A77 /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
+		2FBFDD0018F96E2100A59A77 /* shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shadow.png; path = Assets/GameBoard/shadow.png; sourceTree = "<group>"; };
 		2FC5689C18E1BC9B00C6589D /* NJButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJButton.h; path = Sprites/Control/NJButton.h; sourceTree = "<group>"; };
 		2FC5689D18E1BC9B00C6589D /* NJButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJButton.m; path = Sprites/Control/NJButton.m; sourceTree = "<group>"; };
 		2FC5689E18E1BC9B00C6589D /* NJHPBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJHPBar.h; path = Sprites/Control/NJHPBar.h; sourceTree = "<group>"; };
@@ -608,6 +610,7 @@
 		2FC568C218E1BE5A00C6589D /* GameBoard */ = {
 			isa = PBXGroup;
 			children = (
+				2FBFDD0018F96E2100A59A77 /* shadow.png */,
 				2FC568C318E1BEC000C6589D /* ninja.png */,
 				2FC568B918E1BE0900C6589D /* woodPile.png */,
 				2FC568B618E1BE0900C6589D /* spawnLight.png */,
@@ -911,6 +914,7 @@
 				C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */,
 				C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */,
 				C931A94318E05EF7002FE154 /* touched button purple.png in Resources */,
+				2FBFDD0118F96E2100A59A77 /* shadow.png in Resources */,
 				C931A94218E05EF7002FE154 /* touched button brown.png in Resources */,
 				C4C8747518F023A9004B6527 /* use skill.mid in Resources */,
 				C4C8746A18F023A9004B6527 /* shadowNinja.mp3 in Resources */,

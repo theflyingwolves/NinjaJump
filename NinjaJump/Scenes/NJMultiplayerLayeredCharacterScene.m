@@ -178,11 +178,11 @@
     ((NJItemControl *)_itemControls[1]).color = kNinjaTwoColor;
     ((NJItemControl *)_itemControls[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
-    ((NJItemControl *)_itemControls[2]).zRotation = -3* M_PI / 4;
+    ((NJItemControl *)_itemControls[2]).zRotation = 3* M_PI / 4;
     ((NJItemControl *)_itemControls[2]).color = kNinjaThreeColor;
     ((NJItemControl *)_itemControls[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
-    ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
+    ((NJItemControl *)_itemControls[3]).zRotation = -3*M_PI / 4;
     ((NJItemControl *)_itemControls[3]).color = kNinjaFourColor;
     ((NJItemControl *)_itemControls[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     
@@ -220,12 +220,12 @@
     ((NJButton*)_buttons[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJButton*)_buttons[1]).player.color = kNinjaTwoColor;
     ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
-    ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
+    ((NJButton*)_buttons[2]).zRotation = M_PI/4*3;
     ((NJButton*)_buttons[2]).color = kNinjaThreeColor;
     ((NJButton*)_buttons[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJButton*)_buttons[2]).player.color = kNinjaThreeColor;
     ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
-    ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
+    ((NJButton*)_buttons[3]).zRotation = -M_PI/4*3;
     ((NJButton*)_buttons[3]).color = kNinjaFourColor;
     ((NJButton*)_buttons[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJButton*)_buttons[3]).player.color = kNinjaFourColor;
@@ -242,6 +242,7 @@
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
+            [self addNode:ninja.shadow atWorldLayer:NJWorldLayerBelowCharacter];
             NJPile *pile = [self spawnAtRandomPileForNinja:NO];
             pile.standingCharacter = ninja;
             ninja.position = pile.position;
@@ -425,6 +426,7 @@
                 [player.item removeFromParent];
                 player.item = nil;
             }
+            [player.ninja.shadow removeFromParent];
         }
         
         if (player.item) {
@@ -671,6 +673,7 @@
     for (NJPile *pile in _woodPiles) {
         if (pile.standingCharacter && !pile.standingCharacter.player.isJumping) {
             pile.standingCharacter.position = pile.position;
+            pile.standingCharacter.shadow.position = pile.position;
             pile.standingCharacter.player.jumpTimerSprite.position = pile.position;
         }
         if (pile.itemHolded) {
@@ -757,7 +760,6 @@
     [victoryLabel runAction:sequenceScale completion:^{
         [_victoryBackground addChild:_continueButton];
     }];
-
 }
 
 #pragma mark - Shared Assets
