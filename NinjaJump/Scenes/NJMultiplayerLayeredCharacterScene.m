@@ -404,7 +404,6 @@
             }
             
             if (!fileName) {
-                NSLog(@"no file name");
                 [player.indicatorNode removeFromParent];
                 player.indicatorNode = nil;
             }else if (!player.itemIndicatorAdded && fileName) {
