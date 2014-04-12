@@ -502,6 +502,7 @@
                                 if (pile.itemHolded) {
                                     [(NSMutableArray*)self.items removeObject:pile.itemHolded];
                                     [pile.itemHolded removeFromParent];
+                                    [pile.itemHolded.itemShadow removeFromParent];
                                 }
                                 [p.ninja resetToPosition:pile.position];
                                 p.targetPile = nil;
@@ -594,6 +595,7 @@
                 NJPile *pileToRemove = [pilesToChoose objectAtIndex:index];
                 NJSpecialItem *itemToRemove = pileToRemove.itemHolded;
                 [itemToRemove removeFromParent];
+                [itemToRemove.itemShadow removeFromParent];
                 [_items removeObject:itemToRemove];
                 [pileToRemove removeFromParent];
                 [_woodPiles removeObject:pileToRemove];
