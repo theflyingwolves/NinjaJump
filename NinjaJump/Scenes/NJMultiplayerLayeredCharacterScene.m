@@ -332,18 +332,18 @@
 //            item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
 //            break;
 //            
-//        case NJItemFireScroll:
-//            item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
-//            break;
-//            
+        case NJItemFireScroll:
+            item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
+            break;
+//
 //        case NJItemMedikit:
 //            item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
 //            break;
-        
-        case NJItemMine:
-            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
-            break;
-            
+//        
+//        case NJItemMine:
+//            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+//            break;
+//            
 //        case NJItemShuriken:
 //            item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
 //            break;
@@ -498,6 +498,18 @@
                                     [(NSMutableArray*)self.items removeObject:pile.itemHolded];
                                     [pile.itemHolded removeFromParent];
                                 }
+                                if (pile.itemEffectOnPile){
+                                    NJItemEffect *effect = pile.itemEffectOnPile;
+                                    if (effect.owner != p.ninja) {
+                                        [effect removeAllActions];
+                                        [effect removeFromParent];
+                                        pile.itemEffectOnPile = nil;
+                                    }
+                                }
+                                if (pile.isOnFire){
+                                    pile.isOnFire = NO;
+                                }
+                                
                                 [p.ninja resetToPosition:pile.position];
                                 p.targetPile = nil;
                                 p.jumpRequested = NO;
