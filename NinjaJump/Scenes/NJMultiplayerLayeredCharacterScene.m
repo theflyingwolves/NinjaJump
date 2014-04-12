@@ -84,9 +84,7 @@
         
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
         [self resetMusic];
-        if (_gameMode != NJGameModeTutorial) {
-            [self initSelectionSystem];
-        }
+        [self initSelectionSystem];
     }
     return self;
 }
@@ -497,6 +495,9 @@
                                     [pile.itemHolded removeFromParent];
                                 }
                                 [p.ninja resetToPosition:pile.position];
+                                p.targetPile = nil;
+                                p.jumpRequested = NO;
+                                p.isJumping = NO;
                             }
                         }
                     }
@@ -549,6 +550,8 @@
     NSMutableArray *ninjasToRemove = [NSMutableArray new];
     for (NJNinjaCharacter *ninja in self.ninjas) {
         if (ninja.isDying) {
+            [ninja.player.jumpTimerSprite removeAllActions];
+            [ninja.player.jumpTimerSprite removeFromParent];
             [ninjasToRemove addObject:ninja];
         }
     }

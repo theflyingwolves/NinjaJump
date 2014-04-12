@@ -44,7 +44,6 @@
 
 typedef enum : uint8_t {
     NJGameModeBeginner=0,
-    NJGameModeTutorial,
     NJGameModeSurvival,
     NJGameModeOneVsThree,
     NJGameModeCount
