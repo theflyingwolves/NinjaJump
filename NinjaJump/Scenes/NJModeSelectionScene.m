@@ -97,7 +97,7 @@
 
 - (void)button:(NJButton *)button touchesBegan:(NSSet *)touches
 {
-    // Nothing to do
+    [button setScale:1.05];
 }
 
 - (void)button:(NJButton *)button touchesEnded:(NSSet *)touches
