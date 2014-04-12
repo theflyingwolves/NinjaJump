@@ -31,6 +31,7 @@ typedef enum : uint8_t {
 @property (readonly) float lifeTime;
 @property (weak, nonatomic) NJMultiplayerLayeredCharacterScene *myParent;
 @property NJRange *range;
+@property SKSpriteNode *itemShadow;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position;
 

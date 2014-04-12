@@ -35,6 +35,7 @@
 #define kMineFileName @"mine"
 #define kShurikenFileName @"shuriken"
 #define kMedikitFileName @"medikit"
+#define itemShadowImageName @"itemShadow"
 
 #pragma mark - Music
 #define kMusicPatrit @"patrit"

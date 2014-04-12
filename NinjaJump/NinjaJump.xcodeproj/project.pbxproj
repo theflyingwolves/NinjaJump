@@ -13,6 +13,7 @@
 		2B81400018F5716D00F80DB9 /* Jump_Timer.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B813FFF18F5716D00F80DB9 /* Jump_Timer.atlas */; };
 		2BDFAC8018E7EAB000B4007D /* fog.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2BDFAC7F18E7EAB000B4007D /* fog.sks */; };
 		2BFA6DB318E6BA7300EBA279 /* NJLoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */; };
+		2F01286618F97A7F00ED8179 /* itemShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F01286518F97A7F00ED8179 /* itemShadow.png */; };
 		2F050DBD18F574290094F07F /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBB18F574290094F07F /* fireArc.png */; };
 		2F050DBE18F574290094F07F /* wind.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBC18F574290094F07F /* wind.png */; };
 		2F45B43418E6A9E100482453 /* NJRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43318E6A9E100482453 /* NJRange.m */; };
@@ -161,6 +162,7 @@
 		2BDFAC7F18E7EAB000B4007D /* fog.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = fog.sks; path = Particle/fog.sks; sourceTree = "<group>"; };
 		2BFA6DB118E6BA7300EBA279 /* NJLoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLoadingScene.h; path = Scenes/NJLoadingScene.h; sourceTree = "<group>"; };
 		2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLoadingScene.m; path = Scenes/NJLoadingScene.m; sourceTree = "<group>"; };
+		2F01286518F97A7F00ED8179 /* itemShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = itemShadow.png; path = Assets/GameBoard/itemShadow.png; sourceTree = "<group>"; };
 		2F050DBA18F56D060094F07F /* NJConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NJConstants.h; path = Utilities/NJConstants.h; sourceTree = "<group>"; };
 		2F050DBB18F574290094F07F /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/effect/fireArc.png; sourceTree = "<group>"; };
 		2F050DBC18F574290094F07F /* wind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wind.png; path = Assets/effect/wind.png; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 		2FC568C118E1BE4300C6589D /* Items */ = {
 			isa = PBXGroup;
 			children = (
+				2F01286518F97A7F00ED8179 /* itemShadow.png */,
 				C4AF3C1E18E806040036596A /* mine.png */,
 				2FC568BF18E1BE3B00C6589D /* shuriken.png */,
 				C41270EC18E1D3AF00CAC44A /* fireScroll.png */,
@@ -967,6 +970,7 @@
 				C4C8747018F023A9004B6527 /* hurt.mid in Resources */,
 				C41270F318E1D3AF00CAC44A /* windScroll.png in Resources */,
 				2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */,
+				2F01286618F97A7F00ED8179 /* itemShadow.png in Resources */,
 				C4C8746818F023A9004B6527 /* funnyday.mp3 in Resources */,
 				2FDD9C4518EDB1F10071C712 /* pause scene bg.png in Resources */,
 				2FDD9C3F18ED940D0071C712 /* indicator_wind.png in Resources */,

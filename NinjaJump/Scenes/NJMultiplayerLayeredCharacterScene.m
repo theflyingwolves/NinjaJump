@@ -355,7 +355,9 @@
     if (item != nil) {
         item.myParent = self;
         pile.itemHolded = item;
+        item.itemShadow.position = position;
         [self addNode:item atWorldLayer:NJWorldLayerCharacter];
+        [self addNode:item.itemShadow atWorldLayer:NJWorldLayerBelowCharacter];
         [_items addObject:item];
     }
 }
@@ -424,6 +426,9 @@
             
             if (player.item) {
                 [player.item removeFromParent];
+                if (player.item.itemShadow) {
+                    [player.item.itemShadow removeFromParent];
+                }
                 player.item = nil;
             }
             [player.ninja.shadow removeFromParent];
@@ -527,7 +532,9 @@
     
     NSMutableArray *itemsToRemove = [NSMutableArray array];
     for (NJSpecialItem *item in self.items){
+        item.itemShadow.position = item.position;
         if (item.isPickedUp) {
+            [item.itemShadow removeFromParent];
             [itemsToRemove addObject:item];
         }
     }
@@ -539,11 +546,13 @@
     itemsToRemove = [NSMutableArray array];
     for (NJSpecialItem *item in self.items){
         if (item.lifeTime > kMaxItemLifeTime) {
+            [item.itemShadow removeFromParent];
             [itemsToRemove addObject:item];
         }
     }
     for (NJSpecialItem *item in itemsToRemove){
         [item removeFromParent];
+        [item.itemShadow removeFromParent];
         [(NSMutableArray*)self.items removeObject:item];
     }
 }
@@ -823,8 +832,6 @@
             button.player.jumpRequested = YES;
             button.player.isJumping = YES;
             [button.player runJumpTimerAction];
-        } else {
-            NSLog(@"jump cooling down");
         }
     }
 }
@@ -982,6 +989,7 @@
         [player.ninja reset];
         player.item = nil;
         [player.indicatorNode removeFromParent];
+        [player.ninja.shadow removeFromParent];
         player.indicatorNode = nil;
         player.targetPile = nil;
         player.fromPile = nil;
@@ -1035,6 +1043,7 @@
 {
     for (NJSpecialItem *item in _items) {
         [item removeFromParent];
+        [item.itemShadow removeFromParent];
     }
     [_items removeAllObjects];
 }
