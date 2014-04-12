@@ -483,6 +483,9 @@
                                     [pile.itemHolded removeFromParent];
                                 }
                                 [p.ninja resetToPosition:pile.position];
+                                p.targetPile = nil;
+                                p.jumpRequested = NO;
+                                p.isJumping = NO;
                             }
                         }
                     }
@@ -535,6 +538,8 @@
     NSMutableArray *ninjasToRemove = [NSMutableArray new];
     for (NJNinjaCharacter *ninja in self.ninjas) {
         if (ninja.isDying) {
+            [ninja.player.jumpTimerSprite removeAllActions];
+            [ninja.player.jumpTimerSprite removeFromParent];
             [ninjasToRemove addObject:ninja];
         }
     }
