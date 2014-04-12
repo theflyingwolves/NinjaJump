@@ -46,7 +46,7 @@
 {
     _tutorialMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
     _tutorialMode.delegate = self;
-    _tutorialMode.index = NJGameModeTutorial;
+    //_tutorialMode.index = NJGameModeTutorial;
     _tutorialMode.position = CGPointMake(200, 220);
 }
 

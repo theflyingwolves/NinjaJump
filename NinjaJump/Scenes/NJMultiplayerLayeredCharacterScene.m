@@ -84,9 +84,7 @@
         
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
         [self resetMusic];
-        if (_gameMode != NJGameModeTutorial) {
-            [self initSelectionSystem];
-        }
+        [self initSelectionSystem];
     }
     return self;
 }
