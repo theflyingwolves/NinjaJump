@@ -31,13 +31,20 @@ typedef enum : uint8_t {
 
 #define kMinTimeInterval (1.0f / 60.0f)
 #define kNumPlayers 4
-#define kJumpCooldownTime 0.5f
+#define kJumpCooldownTime 1.0f
 #define kFireLastTime 5.0f
 #define kPileDecreaseTimeInterval 10.0f
 #define kMaxItemLifeTime 15.0f
 
 /* Completion handler for callback after loading assets asynchronously. */
 typedef void (^NJAssetLoadCompletionHandler)(void);
+
+typedef enum : uint8_t {
+    NJGameModeBeginner=0,
+    NJGameModeSurvival,
+    NJGameModeOneVsThree,
+    NJGameModeCount
+} NJGameMode;
 
 /* Forward declarations */
 @class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile;
@@ -61,6 +68,8 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @property (nonatomic) NSMutableArray *layers;                      // different layer nodes within the world
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
 
+
+- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
 
 /* All sprites in the scene should be added through this method to ensure they are placed in the correct world layer. */
 - (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer;

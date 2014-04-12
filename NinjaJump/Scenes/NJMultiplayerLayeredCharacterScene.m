@@ -35,6 +35,7 @@
 @end
 
 @implementation NJMultiplayerLayeredCharacterScene{
+    NJGameMode _gameMode;
     BOOL isSelectionInited;
     BOOL isFirstTimeInitialized;
     BOOL isGameEnded;
@@ -44,10 +45,12 @@
 }
 
 #pragma mark - Initialization
-- (instancetype)initWithSize:(CGSize)size
+- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode
 {
     self = [super initWithSize:size];
     if (self) {
+        _gameMode = mode;
+        
         _items = [[NSMutableArray alloc] init];
         _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
         
@@ -286,54 +289,74 @@
 
 - (void)addItem{
     NJPile *pile = [self spawnAtRandomPileForNinja:NO];
-    if (!pile) {
+    if (!pile || [self.items count]>=3 ) {
         return;
     }
     CGPoint position = pile.position;
     
-    if ([self.items count] < 3) {
-        int index = arc4random() % NJItemCount;
+    if (_gameMode == NJGameModeBeginner) {
+        int index = arc4random() % 2;
         NJSpecialItem *item;
-        
         switch (index) {
-            case NJItemThunderScroll:
-                item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
-                break;
-                
-            case NJItemWindScroll:
-                item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
-                break;
-                
-            case NJItemIceScroll:
-                item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
-                break;
-                
-            case NJItemFireScroll:
-                item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
-                break;
-
-            case NJItemMedikit:
+            case 0:
                 item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
                 break;
-
-            case NJItemMine:
-                item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
-                break;
-                
-            case NJItemShuriken:
+            case 1:
                 item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
                 break;
-                
             default:
                 break;
         }
-        
         if (item != nil) {
             item.myParent = self;
             pile.itemHolded = item;
             [self addNode:item atWorldLayer:NJWorldLayerCharacter];
             [_items addObject:item];
         }
+        return;
+    }
+    
+    int index = arc4random() % NJItemCount;
+    NJSpecialItem *item;
+    
+    switch (index) {
+        case NJItemThunderScroll:
+            item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemWindScroll:
+            item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemIceScroll:
+            item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemFireScroll:
+            item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemMedikit:
+            item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+            break;
+            
+        case NJItemMine:
+            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+            break;
+            
+        case NJItemShuriken:
+            item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+            break;
+            
+        default:
+            break;
+    }
+    
+    if (item != nil) {
+        item.myParent = self;
+        pile.itemHolded = item;
+        [self addNode:item atWorldLayer:NJWorldLayerCharacter];
+        [_items addObject:item];
     }
 }
 
@@ -357,7 +380,9 @@
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
         CGFloat ang = NJRandomAngle();
-        [pile.physicsBody applyImpulse:CGVectorMake(NJWoodPileInitialImpluse*sinf(ang), NJWoodPileInitialImpluse*cosf(ang))];
+        if (_gameMode != NJGameModeBeginner) {
+            [pile.physicsBody applyImpulse:CGVectorMake(NJWoodPileInitialImpluse*sinf(ang), NJWoodPileInitialImpluse*cosf(ang))];
+        }
     }
 }
 
@@ -1023,7 +1048,6 @@
 
 - (void) activateSelectedPlayers:(NSNotification *)note{
     isSelectionInited = NO;
-    shouldPileStartDecreasing = YES;
     NSArray *activePlayerIndices = [note object];
     NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
     for (NSNumber *index in activePlayerIndices) {
@@ -1047,6 +1071,9 @@
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];
+    if (_gameMode != NJGameModeBeginner) {
+        shouldPileStartDecreasing = YES;
+    }
 }
 
 - (int)convertIndex:(int)index{

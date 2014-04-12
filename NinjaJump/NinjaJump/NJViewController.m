@@ -33,7 +33,7 @@
     [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
         NSLog(@"loading assets completed.");
         // Create and configure the scene.
-        NJMultiplayerLayeredCharacterScene * scene = [NJMultiplayerLayeredCharacterScene sceneWithSize:_skView.bounds.size];
+        NJMultiplayerLayeredCharacterScene * scene = [[NJMultiplayerLayeredCharacterScene alloc] initWithSize:_skView.bounds.size mode:NJGameModeBeginner];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         self.scene = scene;
         // Present the scene.

@@ -20,6 +20,7 @@
 {
     if (self.ninja) {
         if (self.jumpTimerSprite.parent) {
+            [self.jumpTimerSprite removeAllActions];
             [self.jumpTimerSprite removeFromParent];
         }
         self.jumpTimerSprite.position = self.ninja.position;
