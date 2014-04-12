@@ -41,6 +41,23 @@
 #define kSurvivalModeBtnFilename @"survivalBtn"
 #define kModeSelectionBackground @"selectionBG"
 
+#pragma mark - Player Selection
+#define kShurikenButtons @"ready buttons"
+#define kShurikenShade @"shade"
+#define kStartButton @"start button"
+#define kShurikenButtonBlue @"touched button blue"
+#define kShurikenButtonOrange @"touched button orange"
+#define kShurikenButtonPurple @"touched button purple"
+#define kShurikenButtonYellow @"touched button yellow"
+#define kHaloOrange @"orangeHalo"
+#define kHaloBlue @"blueHalo"
+#define kHaloYellow @"yellowHalo"
+#define kHaloPurple @"purpleHalo"
+#define kButtonHaloShinningTime 0.2
+
+#pragma mark - Notification
+#define kNotificationPlayerIndex @"activatedPlayerIndex"
+
 typedef enum : uint8_t {
     NJGameModeBeginner=0,
     NJGameModeSurvival,
