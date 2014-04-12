@@ -171,19 +171,19 @@
     
     ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
     ((NJItemControl *)_itemControls[0]).zRotation = - M_PI / 4;
-    ((NJItemControl *)_itemControls[0]).color = [SKColor blackColor];
+    ((NJItemControl *)_itemControls[0]).color = kNinjaOneColor;
     ((NJItemControl *)_itemControls[0]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
     ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
-    ((NJItemControl *)_itemControls[1]).color = [SKColor blueColor];
+    ((NJItemControl *)_itemControls[1]).color = kNinjaTwoColor;
     ((NJItemControl *)_itemControls[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
     ((NJItemControl *)_itemControls[2]).zRotation = -3* M_PI / 4;
-    ((NJItemControl *)_itemControls[2]).color = [SKColor yellowColor];
+    ((NJItemControl *)_itemControls[2]).color = kNinjaThreeColor;
     ((NJItemControl *)_itemControls[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
     ((NJItemControl *)_itemControls[3]).zRotation = 3*M_PI / 4;
-    ((NJItemControl *)_itemControls[3]).color = [SKColor redColor];
+    ((NJItemControl *)_itemControls[3]).color = kNinjaFourColor;
     ((NJItemControl *)_itemControls[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     
     if (!_buttons) {
@@ -211,24 +211,24 @@
     
     ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
     ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
-    ((NJButton*)_buttons[0]).color = [SKColor blackColor];
+    ((NJButton*)_buttons[0]).color = kNinjaOneColor;
     ((NJButton*)_buttons[0]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
-    ((NJButton*)_buttons[0]).player.color = [SKColor blackColor];
+    ((NJButton*)_buttons[0]).player.color = kNinjaOneColor;
     ((NJButton*)_buttons[1]).position = CGPointMake(1024-yDiff, xDiff);
     ((NJButton*)_buttons[1]).zRotation = M_PI/4;
-    ((NJButton*)_buttons[1]).color = [SKColor blueColor];
+    ((NJButton*)_buttons[1]).color = kNinjaTwoColor;
     ((NJButton*)_buttons[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
-    ((NJButton*)_buttons[1]).player.color = [SKColor blueColor];
+    ((NJButton*)_buttons[1]).player.color = kNinjaTwoColor;
     ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
     ((NJButton*)_buttons[2]).zRotation = -M_PI/4*3;
-    ((NJButton*)_buttons[2]).color = [SKColor yellowColor];
+    ((NJButton*)_buttons[2]).color = kNinjaThreeColor;
     ((NJButton*)_buttons[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
-    ((NJButton*)_buttons[2]).player.color = [SKColor yellowColor];
+    ((NJButton*)_buttons[2]).player.color = kNinjaThreeColor;
     ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
     ((NJButton*)_buttons[3]).zRotation = M_PI/4*3;
-    ((NJButton*)_buttons[3]).color = [SKColor redColor];
+    ((NJButton*)_buttons[3]).color = kNinjaFourColor;
     ((NJButton*)_buttons[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
-    ((NJButton*)_buttons[3]).player.color = [SKColor redColor];
+    ((NJButton*)_buttons[3]).player.color = kNinjaFourColor;
 }
 
 - (void)initCharacters
@@ -963,7 +963,7 @@
     if (music) {
         [music pause];
     }
-    int musicIndex = 2;
+    int musicIndex = arc4random() % [musicName count];
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
     
     NSError *error;

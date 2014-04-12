@@ -47,6 +47,7 @@
 		2FBFDCFB18F9108800A59A77 /* beginnerBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFDCF818F9108800A59A77 /* beginnerBtn.png */; };
 		2FBFDCFC18F9108800A59A77 /* survivalBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFDCF918F9108800A59A77 /* survivalBtn.png */; };
 		2FBFDCFD18F9108800A59A77 /* tutorialBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFDCFA18F9108800A59A77 /* tutorialBtn.png */; };
+		2FBFDCFF18F95CCF00A59A77 /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFDCFE18F95CCF00A59A77 /* banner.png */; };
 		2FC568A018E1BC9B00C6589D /* NJButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC5689D18E1BC9B00C6589D /* NJButton.m */; };
 		2FC568A118E1BC9B00C6589D /* NJHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC5689F18E1BC9B00C6589D /* NJHPBar.m */; };
 		2FC568A818E1BCA900C6589D /* NJCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC568A318E1BCA900C6589D /* NJCharacter.m */; };
@@ -207,6 +208,7 @@
 		2FBFDCF818F9108800A59A77 /* beginnerBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beginnerBtn.png; sourceTree = "<group>"; };
 		2FBFDCF918F9108800A59A77 /* survivalBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survivalBtn.png; sourceTree = "<group>"; };
 		2FBFDCFA18F9108800A59A77 /* tutorialBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorialBtn.png; sourceTree = "<group>"; };
+		2FBFDCFE18F95CCF00A59A77 /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
 		2FC5689C18E1BC9B00C6589D /* NJButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJButton.h; path = Sprites/Control/NJButton.h; sourceTree = "<group>"; };
 		2FC5689D18E1BC9B00C6589D /* NJButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJButton.m; path = Sprites/Control/NJButton.m; sourceTree = "<group>"; };
 		2FC5689E18E1BC9B00C6589D /* NJHPBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJHPBar.h; path = Sprites/Control/NJHPBar.h; sourceTree = "<group>"; };
@@ -367,12 +369,12 @@
 		2B21F14918D430B0007220CF /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				2B21F14F18D433D2007220CF /* NJMultiplayerLayeredCharacterScene.h */,
-				2B21F15018D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m */,
-				2BFA6DB118E6BA7300EBA279 /* NJLoadingScene.h */,
-				2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */,
 				2FBFDCF418F8FEF400A59A77 /* NJModeSelectionScene.h */,
 				2FBFDCF518F8FEF400A59A77 /* NJModeSelectionScene.m */,
+				2BFA6DB118E6BA7300EBA279 /* NJLoadingScene.h */,
+				2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */,
+				2B21F14F18D433D2007220CF /* NJMultiplayerLayeredCharacterScene.h */,
+				2B21F15018D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m */,
 				2B21F15218D4342E007220CF /* NJPlayer.h */,
 				2B21F15318D4342E007220CF /* NJPlayer.m */,
 			);
@@ -568,6 +570,7 @@
 		2FBFDCF718F9108800A59A77 /* Mode Selection Scene */ = {
 			isa = PBXGroup;
 			children = (
+				2FBFDCFE18F95CCF00A59A77 /* banner.png */,
 				2FBFDCF818F9108800A59A77 /* beginnerBtn.png */,
 				2FBFDCF918F9108800A59A77 /* survivalBtn.png */,
 				2FBFDCFA18F9108800A59A77 /* tutorialBtn.png */,
@@ -946,6 +949,7 @@
 				C9150B0618EC45EF00645698 /* victory.png in Resources */,
 				C4C8746F18F023A9004B6527 /* firestrong.mid in Resources */,
 				C9150B0A18EC5ADD00645698 /* continue.png in Resources */,
+				2FBFDCFF18F95CCF00A59A77 /* banner.png in Resources */,
 				C931A94118E05EF7002FE154 /* touched button blue.png in Resources */,
 				C931A94018E05EF7002FE154 /* start button.png in Resources */,
 				C4C8747618F023A9004B6527 /* water.mid in Resources */,
