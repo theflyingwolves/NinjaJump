@@ -12,7 +12,7 @@
 #import "NJModeSelectionScene.h"
 #import <SpriteKit/SpriteKit.h>
 
-@interface NJViewController () <NJModeSelectionSceneDelegate>
+@interface NJViewController () <NJModeSelectionSceneDelegate,NJMultiplayerLayeredCharacterSceneDelegate>
 @property (weak, nonatomic) IBOutlet SKView *skView;
 @property (strong, nonatomic) NJMultiplayerLayeredCharacterScene *scene;
 @end
@@ -45,10 +45,19 @@
             // Create and configure the scene.
             NJMultiplayerLayeredCharacterScene * scene = [[NJMultiplayerLayeredCharacterScene alloc] initWithSize:_skView.bounds.size mode:mode];
             scene.scaleMode = SKSceneScaleModeAspectFill;
+            scene.delegate = self;
             self.scene = scene;
             // Present the scene.
             [_skView presentScene:scene transition:[SKTransition crossFadeWithDuration:0.5f]];
         }];
+}
+
+- (void)backToModeSelectionScene
+{
+    NJModeSelectionScene *modeSelectionScene = [[NJModeSelectionScene alloc] initWithSize:_skView.bounds.size];
+    modeSelectionScene.scaleMode = SKSceneScaleModeAspectFill;
+    modeSelectionScene.delegate = self;
+    [_skView presentScene:modeSelectionScene];
 }
 
 - (BOOL)prefersStatusBarHidden

@@ -43,6 +43,10 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 /* Forward declarations */
 @class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile;
 
+@protocol NJMultiplayerLayeredCharacterSceneDelegate <NSObject>
+- (void)backToModeSelectionScene;
+@end
+
 @interface NJMultiplayerLayeredCharacterScene:SKScene
 
 @property (nonatomic) BOOL startGame;
@@ -61,7 +65,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @property (nonatomic, readwrite) SKNode *world;                    // root node to which all game renderables are attached
 @property (nonatomic) NSMutableArray *layers;                      // different layer nodes within the world
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
-
+@property (nonatomic) id<NJMultiplayerLayeredCharacterSceneDelegate> delegate;
 
 - (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
 
@@ -82,5 +86,4 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
 
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja;
-
 @end

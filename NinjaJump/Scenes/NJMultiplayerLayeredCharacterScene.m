@@ -949,8 +949,11 @@
     } else if(actionIndex == CONTINUE){
         [self continueItemUpdate];
         [self continueWoodpiles];
-        
         [music play];
+    } else if(actionIndex == BACK){
+        NSNotificationCenter *nc  = [NSNotificationCenter defaultCenter];
+        [nc removeObserver:self];
+        [self.delegate backToModeSelectionScene];
     }
 }
 
