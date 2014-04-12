@@ -9,9 +9,10 @@
 #import "NJViewController.h"
 #import "NJLoadingScene.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
+#import "NJModeSelectionScene.h"
 #import <SpriteKit/SpriteKit.h>
 
-@interface NJViewController ()
+@interface NJViewController () <NJModeSelectionSceneDelegate>
 @property (weak, nonatomic) IBOutlet SKView *skView;
 @property (strong, nonatomic) NJMultiplayerLayeredCharacterScene *scene;
 @end
@@ -30,15 +31,28 @@
     NJLoadingScene *loadingScene = [[NJLoadingScene alloc] initWithSize:_skView.bounds.size];
     loadingScene.scaleMode = SKSceneScaleModeAspectFill;
     [_skView presentScene:loadingScene];
-    [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
-        NSLog(@"loading assets completed.");
-        // Create and configure the scene.
-        NJMultiplayerLayeredCharacterScene * scene = [NJMultiplayerLayeredCharacterScene sceneWithSize:_skView.bounds.size];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        self.scene = scene;
-        // Present the scene.
-        [_skView presentScene:scene];
-    }];
+    
+    NJModeSelectionScene *modeSelectionScene = [[NJModeSelectionScene alloc] initWithSize:_skView.bounds.size];
+    modeSelectionScene.scaleMode = SKSceneScaleModeAspectFill;
+    modeSelectionScene.delegate = self;
+    [_skView presentScene:modeSelectionScene];
+}
+
+- (void)modeSelected:(modeIndex)index
+{
+    if (index == kSurvivalModeIndex) {
+        [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
+            NSLog(@"loading assets completed.");
+            // Create and configure the scene.
+            NJMultiplayerLayeredCharacterScene * scene = [NJMultiplayerLayeredCharacterScene sceneWithSize:_skView.bounds.size];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            self.scene = scene;
+            // Present the scene.
+            [_skView presentScene:scene transition:[SKTransition crossFadeWithDuration:0.5f]];
+        }];
+    }else{
+        NSLog(@"index not found");
+    }
 }
 
 - (BOOL)prefersStatusBarHidden

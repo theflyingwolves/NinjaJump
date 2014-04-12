@@ -34,3 +34,9 @@
 #define kMusicShadow @"shadowNinja"
 #define kMusicFunny @"funnyday"
 #define kMusicSun @"sunshining"
+
+#pragma mark - Mode Selection
+#define KTutorialModeBtnFileName @"tutorialBtn"
+#define kBeginnerModeBtnFileName @"beginnerBtn"
+#define kSurvivalModeBtnFilename @"survivalBtn"
+#define kModeSelectionBackground @"selectionBG"
