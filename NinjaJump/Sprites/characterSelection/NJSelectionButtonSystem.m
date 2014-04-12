@@ -27,7 +27,7 @@
         [self addBackground];
         [self addStartButton];
         [self addSelectionButtons];
-        [self addSpotlight];
+//        [self addSpotlight];
         [self fireTransition];
     }
     return self;

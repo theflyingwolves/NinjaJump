@@ -7,7 +7,7 @@
 //
 
 #pragma mark - Game World
-#define kNumOfFramesToSpawnItem 10
+#define kNumOfFramesToSpawnItem 200
 #define NJWoodPileInitialImpluse 3
 
 #pragma mark - Ninja Characters
@@ -20,6 +20,7 @@
 #define kFireScrollDamage 10
 #define kShurikenDamage 10
 #define kMineDamage 20
+#define kIndicatorAlpha 0.1
 #define kThunderScrollFileName @"thunderScroll"
 #define kWindScrollFileName @"windScroll"
 #define kIceScrollFileName @"iceScroll"

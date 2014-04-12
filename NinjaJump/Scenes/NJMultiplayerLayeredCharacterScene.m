@@ -415,6 +415,18 @@
             ninja = player.ninja;
         }
         
+        if (player.ninja.dying) {
+            if (player.indicatorNode) {
+                [player.indicatorNode removeFromParent];
+                player.indicatorNode = nil;
+            }
+            
+            if (player.item) {
+                [player.item removeFromParent];
+                player.item = nil;
+            }
+        }
+        
         if (player.item) {
             NSString *fileName;
             if ([player.item isKindOfClass:[NJThunderScroll class]]) {
@@ -435,7 +447,7 @@
                     [player.indicatorNode removeFromParent];
                 }
                 SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
-                itemIndicator.alpha = 0.2;
+                itemIndicator.alpha = kIndicatorAlpha;
                 [self addNode:itemIndicator atWorldLayer:NJWorldLayerCharacter];
                 player.indicatorNode = itemIndicator;
                 player.itemIndicatorAdded = YES;
