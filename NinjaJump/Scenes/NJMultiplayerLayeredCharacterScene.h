@@ -80,4 +80,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja;
 
+/* init without selection scene, for the use of tutorial scene */
+- (instancetype)initWithSizeWithoutSelection:(CGSize)size;
+
 @end

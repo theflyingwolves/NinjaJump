@@ -80,6 +80,7 @@
 		C42170E118E068CF00942374 /* NJWindScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170E018E068CF00942374 /* NJWindScroll.m */; };
 		C42170E418E068DD00942374 /* NJIceScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170E318E068DD00942374 /* NJIceScroll.m */; };
 		C42170E718E068E800942374 /* NJFireScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170E618E068E800942374 /* NJFireScroll.m */; };
+		C493E79E18F9037E00BFDE80 /* NJTutorialScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C493E79D18F9037E00BFDE80 /* NJTutorialScene.m */; };
 		C4AF3C1D18E803410036596A /* NJEffectMine.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AF3C1C18E803410036596A /* NJEffectMine.m */; };
 		C4AF3C1F18E806040036596A /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C1E18E806040036596A /* mine.png */; };
 		C4AF3C2318E852AA0036596A /* Ninja_Thunder.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2218E852AA0036596A /* Ninja_Thunder.atlas */; };
@@ -251,6 +252,8 @@
 		C42170E318E068DD00942374 /* NJIceScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJIceScroll.m; path = Sprites/Item/NJIceScroll.m; sourceTree = "<group>"; };
 		C42170E518E068E800942374 /* NJFireScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJFireScroll.h; path = Sprites/Item/NJFireScroll.h; sourceTree = "<group>"; };
 		C42170E618E068E800942374 /* NJFireScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJFireScroll.m; path = Sprites/Item/NJFireScroll.m; sourceTree = "<group>"; };
+		C493E79C18F9037E00BFDE80 /* NJTutorialScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJTutorialScene.h; path = Scenes/NJTutorialScene.h; sourceTree = "<group>"; };
+		C493E79D18F9037E00BFDE80 /* NJTutorialScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJTutorialScene.m; path = Scenes/NJTutorialScene.m; sourceTree = "<group>"; };
 		C4AF3C1B18E803410036596A /* NJEffectMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJEffectMine.h; path = Sprites/ItemEffect/NJEffectMine.h; sourceTree = "<group>"; };
 		C4AF3C1C18E803410036596A /* NJEffectMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJEffectMine.m; path = Sprites/ItemEffect/NJEffectMine.m; sourceTree = "<group>"; };
 		C4AF3C1E18E806040036596A /* mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mine.png; path = Assets/Items/mine.png; sourceTree = "<group>"; };
@@ -360,6 +363,8 @@
 			children = (
 				2B21F14F18D433D2007220CF /* NJMultiplayerLayeredCharacterScene.h */,
 				2B21F15018D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m */,
+				C493E79C18F9037E00BFDE80 /* NJTutorialScene.h */,
+				C493E79D18F9037E00BFDE80 /* NJTutorialScene.m */,
 				2BFA6DB118E6BA7300EBA279 /* NJLoadingScene.h */,
 				2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */,
 				2B21F15218D4342E007220CF /* NJPlayer.h */,
@@ -960,6 +965,7 @@
 			files = (
 				C42170CF18E0685500942374 /* NJMine.m in Sources */,
 				2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */,
+				C493E79E18F9037E00BFDE80 /* NJTutorialScene.m in Sources */,
 				2F45B43418E6A9E100482453 /* NJRange.m in Sources */,
 				2FC568B118E1BD5000C6589D /* NJScroll.m in Sources */,
 				C9B8F29618E05B3B00FA877E /* NJSelectionButtonSystem.m in Sources */,
