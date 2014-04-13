@@ -7,6 +7,7 @@
 //
 
 #import "NJNinjaCharacter.h"
+#import "NJNinjaCharacterBoss.h"
 #import "NJPile.h"
 #import "NJButton.h"
 #import "NJItemControl.h"
@@ -37,6 +38,7 @@
 
 @implementation NJMultiplayerLayeredCharacterScene{
     NJGameMode _gameMode;
+    NSUInteger _bossIndex;
     BOOL isSelectionInited;
     BOOL isFirstTimeInitialized;
     BOOL isGameEnded;
@@ -261,8 +263,18 @@
         [player.ninja removeFromParent];
         [player.indicatorNode removeFromParent];
     }
-    
-    NJNinjaCharacterNormal *ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:@"ninja.png" atPosition:CGPointZero withPlayer:player];
+    NJNinjaCharacter *ninja = nil;
+    if (_gameMode == NJGameModeOneVsThree) {
+        if (_bossIndex<[self.players count]) {
+            NJPlayer *bossPlayer = [self.players objectAtIndex:_bossIndex];
+            if (bossPlayer == player) {
+                ninja = [[NJNinjaCharacterBoss alloc ] initWithTextureNamed:@"light.png" atPosition:CGPointZero withPlayer:player];
+            }
+        }
+    }
+    if (!ninja) {
+        ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player];
+    }
     if (ninja) {
         [ninja addToScene:self];
         [(NSMutableArray *)self.ninjas addObject:ninja];
@@ -315,51 +327,57 @@
         }
         return;
     }
-    
-    int index = arc4random() % NJItemCount;
-    NJSpecialItem *item;
-    
-    switch (index) {
-//        case NJItemThunderScroll:
-//            item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
-//            break;
-//            
-//        case NJItemWindScroll:
-//            item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
-//            break;
-//            
-//        case NJItemIceScroll:
-//            item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
-//            break;
-//            
-        case NJItemFireScroll:
-            item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
-            break;
-
-        case NJItemMedikit:
-            item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
-            break;
-//
-//        case NJItemMine:
-//            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
-//            break;
-//            
-//        case NJItemShuriken:
-//            item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-//            break;
-        
-        default:
-            break;
-    }
-    
+    NJSpecialItem *item = [self generateRandomItem];
     if (item != nil) {
         item.myParent = self;
         pile.itemHolded = item;
+        item.position = position;
         item.itemShadow.position = position;
         [self addNode:item atWorldLayer:NJWorldLayerCharacter];
         [self addNode:item.itemShadow atWorldLayer:NJWorldLayerBelowCharacter];
         [_items addObject:item];
     }
+}
+
+- (NJSpecialItem *)generateRandomItem
+{
+    int index = arc4random() % NJItemCount;
+    NJSpecialItem *item;
+    
+    CGPoint position = CGPointZero;
+    switch (index) {
+        case NJItemThunderScroll:
+            item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemWindScroll:
+            item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemIceScroll:
+            item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemFireScroll:
+            item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemMedikit:
+            item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+            break;
+            
+        case NJItemMine:
+            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+            break;
+            
+        case NJItemShuriken:
+            item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+            break;
+            
+        default:
+            break;
+    }
+    return item;
 }
 
 - (BOOL)hasItemOnPosition:(CGPoint)position{
@@ -584,7 +602,26 @@
     [self.ninjas removeObjectsInArray:ninjasToRemove];
     for (NJNinjaCharacter *ninja in self.ninjas) {
         [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
+        if ([ninja isKindOfClass:[NJNinjaCharacterBoss class]]) {
+            if (((NJNinjaCharacterBoss*)ninja).needsAddItem) {
+                ((NJNinjaCharacterBoss*)ninja).needsAddItem = NO;
+                if (ninja.player.item) {
+                    continue;
+                }
+                NJSpecialItem *item = nil;
+                while (item == nil) {
+                    item = [self generateRandomItem];
+                    if ([item isKindOfClass:[NJMedikit class]]) {
+                        item = nil;
+                    }
+                }
+                if (item) {
+                    ninja.player.item = item;
+                }
+            }
+        }
     }
+
     _pileDecreaseTime += timeSinceLast;
     if (shouldPileStartDecreasing && _pileDecreaseTime >= kPileDecreaseTimeInterval) {
         _pileDecreaseTime = 0;
@@ -972,7 +1009,7 @@
 
 - (void)restartOrContinue:(NSNotification *)note
 {
-    NSUInteger actionIndex = [(NSNumber *)[note object]integerValue];
+    NSUInteger actionIndex = [(NSNumber *)[note object] integerValue];
     if (!isSelectionInited && actionIndex == RESTART){
         [self restartGame];
     } else if(actionIndex == CONTINUE){
@@ -1094,9 +1131,12 @@
     [nc addObserver:self selector:@selector(activateSelectedPlayers:) name:kNotificationPlayerIndex object:nil];
 }
 
-- (void) activateSelectedPlayers:(NSNotification *)note{
+- (void)activateSelectedPlayers:(NSNotification *)note{
     isSelectionInited = NO;
     NSArray *activePlayerIndices = [note object];
+    if (_gameMode==NJGameModeOneVsThree) {
+        _bossIndex = [[activePlayerIndices firstObject] integerValue];
+    }
     NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
     for (NSNumber *index in activePlayerIndices) {
         [fullIndices removeObject:index];

@@ -13,6 +13,7 @@
 
 #import "NJNinjaCharacterBoss.h"
 #import "NJGraphicsUnitilities.h"
+#import "NJConstants.h"
 
 @implementation NJNinjaCharacterBoss
 
@@ -22,6 +23,8 @@
     if (self) {
         self.magicalDamageMultiplier = 0.25f;
         self.physicalDamageMultiplier = 0.25f;
+        self.addItemTimer = 0.0f;
+        self.needsAddItem = YES;
     }
     return self;
 }
@@ -36,6 +39,16 @@
         sSharedThunderAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Ninja_Thunder" withBaseName:@"ninja_thunder_" andNumOfFrames:NUM_OF_FRAMES_FOR_BOSS_NINJA_THUNDER];
         //sSharedDeathAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"ninja_normal_death" withBaseName:@"ninja_death_atlas_" andNumOfFrames:NUM_OF_FRAMES_FOR_NORMAL_NINJA_DEATH];
     });
+}
+
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
+{
+    [super updateWithTimeSinceLastUpdate:interval];
+    self.addItemTimer += interval;
+    if (self.addItemTimer>=kTimeAddItemToBoss) {
+        self.addItemTimer = 0;
+        self.needsAddItem = YES;
+    }
 }
 
 static NSArray *sSharedJumpAnimationFrames;
