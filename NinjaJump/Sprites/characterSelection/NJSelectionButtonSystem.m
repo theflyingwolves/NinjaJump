@@ -120,7 +120,7 @@
     haloList = [NSArray arrayWithObjects: orangeHalo, blueHalo, yellowHalo, purpleHalo, nil];
     for (SKSpriteNode *halo in haloList) {
         [self addChild:halo];
-        halo.position = CGPointMake(0, -5);
+        halo.position = CGPointMake(0, -4);
         halo.alpha = 0;
     }
     
@@ -200,21 +200,50 @@
 
 - (void)didStartButtonClicked{
     //NSLog(@"game start");
+    [self buttonsFlyOut];
+    [self ninjaBGshiftOut];
+    [self performSelector:@selector(fadeOut) withObject:nil afterDelay:kShurikenBUttonsFadeoutDuration-0.2];
+    NSNotification *note = [NSNotification notificationWithName:kNotificationPlayerIndex object:[activePlayerList copy]];
+    [[NSNotificationCenter defaultCenter] postNotification:note];
+}
+
+- (void)ninjaBGshiftOut {
+    SKAction *shiftDown = [SKAction moveByX:0 y:-700 duration:kShurikenBUttonsFadeoutDuration];
+    SKAction *shiftRight = [SKAction moveByX:700 y:0 duration:kShurikenBUttonsFadeoutDuration];
+    SKAction *shiftUp = [SKAction moveByX:0 y:700 duration:kShurikenBUttonsFadeoutDuration];
+    SKAction *shiftLeft = [SKAction moveByX:-700 y:0 duration:kShurikenBUttonsFadeoutDuration];
+    [selectedNinjas[0] runAction:shiftDown];
+    [selectedNinjas[1] runAction:shiftRight];
+    [selectedNinjas[2] runAction:shiftUp];
+    [selectedNinjas[3] runAction:shiftLeft];
+    [unselectedNinjas[0] runAction:shiftDown];
+    [unselectedNinjas[1] runAction:shiftRight];
+    [unselectedNinjas[2] runAction:shiftUp];
+    [unselectedNinjas[3] runAction:shiftLeft];
+}
+
+- (void)buttonsFlyOut {
     SKAction *flyAway2TopLeft = [SKAction moveByX:-700 y:700 duration:1.0];
     SKAction *flyAway2BottomLeft = [SKAction moveByX:-700 y:-700 duration:1.0];
     SKAction *flyAway2BottomRight = [SKAction moveByX:700 y:-700 duration:1.0];
     SKAction *flyAway2TopRight = [SKAction moveByX:700 y:700 duration:1.0];
-    SKAction *fadeAway = [SKAction fadeOutWithDuration:1.0];
-    SKAction *removeNode = [SKAction removeFromParent];
-    SKAction *sequence = [SKAction sequence:@[fadeAway, removeNode]];
     [selectionButtons[0] runAction:flyAway2BottomLeft];
     [selectionButtons[1] runAction:flyAway2BottomRight];
     [selectionButtons[2] runAction:flyAway2TopRight];
     [selectionButtons[3] runAction:flyAway2TopLeft];
-    NSNotification *note = [NSNotification notificationWithName:kNotificationPlayerIndex object:[activePlayerList copy]];
-    [[NSNotificationCenter defaultCenter] postNotification:note];
+    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.4];
+    for (SKSpriteNode *halo in haloList){
+        [halo runAction:fadeOut];
+    }
+}
+
+- (void)fadeOut {
+    SKAction *fadeAway = [SKAction fadeOutWithDuration:1.0];
+    SKAction *removeNode = [SKAction removeFromParent];
+    SKAction *sequence = [SKAction sequence:@[fadeAway, removeNode]];
     [self runAction:sequence];
 }
+
 
 - (CGMutablePathRef)pathOfButton:(NJSelectionButtonType)buttonType{
     CGMutablePathRef path = CGPathCreateMutable();
