@@ -16,6 +16,8 @@
     NSMutableArray *selectionButtons;
     NSMutableArray *activePlayerList;
     NSArray *haloList;
+    NSArray *unselectedNinjas;
+    NSArray *selectedNinjas;
     SKSpriteNode *startButton;
     SKSpriteNode *shade;
     SKSpriteNode *background;
@@ -26,6 +28,7 @@
     self = [super init];
     if (self) {
         activePlayerList = [NSMutableArray array];
+        [self addNinjaBackground];
         [self addBackground];
         [self addStartButton];
         [self addButtonHalos];
@@ -39,14 +42,13 @@
 
 - (void)addBackground{
     background = [SKSpriteNode spriteNodeWithImageNamed:kShurikenButtons];
-    background.position = CGPointMake(55, 700);
     [self addChild:background];
 }
 
 - (void)fireTransition{
     SKAction* rotate = [SKAction rotateByAngle:5*M_PI duration:1];
     SKAction *moveDown = [SKAction moveToY:-10 duration:1];
-    SKAction *fadeIn =[SKAction fadeAlphaTo:0.8 duration:1];
+    SKAction *fadeIn =[SKAction fadeAlphaTo:1 duration:1];
     SKAction *rotateIn = [SKAction group:@[rotate,moveDown]];
     [background runAction:rotateIn];
     [shade runAction:fadeIn completion:^{
@@ -54,11 +56,39 @@
     }];
 }
 
+- (void)addNinjaBackground {
+    SKSpriteNode *unselectedOrange = [SKSpriteNode spriteNodeWithImageNamed:kUnselectedOrange];
+    unselectedOrange.position = CGPointMake(-1024/4, -768/4);
+    SKSpriteNode *unselectedBlue = [SKSpriteNode spriteNodeWithImageNamed:kUnselectedBlue];
+    unselectedBlue.position = CGPointMake(1024/4, -768/4);
+    SKSpriteNode *unselectedYellow = [SKSpriteNode spriteNodeWithImageNamed:kUnselectedYellow];
+    unselectedYellow.position = CGPointMake(1024/4, 768/4);
+    SKSpriteNode *unselectedPurple = [SKSpriteNode spriteNodeWithImageNamed:kUnselectedPurple];
+    unselectedPurple.position = CGPointMake(-1024/4, 768/4);
+    unselectedNinjas = [NSArray arrayWithObjects:unselectedOrange, unselectedBlue, unselectedYellow, unselectedPurple, nil];
+    SKSpriteNode *selectedOrange = [SKSpriteNode spriteNodeWithImageNamed:kSelectedOrange];
+    selectedOrange.position = CGPointMake(-1024/4, -768/4);
+    SKSpriteNode *selectedBlue = [SKSpriteNode spriteNodeWithImageNamed:kSelectedBlue];
+    selectedBlue.position = CGPointMake(1024/4, -768/4);
+    SKSpriteNode *selectedYellow = [SKSpriteNode spriteNodeWithImageNamed:kSelectedYellow];
+    selectedYellow.position = CGPointMake(1024/4, 768/4);
+    SKSpriteNode *selectedPurple = [SKSpriteNode spriteNodeWithImageNamed:kSelectedPurple];
+    selectedPurple.position = CGPointMake(-1024/4, 768/4);
+    selectedNinjas = [NSArray arrayWithObjects:selectedOrange, selectedBlue, selectedYellow, selectedPurple, nil];
+    for (SKSpriteNode *unselected in unselectedNinjas) {
+        [self addChild:unselected];
+    }
+    for (SKSpriteNode *selected in selectedNinjas) {
+        [self addChild:selected];
+        selected.hidden = YES;
+    }
+}
+
 - (void)addStartButton{
     startButton = [SKSpriteNode spriteNodeWithImageNamed:kStartButton];
     shade = [SKSpriteNode spriteNodeWithImageNamed:kShurikenShade];
-    startButton.position = CGPointMake(30, 0);
     startButton.hidden = YES;
+    startButton.position=CGPointMake(-5, 0);
     shade.alpha = 0;
     [self addChild:shade];
     [self addChild:startButton];
@@ -67,9 +97,13 @@
 
 - (void)addSelectionButtons {
     NJSelectCharacterButton *selectionButtonOrange = [[NJSelectCharacterButton alloc] initWithType:ORANGE];
+    selectionButtonOrange.position = CGPointMake(-19, 0);
     NJSelectCharacterButton *selectionButtonBlue = [[NJSelectCharacterButton alloc] initWithType:BLUE];
+    selectionButtonBlue.position = CGPointMake(0, 0);
     NJSelectCharacterButton *selectionButtonYellow = [[NJSelectCharacterButton alloc] initWithType:YELLOW];
+    selectionButtonYellow.position = CGPointMake(-26, 0);
     NJSelectCharacterButton *selectionButtonPurple = [[NJSelectCharacterButton alloc] initWithType:PURPLE];
+    selectionButtonPurple.position = CGPointMake(1, 0);
     selectionButtons = [NSMutableArray arrayWithObjects:selectionButtonOrange, selectionButtonBlue, selectionButtonYellow, selectionButtonPurple, nil];
     for (NJSelectCharacterButton *selectionButton in selectionButtons) {
         selectionButton.hidden = YES;
@@ -86,6 +120,7 @@
     haloList = [NSArray arrayWithObjects: orangeHalo, blueHalo, yellowHalo, purpleHalo, nil];
     for (SKSpriteNode *halo in haloList) {
         [self addChild:halo];
+        halo.position = CGPointMake(-30, 0);
         halo.alpha = 0;
     }
     
@@ -137,6 +172,8 @@
                 [self stopShining];
             }
             button.hidden = !button.hidden;
+            SKSpriteNode *selected = selectedNinjas[i];
+            selected.hidden = !selected.hidden;
             SKSpriteNode *buttonHalo = haloList[i];
             buttonHalo.alpha = 1.0 - buttonHalo.alpha;
             isReacted = YES;

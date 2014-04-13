@@ -122,13 +122,19 @@
 		C931A93F18E05EF7002FE154 /* shade.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93818E05EF7002FE154 /* shade.png */; };
 		C931A94018E05EF7002FE154 /* start button.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93918E05EF7002FE154 /* start button.png */; };
 		C931A94118E05EF7002FE154 /* touched button blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93A18E05EF7002FE154 /* touched button blue.png */; };
-		C931A94218E05EF7002FE154 /* touched button brown.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93B18E05EF7002FE154 /* touched button brown.png */; };
 		C931A94318E05EF7002FE154 /* touched button purple.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93C18E05EF7002FE154 /* touched button purple.png */; };
-		C931A94418E05EF7002FE154 /* touched button red.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93D18E05EF7002FE154 /* touched button red.png */; };
 		C931A94618E06358002FE154 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A94518E06358002FE154 /* logo.png */; };
 		C93DBCA918F03B660036136E /* Bomb.sks in Resources */ = {isa = PBXBuildFile; fileRef = C93DBCA818F03B660036136E /* Bomb.sks */; };
 		C93DBCAB18F03B960036136E /* Soft Cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = C93DBCAA18F03B960036136E /* Soft Cloud.png */; };
 		C959C29E18E9A25000F11783 /* WoodFire.sks in Resources */ = {isa = PBXBuildFile; fileRef = C959C29D18E9A25000F11783 /* WoodFire.sks */; };
+		C980973A18FA418400FDD5C4 /* selectedBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = C980973218FA418400FDD5C4 /* selectedBlue.png */; };
+		C980973B18FA418400FDD5C4 /* selectedOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = C980973318FA418400FDD5C4 /* selectedOrange.png */; };
+		C980973C18FA418400FDD5C4 /* selectedPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = C980973418FA418400FDD5C4 /* selectedPurple.png */; };
+		C980973D18FA418400FDD5C4 /* selectedYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = C980973518FA418400FDD5C4 /* selectedYellow.png */; };
+		C980973E18FA418400FDD5C4 /* unselectedBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = C980973618FA418400FDD5C4 /* unselectedBlue.png */; };
+		C980973F18FA418400FDD5C4 /* unselectedOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = C980973718FA418400FDD5C4 /* unselectedOrange.png */; };
+		C980974018FA418400FDD5C4 /* unselectedPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = C980973818FA418400FDD5C4 /* unselectedPurple.png */; };
+		C980974118FA418400FDD5C4 /* unselectedYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = C980973918FA418400FDD5C4 /* unselectedYellow.png */; };
 		C98B5A6C18E8516500CD51D0 /* NJScrollAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B5A6B18E8516500CD51D0 /* NJScrollAnimation.m */; };
 		C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */; };
 		C9B8F29518E05B3B00FA877E /* NJSelectCharacterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B8F29218E05B3B00FA877E /* NJSelectCharacterButton.m */; };
@@ -305,13 +311,19 @@
 		C931A93818E05EF7002FE154 /* shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shade.png; path = "Assets/selection scene/shade.png"; sourceTree = "<group>"; };
 		C931A93918E05EF7002FE154 /* start button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "start button.png"; path = "Assets/selection scene/start button.png"; sourceTree = "<group>"; };
 		C931A93A18E05EF7002FE154 /* touched button blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button blue.png"; path = "Assets/selection scene/touched button blue.png"; sourceTree = "<group>"; };
-		C931A93B18E05EF7002FE154 /* touched button brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button brown.png"; path = "Assets/selection scene/touched button brown.png"; sourceTree = "<group>"; };
 		C931A93C18E05EF7002FE154 /* touched button purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button purple.png"; path = "Assets/selection scene/touched button purple.png"; sourceTree = "<group>"; };
-		C931A93D18E05EF7002FE154 /* touched button red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button red.png"; path = "Assets/selection scene/touched button red.png"; sourceTree = "<group>"; };
 		C931A94518E06358002FE154 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = "Assets/loading scene/logo.png"; sourceTree = "<group>"; };
 		C93DBCA818F03B660036136E /* Bomb.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Bomb.sks; path = Particle/Bomb.sks; sourceTree = "<group>"; };
 		C93DBCAA18F03B960036136E /* Soft Cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Soft Cloud.png"; path = "Particle/Soft Cloud.png"; sourceTree = "<group>"; };
 		C959C29D18E9A25000F11783 /* WoodFire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = WoodFire.sks; path = Particle/WoodFire.sks; sourceTree = "<group>"; };
+		C980973218FA418400FDD5C4 /* selectedBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selectedBlue.png; path = "Assets/selection scene/selectedBlue.png"; sourceTree = "<group>"; };
+		C980973318FA418400FDD5C4 /* selectedOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selectedOrange.png; path = "Assets/selection scene/selectedOrange.png"; sourceTree = "<group>"; };
+		C980973418FA418400FDD5C4 /* selectedPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selectedPurple.png; path = "Assets/selection scene/selectedPurple.png"; sourceTree = "<group>"; };
+		C980973518FA418400FDD5C4 /* selectedYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selectedYellow.png; path = "Assets/selection scene/selectedYellow.png"; sourceTree = "<group>"; };
+		C980973618FA418400FDD5C4 /* unselectedBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unselectedBlue.png; path = "Assets/selection scene/unselectedBlue.png"; sourceTree = "<group>"; };
+		C980973718FA418400FDD5C4 /* unselectedOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unselectedOrange.png; path = "Assets/selection scene/unselectedOrange.png"; sourceTree = "<group>"; };
+		C980973818FA418400FDD5C4 /* unselectedPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unselectedPurple.png; path = "Assets/selection scene/unselectedPurple.png"; sourceTree = "<group>"; };
+		C980973918FA418400FDD5C4 /* unselectedYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unselectedYellow.png; path = "Assets/selection scene/unselectedYellow.png"; sourceTree = "<group>"; };
 		C98B5A6A18E8516500CD51D0 /* NJScrollAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJScrollAnimation.h; path = Animation/NJScrollAnimation.h; sourceTree = SOURCE_ROOT; };
 		C98B5A6B18E8516500CD51D0 /* NJScrollAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJScrollAnimation.m; path = Animation/NJScrollAnimation.m; sourceTree = SOURCE_ROOT; };
 		C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FreezeEffect.sks; path = Particle/FreezeEffect.sks; sourceTree = "<group>"; };
@@ -778,14 +790,20 @@
 		C9B8F2A518E05E9E00FA877E /* selection scene */ = {
 			isa = PBXGroup;
 			children = (
+				C980973218FA418400FDD5C4 /* selectedBlue.png */,
+				C980973318FA418400FDD5C4 /* selectedOrange.png */,
+				C980973418FA418400FDD5C4 /* selectedPurple.png */,
+				C980973518FA418400FDD5C4 /* selectedYellow.png */,
+				C980973618FA418400FDD5C4 /* unselectedBlue.png */,
+				C980973718FA418400FDD5C4 /* unselectedOrange.png */,
+				C980973818FA418400FDD5C4 /* unselectedPurple.png */,
+				C980973918FA418400FDD5C4 /* unselectedYellow.png */,
 				2FC568B718E1BE0900C6589D /* spotlight.png */,
 				C931A93718E05EF7002FE154 /* ready buttons.png */,
 				C931A93818E05EF7002FE154 /* shade.png */,
 				C931A93918E05EF7002FE154 /* start button.png */,
 				C931A93A18E05EF7002FE154 /* touched button blue.png */,
-				C931A93B18E05EF7002FE154 /* touched button brown.png */,
 				C931A93C18E05EF7002FE154 /* touched button purple.png */,
-				C931A93D18E05EF7002FE154 /* touched button red.png */,
 			);
 			name = "selection scene";
 			sourceTree = "<group>";
@@ -907,18 +925,19 @@
 				2FC568BB18E1BE0900C6589D /* spawnLight.png in Resources */,
 				C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */,
 				C9150B0818EC56EF00645698 /* victory bg.png in Resources */,
+				C980974118FA418400FDD5C4 /* unselectedYellow.png in Resources */,
 				2F63E13018E0291500E9A17B /* hp_bar.png in Resources */,
 				2FDD9C4218EDB09E0071C712 /* pause_scene_left_bar.png in Resources */,
 				C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */,
 				2FC568BA18E1BE0900C6589D /* jumpButton.png in Resources */,
 				C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
+				C980973E18FA418400FDD5C4 /* unselectedBlue.png in Resources */,
 				C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */,
 				C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */,
 				C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */,
 				C931A94318E05EF7002FE154 /* touched button purple.png in Resources */,
 				2FBFDD0118F96E2100A59A77 /* shadow.png in Resources */,
-				C931A94218E05EF7002FE154 /* touched button brown.png in Resources */,
 				C4C8747518F023A9004B6527 /* use skill.mid in Resources */,
 				C4C8746A18F023A9004B6527 /* shadowNinja.mp3 in Resources */,
 				C93DBCA918F03B660036136E /* Bomb.sks in Resources */,
@@ -928,24 +947,29 @@
 				C4C8746D18F023A9004B6527 /* fire(1).mid in Resources */,
 				2FC568C418E1BEC000C6589D /* ninja.png in Resources */,
 				C4AF3C2318E852AA0036596A /* Ninja_Thunder.atlas in Resources */,
+				C980973D18FA418400FDD5C4 /* selectedYellow.png in Resources */,
 				C931A94618E06358002FE154 /* logo.png in Resources */,
 				2F45B45418E7332700482453 /* pause scene.png in Resources */,
 				C4C8747118F023A9004B6527 /* recover.mid in Resources */,
+				C980974018FA418400FDD5C4 /* unselectedPurple.png in Resources */,
 				C4C8747418F023A9004B6527 /* thunder.mid in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 				C4C8746B18F023A9004B6527 /* sunshining.mp3 in Resources */,
+				C980973B18FA418400FDD5C4 /* selectedOrange.png in Resources */,
 				2FBFDCFD18F9108800A59A77 /* tutorialBtn.png in Resources */,
 				2FDD9C3E18ED940D0071C712 /* indicator_thunder.png in Resources */,
 				C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */,
 				C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */,
+				C980973A18FA418400FDD5C4 /* selectedBlue.png in Resources */,
 				2B81400018F5716D00F80DB9 /* Jump_Timer.atlas in Resources */,
+				C980973F18FA418400FDD5C4 /* unselectedOrange.png in Resources */,
 				2FC568C818E1EBC000C6589D /* Ninja_Attack.atlas in Resources */,
 				2F8A72B718E44F0A00B88E79 /* itemControl.png in Resources */,
 				C4C8746C18F023A9004B6527 /* water.mp3 in Resources */,
+				C980973C18FA418400FDD5C4 /* selectedPurple.png in Resources */,
 				C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */,
 				C959C29E18E9A25000F11783 /* WoodFire.sks in Resources */,
 				C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */,
-				C931A94418E05EF7002FE154 /* touched button red.png in Resources */,
 				2FDD9C3D18ED940D0071C712 /* indicator_ice.png in Resources */,
 				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
 				C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */,
