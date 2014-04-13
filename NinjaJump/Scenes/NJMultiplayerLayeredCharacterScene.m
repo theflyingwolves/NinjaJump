@@ -976,6 +976,7 @@
 + (void)loadSceneAssets
 {
     [NJNinjaCharacterNormal loadSharedAssets];
+    [NJNinjaCharacterBoss loadSharedAssets];
     [NJPlayer loadSharedAssets];
 }
 
