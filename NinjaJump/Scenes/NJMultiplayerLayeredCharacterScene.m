@@ -268,7 +268,7 @@
         if (_bossIndex<[self.players count]) {
             NJPlayer *bossPlayer = [self.players objectAtIndex:_bossIndex];
             if (bossPlayer == player) {
-                ninja = [[NJNinjaCharacterBoss alloc ] initWithTextureNamed:@"light.png" atPosition:CGPointZero withPlayer:player];
+                ninja = [[NJNinjaCharacterBoss alloc ] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player];
             }
         }
     }
@@ -496,7 +496,6 @@
                 [ninja.frozenEffect removeFromParent];
                 ninja.frozenEffect = nil;
             }
-            player.jumpCooldown += timeSinceLast;
             if (player.jumpRequested) {
                 if (player.fromPile.standingCharacter == ninja) {
                     player.fromPile.standingCharacter = nil;
@@ -507,6 +506,8 @@
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;
+                    player.jumpCooldown = 0;
+                    [player runJumpTimerAction];
                     //resolve attack events
                     for (NJPlayer *p in _players) {
                         if (p == player) {
@@ -557,6 +558,8 @@
                     [player.ninja pickupItem:self.items onPile:player.targetPile];
                     player.itemIndicatorAdded = NO;
                 }
+            } else {
+                player.jumpCooldown += timeSinceLast;
             }
         }
     }
@@ -886,7 +889,6 @@
             button.player.targetPile = pile;
             button.player.jumpRequested = YES;
             button.player.isJumping = YES;
-            [button.player runJumpTimerAction];
         }
     }
 }
