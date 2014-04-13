@@ -97,13 +97,13 @@
 
 - (void)addSelectionButtons {
     NJSelectCharacterButton *selectionButtonOrange = [[NJSelectCharacterButton alloc] initWithType:ORANGE];
-    selectionButtonOrange.position = CGPointMake(-19, 0);
+//    selectionButtonOrange.position = CGPointMake(-19, 0);
     NJSelectCharacterButton *selectionButtonBlue = [[NJSelectCharacterButton alloc] initWithType:BLUE];
-    selectionButtonBlue.position = CGPointMake(0, 0);
+//    selectionButtonBlue.position = CGPointMake(0, 0);
     NJSelectCharacterButton *selectionButtonYellow = [[NJSelectCharacterButton alloc] initWithType:YELLOW];
-    selectionButtonYellow.position = CGPointMake(-26, 0);
+//    selectionButtonYellow.position = CGPointMake(-26, 0);
     NJSelectCharacterButton *selectionButtonPurple = [[NJSelectCharacterButton alloc] initWithType:PURPLE];
-    selectionButtonPurple.position = CGPointMake(1, 0);
+//    selectionButtonPurple.position = CGPointMake(1, 0);
     selectionButtons = [NSMutableArray arrayWithObjects:selectionButtonOrange, selectionButtonBlue, selectionButtonYellow, selectionButtonPurple, nil];
     for (NJSelectCharacterButton *selectionButton in selectionButtons) {
         selectionButton.hidden = YES;
@@ -120,7 +120,7 @@
     haloList = [NSArray arrayWithObjects: orangeHalo, blueHalo, yellowHalo, purpleHalo, nil];
     for (SKSpriteNode *halo in haloList) {
         [self addChild:halo];
-        halo.position = CGPointMake(-30, 0);
+        halo.position = CGPointMake(0, -5);
         halo.alpha = 0;
     }
     

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B067F5A18FA598B003755A4 /* blueHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B067F5418FA598B003755A4 /* blueHalo.png */; };
+		2B067F5B18FA598B003755A4 /* orangeHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B067F5518FA598B003755A4 /* orangeHalo.png */; };
+		2B067F5C18FA598B003755A4 /* purpleHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B067F5618FA598B003755A4 /* purpleHalo.png */; };
+		2B067F5D18FA598B003755A4 /* touched button orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B067F5718FA598B003755A4 /* touched button orange.png */; };
+		2B067F5E18FA598B003755A4 /* touched button yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B067F5818FA598B003755A4 /* touched button yellow.png */; };
+		2B067F5F18FA598B003755A4 /* yellowHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B067F5918FA598B003755A4 /* yellowHalo.png */; };
 		2B21F15118D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15018D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m */; };
 		2B21F15418D4342E007220CF /* NJPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15318D4342E007220CF /* NJPlayer.m */; };
 		2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */; };
@@ -159,6 +165,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B067F5418FA598B003755A4 /* blueHalo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueHalo.png; path = "Assets/selection scene/blueHalo.png"; sourceTree = "<group>"; };
+		2B067F5518FA598B003755A4 /* orangeHalo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = orangeHalo.png; path = "Assets/selection scene/orangeHalo.png"; sourceTree = "<group>"; };
+		2B067F5618FA598B003755A4 /* purpleHalo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = purpleHalo.png; path = "Assets/selection scene/purpleHalo.png"; sourceTree = "<group>"; };
+		2B067F5718FA598B003755A4 /* touched button orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button orange.png"; path = "Assets/selection scene/touched button orange.png"; sourceTree = "<group>"; };
+		2B067F5818FA598B003755A4 /* touched button yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button yellow.png"; path = "Assets/selection scene/touched button yellow.png"; sourceTree = "<group>"; };
+		2B067F5918FA598B003755A4 /* yellowHalo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellowHalo.png; path = "Assets/selection scene/yellowHalo.png"; sourceTree = "<group>"; };
 		2B21F14F18D433D2007220CF /* NJMultiplayerLayeredCharacterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJMultiplayerLayeredCharacterScene.h; path = Scenes/NJMultiplayerLayeredCharacterScene.h; sourceTree = "<group>"; };
 		2B21F15018D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJMultiplayerLayeredCharacterScene.m; path = Scenes/NJMultiplayerLayeredCharacterScene.m; sourceTree = "<group>"; };
 		2B21F15218D4342E007220CF /* NJPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPlayer.h; path = Scenes/NJPlayer.h; sourceTree = "<group>"; };
@@ -790,6 +802,12 @@
 		C9B8F2A518E05E9E00FA877E /* selection scene */ = {
 			isa = PBXGroup;
 			children = (
+				2B067F5418FA598B003755A4 /* blueHalo.png */,
+				2B067F5518FA598B003755A4 /* orangeHalo.png */,
+				2B067F5618FA598B003755A4 /* purpleHalo.png */,
+				2B067F5718FA598B003755A4 /* touched button orange.png */,
+				2B067F5818FA598B003755A4 /* touched button yellow.png */,
+				2B067F5918FA598B003755A4 /* yellowHalo.png */,
 				C980973218FA418400FDD5C4 /* selectedBlue.png */,
 				C980973318FA418400FDD5C4 /* selectedOrange.png */,
 				C980973418FA418400FDD5C4 /* selectedPurple.png */,
@@ -919,6 +937,7 @@
 				C41270F518E1D41500CAC44A /* medikit.png in Resources */,
 				2FC568BE18E1BE0900C6589D /* woodPile.png in Resources */,
 				C4C8746E18F023A9004B6527 /* fire.mid in Resources */,
+				2B067F5E18FA598B003755A4 /* touched button yellow.png in Resources */,
 				2F45B45718E7335900482453 /* continue button.png in Resources */,
 				C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */,
 				C9B8F2A018E05E8400FA877E /* light.png in Resources */,
@@ -926,6 +945,7 @@
 				C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */,
 				C9150B0818EC56EF00645698 /* victory bg.png in Resources */,
 				C980974118FA418400FDD5C4 /* unselectedYellow.png in Resources */,
+				2B067F5D18FA598B003755A4 /* touched button orange.png in Resources */,
 				2F63E13018E0291500E9A17B /* hp_bar.png in Resources */,
 				2FDD9C4218EDB09E0071C712 /* pause_scene_left_bar.png in Resources */,
 				C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */,
@@ -955,6 +975,7 @@
 				C4C8747418F023A9004B6527 /* thunder.mid in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 				C4C8746B18F023A9004B6527 /* sunshining.mp3 in Resources */,
+				2B067F5F18FA598B003755A4 /* yellowHalo.png in Resources */,
 				C980973B18FA418400FDD5C4 /* selectedOrange.png in Resources */,
 				2FBFDCFD18F9108800A59A77 /* tutorialBtn.png in Resources */,
 				2FDD9C3E18ED940D0071C712 /* indicator_thunder.png in Resources */,
@@ -963,12 +984,14 @@
 				C980973A18FA418400FDD5C4 /* selectedBlue.png in Resources */,
 				2B81400018F5716D00F80DB9 /* Jump_Timer.atlas in Resources */,
 				C980973F18FA418400FDD5C4 /* unselectedOrange.png in Resources */,
+				2B067F5B18FA598B003755A4 /* orangeHalo.png in Resources */,
 				2FC568C818E1EBC000C6589D /* Ninja_Attack.atlas in Resources */,
 				2F8A72B718E44F0A00B88E79 /* itemControl.png in Resources */,
 				C4C8746C18F023A9004B6527 /* water.mp3 in Resources */,
 				C980973C18FA418400FDD5C4 /* selectedPurple.png in Resources */,
 				C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */,
 				C959C29E18E9A25000F11783 /* WoodFire.sks in Resources */,
+				2B067F5C18FA598B003755A4 /* purpleHalo.png in Resources */,
 				C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */,
 				2FDD9C3D18ED940D0071C712 /* indicator_ice.png in Resources */,
 				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
@@ -1002,6 +1025,7 @@
 				2FBFDCFB18F9108800A59A77 /* beginnerBtn.png in Resources */,
 				2FDBC06518F42DAC00814C70 /* lakeMoonBG.png in Resources */,
 				2BDFAC8018E7EAB000B4007D /* fog.sks in Resources */,
+				2B067F5A18FA598B003755A4 /* blueHalo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
