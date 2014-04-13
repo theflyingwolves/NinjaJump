@@ -207,7 +207,7 @@
     [self buttonsFlyOut];
     [self ninjaBGshiftOut];
     [self performSelector:@selector(fadeOut) withObject:nil afterDelay:kShurikenBUttonsFadeoutDuration-0.2];
-    NSNotification *note = [NSNotification notificationWithName:kNotificationPlayerIndex object:[activePlayerList copy]];
+    NSNotification *note = [NSNotification notificationWithName:kNotificationPlayerIndex object:[_activePlayerList copy]];
     [[NSNotificationCenter defaultCenter] postNotification:note];
 }
 
@@ -216,14 +216,22 @@
     SKAction *shiftRight = [SKAction moveByX:700 y:0 duration:kShurikenBUttonsFadeoutDuration];
     SKAction *shiftUp = [SKAction moveByX:0 y:700 duration:kShurikenBUttonsFadeoutDuration];
     SKAction *shiftLeft = [SKAction moveByX:-700 y:0 duration:kShurikenBUttonsFadeoutDuration];
-    [selectedNinjas[0] runAction:shiftDown];
-    [selectedNinjas[1] runAction:shiftRight];
-    [selectedNinjas[2] runAction:shiftUp];
-    [selectedNinjas[3] runAction:shiftLeft];
-    [unselectedNinjas[0] runAction:shiftDown];
-    [unselectedNinjas[1] runAction:shiftRight];
-    [unselectedNinjas[2] runAction:shiftUp];
-    [unselectedNinjas[3] runAction:shiftLeft];
+    [_selectedNinjas[0] runAction:shiftDown];
+    [_selectedNinjas[1] runAction:shiftRight];
+    [_selectedNinjas[2] runAction:shiftUp];
+    [_selectedNinjas[3] runAction:shiftLeft];
+    [_unselectedNinjas[0] runAction:shiftDown];
+    [_unselectedNinjas[1] runAction:shiftRight];
+    [_unselectedNinjas[2] runAction:shiftUp];
+    [_unselectedNinjas[3] runAction:shiftLeft];
+}
+
+- (void)fadeOut
+{
+    SKAction *fadeAway = [SKAction fadeOutWithDuration:1.0];
+    SKAction *removeNode = [SKAction removeFromParent];
+    SKAction *sequence = [SKAction sequence:@[fadeAway, removeNode]];
+    [self runAction:sequence];
 }
 
 - (void)buttonsFlyOut {
@@ -242,7 +250,6 @@
     [[NSNotificationCenter defaultCenter] postNotification:note];
     [self runAction:sequence];
 }
-
 
 - (CGMutablePathRef)pathOfButton:(NJSelectionButtonType)buttonType{
     CGMutablePathRef path = CGPathCreateMutable();
@@ -273,30 +280,5 @@
     CGPathCloseSubpath(path);
     return path;
 }
-
-//- (void)addSpotlight{
-//    spotLightList = [NSMutableArray array];
-//    for (int i=0; i<4; i++) {
-//        SKSpriteNode *spotLight = [SKSpriteNode spriteNodeWithImageNamed:@"spotlight.png"];
-//        spotLight.hidden = YES;
-//        [spotLightList addObject:spotLight];
-//    }
-//    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-//    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-//    CGFloat r = 90.0f;
-//    ((SKSpriteNode *)spotLightList[0]).position = CGPointMake(r-screenHeight/2, screenWidth/2-r);
-//    ((SKSpriteNode *)spotLightList[0]).xScale = -1;
-//    ((SKSpriteNode *)spotLightList[1]).position = CGPointMake(r-screenHeight/2, r-screenWidth/2);
-//    ((SKSpriteNode *)spotLightList[1]).xScale = -1;
-//    ((SKSpriteNode *)spotLightList[1]).yScale = -1;
-//    ((SKSpriteNode *)spotLightList[2]).position = CGPointMake(screenHeight/2-r, r-screenWidth/2);
-//    ((SKSpriteNode *)spotLightList[2]).yScale = -1;
-//    ((SKSpriteNode *)spotLightList[3]).position = CGPointMake(screenHeight/2-r, screenWidth/2-r);
-//
-//    //NSLog(@"%lu",spotLightList.count);
-//    for (int i=0; i<spotLightList.count; i++) {
-//        [self addChild:spotLightList[i]];
-//    }
-//}
 
 @end

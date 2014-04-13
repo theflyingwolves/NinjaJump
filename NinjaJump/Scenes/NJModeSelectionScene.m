@@ -60,7 +60,7 @@
 {
     _tutorialMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
     _tutorialMode.delegate = self;
-    //_tutorialMode.index = NJGameModeTutorial;
+    _tutorialMode.index = NJGameModeOneVsThree;
     _tutorialMode.position = CGPointMake(1350, 220);
     [self addChild:_tutorialMode];
     float x = FRAME.size.width - 2.5*BUTTON_WIDTH - 3*GAP;

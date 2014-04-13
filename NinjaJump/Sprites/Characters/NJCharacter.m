@@ -93,7 +93,7 @@
     if (character.health <= 0) {
         return ; // to prevent the attack animation to be wrongly performed
     }
-    [character applyDamage:kAttackDamage];
+    [character applyPhysicalDamage:kAttackDamage];
     self.requestedAnimation = NJAnimationStateAttack;
     [self runAction:[SKAction playSoundFileNamed:kSoundAttack waitForCompletion:NO]];
 }

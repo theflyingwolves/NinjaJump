@@ -21,8 +21,8 @@
 {
     self = [super initWithTextureNamed:textureName atPosition:position withPlayer:player];
     if (self) {
-        self.magicalDamageMultiplier = 0.25f;
-        self.physicalDamageMultiplier = 0.25f;
+        self.magicalDamageMultiplier = 0.5f;
+        self.physicalDamageMultiplier = 0.5f;
         self.addItemTimer = 0.0f;
         self.needsAddItem = YES;
     }
