@@ -120,7 +120,7 @@
     haloList = [NSArray arrayWithObjects: orangeHalo, blueHalo, yellowHalo, purpleHalo, nil];
     for (SKSpriteNode *halo in haloList) {
         [self addChild:halo];
-        halo.position = CGPointMake(0, -5);
+        halo.position = CGPointMake(0, -4);
         halo.alpha = 0;
     }
     
