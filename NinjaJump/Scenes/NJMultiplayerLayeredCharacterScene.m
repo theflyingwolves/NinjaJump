@@ -450,7 +450,7 @@
                 }
                 SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
                 itemIndicator.alpha = kIndicatorAlpha;
-                [self addNode:itemIndicator atWorldLayer:NJWorldLayerCharacter];
+                [self addNode:itemIndicator atWorldLayer:NJWorldLayerGround];
                 player.indicatorNode = itemIndicator;
                 player.itemIndicatorAdded = YES;
             }
