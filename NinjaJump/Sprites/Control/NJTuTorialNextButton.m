@@ -12,11 +12,11 @@
 
 - (id)init
 {
-    self = [super initWithColor:[UIColor grayColor] size:CGSizeMake(100, 100)];
+    self = [super initWithColor:[UIColor grayColor] size:CGSizeMake(100, 50)];
     
     if (self) {
         self.userInteractionEnabled = YES;
-        self.position = CGPointMake(900, 500);
+        self.position = CGPointMake(900, 470);
         self.zPosition = 3;
     }
     
