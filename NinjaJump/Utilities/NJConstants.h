@@ -7,7 +7,8 @@
 //
 
 #pragma mark - Game World
-#define kNumOfFramesToSpawnItem 10
+#define kNumOfFramesToSpawnItem 200
+#define kTimeAddItemToBoss 5.0f
 #define NJWoodPileInitialImpluse 3
 #define FRAME CGRectMake(1024/2, 768/2, 1024, 768)
 
@@ -28,6 +29,10 @@
 #define kShurikenDamage 10
 #define kMineDamage 20
 #define kIndicatorAlpha 0.1
+
+#define kNinjaImageName @"ninja.png"
+#define bossIndex @"bossIndex"
+
 #define kThunderScrollFileName @"thunderScroll"
 #define kWindScrollFileName @"windScroll"
 #define kIceScrollFileName @"iceScroll"
@@ -72,6 +77,7 @@
 #define kUnselectedYellow @"unselectedYellow"
 #define kUnselectedPurple @"unselectedPurple"
 #define kButtonHaloShinningTime 0.2
+#define kShurikenBUttonsFadeoutDuration 1.0
 
 #pragma mark - Notification
 #define kNotificationPlayerIndex @"activatedPlayerIndex"
