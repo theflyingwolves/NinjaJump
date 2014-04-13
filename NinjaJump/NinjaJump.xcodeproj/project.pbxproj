@@ -27,11 +27,11 @@
 		2F42F72918FA81BA00973113 /* selectedBoss_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72118FA81BA00973113 /* selectedBoss_01.png */; };
 		2F42F72A18FA81BA00973113 /* selectedBoss_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72218FA81BA00973113 /* selectedBoss_02.png */; };
 		2F42F72B18FA81BA00973113 /* selectedBoss_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72318FA81BA00973113 /* selectedBoss_03.png */; };
-		2F42F72C18FA81BA00973113 /* selectedBoss_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72418FA81BA00973113 /* selectedBoss_04.png */; };
 		2F42F72D18FA81BA00973113 /* touched button boss 01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72518FA81BA00973113 /* touched button boss 01.png */; };
 		2F42F72E18FA81BA00973113 /* touched button boss 02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72618FA81BA00973113 /* touched button boss 02.png */; };
 		2F42F72F18FA81BA00973113 /* touched button boss 03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72718FA81BA00973113 /* touched button boss 03.png */; };
-		2F42F73018FA81BA00973113 /* touched button boss 04.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72818FA81BA00973113 /* touched button boss 04.png */; };
+		2F42F73318FA8B1300973113 /* selectedBoss_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F73118FA8B1300973113 /* selectedBoss_00.png */; };
+		2F42F73418FA8B1300973113 /* touched button boss 00.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F73218FA8B1300973113 /* touched button boss 00.png */; };
 		2F45B43418E6A9E100482453 /* NJRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43318E6A9E100482453 /* NJRange.m */; };
 		2F45B43718E6AC6C00482453 /* NJCircularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43618E6AC6C00482453 /* NJCircularRange.m */; };
 		2F45B43A18E6AC8E00482453 /* NJRectangularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43918E6AC8E00482453 /* NJRectangularRange.m */; };
@@ -201,11 +201,11 @@
 		2F42F72118FA81BA00973113 /* selectedBoss_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedBoss_01.png; sourceTree = "<group>"; };
 		2F42F72218FA81BA00973113 /* selectedBoss_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedBoss_02.png; sourceTree = "<group>"; };
 		2F42F72318FA81BA00973113 /* selectedBoss_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedBoss_03.png; sourceTree = "<group>"; };
-		2F42F72418FA81BA00973113 /* selectedBoss_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedBoss_04.png; sourceTree = "<group>"; };
 		2F42F72518FA81BA00973113 /* touched button boss 01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touched button boss 01.png"; sourceTree = "<group>"; };
 		2F42F72618FA81BA00973113 /* touched button boss 02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touched button boss 02.png"; sourceTree = "<group>"; };
 		2F42F72718FA81BA00973113 /* touched button boss 03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touched button boss 03.png"; sourceTree = "<group>"; };
-		2F42F72818FA81BA00973113 /* touched button boss 04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touched button boss 04.png"; sourceTree = "<group>"; };
+		2F42F73118FA8B1300973113 /* selectedBoss_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedBoss_00.png; sourceTree = "<group>"; };
+		2F42F73218FA8B1300973113 /* touched button boss 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touched button boss 00.png"; sourceTree = "<group>"; };
 		2F45B43218E6A9E100482453 /* NJRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJRange.h; path = "Utilities/Range System/NJRange.h"; sourceTree = "<group>"; };
 		2F45B43318E6A9E100482453 /* NJRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJRange.m; path = "Utilities/Range System/NJRange.m"; sourceTree = "<group>"; };
 		2F45B43518E6AC6C00482453 /* NJCircularRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJCircularRange.h; path = "Utilities/Range System/NJCircularRange.h"; sourceTree = "<group>"; };
@@ -473,14 +473,14 @@
 		2F42F72018FA81BA00973113 /* Boss Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2F42F73118FA8B1300973113 /* selectedBoss_00.png */,
+				2F42F73218FA8B1300973113 /* touched button boss 00.png */,
 				2F42F72118FA81BA00973113 /* selectedBoss_01.png */,
 				2F42F72218FA81BA00973113 /* selectedBoss_02.png */,
 				2F42F72318FA81BA00973113 /* selectedBoss_03.png */,
-				2F42F72418FA81BA00973113 /* selectedBoss_04.png */,
 				2F42F72518FA81BA00973113 /* touched button boss 01.png */,
 				2F42F72618FA81BA00973113 /* touched button boss 02.png */,
 				2F42F72718FA81BA00973113 /* touched button boss 03.png */,
-				2F42F72818FA81BA00973113 /* touched button boss 04.png */,
 			);
 			name = "Boss Assets";
 			path = "Assets/selection scene/Boss Assets";
@@ -971,7 +971,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F42F73018FA81BA00973113 /* touched button boss 04.png in Resources */,
+				2F42F73418FA8B1300973113 /* touched button boss 00.png in Resources */,
 				C4C8746918F023A9004B6527 /* patrit.mp3 in Resources */,
 				C4C8747718F023A9004B6527 /* wind(1).mid in Resources */,
 				2F050DBD18F574290094F07F /* fireArc.png in Resources */,
@@ -1038,12 +1038,12 @@
 				C980973C18FA418400FDD5C4 /* selectedPurple.png in Resources */,
 				C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */,
 				C959C29E18E9A25000F11783 /* WoodFire.sks in Resources */,
+				2F42F73318FA8B1300973113 /* selectedBoss_00.png in Resources */,
 				2B067F5C18FA598B003755A4 /* purpleHalo.png in Resources */,
 				C9B8F2A118E05E8400FA877E /* loading bar.png in Resources */,
 				2FDD9C3D18ED940D0071C712 /* indicator_ice.png in Resources */,
 				C4AF3C2918E866490036596A /* mineEffectInvisible.png in Resources */,
 				C4AF3C2B18E866550036596A /* freezeEffect.png in Resources */,
-				2F42F72C18FA81BA00973113 /* selectedBoss_04.png in Resources */,
 				C4C8747918F023A9004B6527 /* wind.mid in Resources */,
 				2FBFDCFC18F9108800A59A77 /* survivalBtn.png in Resources */,
 				2F050DBE18F574290094F07F /* wind.png in Resources */,
