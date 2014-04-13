@@ -26,6 +26,8 @@
 #define kNPCPositionY 50
 #define kDialogPositionX 200
 #define kDialogPositionY 150
+#define kNextButtonPositionX 210
+#define kNextButtonPositionY -50
 
 typedef enum : uint8_t {
     NJTutorialPhaseIntro = 0,
@@ -53,8 +55,10 @@ typedef enum : uint8_t {
     SKSpriteNode *NPC2;
     SKSpriteNode *dialog;
     
+    
     BOOL isPaused;
     NSInteger phaseNum;
+    CGFloat timeToGoToNextPhase;
 }
 
 #pragma init
@@ -63,20 +67,15 @@ typedef enum : uint8_t {
     self = [super initWithSizeWithoutSelection:size];
     if (self){
         [self initGameSettings];
-        [self initButton];
         [self initCover];
         phaseNum = NJTutorialPhaseIntro;
+        timeToGoToNextPhase = -1;
         [self disableControl];
     }
     
     return  self;
 }
 
-- (void)initButton {
-    self.nextButton = [[NJTuTorialNextButton alloc] init];
-    [self addChild:self.nextButton];
-    self.nextButton.delegate = self;
-}
 
 - (void)initGameSettings {
     ((NJPlayer*)self.players[1]).isDisabled = NO;
@@ -117,6 +116,10 @@ typedef enum : uint8_t {
     dialog.position = CGPointMake(kDialogPositionX, kDialogPositionY);
     [cover addChild:dialog];
     
+    self.nextButton = [[NJTuTorialNextButton alloc] init];
+    [dialog addChild:self.nextButton];
+    self.nextButton.delegate = self;
+    self.nextButton.position = CGPointMake(kNextButtonPositionX, kNextButtonPositionY);
 }
 
 
@@ -138,6 +141,30 @@ typedef enum : uint8_t {
     } else {
         [self disableControl];
     }
+}
+
+- (void)goToNextPhaseWithDelay {
+    if (timeToGoToNextPhase == -1) {
+        phaseNum++;
+        [self hideGuide];
+        [self toggleControl];
+        timeToGoToNextPhase = 1;
+    }
+}
+
+- (void)goToNextPhase {
+    phaseNum++;
+    [self toggleControl];
+}
+
+- (void)showGuide{
+    [cover addChild:NPC1];
+    [cover addChild:dialog];
+}
+
+- (void)hideGuide{
+    [NPC1 removeFromParent];
+    [dialog removeFromParent];
 }
 
 - (void)activateDummyPlayer{
@@ -209,52 +236,42 @@ typedef enum : uint8_t {
 
 - (void)update:(NSTimeInterval)currentTime{
     [super update:currentTime];
-//    if (!isPaused) {
-//        [super update:currentTime];
-//    }
 
-    
     switch (phaseNum) {
         case NJTutorialPhaseJump:
             if (((NJPlayer*)self.players[1]).finishJumpping == YES) {
-                [self toggleControl];
-                phaseNum++;
+                [self goToNextPhaseWithDelay];
             }
             break;
             
         case NJTutorialPhaseAttack:
             if (((NJPlayer*)self.players[0]).ninja.health <FULL_HP){
-                [self toggleControl];
-                phaseNum++;
+                [self goToNextPhaseWithDelay];
             }
             break;
         
         case NJTutorialPhasePickupShuriken:
             if (((NJPlayer*)self.players[1]).item) {
-                [self toggleControl];
-                phaseNum++;
+                [self goToNextPhaseWithDelay];
             }
             break;
             
         case NJTutorialPhaseUseShuriken:
             if (!((NJPlayer*)self.players[1]).item) {
-                [self toggleControl];
-                phaseNum++;
+                [self goToNextPhaseWithDelay];
             }
             break;
             
         case NJTutorialPhasePickupMedikit:
             if (((NJPlayer*)self.players[1]).ninja.health == FULL_HP) {
-                [self toggleControl];
-                phaseNum++;
+                [self goToNextPhaseWithDelay];
             }
             break;
             
         case NJTutorialPhaseUseIce:
             if (!((NJPlayer*)self.players[0]).item) {
                 if (((NJPlayer*)self.players[0]).ninja.frozenCount > 0){
-                    [self toggleControl];
-                    phaseNum++;
+                    [self goToNextPhaseWithDelay];
                 } else if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item) {
                     [self addItem:kItemNameIceScroll];
                 }
@@ -275,6 +292,19 @@ typedef enum : uint8_t {
     return NO;
 }
 
+- (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast{
+    [super updateWithTimeSinceLastUpdate:timeSinceLast];
+    
+    if (timeToGoToNextPhase < 0 && timeToGoToNextPhase > -1) {
+        [self showGuide];
+        timeToGoToNextPhase = -1;
+    } else if(timeToGoToNextPhase > 0) {
+        timeToGoToNextPhase -= timeSinceLast;
+    }
+    
+    NSLog(@"%f", timeToGoToNextPhase);
+    
+}
 
 
 #pragma delegate method

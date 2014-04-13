@@ -16,8 +16,6 @@
     
     if (self) {
         self.userInteractionEnabled = YES;
-        self.position = CGPointMake(900, 470);
-        self.zPosition = 3;
     }
     
     return self;
