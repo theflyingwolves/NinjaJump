@@ -23,6 +23,9 @@
 		2F050DBD18F574290094F07F /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBB18F574290094F07F /* fireArc.png */; };
 		2F050DBE18F574290094F07F /* wind.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBC18F574290094F07F /* wind.png */; };
 		2F42F71518FA59FC00973113 /* NJNinjaCharacterBoss.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F42F71418FA59FC00973113 /* NJNinjaCharacterBoss.m */; };
+		2F42F71B18FA61B400973113 /* NJ1V3SelectionButtonSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F42F71A18FA61B400973113 /* NJ1V3SelectionButtonSystem.m */; };
+		2F42F71E18FA66DD00973113 /* selectedBoss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F71C18FA66DD00973113 /* selectedBoss.png */; };
+		2F42F71F18FA66DD00973113 /* touched button boss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F71D18FA66DD00973113 /* touched button boss.png */; };
 		2F45B43418E6A9E100482453 /* NJRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43318E6A9E100482453 /* NJRange.m */; };
 		2F45B43718E6AC6C00482453 /* NJCircularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43618E6AC6C00482453 /* NJCircularRange.m */; };
 		2F45B43A18E6AC8E00482453 /* NJRectangularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43918E6AC8E00482453 /* NJRectangularRange.m */; };
@@ -187,6 +190,10 @@
 		2F050DBC18F574290094F07F /* wind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wind.png; path = Assets/effect/wind.png; sourceTree = "<group>"; };
 		2F42F71318FA59FC00973113 /* NJNinjaCharacterBoss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacterBoss.h; path = Sprites/Characters/NJNinjaCharacterBoss.h; sourceTree = "<group>"; };
 		2F42F71418FA59FC00973113 /* NJNinjaCharacterBoss.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJNinjaCharacterBoss.m; path = Sprites/Characters/NJNinjaCharacterBoss.m; sourceTree = "<group>"; };
+		2F42F71918FA61B400973113 /* NJ1V3SelectionButtonSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJ1V3SelectionButtonSystem.h; path = Sprites/characterSelection/NJ1V3SelectionButtonSystem.h; sourceTree = "<group>"; };
+		2F42F71A18FA61B400973113 /* NJ1V3SelectionButtonSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJ1V3SelectionButtonSystem.m; path = Sprites/characterSelection/NJ1V3SelectionButtonSystem.m; sourceTree = "<group>"; };
+		2F42F71C18FA66DD00973113 /* selectedBoss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selectedBoss.png; path = "Assets/selection scene/selectedBoss.png"; sourceTree = "<group>"; };
+		2F42F71D18FA66DD00973113 /* touched button boss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched button boss.png"; path = "Assets/selection scene/touched button boss.png"; sourceTree = "<group>"; };
 		2F45B43218E6A9E100482453 /* NJRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJRange.h; path = "Utilities/Range System/NJRange.h"; sourceTree = "<group>"; };
 		2F45B43318E6A9E100482453 /* NJRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJRange.m; path = "Utilities/Range System/NJRange.m"; sourceTree = "<group>"; };
 		2F45B43518E6AC6C00482453 /* NJCircularRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJCircularRange.h; path = "Utilities/Range System/NJCircularRange.h"; sourceTree = "<group>"; };
@@ -789,6 +796,8 @@
 				C9B8F29218E05B3B00FA877E /* NJSelectCharacterButton.m */,
 				C9B8F29318E05B3B00FA877E /* NJSelectionButtonSystem.h */,
 				C9B8F29418E05B3B00FA877E /* NJSelectionButtonSystem.m */,
+				2F42F71918FA61B400973113 /* NJ1V3SelectionButtonSystem.h */,
+				2F42F71A18FA61B400973113 /* NJ1V3SelectionButtonSystem.m */,
 			);
 			name = playerSelection;
 			sourceTree = "<group>";
@@ -807,6 +816,8 @@
 		C9B8F2A518E05E9E00FA877E /* selection scene */ = {
 			isa = PBXGroup;
 			children = (
+				2F42F71C18FA66DD00973113 /* selectedBoss.png */,
+				2F42F71D18FA66DD00973113 /* touched button boss.png */,
 				2B067F5418FA598B003755A4 /* blueHalo.png */,
 				2B067F5518FA598B003755A4 /* orangeHalo.png */,
 				2B067F5618FA598B003755A4 /* purpleHalo.png */,
@@ -942,10 +953,12 @@
 				C41270F518E1D41500CAC44A /* medikit.png in Resources */,
 				2FC568BE18E1BE0900C6589D /* woodPile.png in Resources */,
 				C4C8746E18F023A9004B6527 /* fire.mid in Resources */,
+				2F42F71F18FA66DD00973113 /* touched button boss.png in Resources */,
 				2B067F5E18FA598B003755A4 /* touched button yellow.png in Resources */,
 				2F45B45718E7335900482453 /* continue button.png in Resources */,
 				C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */,
 				C9B8F2A018E05E8400FA877E /* light.png in Resources */,
+				2F42F71E18FA66DD00973113 /* selectedBoss.png in Resources */,
 				2FC568BB18E1BE0900C6589D /* spawnLight.png in Resources */,
 				C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */,
 				C9150B0818EC56EF00645698 /* victory bg.png in Resources */,
@@ -1057,6 +1070,7 @@
 				2F45B43718E6AC6C00482453 /* NJCircularRange.m in Sources */,
 				C4AF3C1D18E803410036596A /* NJEffectMine.m in Sources */,
 				2FC568A918E1BCA900C6589D /* NJNinjaCharacter.m in Sources */,
+				2F42F71B18FA61B400973113 /* NJ1V3SelectionButtonSystem.m in Sources */,
 				2FC568A118E1BC9B00C6589D /* NJHPBar.m in Sources */,
 				C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */,
 				2FC568A818E1BCA900C6589D /* NJCharacter.m in Sources */,

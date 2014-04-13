@@ -15,6 +15,7 @@
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterNormal.h"
 #import "NJSelectionButtonSystem.h"
+#import "NJ1V3SelectionButtonSystem.h"
 #import "NJResponsibleBG.h"
 #import "NJPausePanel.h"
 
@@ -1081,7 +1082,8 @@
 - (void)initSelectionSystem{
     isSelectionInited = YES;
     shouldPileStartDecreasing = NO;
-    NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
+//    NJSelectionButtonSystem *selectionSystem = [[NJSelectionButtonSystem alloc]init];
+    NJ1V3SelectionButtonSystem *selectionSystem = [[NJ1V3SelectionButtonSystem alloc] init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);

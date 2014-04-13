@@ -42,4 +42,8 @@
     }
 }
 
+- (void)changeBackgroundImageToImageNamed:(NSString *)name
+{
+    self.texture = [SKTexture textureWithImageNamed:name];
+}
 @end
