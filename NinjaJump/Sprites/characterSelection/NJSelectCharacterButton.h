@@ -19,6 +19,7 @@ typedef enum {ORANGE=0, BLUE, YELLOW, PURPLE} NJSelectionButtonType ;
 @interface NJSelectCharacterButton : SKSpriteNode
 
 @property (nonatomic, weak) id <NJSelectionButtonDelegate> delegate;
+@property BOOL isSelected;
 
 - (id)initWithType:(NJSelectionButtonType) buttonType;
 - (void)changeBackgroundImageToImageNamed:(NSString *)name;

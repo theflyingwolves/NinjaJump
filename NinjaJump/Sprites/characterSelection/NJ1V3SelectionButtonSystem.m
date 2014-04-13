@@ -49,6 +49,12 @@
     }];
 }
 
+- (void)addStartButton
+{
+    [super addStartButton];
+    self.startButton.hidden = NO;
+}
+
 - (void)button:(NJSelectCharacterButton *)button touchesEnded:(NSSet *)touches
 {
     UITouch *touch = [touches anyObject];
@@ -66,17 +72,22 @@
             [button changeBackgroundImageToImageNamed:bossButtonFileName];
             ((SKSpriteNode *)self.selectedNinjas[i]).texture = [SKTexture textureWithImageNamed:bossNinjaFileName];
             self.selectedIndex = i;
+            button.isSelected = !button.isSelected;
+            isReacted = YES;
+//            NSNumber *index = [NSNumber numberWithInt:i];
+//            if (button.isSelected) {
+//                [self.activePlayerList removeObject:index];
+//                NSLog(@"adding index: %d",i);
+//            } else if(![self.activePlayerList containsObject:index]){
+//                [self.activePlayerList addObject:index];
+//                NSLog(@"removing index: %d",i);
+//            }
         }
         CGPathRelease(path);
     }
     
-    if (self.activePlayerList.count>1) {
-        self.startButton.hidden = NO;
-        if (!isReacted && dist<startButtonRadius) {
-            [self didStartButtonClicked];
-        }
-    } else {
-        self.startButton.hidden = YES;
+    if (!isReacted && dist<startButtonRadius) {
+        [self didStartButtonClicked];
     }
 }
 
@@ -110,5 +121,38 @@
     
     [selectedButton changeBackgroundImageToImageNamed:buttonFileName];
     selectedBackground.texture = [SKTexture textureWithImageNamed:backgroundFileName];
+}
+
+- (void)didStartButtonClicked
+{
+    //NSLog(@"game start");
+    SKAction *flyAway2TopLeft = [SKAction moveByX:-700 y:700 duration:1.0];
+    SKAction *flyAway2BottomLeft = [SKAction moveByX:-700 y:-700 duration:1.0];
+    SKAction *flyAway2BottomRight = [SKAction moveByX:700 y:-700 duration:1.0];
+    SKAction *flyAway2TopRight = [SKAction moveByX:700 y:700 duration:1.0];
+    SKAction *fadeAway = [SKAction fadeOutWithDuration:1.0];
+    SKAction *removeNode = [SKAction removeFromParent];
+    SKAction *sequence = [SKAction sequence:@[fadeAway, removeNode]];
+    [self.selectionButtons[0] runAction:flyAway2BottomLeft];
+    [self.selectionButtons[1] runAction:flyAway2BottomRight];
+    [self.selectionButtons[2] runAction:flyAway2TopRight];
+    [self.selectionButtons[3] runAction:flyAway2TopLeft];
+    NSNotification *note = [NSNotification notificationWithName:kNotificationPlayerIndex object:[self constructNoteArray]];
+    [[NSNotificationCenter defaultCenter] postNotification:note];
+    [self runAction:sequence];
+}
+
+- (NSArray *)constructNoteArray
+{
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:[NSNumber numberWithInt:self.selectedIndex]];
+    
+    for (int i=0; i<4; i++) {
+        if (i != self.selectedIndex) {
+            [array addObject:[NSNumber numberWithInt:i]];
+        }
+    }
+    
+    return array;
 }
 @end
