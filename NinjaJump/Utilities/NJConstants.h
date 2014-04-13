@@ -72,6 +72,7 @@
 #define kUnselectedYellow @"unselectedYellow"
 #define kUnselectedPurple @"unselectedPurple"
 #define kButtonHaloShinningTime 0.2
+#define kShurikenBUttonsFadeoutDuration 1.0
 
 #pragma mark - Notification
 #define kNotificationPlayerIndex @"activatedPlayerIndex"
