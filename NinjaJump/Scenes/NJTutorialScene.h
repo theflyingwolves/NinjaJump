@@ -7,7 +7,10 @@
 //
 
 #import "NJMultiplayerLayeredCharacterScene.h"
+#import "NJTuTorialNextButton.h"
 
-@interface NJTutorialScene : NJMultiplayerLayeredCharacterScene
+@interface NJTutorialScene : NJMultiplayerLayeredCharacterScene <NJTuTorialNextButtonDelegate>
+
+@property (nonatomic) NJTuTorialNextButton *nextButton;
 
 @end

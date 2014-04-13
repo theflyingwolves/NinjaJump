@@ -456,6 +456,7 @@
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;
+                    player.finishJumpping = YES;
                     //resolve attack events
                     for (NJPlayer *p in _players) {
                         if (p == player) {
@@ -896,10 +897,8 @@
     }
 }
 
-- (void)pauseGame
+- (void)showPausePanel
 {
-    [self pauseWoodpiles];
-    [self pauseItemUpdate];
     NJPausePanel *pausePanel = [[NJPausePanel alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -908,8 +907,15 @@
     [self addChild:pausePanel];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
-    
+}
+
+- (void)pauseGame
+{
+    [self pauseWoodpiles];
+    [self pauseItemUpdate];
     [music pause];
+    
+    [self showPausePanel];
 }
 
 - (void)restartOrContinue:(NSNotification *)note

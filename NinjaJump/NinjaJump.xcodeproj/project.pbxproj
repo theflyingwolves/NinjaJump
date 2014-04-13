@@ -66,6 +66,7 @@
 		2FDD9C4318EDB09E0071C712 /* pause_scene_right_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C4118EDB09E0071C712 /* pause_scene_right_bar.png */; };
 		2FDD9C4518EDB1F10071C712 /* pause scene bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C4418EDB1F10071C712 /* pause scene bg.png */; };
 		C408B40A18F0427A004E614C /* ice.mid in Resources */ = {isa = PBXBuildFile; fileRef = C408B40918F0427A004E614C /* ice.mid */; };
+		C40AC20018FA5B450068E814 /* NJTuTorialNextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */; };
 		C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C41270EC18E1D3AF00CAC44A /* fireScroll.png */; };
 		C41270F118E1D3AF00CAC44A /* iceScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C41270ED18E1D3AF00CAC44A /* iceScroll.png */; };
 		C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C41270EE18E1D3AF00CAC44A /* thunderScroll.png */; };
@@ -229,6 +230,8 @@
 		2FDD9C4118EDB09E0071C712 /* pause_scene_right_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_scene_right_bar.png; sourceTree = "<group>"; };
 		2FDD9C4418EDB1F10071C712 /* pause scene bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause scene bg.png"; sourceTree = "<group>"; };
 		C408B40918F0427A004E614C /* ice.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = ice.mid; sourceTree = "<group>"; };
+		C40AC1FE18FA5B450068E814 /* NJTuTorialNextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJTuTorialNextButton.h; path = Sprites/Control/NJTuTorialNextButton.h; sourceTree = "<group>"; };
+		C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJTuTorialNextButton.m; path = Sprites/Control/NJTuTorialNextButton.m; sourceTree = "<group>"; };
 		C41270EC18E1D3AF00CAC44A /* fireScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireScroll.png; path = Assets/Items/fireScroll.png; sourceTree = "<group>"; };
 		C41270ED18E1D3AF00CAC44A /* iceScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iceScroll.png; path = Assets/Items/iceScroll.png; sourceTree = "<group>"; };
 		C41270EE18E1D3AF00CAC44A /* thunderScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = thunderScroll.png; path = Assets/Items/thunderScroll.png; sourceTree = "<group>"; };
@@ -464,6 +467,8 @@
 				2F8A72B218E449B300B88E79 /* NJItemControl.m */,
 				2FC5689E18E1BC9B00C6589D /* NJHPBar.h */,
 				2FC5689F18E1BC9B00C6589D /* NJHPBar.m */,
+				C40AC1FE18FA5B450068E814 /* NJTuTorialNextButton.h */,
+				C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */,
 			);
 			name = Control;
 			sourceTree = "<group>";
@@ -993,6 +998,7 @@
 				C42170D518E0687800942374 /* NJShuriken.m in Sources */,
 				2F45B44E18E7327300482453 /* NJPausePanel.m in Sources */,
 				2F94CD7E18D419F1007DAFAD /* main.m in Sources */,
+				C40AC20018FA5B450068E814 /* NJTuTorialNextButton.m in Sources */,
 				2FC568AA18E1BCA900C6589D /* NJNinjaCharacterNormal.m in Sources */,
 				C42170D818E0689100942374 /* NJMedikit.m in Sources */,
 				C42170E418E068DD00942374 /* NJIceScroll.m in Sources */,
