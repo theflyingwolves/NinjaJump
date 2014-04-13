@@ -16,6 +16,7 @@
 		2F01286618F97A7F00ED8179 /* itemShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F01286518F97A7F00ED8179 /* itemShadow.png */; };
 		2F050DBD18F574290094F07F /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBB18F574290094F07F /* fireArc.png */; };
 		2F050DBE18F574290094F07F /* wind.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBC18F574290094F07F /* wind.png */; };
+		2F42F71518FA59FC00973113 /* NJNinjaCharacterBoss.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F42F71418FA59FC00973113 /* NJNinjaCharacterBoss.m */; };
 		2F45B43418E6A9E100482453 /* NJRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43318E6A9E100482453 /* NJRange.m */; };
 		2F45B43718E6AC6C00482453 /* NJCircularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43618E6AC6C00482453 /* NJCircularRange.m */; };
 		2F45B43A18E6AC8E00482453 /* NJRectangularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43918E6AC8E00482453 /* NJRectangularRange.m */; };
@@ -172,6 +173,8 @@
 		2F050DBA18F56D060094F07F /* NJConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NJConstants.h; path = Utilities/NJConstants.h; sourceTree = "<group>"; };
 		2F050DBB18F574290094F07F /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/effect/fireArc.png; sourceTree = "<group>"; };
 		2F050DBC18F574290094F07F /* wind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wind.png; path = Assets/effect/wind.png; sourceTree = "<group>"; };
+		2F42F71318FA59FC00973113 /* NJNinjaCharacterBoss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacterBoss.h; path = Sprites/Characters/NJNinjaCharacterBoss.h; sourceTree = "<group>"; };
+		2F42F71418FA59FC00973113 /* NJNinjaCharacterBoss.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJNinjaCharacterBoss.m; path = Sprites/Characters/NJNinjaCharacterBoss.m; sourceTree = "<group>"; };
 		2F45B43218E6A9E100482453 /* NJRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJRange.h; path = "Utilities/Range System/NJRange.h"; sourceTree = "<group>"; };
 		2F45B43318E6A9E100482453 /* NJRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJRange.m; path = "Utilities/Range System/NJRange.m"; sourceTree = "<group>"; };
 		2F45B43518E6AC6C00482453 /* NJCircularRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJCircularRange.h; path = "Utilities/Range System/NJCircularRange.h"; sourceTree = "<group>"; };
@@ -474,6 +477,8 @@
 				2FC568A518E1BCA900C6589D /* NJNinjaCharacter.m */,
 				2FC568A618E1BCA900C6589D /* NJNinjaCharacterNormal.h */,
 				2FC568A718E1BCA900C6589D /* NJNinjaCharacterNormal.m */,
+				2F42F71318FA59FC00973113 /* NJNinjaCharacterBoss.h */,
+				2F42F71418FA59FC00973113 /* NJNinjaCharacterBoss.m */,
 			);
 			name = Characters;
 			sourceTree = "<group>";
@@ -1039,6 +1044,7 @@
 				C42170C618E0672400942374 /* NJTool.m in Sources */,
 				C4F0821418E4569E00F81C8C /* NJEffectShurikenMulti.m in Sources */,
 				2FC568AE18E1BCFF00C6589D /* NJGraphicsUnitilities.m in Sources */,
+				2F42F71518FA59FC00973113 /* NJNinjaCharacterBoss.m in Sources */,
 				2F45B43D18E6AC9F00482453 /* NJFanRange.m in Sources */,
 				2F8A72B318E449B300B88E79 /* NJItemControl.m in Sources */,
 				C42170E118E068CF00942374 /* NJWindScroll.m in Sources */,
