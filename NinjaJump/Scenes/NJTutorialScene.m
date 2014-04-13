@@ -16,10 +16,16 @@
 #import "NJConstants.h"
 #import "NJScroll.h"
 #import "NJNinjaCharacter.h"
+#import "NJHPBar.h"
 
 #define kItemNameShuriken 0
 #define kItemNameMedikit 1
 #define kItemNameIceScroll 2
+
+#define kNPCPositionX -130
+#define kNPCPositionY 50
+#define kDialogPositionX 200
+#define kDialogPositionY 150
 
 typedef enum : uint8_t {
     NJTutorialPhaseIntro = 0,
@@ -36,16 +42,20 @@ typedef enum : uint8_t {
     NJTutorialPhaseUseIce
 } NJTutorialPhase;
 
-@interface NJTutorialScene ()  <NJScrollDelegate>{
-    BOOL isPaused;
-    SKSpriteNode *cover;
-    NSInteger phaseNum;
-}
+@interface NJTutorialScene ()  <NJScrollDelegate>
 
 @end
 
 
-@implementation NJTutorialScene
+@implementation NJTutorialScene{
+    SKSpriteNode *cover;
+    SKSpriteNode *NPC1;
+    SKSpriteNode *NPC2;
+    SKSpriteNode *dialog;
+    
+    BOOL isPaused;
+    NSInteger phaseNum;
+}
 
 #pragma init
 
@@ -69,17 +79,19 @@ typedef enum : uint8_t {
 }
 
 - (void)initGameSettings {
-    ((NJPlayer*)self.players[0]).isDisabled = NO;
     ((NJPlayer*)self.players[1]).isDisabled = NO;
+    ((NJPlayer*)self.players[0]).isDisabled = NO;
     ((NJPlayer*)self.players[2]).isDisabled = YES;
     ((NJPlayer*)self.players[3]).isDisabled = YES;
     
-    ((NJPlayer*)self.players[0]).finishJumpping = NO;
+    ((NJPlayer*)self.players[1]).finishJumpping = NO;
     
     [self activateSelectedPlayersWithPreSetting];
-    
-    [self.itemControls[1] removeFromParent];
-    [self.buttons[1] removeFromParent];
+    [self.itemControls[0] removeFromParent];
+    [self.buttons[0] removeFromParent];
+    [((NJPlayer*)self.players[0]).ninja removeFromParent];
+    ((NJHPBar*)self.hpBars[0]).alpha = 0;
+
     self.doAddItemRandomly = NO;
 }
 
@@ -91,9 +103,20 @@ typedef enum : uint8_t {
     cover = [[SKSpriteNode alloc] init];
     cover.size = CGSizeMake(screenHeight, screenWidth);
     cover.position = center;
-    cover.alpha = 0;
+    cover.alpha = 1;
     cover.userInteractionEnabled = YES;
-    cover.color = [UIColor blackColor];
+    cover.color = [UIColor clearColor];
+    
+    NPC1 = [[SKSpriteNode alloc] initWithImageNamed:@"NPC.png"];
+    NPC2 = [[SKSpriteNode alloc] initWithImageNamed:@"NPC2.png"];
+    NPC1.position = CGPointMake(kNPCPositionX, kNPCPositionY);
+    NPC2.position = NPC1.position;
+    [cover addChild:NPC1];
+    
+    dialog = [[SKSpriteNode alloc] initWithImageNamed:@"dialog.png"];
+    dialog.position = CGPointMake(kDialogPositionX, kDialogPositionY);
+    [cover addChild:dialog];
+    
 }
 
 
@@ -117,6 +140,17 @@ typedef enum : uint8_t {
     }
 }
 
+- (void)activateDummyPlayer{
+    NJPlayer *player = self.players[0];
+    if (!player.isDisabled) {
+        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
+        NJPile *pile = [self spawnAtRandomPileForNinja:NO];
+        pile.standingCharacter = ninja;
+        ninja.position = pile.position;
+    }
+    ((NJHPBar*)self.hpBars[0]).alpha = 1;
+    
+}
 
 #pragma game setting utility
 
@@ -182,52 +216,46 @@ typedef enum : uint8_t {
     
     switch (phaseNum) {
         case NJTutorialPhaseJump:
-            if (((NJPlayer*)self.players[0]).finishJumpping == YES) {
+            if (((NJPlayer*)self.players[1]).finishJumpping == YES) {
                 [self toggleControl];
                 phaseNum++;
             }
             break;
             
         case NJTutorialPhaseAttack:
-            if (((NJPlayer*)self.players[1]).ninja.health <FULL_HP){
+            if (((NJPlayer*)self.players[0]).ninja.health <FULL_HP){
                 [self toggleControl];
                 phaseNum++;
             }
             break;
         
         case NJTutorialPhasePickupShuriken:
-            if (((NJPlayer*)self.players[0]).item) {
+            if (((NJPlayer*)self.players[1]).item) {
                 [self toggleControl];
                 phaseNum++;
             }
             break;
             
         case NJTutorialPhaseUseShuriken:
-            if (!((NJPlayer*)self.players[0]).item) {
+            if (!((NJPlayer*)self.players[1]).item) {
                 [self toggleControl];
                 phaseNum++;
-//                if (((NJPlayer*)self.players[1]).ninja.health <FULL_HP){
-//                    [self toggleControl];
-//                    phaseNum++;
-//                } else if ([self.items count] == 0){
-//                    [self addItem:kItemNameShuriken];
-//                }
             }
             break;
             
         case NJTutorialPhasePickupMedikit:
-            if (((NJPlayer*)self.players[0]).ninja.health == FULL_HP) {
+            if (((NJPlayer*)self.players[1]).ninja.health == FULL_HP) {
                 [self toggleControl];
                 phaseNum++;
             }
             break;
             
         case NJTutorialPhaseUseIce:
-            if (!((NJPlayer*)self.players[1]).item) {
-                if (((NJPlayer*)self.players[1]).ninja.frozenCount > 0){
+            if (!((NJPlayer*)self.players[0]).item) {
+                if (((NJPlayer*)self.players[0]).ninja.frozenCount > 0){
                     [self toggleControl];
                     phaseNum++;
-                } else if ([self.items count] == 0 && !((NJPlayer*)self.players[0]).item) {
+                } else if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item) {
                     [self addItem:kItemNameIceScroll];
                 }
             }
@@ -238,9 +266,13 @@ typedef enum : uint8_t {
             break;
     }
     
-    if (((NJPlayer*)self.players[1]).ninja.health <FULL_HP) {
-        ((NJPlayer*)self.players[1]).ninja.health = FULL_HP;
+    if (((NJPlayer*)self.players[0]).ninja.health <FULL_HP) {
+        ((NJPlayer*)self.players[0]).ninja.health = FULL_HP;
     }
+}
+
+- (bool)isGameEnded{
+    return NO;
 }
 
 
@@ -257,6 +289,7 @@ typedef enum : uint8_t {
             case NJTutorialPhaseIntroToAttack:
                 [self toggleControl];
                 phaseNum++;
+                [self activateDummyPlayer];
                 break;
             
             case NJTutorialPhaseIntroToPickupShuriken:
@@ -274,7 +307,7 @@ typedef enum : uint8_t {
                 [self toggleControl];
                 phaseNum++;
                 [self addItem:kItemNameMedikit];
-                ((NJPlayer*)self.players[0]).ninja.health -= 40;
+                ((NJPlayer*)self.players[1]).ninja.health -= 40;
                 break;
                 
             case NJTutorialPhaseIntroToIce:
@@ -286,9 +319,6 @@ typedef enum : uint8_t {
             default:
                 break;
         }
-        
-        
-        
     }
 }
 

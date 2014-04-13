@@ -67,6 +67,9 @@
 		2FDD9C4518EDB1F10071C712 /* pause scene bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C4418EDB1F10071C712 /* pause scene bg.png */; };
 		C408B40A18F0427A004E614C /* ice.mid in Resources */ = {isa = PBXBuildFile; fileRef = C408B40918F0427A004E614C /* ice.mid */; };
 		C40AC20018FA5B450068E814 /* NJTuTorialNextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */; };
+		C40AC20618FAADE30068E814 /* NPC.png in Resources */ = {isa = PBXBuildFile; fileRef = C40AC20318FAADE30068E814 /* NPC.png */; };
+		C40AC20718FAADE30068E814 /* NPC2.png in Resources */ = {isa = PBXBuildFile; fileRef = C40AC20418FAADE30068E814 /* NPC2.png */; };
+		C40AC20918FAB1920068E814 /* dialog.png in Resources */ = {isa = PBXBuildFile; fileRef = C40AC20818FAB1920068E814 /* dialog.png */; };
 		C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C41270EC18E1D3AF00CAC44A /* fireScroll.png */; };
 		C41270F118E1D3AF00CAC44A /* iceScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C41270ED18E1D3AF00CAC44A /* iceScroll.png */; };
 		C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C41270EE18E1D3AF00CAC44A /* thunderScroll.png */; };
@@ -232,6 +235,9 @@
 		C408B40918F0427A004E614C /* ice.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = ice.mid; sourceTree = "<group>"; };
 		C40AC1FE18FA5B450068E814 /* NJTuTorialNextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJTuTorialNextButton.h; path = Sprites/Control/NJTuTorialNextButton.h; sourceTree = "<group>"; };
 		C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJTuTorialNextButton.m; path = Sprites/Control/NJTuTorialNextButton.m; sourceTree = "<group>"; };
+		C40AC20318FAADE30068E814 /* NPC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NPC.png; sourceTree = "<group>"; };
+		C40AC20418FAADE30068E814 /* NPC2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NPC2.png; sourceTree = "<group>"; };
+		C40AC20818FAB1920068E814 /* dialog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialog.png; sourceTree = "<group>"; };
 		C41270EC18E1D3AF00CAC44A /* fireScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireScroll.png; path = Assets/Items/fireScroll.png; sourceTree = "<group>"; };
 		C41270ED18E1D3AF00CAC44A /* iceScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iceScroll.png; path = Assets/Items/iceScroll.png; sourceTree = "<group>"; };
 		C41270EE18E1D3AF00CAC44A /* thunderScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = thunderScroll.png; path = Assets/Items/thunderScroll.png; sourceTree = "<group>"; };
@@ -379,6 +385,7 @@
 		2B21F14A18D430DB007220CF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C40AC20118FAADE30068E814 /* tutorial */,
 				C4C8745418F023A9004B6527 /* music */,
 				C4C8745A18F023A9004B6527 /* sound */,
 				2FDD9C3718ED940C0071C712 /* Indicator */,
@@ -609,6 +616,17 @@
 			);
 			name = Indicator;
 			path = Assets/Indicator;
+			sourceTree = "<group>";
+		};
+		C40AC20118FAADE30068E814 /* tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				C40AC20818FAB1920068E814 /* dialog.png */,
+				C40AC20318FAADE30068E814 /* NPC.png */,
+				C40AC20418FAADE30068E814 /* NPC2.png */,
+			);
+			name = tutorial;
+			path = Assets/tutorial;
 			sourceTree = "<group>";
 		};
 		C42170C018E066AE00942374 /* Item */ = {
@@ -891,6 +909,7 @@
 				2FC568BA18E1BE0900C6589D /* jumpButton.png in Resources */,
 				C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
+				C40AC20918FAB1920068E814 /* dialog.png in Resources */,
 				C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */,
 				C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */,
 				C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */,
@@ -911,6 +930,7 @@
 				C4C8747418F023A9004B6527 /* thunder.mid in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 				C4C8746B18F023A9004B6527 /* sunshining.mp3 in Resources */,
+				C40AC20618FAADE30068E814 /* NPC.png in Resources */,
 				2FDD9C3E18ED940D0071C712 /* indicator_thunder.png in Resources */,
 				C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */,
 				C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */,
@@ -941,6 +961,7 @@
 				C4C8747818F023A9004B6527 /* wind(2).mid in Resources */,
 				2F45B45518E7332700482453 /* restart button.png in Resources */,
 				C4AF3C1F18E806040036596A /* mine.png in Resources */,
+				C40AC20718FAADE30068E814 /* NPC2.png in Resources */,
 				C4C8747018F023A9004B6527 /* hurt.mid in Resources */,
 				C41270F318E1D3AF00CAC44A /* windScroll.png in Resources */,
 				2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */,
