@@ -67,8 +67,9 @@
         NJSelectCharacterButton *button = self.selectionButtons[i];
         if (CGPathContainsPoint(path, &CGAffineTransformIdentity, touchPoint, YES)) {
             [self disselectIndex:self.selectedIndex];
-            NSString *bossButtonFileName = @"touched button boss";
-            NSString *bossNinjaFileName = @"selectedBoss";
+            NSString *bossButtonFileName = [self determineButtonFileName:i];
+            NSString *bossNinjaFileName = [self determineNinjaFileName:i];
+            
             [button changeBackgroundImageToImageNamed:bossButtonFileName];
             ((SKSpriteNode *)self.selectedNinjas[i]).texture = [SKTexture textureWithImageNamed:bossNinjaFileName];
             self.selectedIndex = i;
@@ -89,6 +90,16 @@
     if (!isReacted && dist<startButtonRadius) {
         [self didStartButtonClicked];
     }
+}
+
+- (NSString *)determineButtonFileName:(int)index
+{
+    return [NSString stringWithFormat:@"touched button boss 0%d",index];
+}
+
+- (NSString *)determineNinjaFileName:(int)index
+{
+    return [NSString stringWithFormat:@"selectedBoss_0%d",index];
 }
 
 - (void)disselectIndex:(int)index

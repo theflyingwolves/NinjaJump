@@ -14,7 +14,7 @@
 #import "NJConstants.h"
 
 @interface NJModeSelectionScene () <NJButtonDelegate>
-@property NJButton *tutorialMode;
+@property NJButton *oneVSThreeMode;
 @property NJButton *beginnerMode;
 @property NJButton *survivalMode;
 @property SKSpriteNode *bar;
@@ -30,7 +30,7 @@
     if (self) {
         [self initBackground];
         [self initBar];
-        [self initTutorialModeButton];
+        [self initOneVSThreeModeButton];
         [self initBeginnerModeButton];
         [self initSurvivalModeButton];
     }
@@ -56,19 +56,6 @@
     [_bar runAction:[SKAction scaleYTo:1.0f duration:0.4f]];
 }
 
-- (void)initTutorialModeButton
-{
-    _tutorialMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
-    _tutorialMode.delegate = self;
-    _tutorialMode.index = NJGameModeOneVsThree;
-    _tutorialMode.position = CGPointMake(1350, 220);
-    [self addChild:_tutorialMode];
-    float x = FRAME.size.width - 2.5*BUTTON_WIDTH - 3*GAP;
-    SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
-    moveIn.timingMode = SKActionTimingEaseOut;
-    [_tutorialMode runAction:moveIn];
-}
-
 - (void)initBeginnerModeButton
 {
     _beginnerMode = [[NJButton alloc] initWithImageNamed:kBeginnerModeBtnFileName];
@@ -76,7 +63,7 @@
     _beginnerMode.index = NJGameModeBeginner;
     _beginnerMode.position = CGPointMake(1350, 220);
     [self addChild:_beginnerMode];
-    float x = FRAME.size.width - 1.5*BUTTON_WIDTH - 2*GAP;
+    float x = FRAME.size.width - 2.5*BUTTON_WIDTH - 3*GAP;
     SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
     moveIn.timingMode = SKActionTimingEaseOut;
     [_beginnerMode runAction:moveIn];
@@ -89,10 +76,23 @@
     _survivalMode.index = NJGameModeSurvival;
     _survivalMode.position = CGPointMake(1350, 220);
     [self addChild:_survivalMode];
-    float x = FRAME.size.width - BUTTON_WIDTH / 2.0f - GAP;
+    float x = FRAME.size.width - 1.5*BUTTON_WIDTH - 2*GAP;
     SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
     moveIn.timingMode = SKActionTimingEaseOut;
     [_survivalMode runAction:moveIn];
+}
+
+- (void)initOneVSThreeModeButton
+{
+    _oneVSThreeMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
+    _oneVSThreeMode.delegate = self;
+    _oneVSThreeMode.index = NJGameModeOneVsThree;
+    _oneVSThreeMode.position = CGPointMake(1350, 220);
+    [self addChild:_oneVSThreeMode];
+    float x = FRAME.size.width - 0.5*BUTTON_WIDTH - 1*GAP;
+    SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
+    moveIn.timingMode = SKActionTimingEaseOut;
+    [_oneVSThreeMode runAction:moveIn];
 }
 
 - (void)button:(NJButton *)button touchesBegan:(NSSet *)touches
