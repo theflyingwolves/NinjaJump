@@ -330,7 +330,6 @@
     }
     NJSpecialItem *item = [self generateRandomItem];
     if (item != nil) {
-        item.myParent = self;
         pile.itemHolded = item;
         item.position = position;
         item.itemShadow.position = position;
@@ -377,6 +376,9 @@
             
         default:
             break;
+    }
+    if (item) {
+        item.myParent = self;
     }
     return item;
 }
