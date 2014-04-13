@@ -56,12 +56,6 @@ static NSArray *sSharedJumpAnimationFrames;
     return sSharedJumpAnimationFrames;
 }
 
-static NSArray *sSharedDeathAnimationFrames;
-- (NSArray *)deathAnimationFrames
-{
-    return sSharedDeathAnimationFrames;
-}
-
 static NSArray *sSharedAttackAnimationFrames;
 - (NSArray *)attackAnimationFrames
 {
