@@ -63,6 +63,14 @@
 #define kHaloBlue @"blueHalo"
 #define kHaloYellow @"yellowHalo"
 #define kHaloPurple @"purpleHalo"
+#define kSelectedOrange @"selectedOrange"
+#define kSelectedBlue @"selectedBlue"
+#define kSelectedYellow @"selectedYellow"
+#define kSelectedPurple @"selectedPurple"
+#define kUnselectedOrange @"unselectedOrange"
+#define kUnselectedBlue @"unselectedBlue"
+#define kUnselectedYellow @"unselectedYellow"
+#define kUnselectedPurple @"unselectedPurple"
 #define kButtonHaloShinningTime 0.2
 
 #pragma mark - Notification
