@@ -46,13 +46,14 @@
     [self.background runAction:rotateIn];
     [self.shade runAction:fadeIn completion:^{
         [self shineAll];
+        [self shineButtons];
+        self.startButton.hidden = NO;
     }];
 }
 
 - (void)addStartButton
 {
     [super addStartButton];
-    self.startButton.hidden = NO;
 }
 
 - (void)button:(NJSelectCharacterButton *)button touchesEnded:(NSSet *)touches
@@ -66,9 +67,13 @@
         CGPathRef path= [self pathOfButton:(NJSelectionButtonType)i];
         NJSelectCharacterButton *button = self.selectionButtons[i];
         if (CGPathContainsPoint(path, &CGAffineTransformIdentity, touchPoint, YES)) {
+            if (self.isHaloShining) {
+                [self stopShining];
+            }
             [self disselectIndex:self.selectedIndex];
-            NSString *bossButtonFileName = @"touched button boss";
-            NSString *bossNinjaFileName = @"selectedBoss";
+            NSString *bossButtonFileName = [self determineButtonFileName:i];
+            NSString *bossNinjaFileName = [self determineNinjaFileName:i];
+            
             [button changeBackgroundImageToImageNamed:bossButtonFileName];
             ((SKSpriteNode *)self.selectedNinjas[i]).texture = [SKTexture textureWithImageNamed:bossNinjaFileName];
             self.selectedIndex = i;
@@ -86,9 +91,42 @@
         CGPathRelease(path);
     }
     
-    if (!isReacted && dist<startButtonRadius) {
+    if (!isReacted && dist<startButtonRadius && self.selectedIndex) {
         [self didStartButtonClicked];
     }
+}
+
+- (void)shineButtons {
+    if (!self.selectedIndex) { //Check no player selected
+        
+        SKAction *appear = [SKAction fadeInWithDuration:0.05];
+        SKAction *disappear = [SKAction fadeOutWithDuration:0.05];
+        SKAction *keeplighting = [SKAction waitForDuration:kButtonHaloShinningTime];
+        SKAction *wait = [SKAction waitForDuration:3*(kButtonHaloShinningTime+0.1)];
+        SKAction *flash = [SKAction sequence:@[appear,keeplighting,disappear, wait]];
+        
+        SKAction *flashRepeatly = [SKAction repeatActionForever:flash];
+        for (int i=0; i<4; i++) {
+            float waitDuration = i*(kButtonHaloShinningTime+0.1);
+            SKSpriteNode *halo = self.haloList[i];
+            SKAction *wait = [SKAction waitForDuration:waitDuration];
+            SKAction *sequence = [SKAction sequence:@[wait,flashRepeatly]];
+            [halo runAction:sequence];
+        }
+        self.isHaloShining = YES;
+        NSLog(@"begin shining");
+        
+    }
+}
+
+- (NSString *)determineButtonFileName:(int)index
+{
+    return [NSString stringWithFormat:@"touched button boss 0%d",index];
+}
+
+- (NSString *)determineNinjaFileName:(int)index
+{
+    return [NSString stringWithFormat:@"selectedBoss_0%d",index];
 }
 
 - (void)disselectIndex:(int)index
