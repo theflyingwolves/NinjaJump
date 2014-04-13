@@ -1143,6 +1143,8 @@
 }
 
 - (void)activateSelectedPlayers:(NSNotification *)note{
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
     isSelectionInited = NO;
     NSArray *activePlayerIndices = [note object];
     if (_gameMode==NJGameModeOneVsThree) {
@@ -1157,6 +1159,7 @@
         //NSLog(@"activated %d",[index intValue]);
         //int convertedIndex = [self convertIndex:[index intValue]];
         ((NJPlayer *)self.players[[index intValue]]).isDisabled = YES;
+//        [((NJPlayer *)self.players[[index intValue]]).ninja.shadow removeFromParent];
     }
     
     for (int i=0; i<kNumPlayers; i++) {

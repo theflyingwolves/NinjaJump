@@ -32,6 +32,7 @@
 		2F42F72F18FA81BA00973113 /* touched button boss 03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72718FA81BA00973113 /* touched button boss 03.png */; };
 		2F42F73318FA8B1300973113 /* selectedBoss_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F73118FA8B1300973113 /* selectedBoss_00.png */; };
 		2F42F73418FA8B1300973113 /* touched button boss 00.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F73218FA8B1300973113 /* touched button boss 00.png */; };
+		2F42F73618FA8D3C00973113 /* oneVSThreeBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F73518FA8D3C00973113 /* oneVSThreeBtn.png */; };
 		2F45B43418E6A9E100482453 /* NJRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43318E6A9E100482453 /* NJRange.m */; };
 		2F45B43718E6AC6C00482453 /* NJCircularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43618E6AC6C00482453 /* NJCircularRange.m */; };
 		2F45B43A18E6AC8E00482453 /* NJRectangularRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45B43918E6AC8E00482453 /* NJRectangularRange.m */; };
@@ -206,6 +207,7 @@
 		2F42F72718FA81BA00973113 /* touched button boss 03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touched button boss 03.png"; sourceTree = "<group>"; };
 		2F42F73118FA8B1300973113 /* selectedBoss_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedBoss_00.png; sourceTree = "<group>"; };
 		2F42F73218FA8B1300973113 /* touched button boss 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touched button boss 00.png"; sourceTree = "<group>"; };
+		2F42F73518FA8D3C00973113 /* oneVSThreeBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oneVSThreeBtn.png; sourceTree = "<group>"; };
 		2F45B43218E6A9E100482453 /* NJRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJRange.h; path = "Utilities/Range System/NJRange.h"; sourceTree = "<group>"; };
 		2F45B43318E6A9E100482453 /* NJRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJRange.m; path = "Utilities/Range System/NJRange.m"; sourceTree = "<group>"; };
 		2F45B43518E6AC6C00482453 /* NJCircularRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJCircularRange.h; path = "Utilities/Range System/NJCircularRange.h"; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 		2FBFDCF718F9108800A59A77 /* Mode Selection Scene */ = {
 			isa = PBXGroup;
 			children = (
+				2F42F73518FA8D3C00973113 /* oneVSThreeBtn.png */,
 				2FBFDCFE18F95CCF00A59A77 /* banner.png */,
 				2FBFDCF818F9108800A59A77 /* beginnerBtn.png */,
 				2FBFDCF918F9108800A59A77 /* survivalBtn.png */,
@@ -986,6 +989,7 @@
 				C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */,
 				C9B8F2A018E05E8400FA877E /* light.png in Resources */,
 				2F42F72D18FA81BA00973113 /* touched button boss 01.png in Resources */,
+				2F42F73618FA8D3C00973113 /* oneVSThreeBtn.png in Resources */,
 				2FC568BB18E1BE0900C6589D /* spawnLight.png in Resources */,
 				C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */,
 				C9150B0818EC56EF00645698 /* victory bg.png in Resources */,

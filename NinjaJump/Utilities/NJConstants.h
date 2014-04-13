@@ -54,6 +54,7 @@
 #define kBeginnerModeBtnFileName @"beginnerBtn"
 #define kSurvivalModeBtnFilename @"survivalBtn"
 #define kModeSelectionBackground @"selectionBG"
+#define kOneVSThreeModeBtnFileName @"oneVSThreeBtn"
 #define kModeSelectionBarFilename @"banner"
 
 #pragma mark - Player Selection

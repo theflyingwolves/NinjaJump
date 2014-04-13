@@ -84,7 +84,7 @@
 
 - (void)initOneVSThreeModeButton
 {
-    _oneVSThreeMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
+    _oneVSThreeMode = [[NJButton alloc] initWithImageNamed:kOneVSThreeModeBtnFileName];
     _oneVSThreeMode.delegate = self;
     _oneVSThreeMode.index = NJGameModeOneVsThree;
     _oneVSThreeMode.position = CGPointMake(1350, 220);
