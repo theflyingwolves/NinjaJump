@@ -109,6 +109,7 @@
 		C4C8747818F023A9004B6527 /* wind(2).mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746618F023A9004B6527 /* wind(2).mid */; };
 		C4C8747918F023A9004B6527 /* wind.mid in Resources */ = {isa = PBXBuildFile; fileRef = C4C8746718F023A9004B6527 /* wind.mid */; };
 		C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FE18DB21830070F3D5 /* NJPile.m */; };
+		C4D7116918FC2C7300567018 /* dialogIntro.png in Resources */ = {isa = PBXBuildFile; fileRef = C4D7116818FC2C7300567018 /* dialogIntro.png */; };
 		C4F0821418E4569E00F81C8C /* NJEffectShurikenMulti.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */; };
 		C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821618E459B700F81C8C /* NJItemEffect.m */; };
 		C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0821918E4708300F81C8C /* shurikenEffect.png */; };
@@ -289,6 +290,7 @@
 		C4C8746718F023A9004B6527 /* wind.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = wind.mid; sourceTree = "<group>"; };
 		C4CAA7FD18DB21830070F3D5 /* NJPile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJPile.h; path = Sprites/pile/NJPile.h; sourceTree = "<group>"; };
 		C4CAA7FE18DB21830070F3D5 /* NJPile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPile.m; path = Sprites/pile/NJPile.m; sourceTree = "<group>"; };
+		C4D7116818FC2C7300567018 /* dialogIntro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogIntro.png; sourceTree = "<group>"; };
 		C4F0821218E4569E00F81C8C /* NJEffectShurikenMulti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJEffectShurikenMulti.h; path = Sprites/ItemEffect/NJEffectShurikenMulti.h; sourceTree = "<group>"; };
 		C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJEffectShurikenMulti.m; path = Sprites/ItemEffect/NJEffectShurikenMulti.m; sourceTree = "<group>"; };
 		C4F0821518E459B700F81C8C /* NJItemEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJItemEffect.h; path = Sprites/ItemEffect/NJItemEffect.h; sourceTree = "<group>"; };
@@ -621,6 +623,7 @@
 		C40AC20118FAADE30068E814 /* tutorial */ = {
 			isa = PBXGroup;
 			children = (
+				C4D7116818FC2C7300567018 /* dialogIntro.png */,
 				C40AC20818FAB1920068E814 /* dialog.png */,
 				C40AC20318FAADE30068E814 /* NPC.png */,
 				C40AC20418FAADE30068E814 /* NPC2.png */,
@@ -894,6 +897,7 @@
 				2FC568BC18E1BE0900C6589D /* spotlight.png in Resources */,
 				C931A93F18E05EF7002FE154 /* shade.png in Resources */,
 				C41270F118E1D3AF00CAC44A /* iceScroll.png in Resources */,
+				C4D7116918FC2C7300567018 /* dialogIntro.png in Resources */,
 				C41270F518E1D41500CAC44A /* medikit.png in Resources */,
 				2FC568BE18E1BE0900C6589D /* woodPile.png in Resources */,
 				C4C8746E18F023A9004B6527 /* fire.mid in Resources */,

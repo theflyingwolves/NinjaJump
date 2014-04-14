@@ -29,6 +29,8 @@
 #define kNextButtonPositionX 210
 #define kNextButtonPositionY -50
 
+#define kImageDialogIntroFileName @"dialogIntro.png"
+
 typedef enum : uint8_t {
     NJTutorialPhaseIntro = 0,
 	NJTutorialPhaseJump,
@@ -55,6 +57,9 @@ typedef enum : uint8_t {
     SKSpriteNode *NPC2;
     SKSpriteNode *dialog;
     
+    NSInteger dialogImageIndex;
+    NSArray *dialogImageNames;
+    
     
     BOOL isPaused;
     NSInteger phaseNum;
@@ -66,10 +71,17 @@ typedef enum : uint8_t {
 - (instancetype)initWithSizeWithoutSelection:(CGSize)size{
     self = [super initWithSizeWithoutSelection:size];
     if (self){
+        dialogImageNames = [NSArray arrayWithObjects:kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName,
+            kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName,
+            kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, nil];
+        dialogImageIndex = 0;
+        
         [self initGameSettings];
         [self initCover];
+        
         phaseNum = NJTutorialPhaseIntro;
         timeToGoToNextPhase = -1;
+        
         [self disableControl];
     }
     
@@ -112,7 +124,7 @@ typedef enum : uint8_t {
     NPC2.position = NPC1.position;
     [cover addChild:NPC1];
     
-    dialog = [[SKSpriteNode alloc] initWithImageNamed:@"dialog.png"];
+    dialog = [[SKSpriteNode alloc] initWithImageNamed:dialogImageNames[dialogImageIndex]];
     dialog.position = CGPointMake(kDialogPositionX, kDialogPositionY);
     [cover addChild:dialog];
     
@@ -135,10 +147,16 @@ typedef enum : uint8_t {
     isPaused = NO;
 }
 
+- (void)nextImageForDialog{
+    dialogImageIndex++;
+    dialog.texture = [SKTexture textureWithImageNamed:dialogImageNames[dialogImageIndex]];
+}
+
 - (void)toggleControl{
     if (isPaused) {
         [self enableControl];
     } else {
+        [self nextImageForDialog];
         [self disableControl];
     }
 }
@@ -302,7 +320,7 @@ typedef enum : uint8_t {
         timeToGoToNextPhase -= timeSinceLast;
     }
     
-    NSLog(@"%f", timeToGoToNextPhase);
+//    NSLog(@"%f", timeToGoToNextPhase);
     
 }
 
