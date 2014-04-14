@@ -23,6 +23,7 @@
         [self addSelectionButtons];
         [self fireTransition];
         self.isHaloShining = NO;
+        self.selectedIndex = -1;
     }
     return self;
 }
@@ -70,7 +71,9 @@
             if (self.isHaloShining) {
                 [self stopShining];
             }
-            [self disselectIndex:self.selectedIndex];
+            if (self.selectedIndex >= 0) {
+                [self disselectIndex:self.selectedIndex];
+            }
             NSString *bossButtonFileName = [self determineButtonFileName:i];
             NSString *bossNinjaFileName = [self determineNinjaFileName:i];
             
@@ -78,20 +81,14 @@
             ((SKSpriteNode *)self.selectedNinjas[i]).texture = [SKTexture textureWithImageNamed:bossNinjaFileName];
             self.selectedIndex = i;
             button.isSelected = !button.isSelected;
+            SKSpriteNode *buttonHalo = self.haloList[i];
+            buttonHalo.alpha = 1.0 - buttonHalo.alpha;
             isReacted = YES;
-//            NSNumber *index = [NSNumber numberWithInt:i];
-//            if (button.isSelected) {
-//                [self.activePlayerList removeObject:index];
-//                NSLog(@"adding index: %d",i);
-//            } else if(![self.activePlayerList containsObject:index]){
-//                [self.activePlayerList addObject:index];
-//                NSLog(@"removing index: %d",i);
-//            }
         }
         CGPathRelease(path);
     }
     
-    if (!isReacted && dist<startButtonRadius && self.selectedIndex) {
+    if (!isReacted && dist<startButtonRadius && self.selectedIndex != -1) {
         [self didStartButtonClicked];
     }
 }
@@ -159,6 +156,9 @@
     
     [selectedButton changeBackgroundImageToImageNamed:buttonFileName];
     selectedBackground.texture = [SKTexture textureWithImageNamed:backgroundFileName];
+    SKSpriteNode *buttonHalo = self.haloList[index];
+    buttonHalo.alpha = 1.0 - buttonHalo.alpha;
+
 }
 
 - (void)didStartButtonClicked

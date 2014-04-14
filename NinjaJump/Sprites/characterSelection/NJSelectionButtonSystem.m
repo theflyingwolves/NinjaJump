@@ -102,7 +102,7 @@
 //    selectionButtonOrange.position = CGPointMake(-19, 0);
     NJSelectCharacterButton *selectionButtonBlue = [[NJSelectCharacterButton alloc] initWithType:BLUE];
     selectionButtonBlue.isSelected = NO;
-//    selectionButtonBlue.position = CGPointMake(0, 0);
+//    selectionButtonBlue.position = CGPoinjtMake(0, 0);
     NJSelectCharacterButton *selectionButtonYellow = [[NJSelectCharacterButton alloc] initWithType:YELLOW];
     selectionButtonYellow.isSelected = NO;
 //    selectionButtonYellow.position = CGPointMake(-26, 0);
