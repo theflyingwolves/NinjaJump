@@ -46,6 +46,7 @@
     BOOL shouldPileStartDecreasing;
     NSArray *musicName;
     AVAudioPlayer *music;
+    NSUInteger kNumberOfFramesToSpawnItem;
 }
 
 #pragma mark - Initialization
@@ -78,6 +79,8 @@
         self.physicsBody.friction = 0.0;
         self.physicsBody.linearDamping = 0.0;
         self.physicsBody.restitution = 1.0;
+        
+        [self initItemFrequency];
         _ninjas = [[NSMutableArray alloc] init];
         _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
@@ -98,6 +101,23 @@
 {
     SKNode *layerNode = self.layers[layer];
     [layerNode addChild:node];
+}
+
+- (void)initItemFrequency
+{
+    switch (_gameMode) {
+        case NJGameModeOneVsThree:
+            kNumberOfFramesToSpawnItem = 200;
+            break;
+        case NJGameModeBeginner:
+            kNumberOfFramesToSpawnItem = 600;
+            break;
+        case NJGameModeSurvival:
+            kNumberOfFramesToSpawnItem = 200;
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)initHpBars
@@ -727,7 +747,7 @@
         [bar updateHealthPoint];
     }
     
-    int toSpawnItem = arc4random() % kNumOfFramesToSpawnItem;
+    int toSpawnItem = arc4random() % kNumberOfFramesToSpawnItem;
     if (toSpawnItem==1) {
         [self addItem];
     }
