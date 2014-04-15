@@ -95,7 +95,10 @@
         
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
         [self resetMusic];
-        [self initSelectionSystem];
+        
+        if (mode != NJGameModeTutorial) {
+            [self initSelectionSystem];
+        }
     }
     return self;
 }
@@ -119,6 +122,7 @@
             kNumberOfFramesToSpawnItem = 200;
             break;
         default:
+            kNumberOfFramesToSpawnItem = 200;
             break;
     }
 }
@@ -751,7 +755,7 @@
         [bar updateHealthPoint];
     }
     
-    int toSpawnItem = arc4random() % kNumOfFramesToSpawnItem;
+    int toSpawnItem = arc4random() % kNumberOfFramesToSpawnItem;
     if (toSpawnItem==1 && self.doAddItemRandomly) {
         [self addItem];
     }

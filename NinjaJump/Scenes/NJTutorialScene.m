@@ -69,7 +69,7 @@ typedef enum : uint8_t {
 #pragma init
 
 - (instancetype)initWithSizeWithoutSelection:(CGSize)size{
-    self = [super initWithSizeWithoutSelection:size];
+    self = [super initWithSize:size mode:NJGameModeTutorial];
     if (self){
         dialogImageNames = [NSArray arrayWithObjects:kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName,
             kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName,

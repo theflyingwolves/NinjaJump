@@ -13,4 +13,6 @@
 
 @property (nonatomic) NJTuTorialNextButton *nextButton;
 
+- (instancetype)initWithSizeWithoutSelection:(CGSize)size;
+
 @end
