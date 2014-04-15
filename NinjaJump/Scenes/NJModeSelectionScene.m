@@ -8,6 +8,9 @@
 #define BUTTON_WIDTH 273.0f
 #define GAP 20.0f
 #define MODE_SELECTION_BUTTON_ANIM_LENGTH 0.4f
+#define SETTING_BUTTON_WIDTH 273.0f
+#define SETTING_BUTTON_HEIGHT 141.0f
+#define kNumOfSettingElmts 2
 
 #import "NJModeSelectionScene.h"
 #import "NJButton.h"
@@ -17,6 +20,9 @@
 @property NJButton *oneVSThreeMode;
 @property NJButton *beginnerMode;
 @property NJButton *survivalMode;
+@property SKSpriteNode *menuBar;
+@property NJButton *tutorialMode;
+@property NJButton *settingBtn;
 @property SKSpriteNode *bar;
 @property SKSpriteNode *background;
 @end
@@ -33,6 +39,8 @@
         [self initOneVSThreeModeButton];
         [self initBeginnerModeButton];
         [self initSurvivalModeButton];
+        [self initTutorialButton];
+//        [self initMenuBar];
     }
     
     return self;
@@ -40,8 +48,7 @@
 
 - (void)initBackground
 {
-//    _background = [[SKSpriteNode alloc] initWithImageNamed:kModeSelectionBackground];
-    _background = [[SKSpriteNode alloc] initWithImageNamed:@"lakeMoonBG"];
+    _background = [[SKSpriteNode alloc] initWithImageNamed:kModeSelectionBackground];
     _background.position = FRAME.origin;
     [self addChild:_background];
 }
@@ -54,6 +61,26 @@
     _bar.position = CGPointMake(FRAME.origin.x, 220);
     [self addChild:_bar];
     [_bar runAction:[SKAction scaleYTo:1.0f duration:0.4f]];
+}
+
+- (void)initMenuBar
+{
+    _menuBar = [[SKSpriteNode alloc] init];
+    _menuBar.position = CGPointMake(self.frame.size.width - BUTTON_WIDTH/2, 500);
+    _settingBtn = [[NJButton alloc] initWithImageNamed:kSettingBtnFileName];
+    _settingBtn.position = CGPointMake(0, 100);
+    _settingBtn.delegate = self;
+    [_menuBar addChild:_settingBtn];
+    [self addChild:_menuBar];
+}
+
+- (void)initTutorialButton
+{
+    _tutorialMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
+    _tutorialMode.delegate = self;
+    _tutorialMode.position = CGPointMake(500, 400);
+    _tutorialMode.index = NJGameModeTutorial;
+    [self addChild:_tutorialMode];
 }
 
 - (void)initBeginnerModeButton
@@ -102,7 +129,7 @@
 
 - (void)button:(NJButton *)button touchesEnded:(NSSet *)touches
 {
-    NSLog(@"Mode selected: %d",button.index);
+    [button setScale:1.00];
     [self.delegate modeSelected:button.index];
 }
 @end

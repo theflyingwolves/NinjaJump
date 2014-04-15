@@ -11,6 +11,7 @@
 #define kTimeAddItemToBoss 5.0f
 #define NJWoodPileInitialImpluse 3
 #define FRAME CGRectMake(1024/2, 768/2, 1024, 768)
+#define kBackgroundFileName @"lakeMoonBG"
 
 #pragma mark - Ninja Characters
 #define FULL_HP 100
@@ -29,6 +30,10 @@
 #define kShurikenDamage 10
 #define kMineDamage 20
 #define kIndicatorAlpha 0.1
+#define kThunderIndicator @"indicator_thunder"
+#define kFireIndicator @"indicator_fire"
+#define kWindIndicator @"indicator_wind"
+#define kIceIndicator @"indicator_ice"
 
 #define kNinjaImageName @"ninja.png"
 #define bossIndex @"bossIndex"
@@ -56,6 +61,8 @@
 #define kModeSelectionBackground @"selectionBG"
 #define kOneVSThreeModeBtnFileName @"oneVSThreeBtn"
 #define kModeSelectionBarFilename @"banner"
+#define kTutorialModeBtnFileName @"tutorialBtn"
+#define kSettingBtnFileName @"settingBtn"
 
 #pragma mark - Player Selection
 #define kShurikenButtons @"ready buttons"
@@ -87,5 +94,6 @@ typedef enum : uint8_t {
     NJGameModeBeginner=0,
     NJGameModeSurvival,
     NJGameModeOneVsThree,
+    NJGameModeTutorial,
     NJGameModeCount
 } NJGameMode;

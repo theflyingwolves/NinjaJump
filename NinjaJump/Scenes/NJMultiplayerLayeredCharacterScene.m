@@ -289,8 +289,6 @@
 
 #pragma mark - World Building
 - (void)buildWorld {
-    NSLog(@"Building the world");
-    
     // Configure physics for the world.
     self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f); // no gravity
     self.physicsWorld.contactDelegate = self;
@@ -411,7 +409,7 @@
 
 - (void)addBackground
 {
-    SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:@"lakeMoonBG"];
+    SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:kBackgroundFileName];
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addNode:background atWorldLayer:NJWorldLayerGround];
 }
@@ -458,13 +456,13 @@
         if (player.item) {
             NSString *fileName;
             if ([player.item isKindOfClass:[NJThunderScroll class]]) {
-                fileName = @"indicator_thunder";
+                fileName = kThunderIndicator;
             }else if([player.item isKindOfClass:[NJWindScroll class]]){
-                fileName = @"indicator_wind";
+                fileName = kWindIndicator;
             }else if([player.item isKindOfClass:[NJFireScroll class]]){
-                fileName = @"indicator_fire";
+                fileName = kFireIndicator;
             }else if([player.item isKindOfClass:[NJIceScroll class]]){
-                fileName = @"indicator_ice";
+                fileName = kIceIndicator;
             }
             
             if (!fileName) {
@@ -768,15 +766,38 @@
             [livingNinjas addObject:[NSNumber numberWithInt:i]];
         }
     }
-    if (livingNinjas.count <= 1) {
-        if (!isGameEnded && livingNinjas.count == 1) {
+    
+    if (_gameMode == NJGameModeOneVsThree) {
+        if (!isGameEnded && ((NJPlayer *)self.players[_bossIndex]).ninja.isDying){
             isGameEnded = YES;
-            [self victoryAnimationToPlayer:[livingNinjas[0] integerValue]];
+//            for (int i=0; i<4; i++) {
+//                if (((NJPlayer *)self.players[i]).isDisabled == NO) {
+                    [self victoryAnimationToPlayer:0];
+//                }
+//            }
+            return YES;
+        } else {
+            if (!isGameEnded && [livingNinjas count] == 1) {
+                isGameEnded = YES;
+                [self victoryAnimationToPlayer:_bossIndex];
+                return YES;
+            }else{
+                return NO;
+            }
         }
-        return true;
-    } else {
-        return false;
+    }else{
+        if (livingNinjas.count <= 1) {
+            if (!isGameEnded && livingNinjas.count == 1) {
+                isGameEnded = YES;
+                [self victoryAnimationToPlayer:[livingNinjas[0] integerValue]];
+            }
+            return YES;
+        } else{
+            return NO;
+        }
     }
+    
+    return NO;
 }
 
 - (void)victoryAnimationToPlayer:(NSInteger)index
