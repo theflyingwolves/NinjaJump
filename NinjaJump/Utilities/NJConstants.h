@@ -56,6 +56,8 @@
 #define kModeSelectionBackground @"selectionBG"
 #define kOneVSThreeModeBtnFileName @"oneVSThreeBtn"
 #define kModeSelectionBarFilename @"banner"
+#define kTutorialModeBtnFileName @"tutorialBtn"
+#define kSettingBtnFileName @"settingBtn"
 
 #pragma mark - Player Selection
 #define kShurikenButtons @"ready buttons"
@@ -87,5 +89,6 @@ typedef enum : uint8_t {
     NJGameModeBeginner=0,
     NJGameModeSurvival,
     NJGameModeOneVsThree,
+    NJGameModeTutorial,
     NJGameModeCount
 } NJGameMode;
