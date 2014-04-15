@@ -7,6 +7,7 @@
 //
 
 #import "NJSpecialItem.h"
+#import "NJConstants.h"
 
 @implementation NJSpecialItem
 
@@ -17,6 +18,7 @@
         self.position = position;
         self.isPickedUp = NO;
         _lifeTime = 0;
+        _itemShadow = [[SKSpriteNode alloc] initWithImageNamed:itemShadowImageName];
     }
     
     return self;
@@ -30,6 +32,7 @@
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter *)character
 {
     //Overridden by Subclasses
+    NSLog(@"use item!");
 }
 
 @end

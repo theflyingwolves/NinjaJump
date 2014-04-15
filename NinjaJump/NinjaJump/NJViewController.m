@@ -10,9 +10,10 @@
 #import "NJLoadingScene.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJTutorialScene.h"
+#import "NJModeSelectionScene.h"
 #import <SpriteKit/SpriteKit.h>
 
-@interface NJViewController ()
+@interface NJViewController () <NJModeSelectionSceneDelegate,NJMultiplayerLayeredCharacterSceneDelegate>
 @property (weak, nonatomic) IBOutlet SKView *skView;
 @property (strong, nonatomic) NJMultiplayerLayeredCharacterScene *scene;
 @end
@@ -31,16 +32,37 @@
     NJLoadingScene *loadingScene = [[NJLoadingScene alloc] initWithSize:_skView.bounds.size];
     loadingScene.scaleMode = SKSceneScaleModeAspectFill;
     [_skView presentScene:loadingScene];
+    NJModeSelectionScene *modeSelectionScene = [[NJModeSelectionScene alloc] initWithSize:_skView.bounds.size];
+    modeSelectionScene.scaleMode = SKSceneScaleModeAspectFill;
+    modeSelectionScene.delegate = self;
+    [_skView presentScene:modeSelectionScene];
+}
+
+- (void)modeSelected:(NJGameMode)mode
+{
     [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
         NSLog(@"loading assets completed.");
-        // Create and configure the scene.
-        NJTutorialScene *scene = [[NJTutorialScene alloc] initWithSizeWithoutSelection:_skView.bounds.size];
-//        NJMultiplayerLayeredCharacterScene * scene = [NJMultiplayerLayeredCharacterScene sceneWithSize:_skView.bounds.size];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        self.scene = scene;
-        // Present the scene.
-        [_skView presentScene:scene];
+        if (mode == NJGameModeTutorial) {
+            NSLog(@"Initializing Tutorial");
+            // Initialize Tutorial Scene Here
+        }else{
+            // Create and configure the scene.
+            NJMultiplayerLayeredCharacterScene * scene = [[NJMultiplayerLayeredCharacterScene alloc] initWithSize:_skView.bounds.size mode:mode];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            scene.delegate = self;
+            self.scene = scene;
+            // Present the scene.
+            [_skView presentScene:scene transition:[SKTransition crossFadeWithDuration:0.5f]];
+        }
     }];
+}
+
+- (void)backToModeSelectionScene
+{
+    NJModeSelectionScene *modeSelectionScene = [[NJModeSelectionScene alloc] initWithSize:_skView.bounds.size];
+    modeSelectionScene.scaleMode = SKSceneScaleModeAspectFill;
+    modeSelectionScene.delegate = self;
+    [_skView presentScene:modeSelectionScene];
 }
 
 - (BOOL)prefersStatusBarHidden

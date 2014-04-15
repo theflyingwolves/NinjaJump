@@ -7,11 +7,19 @@
 //
 
 #pragma mark - Game World
-#define kNumOfFramesToSpawnItem 10
+#define kTimeAddItemToBoss 5.0f
 #define NJWoodPileInitialImpluse 3
+#define FRAME CGRectMake(1024/2, 768/2, 1024, 768)
+#define kBackgroundFileName @"lakeMoonBG"
 
 #pragma mark - Ninja Characters
 #define FULL_HP 100
+
+#define kNinjaOneColor [SKColor colorWithRed:1 green:0.3 blue:0 alpha:1]
+#define kNinjaTwoColor [SKColor colorWithRed:0.2 green:0.6 blue:1 alpha:1]
+#define kNinjaThreeColor [SKColor colorWithRed:1 green:1 blue:0 alpha:1]
+#define kNinjaFourColor [SKColor colorWithRed:0.5 green:0 blue:1 alpha:1]
+#define shadowImageName @"shadow"
 
 #pragma mark - Special Items
 #define kAttackDamage 20
@@ -20,6 +28,15 @@
 #define kFireScrollDamage 10
 #define kShurikenDamage 10
 #define kMineDamage 20
+#define kIndicatorAlpha 0.1
+#define kThunderIndicator @"indicator_thunder"
+#define kFireIndicator @"indicator_fire"
+#define kWindIndicator @"indicator_wind"
+#define kIceIndicator @"indicator_ice"
+
+#define kNinjaImageName @"ninja.png"
+#define bossIndex @"bossIndex"
+
 #define kThunderScrollFileName @"thunderScroll"
 #define kWindScrollFileName @"windScroll"
 #define kIceScrollFileName @"iceScroll"
@@ -27,6 +44,7 @@
 #define kMineFileName @"mine"
 #define kShurikenFileName @"shuriken"
 #define kMedikitFileName @"medikit"
+#define itemShadowImageName @"itemShadow"
 
 #pragma mark - Music
 #define kMusicPatrit @"patrit"
@@ -34,3 +52,47 @@
 #define kMusicShadow @"shadowNinja"
 #define kMusicFunny @"funnyday"
 #define kMusicSun @"sunshining"
+
+#pragma mark - Mode Selection
+#define KTutorialModeBtnFileName @"tutorialBtn"
+#define kBeginnerModeBtnFileName @"beginnerBtn"
+#define kSurvivalModeBtnFilename @"survivalBtn"
+#define kModeSelectionBackground @"selectionBG"
+#define kOneVSThreeModeBtnFileName @"oneVSThreeBtn"
+#define kModeSelectionBarFilename @"banner"
+#define kTutorialModeBtnFileName @"tutorialBtn"
+#define kSettingBtnFileName @"settingBtn"
+
+#pragma mark - Player Selection
+#define kShurikenButtons @"ready buttons"
+#define kShurikenShade @"shade"
+#define kStartButton @"start button"
+#define kShurikenButtonBlue @"touched button blue"
+#define kShurikenButtonOrange @"touched button orange"
+#define kShurikenButtonPurple @"touched button purple"
+#define kShurikenButtonYellow @"touched button yellow"
+#define kHaloOrange @"orangeHalo"
+#define kHaloBlue @"blueHalo"
+#define kHaloYellow @"yellowHalo"
+#define kHaloPurple @"purpleHalo"
+#define kSelectedOrange @"selectedOrange"
+#define kSelectedBlue @"selectedBlue"
+#define kSelectedYellow @"selectedYellow"
+#define kSelectedPurple @"selectedPurple"
+#define kUnselectedOrange @"unselectedOrange"
+#define kUnselectedBlue @"unselectedBlue"
+#define kUnselectedYellow @"unselectedYellow"
+#define kUnselectedPurple @"unselectedPurple"
+#define kButtonHaloShinningTime 0.2
+#define kShurikenBUttonsFadeoutDuration 1.0
+
+#pragma mark - Notification
+#define kNotificationPlayerIndex @"activatedPlayerIndex"
+
+typedef enum : uint8_t {
+    NJGameModeBeginner=0,
+    NJGameModeSurvival,
+    NJGameModeOneVsThree,
+    NJGameModeTutorial,
+    NJGameModeCount
+} NJGameMode;

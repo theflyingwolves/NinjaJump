@@ -10,6 +10,7 @@
 
 #define CONTINUE 0
 #define RESTART 1
+#define BACK 2
 
 @interface NJPausePanel : SKSpriteNode
 

@@ -33,10 +33,17 @@
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
         self.physicalDamageMultiplier = 1.0f;
         self.magicalDamageMultiplier = 1.0f;
+        [self initShadow];
         [self configurePhysicsBody];
     }
     
     return self;
+}
+
+- (void)initShadow
+{
+    _shadow = [[SKSpriteNode alloc] initWithImageNamed:shadowImageName];
+    _shadow.alpha = 0.7;
 }
 
 - (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval
@@ -60,6 +67,7 @@
                                     curPosition.y + cosf(ang)*dt);
     }
     self.player.jumpTimerSprite.position = self.position;
+    self.shadow.position = self.position;
 }
 
 - (void)prepareForJump
@@ -85,7 +93,7 @@
     if (character.health <= 0) {
         return ; // to prevent the attack animation to be wrongly performed
     }
-    [character applyDamage:kAttackDamage];
+    [character applyPhysicalDamage:kAttackDamage];
     self.requestedAnimation = NJAnimationStateAttack;
     [self runAction:[SKAction playSoundFileNamed:kSoundAttack waitForCompletion:NO]];
 }

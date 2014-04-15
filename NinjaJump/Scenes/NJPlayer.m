@@ -11,7 +11,7 @@
 #import "NJGraphicsUnitilities.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 
-#define NUM_OF_FRAMES_FOR_JUMP_TIMER 1
+#define NUM_OF_FRAMES_FOR_JUMP_TIMER 9
 #define kJumpAnimationSpeed kJumpCooldownTime / NUM_OF_FRAMES_FOR_JUMP_TIMER
 
 @implementation NJPlayer
@@ -20,6 +20,7 @@
 {
     if (self.ninja) {
         if (self.jumpTimerSprite.parent) {
+            [self.jumpTimerSprite removeAllActions];
             [self.jumpTimerSprite removeFromParent];
         }
         self.jumpTimerSprite.position = self.ninja.position;

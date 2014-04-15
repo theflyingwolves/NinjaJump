@@ -12,7 +12,7 @@
 #define kShurikenEffectFileName @"shurikenEffect.png"
 #define kShurikenSpeed 800
 #define kShurikenMaxDistance 1500
-#define kShurikenMultiDamage 20
+#define kShurikenMultiDamage 10
 @implementation NJEffectShurikenMulti
 
 -(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner{

@@ -14,7 +14,6 @@
 @interface NJPlayer : NSObject
 @property (nonatomic) NJNinjaCharacter *ninja;
 @property (nonatomic) SKColor *color;
-
 @property (nonatomic) BOOL isDisabled;
 @property (nonatomic) BOOL fireAction;
 

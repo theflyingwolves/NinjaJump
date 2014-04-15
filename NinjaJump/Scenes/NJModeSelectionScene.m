@@ -1,0 +1,135 @@
+//
+//  NJModeSelectionScene.m
+//  NinjaJump
+//
+//  Created by Wang Kunzhen on 12/4/14.
+//  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
+//
+#define BUTTON_WIDTH 273.0f
+#define GAP 20.0f
+#define MODE_SELECTION_BUTTON_ANIM_LENGTH 0.4f
+#define SETTING_BUTTON_WIDTH 273.0f
+#define SETTING_BUTTON_HEIGHT 141.0f
+#define kNumOfSettingElmts 2
+
+#import "NJModeSelectionScene.h"
+#import "NJButton.h"
+#import "NJConstants.h"
+
+@interface NJModeSelectionScene () <NJButtonDelegate>
+@property NJButton *oneVSThreeMode;
+@property NJButton *beginnerMode;
+@property NJButton *survivalMode;
+@property SKSpriteNode *menuBar;
+@property NJButton *tutorialMode;
+@property NJButton *settingBtn;
+@property SKSpriteNode *bar;
+@property SKSpriteNode *background;
+@end
+
+@implementation NJModeSelectionScene
+
+- (id)initWithSize:(CGSize)size
+{
+    self = [super initWithSize:size];
+    
+    if (self) {
+        [self initBackground];
+        [self initBar];
+        [self initOneVSThreeModeButton];
+        [self initBeginnerModeButton];
+        [self initSurvivalModeButton];
+        [self initTutorialButton];
+//        [self initMenuBar];
+    }
+    
+    return self;
+}
+
+- (void)initBackground
+{
+    _background = [[SKSpriteNode alloc] initWithImageNamed:kModeSelectionBackground];
+    _background.position = FRAME.origin;
+    [self addChild:_background];
+}
+
+- (void)initBar
+{
+    _bar = [[SKSpriteNode alloc] initWithImageNamed:kModeSelectionBarFilename];
+    _bar.alpha = 0.5;
+    _bar.yScale = 0.1;
+    _bar.position = CGPointMake(FRAME.origin.x, 220);
+    [self addChild:_bar];
+    [_bar runAction:[SKAction scaleYTo:1.0f duration:0.4f]];
+}
+
+- (void)initMenuBar
+{
+    _menuBar = [[SKSpriteNode alloc] init];
+    _menuBar.position = CGPointMake(self.frame.size.width - BUTTON_WIDTH/2, 500);
+    _settingBtn = [[NJButton alloc] initWithImageNamed:kSettingBtnFileName];
+    _settingBtn.position = CGPointMake(0, 100);
+    _settingBtn.delegate = self;
+    [_menuBar addChild:_settingBtn];
+    [self addChild:_menuBar];
+}
+
+- (void)initTutorialButton
+{
+    _tutorialMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
+    _tutorialMode.delegate = self;
+    _tutorialMode.position = CGPointMake(500, 400);
+    _tutorialMode.index = NJGameModeTutorial;
+    [self addChild:_tutorialMode];
+}
+
+- (void)initBeginnerModeButton
+{
+    _beginnerMode = [[NJButton alloc] initWithImageNamed:kBeginnerModeBtnFileName];
+    _beginnerMode.delegate = self;
+    _beginnerMode.index = NJGameModeBeginner;
+    _beginnerMode.position = CGPointMake(1350, 220);
+    [self addChild:_beginnerMode];
+    float x = FRAME.size.width - 2.5*BUTTON_WIDTH - 3*GAP;
+    SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
+    moveIn.timingMode = SKActionTimingEaseOut;
+    [_beginnerMode runAction:moveIn];
+}
+
+- (void)initSurvivalModeButton
+{
+    _survivalMode = [[NJButton alloc] initWithImageNamed:kSurvivalModeBtnFilename];
+    _survivalMode.delegate = self;
+    _survivalMode.index = NJGameModeSurvival;
+    _survivalMode.position = CGPointMake(1350, 220);
+    [self addChild:_survivalMode];
+    float x = FRAME.size.width - 1.5*BUTTON_WIDTH - 2*GAP;
+    SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
+    moveIn.timingMode = SKActionTimingEaseOut;
+    [_survivalMode runAction:moveIn];
+}
+
+- (void)initOneVSThreeModeButton
+{
+    _oneVSThreeMode = [[NJButton alloc] initWithImageNamed:kOneVSThreeModeBtnFileName];
+    _oneVSThreeMode.delegate = self;
+    _oneVSThreeMode.index = NJGameModeOneVsThree;
+    _oneVSThreeMode.position = CGPointMake(1350, 220);
+    [self addChild:_oneVSThreeMode];
+    float x = FRAME.size.width - 0.5*BUTTON_WIDTH - 1*GAP;
+    SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
+    moveIn.timingMode = SKActionTimingEaseOut;
+    [_oneVSThreeMode runAction:moveIn];
+}
+
+- (void)button:(NJButton *)button touchesBegan:(NSSet *)touches
+{
+    [button setScale:1.05];
+}
+
+- (void)button:(NJButton *)button touchesEnded:(NSSet *)touches
+{
+    [button setScale:1.00];
+    [self.delegate modeSelected:button.index];
+}
+@end

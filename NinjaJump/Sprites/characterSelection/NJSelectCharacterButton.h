@@ -7,7 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-typedef enum {BLUE=0, RED=1, BROWN=2, PURPLE=3} NJSelectionButtonType ;
+typedef enum {ORANGE=0, BLUE, YELLOW, PURPLE} NJSelectionButtonType ;
 
 @class NJSelectCharacterButton;
 @protocol NJSelectionButtonDelegate <NSObject>
@@ -19,6 +19,9 @@ typedef enum {BLUE=0, RED=1, BROWN=2, PURPLE=3} NJSelectionButtonType ;
 @interface NJSelectCharacterButton : SKSpriteNode
 
 @property (nonatomic, weak) id <NJSelectionButtonDelegate> delegate;
+@property BOOL isSelected;
 
 - (id)initWithType:(NJSelectionButtonType) buttonType;
+- (void)changeBackgroundImageToImageNamed:(NSString *)name;
+
 @end

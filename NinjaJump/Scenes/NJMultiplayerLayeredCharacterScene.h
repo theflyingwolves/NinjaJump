@@ -10,6 +10,7 @@
 #import "NJResponsibleBG.h"
 #import <SpriteKit/SpriteKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "NJConstants.h"
 
 
 /* The layers in a scene. */
@@ -32,7 +33,7 @@ typedef enum : uint8_t {
 
 #define kMinTimeInterval (1.0f / 60.0f)
 #define kNumPlayers 4
-#define kJumpCooldownTime 0.5f
+#define kJumpCooldownTime 0.7f
 #define kFireLastTime 5.0f
 #define kPileDecreaseTimeInterval 10.0f
 #define kMaxItemLifeTime 15.0f
@@ -42,6 +43,10 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 /* Forward declarations */
 @class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile;
+
+@protocol NJMultiplayerLayeredCharacterSceneDelegate <NSObject>
+- (void)backToModeSelectionScene;
+@end
 
 @interface NJMultiplayerLayeredCharacterScene:SKScene
 
@@ -64,8 +69,10 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 @property (nonatomic) NSTimeInterval pileDecreaseTime;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
+@property (nonatomic) id<NJMultiplayerLayeredCharacterSceneDelegate> delegate;
 @property BOOL doAddItemRandomly;
 
+- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
 
 
 
