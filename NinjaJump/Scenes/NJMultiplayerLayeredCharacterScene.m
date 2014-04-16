@@ -19,8 +19,9 @@
 #import "NJ1V3SelectionButtonSystem.h"
 #import "NJResponsibleBG.h"
 #import "NJPausePanel.h"
-
 #import "NJScroll.h"
+
+
 #import "NJThunderScroll.h"
 #import "NJWindScroll.h"
 #import "NJIceScroll.h"
@@ -46,6 +47,7 @@
     BOOL shouldPileStartDecreasing;
     NSArray *musicName;
     AVAudioPlayer *music;
+    NSUInteger kNumberOfFramesToSpawnItem;
 }
 
 #pragma mark - Initialization
@@ -78,6 +80,8 @@
         self.physicsBody.friction = 0.0;
         self.physicsBody.linearDamping = 0.0;
         self.physicsBody.restitution = 1.0;
+        
+        [self initItemFrequency];
         _ninjas = [[NSMutableArray alloc] init];
         _items = [[NSMutableArray alloc] init];
         _woodPiles = [[NSMutableArray alloc] init];
@@ -87,9 +91,14 @@
         shouldPileStartDecreasing = NO;
         [self buildWorld];
         
+        self.doAddItemRandomly = YES;
+        
         musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
         [self resetMusic];
-        [self initSelectionSystem];
+        
+        if (mode != NJGameModeTutorial) {
+            [self initSelectionSystem];
+        }
     }
     return self;
 }
@@ -98,6 +107,24 @@
 {
     SKNode *layerNode = self.layers[layer];
     [layerNode addChild:node];
+}
+
+- (void)initItemFrequency
+{
+    switch (_gameMode) {
+        case NJGameModeOneVsThree:
+            kNumberOfFramesToSpawnItem = 200;
+            break;
+        case NJGameModeBeginner:
+            kNumberOfFramesToSpawnItem = 600;
+            break;
+        case NJGameModeSurvival:
+            kNumberOfFramesToSpawnItem = 200;
+            break;
+        default:
+            kNumberOfFramesToSpawnItem = 200;
+            break;
+    }
 }
 
 - (void)initHpBars
@@ -172,19 +199,19 @@
         }
     }
     
-    ((NJItemControl *)_itemControls[0]).position = CGPointMake(yDiff, xDiff);
+    ((NJItemControl *)_itemControls[0]).position = CGPointMake(0+xDiff, 0+yDiff);
     ((NJItemControl *)_itemControls[0]).zRotation = - M_PI / 4;
     ((NJItemControl *)_itemControls[0]).color = kNinjaOneColor;
     ((NJItemControl *)_itemControls[0]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
-    ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-xDiff, yDiff);
+    ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-yDiff, xDiff);
     ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
     ((NJItemControl *)_itemControls[1]).color = kNinjaTwoColor;
     ((NJItemControl *)_itemControls[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
-    ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
+    ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
     ((NJItemControl *)_itemControls[2]).zRotation = 3* M_PI / 4;
     ((NJItemControl *)_itemControls[2]).color = kNinjaThreeColor;
     ((NJItemControl *)_itemControls[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
-    ((NJItemControl *)_itemControls[3]).position = CGPointMake(xDiff, 768-yDiff);
+    ((NJItemControl *)_itemControls[3]).position = CGPointMake(yDiff, 768-xDiff);
     ((NJItemControl *)_itemControls[3]).zRotation = -3*M_PI / 4;
     ((NJItemControl *)_itemControls[3]).color = kNinjaFourColor;
     ((NJItemControl *)_itemControls[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
@@ -212,22 +239,22 @@
         }
     }
     
-    ((NJButton*)_buttons[0]).position = CGPointMake(0+xDiff, 0+yDiff);
+    ((NJButton*)_buttons[0]).position = CGPointMake(yDiff, xDiff);
     ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
     ((NJButton*)_buttons[0]).color = kNinjaOneColor;
     ((NJButton*)_buttons[0]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJButton*)_buttons[0]).player.color = kNinjaOneColor;
-    ((NJButton*)_buttons[1]).position = CGPointMake(1024-yDiff, xDiff);
+    ((NJButton*)_buttons[1]).position = CGPointMake(1024-xDiff, yDiff);
     ((NJButton*)_buttons[1]).zRotation = M_PI/4;
     ((NJButton*)_buttons[1]).color = kNinjaTwoColor;
     ((NJButton*)_buttons[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJButton*)_buttons[1]).player.color = kNinjaTwoColor;
-    ((NJButton*)_buttons[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
+    ((NJButton*)_buttons[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
     ((NJButton*)_buttons[2]).zRotation = M_PI/4*3;
     ((NJButton*)_buttons[2]).color = kNinjaThreeColor;
     ((NJButton*)_buttons[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
     ((NJButton*)_buttons[2]).player.color = kNinjaThreeColor;
-    ((NJButton*)_buttons[3]).position = CGPointMake(yDiff, 768-xDiff);
+    ((NJButton*)_buttons[3]).position = CGPointMake(xDiff, 768-yDiff);
     ((NJButton*)_buttons[3]).zRotation = -M_PI/4*3;
     ((NJButton*)_buttons[3]).color = kNinjaFourColor;
     ((NJButton*)_buttons[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
@@ -507,6 +534,7 @@
                 } else {
                     player.jumpRequested = NO;
                     player.isJumping = NO;
+                    player.finishJumpping = YES;
                     player.jumpCooldown = 0;
                     [player runJumpTimerAction];
                     //resolve attack events
@@ -727,8 +755,8 @@
         [bar updateHealthPoint];
     }
     
-    int toSpawnItem = arc4random() % kNumOfFramesToSpawnItem;
-    if (toSpawnItem==1) {
+    int toSpawnItem = arc4random() % kNumberOfFramesToSpawnItem;
+    if (toSpawnItem==1 && self.doAddItemRandomly) {
         [self addItem];
     }
     if (!isGameEnded) {
@@ -1018,10 +1046,8 @@
     }
 }
 
-- (void)pauseGame
+- (void)showPausePanel
 {
-    [self pauseWoodpiles];
-    [self pauseItemUpdate];
     NJPausePanel *pausePanel = [[NJPausePanel alloc]init];
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -1030,8 +1056,15 @@
     [self addChild:pausePanel];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
-    
+}
+
+- (void)pauseGame
+{
+    [self pauseWoodpiles];
+    [self pauseItemUpdate];
     [music pause];
+    
+    [self showPausePanel];
 }
 
 - (void)restartOrContinue:(NSNotification *)note
@@ -1192,6 +1225,10 @@
         }
     }
     
+    [self activateSelectedPlayersWithPreSetting];
+}
+
+- (void) activateSelectedPlayersWithPreSetting{
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];

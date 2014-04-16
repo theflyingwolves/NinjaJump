@@ -9,6 +9,7 @@
 #import "NJViewController.h"
 #import "NJLoadingScene.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
+#import "NJTutorialScene.h"
 #import "NJModeSelectionScene.h"
 #import <SpriteKit/SpriteKit.h>
 
@@ -44,6 +45,11 @@
         if (mode == NJGameModeTutorial) {
             NSLog(@"Initializing Tutorial");
             // Initialize Tutorial Scene Here
+            NJTutorialScene *scene = [[NJTutorialScene alloc] initWithSizeWithoutSelection:_skView.bounds.size];
+            self.scene = scene;
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            scene.delegate = self;
+            [_skView presentScene:scene transition:[SKTransition crossFadeWithDuration:0.5f]];
         }else{
             // Create and configure the scene.
             NJMultiplayerLayeredCharacterScene * scene = [[NJMultiplayerLayeredCharacterScene alloc] initWithSize:_skView.bounds.size mode:mode];
