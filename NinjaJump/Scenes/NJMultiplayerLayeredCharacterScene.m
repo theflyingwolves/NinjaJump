@@ -453,18 +453,20 @@
         self.lastUpdateTimeInterval = currentTime;
     }
 
-    for (NJPile *pile in _woodPiles) {
-        float dx = pile.physicsBody.velocity.dx;
-        float dy = pile.physicsBody.velocity.dy;
-        float xSign = dx > 0? 1:-1;
-        float ySign = dy > 0? 1:-1;
-        
-        if (fabs(dx) < MINIMUM_VELOCITY) {
-            [pile.physicsBody applyImpulse:CGVectorMake(2*xSign, 0)];
-        }
-        
-        if (fabs(dy) < MINIMUM_VELOCITY) {
-            [pile.physicsBody applyImpulse:CGVectorMake(0, 2*ySign)];
+    if (_gameMode != NJGameModeBeginner) {
+        for (NJPile *pile in _woodPiles) {
+            float dx = pile.physicsBody.velocity.dx;
+            float dy = pile.physicsBody.velocity.dy;
+            float xSign = dx > 0? 1:-1;
+            float ySign = dy > 0? 1:-1;
+            
+            if (fabs(dx) < MINIMUM_VELOCITY) {
+                [pile.physicsBody applyImpulse:CGVectorMake(2*xSign, 0)];
+            }
+            
+            if (fabs(dy) < MINIMUM_VELOCITY) {
+                [pile.physicsBody applyImpulse:CGVectorMake(0, 2*ySign)];
+            }
         }
     }
     
