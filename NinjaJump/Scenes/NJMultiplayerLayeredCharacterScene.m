@@ -543,7 +543,7 @@
                             continue;
                         }
                         if (hypotf(ninja.position.x-p.ninja.position.x,ninja.position.y-p.ninja.position.y)<=CGRectGetWidth(player.targetPile.frame)/2) {
-                            if (!p.isDisabled) {
+                            if (!p.isDisabled && !p.isJumping) {
                                 [ninja attackCharacter:p.ninja];
                                 NJPile *pile = [self spawnAtRandomPileForNinja:YES];
                                 pile.standingCharacter = p.ninja;
