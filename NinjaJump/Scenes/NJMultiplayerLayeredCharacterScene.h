@@ -72,6 +72,8 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @property (nonatomic) id<NJMultiplayerLayeredCharacterSceneDelegate> delegate;
 @property BOOL doAddItemRandomly;
 
+@property (nonatomic) NSArray *musicName;
+
 - (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
 
 
@@ -97,5 +99,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 /* for the use of tutorial scene */
 - (void) activateSelectedPlayersWithPreSetting;
+
+- (void)resetMusic;
 
 @end

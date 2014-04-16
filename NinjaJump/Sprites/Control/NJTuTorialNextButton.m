@@ -12,7 +12,8 @@
 
 - (id)init
 {
-    self = [super initWithColor:[UIColor grayColor] size:CGSizeMake(100, 50)];
+    self = [super initWithImageNamed:@"nextButton.png"];
+    self.size = CGSizeMake(600/9.0, 247/9.0);
     
     if (self) {
         self.userInteractionEnabled = YES;

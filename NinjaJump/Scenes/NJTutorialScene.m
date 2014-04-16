@@ -17,19 +17,31 @@
 #import "NJScroll.h"
 #import "NJNinjaCharacter.h"
 #import "NJHPBar.h"
+#import "NJConstants.h"
 
 #define kItemNameShuriken 0
 #define kItemNameMedikit 1
 #define kItemNameIceScroll 2
 
-#define kNPCPositionX -130
-#define kNPCPositionY 50
-#define kDialogPositionX 200
-#define kDialogPositionY 150
-#define kNextButtonPositionX 210
-#define kNextButtonPositionY -50
+#define kNPCPositionX -330
+#define kNPCPositionY -200
+#define kDialogPositionX -150
+#define kDialogPositionY -200
+#define kNextButtonPositionX 87
+#define kNextButtonPositionY -20
+#define kHomeButtonPositionX 60
+#define kHomeButtonPositionY 30
+
 
 #define kImageDialogIntroFileName @"dialogIntro.png"
+#define kImageDialogAttackFileName @"dialogAttack.png"
+#define kImageDialogPickupShurikenFileName @"dialogPickupShuriken.png"
+#define kImageDialogUseShurikenFileName @"dialogUseShuriken.png"
+#define kImageDialogPickupMedikitFileName @"dialogPickupMedikit.png"
+#define kImageDialogUseScrollFileName @"dialogUseScroll.png"
+#define kImageDialogFinishFileName @"dialogFinish.png"
+
+
 
 typedef enum : uint8_t {
     NJTutorialPhaseIntro = 0,
@@ -43,7 +55,8 @@ typedef enum : uint8_t {
     NJTutorialPhaseIntroToMedikit,
     NJTutorialPhasePickupMedikit,
     NJTutorialPhaseIntroToIce,
-    NJTutorialPhaseUseIce
+    NJTutorialPhaseUseIce,
+    NJTutorialPhaseFinish
 } NJTutorialPhase;
 
 @interface NJTutorialScene ()  <NJScrollDelegate>
@@ -53,8 +66,7 @@ typedef enum : uint8_t {
 
 @implementation NJTutorialScene{
     SKSpriteNode *cover;
-    SKSpriteNode *NPC1;
-    SKSpriteNode *NPC2;
+    SKSpriteNode *NPC;
     SKSpriteNode *dialog;
     
     NSInteger dialogImageIndex;
@@ -66,14 +78,12 @@ typedef enum : uint8_t {
     CGFloat timeToGoToNextPhase;
 }
 
-#pragma init
+#pragma mark - init
 
 - (instancetype)initWithSizeWithoutSelection:(CGSize)size{
     self = [super initWithSize:size mode:NJGameModeTutorial];
     if (self){
-        dialogImageNames = [NSArray arrayWithObjects:kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName,
-            kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName,
-            kImageDialogIntroFileName, kImageDialogIntroFileName, kImageDialogIntroFileName, nil];
+        dialogImageNames = [NSArray arrayWithObjects:kImageDialogIntroFileName, kImageDialogAttackFileName, kImageDialogPickupShurikenFileName, kImageDialogUseShurikenFileName, kImageDialogPickupMedikitFileName, kImageDialogUseScrollFileName, kImageDialogFinishFileName, nil];
         dialogImageIndex = 0;
         
         [self initGameSettings];
@@ -83,6 +93,9 @@ typedef enum : uint8_t {
         timeToGoToNextPhase = -1;
         
         [self disableControl];
+        
+        self.musicName = [NSArray arrayWithObjects:kMusicFunny, nil];
+        [self resetMusic];
     }
     
     return  self;
@@ -91,18 +104,13 @@ typedef enum : uint8_t {
 
 - (void)initGameSettings {
     ((NJPlayer*)self.players[1]).isDisabled = NO;
-    ((NJPlayer*)self.players[0]).isDisabled = NO;
-    ((NJPlayer*)self.players[2]).isDisabled = YES;
     ((NJPlayer*)self.players[3]).isDisabled = YES;
+    ((NJPlayer*)self.players[2]).isDisabled = YES;
+    ((NJPlayer*)self.players[0]).isDisabled = YES;
     
     ((NJPlayer*)self.players[1]).finishJumpping = NO;
     
     [self activateSelectedPlayersWithPreSetting];
-    [self.itemControls[0] removeFromParent];
-    [self.buttons[0] removeFromParent];
-    [((NJPlayer*)self.players[0]).ninja removeFromParent];
-    ((NJHPBar*)self.hpBars[0]).alpha = 0;
-
     self.doAddItemRandomly = NO;
 }
 
@@ -117,25 +125,29 @@ typedef enum : uint8_t {
     cover.alpha = 1;
     cover.userInteractionEnabled = YES;
     cover.color = [UIColor clearColor];
-    
-    NPC1 = [[SKSpriteNode alloc] initWithImageNamed:@"NPC.png"];
-    NPC2 = [[SKSpriteNode alloc] initWithImageNamed:@"NPC2.png"];
-    NPC1.position = CGPointMake(kNPCPositionX, kNPCPositionY);
-    NPC2.position = NPC1.position;
-    [cover addChild:NPC1];
+
+    NPC = [[SKSpriteNode alloc] initWithImageNamed:@"NPC2.png"];
+    NPC.position = CGPointMake(kNPCPositionX, kNPCPositionY);
+    NPC.size = CGSizeMake(700/2.0, 768/2.0);
+    [cover addChild:NPC];
     
     dialog = [[SKSpriteNode alloc] initWithImageNamed:dialogImageNames[dialogImageIndex]];
     dialog.position = CGPointMake(kDialogPositionX, kDialogPositionY);
+    dialog.size = CGSizeMake(600/2.0, 410/2.0);
     [cover addChild:dialog];
     
     self.nextButton = [[NJTuTorialNextButton alloc] init];
     [dialog addChild:self.nextButton];
     self.nextButton.delegate = self;
     self.nextButton.position = CGPointMake(kNextButtonPositionX, kNextButtonPositionY);
+    
+    self.homeButton = [[NJTutorialHomeButton alloc] init];
+    self.homeButton.delegate = self;
+    self.homeButton.position = CGPointMake(kHomeButtonPositionX, kHomeButtonPositionY);
 }
 
 
-#pragma control
+#pragma mark - control
 
 - (void)disableControl{
     [self addChild:cover];
@@ -155,9 +167,11 @@ typedef enum : uint8_t {
 - (void)toggleControl{
     if (isPaused) {
         [self enableControl];
+        [self addChild:self.homeButton];
     } else {
         [self nextImageForDialog];
         [self disableControl];
+        [self.homeButton removeFromParent];
     }
 }
 
@@ -176,28 +190,30 @@ typedef enum : uint8_t {
 }
 
 - (void)showGuide{
-    [cover addChild:NPC1];
+    [cover addChild:NPC];
     [cover addChild:dialog];
 }
 
 - (void)hideGuide{
-    [NPC1 removeFromParent];
+    [NPC removeFromParent];
     [dialog removeFromParent];
 }
 
 - (void)activateDummyPlayer{
-    NJPlayer *player = self.players[0];
-    if (!player.isDisabled) {
-        NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
-        NJPile *pile = [self spawnAtRandomPileForNinja:NO];
-        pile.standingCharacter = ninja;
-        ninja.position = pile.position;
-    }
-    ((NJHPBar*)self.hpBars[0]).alpha = 1;
+    NJPlayer *player = self.players[3];
+    player.isDisabled = NO;
+    NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
+    [self addNode:ninja.shadow atWorldLayer:NJWorldLayerBelowCharacter];
+    NJPile *pile = [self spawnAtRandomPileForNinja:NO];
+    pile.standingCharacter = ninja;
+    ninja.position = pile.position;
     
+    if (!((NJHPBar *)self.hpBars[3]).parent) {
+        [self addChild:self.hpBars[3]];
+    }
 }
 
-#pragma game setting utility
+#pragma mark - game setting utility
 
 - (void)addItem:(NSInteger)itemName{
     NJPile *pile = [self spawnAtRandomPileForNinja:NO];
@@ -234,15 +250,32 @@ typedef enum : uint8_t {
 
 }
 
+- (SKSpriteNode*)createArrowWithVector:(CGVector)vector andPosition:(CGPoint)position{
+    SKSpriteNode *arrow = [[SKSpriteNode alloc] initWithImageNamed:@"arrow.png"];
+    arrow.size = CGSizeMake(600/6.0, 400/7.0);
+    arrow.position = position;
+    
+    SKAction *moveForward = [SKAction moveBy:vector duration:0.25];
+    SKAction *moveBackward = [SKAction moveBy:CGVectorMake(-vector.dx,-vector.dy) duration:0.5];
+    SKAction *moveBackAndForth = [SKAction sequence:[NSArray arrayWithObjects:moveBackward, moveForward, nil]];
+    SKAction *repeat = [SKAction repeatAction:moveBackAndForth count:3];
+    [arrow runAction:repeat completion:^(void){
+        [arrow removeFromParent];
+    }];
+    return arrow;
+}
 
 
 
-#pragma overriden method
+
+#pragma mark - overriden method
 
 - (void)addWoodPiles
 {
     CGFloat r= 120.0f;
+    
     NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 580)], [NSValue valueWithCGPoint:CGPointMake(250, 250)], [NSValue valueWithCGPoint:CGPointMake(350, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(100, 300)], [NSValue valueWithCGPoint:CGPointMake(250, 500)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 600)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
+    
     //add in the spawn pile of ninjas
     for (NSValue *posValue in pilePos){
         CGPoint pos = [posValue CGPointValue];
@@ -263,7 +296,7 @@ typedef enum : uint8_t {
             break;
             
         case NJTutorialPhaseAttack:
-            if (((NJPlayer*)self.players[0]).ninja.health <FULL_HP){
+            if (((NJPlayer*)self.players[3]).ninja.health <FULL_HP){
                 [self goToNextPhaseWithDelay];
             }
             break;
@@ -271,6 +304,10 @@ typedef enum : uint8_t {
         case NJTutorialPhasePickupShuriken:
             if (((NJPlayer*)self.players[1]).item) {
                 [self goToNextPhaseWithDelay];
+            } else {
+                if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item){
+                    [self addItem:kItemNameShuriken];
+                }
             }
             break;
             
@@ -283,12 +320,16 @@ typedef enum : uint8_t {
         case NJTutorialPhasePickupMedikit:
             if (((NJPlayer*)self.players[1]).ninja.health == FULL_HP) {
                 [self goToNextPhaseWithDelay];
+            } else {
+                if ([self.items count] == 0){
+                    [self addItem:kItemNameMedikit];
+                }
             }
             break;
             
         case NJTutorialPhaseUseIce:
-            if (!((NJPlayer*)self.players[0]).item) {
-                if (((NJPlayer*)self.players[0]).ninja.frozenCount > 0){
+            if (!((NJPlayer*)self.players[3]).item) {
+                if (((NJPlayer*)self.players[3]).ninja.frozenCount > 0){
                     [self goToNextPhaseWithDelay];
                 } else if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item) {
                     [self addItem:kItemNameIceScroll];
@@ -301,13 +342,22 @@ typedef enum : uint8_t {
             break;
     }
     
-    if (((NJPlayer*)self.players[0]).ninja.health <FULL_HP) {
-        ((NJPlayer*)self.players[0]).ninja.health = FULL_HP;
+    if (((NJPlayer*)self.players[3]).ninja.health <(FULL_HP-20)) {
+        if (phaseNum < NJTutorialPhaseUseShuriken) {
+            ((NJPlayer*)self.players[3]).ninja.health = FULL_HP-20;
+        }
+    }
+    if (((NJPlayer*)self.players[3]).ninja.health <(FULL_HP-40)) {
+        ((NJPlayer*)self.players[3]).ninja.health = FULL_HP-40;
     }
 }
 
 - (bool)isGameEnded{
     return NO;
+}
+
+- (void)backgroundTouchesEnded:(NSSet *)touches{
+    
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast{
@@ -320,35 +370,48 @@ typedef enum : uint8_t {
         timeToGoToNextPhase -= timeSinceLast;
     }
     
-//    NSLog(@"%f", timeToGoToNextPhase);
-    
+    for (NJSpecialItem *item in self.items){
+        item.lifeTime -= timeSinceLast;
+    }
 }
 
 
-#pragma delegate method
+
+#pragma mark - delegate method
 - (void)nextButton:(NJTuTorialNextButton *) button touchesEnded:(NSSet *)touches{
     if (button == self.nextButton) {
         switch (phaseNum) {
             case NJTutorialPhaseIntro:
                 [self toggleControl];
                 phaseNum++;
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(865, 100)]];
+            
                 break;
                 
             case NJTutorialPhaseIntroToAttack:
                 [self toggleControl];
                 phaseNum++;
                 [self activateDummyPlayer];
+            
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[3]).ninja.position.x-110, ((NJPlayer*)self.players[3]).ninja.position.y)]];
+            
                 break;
             
             case NJTutorialPhaseIntroToPickupShuriken:
                 [self toggleControl];
                 phaseNum++;
                 [self addItem:kItemNameShuriken];
+            
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJSpecialItem*)self.items[0]).position.x-110, ((NJSpecialItem*)self.items[0]).position.y)]];
+            
                 break;
                 
             case NJTutorialPhaseIntroToUseShuriken:
                 [self toggleControl];
                 phaseNum++;
+            
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(800, 50)]];
+
                 break;
  
             case NJTutorialPhaseIntroToMedikit:
@@ -356,6 +419,9 @@ typedef enum : uint8_t {
                 phaseNum++;
                 [self addItem:kItemNameMedikit];
                 ((NJPlayer*)self.players[1]).ninja.health -= 40;
+            
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJSpecialItem*)self.items[0]).position.x-110, ((NJSpecialItem*)self.items[0]).position.y)]];
+            
                 break;
                 
             case NJTutorialPhaseIntroToIce:
@@ -364,11 +430,17 @@ typedef enum : uint8_t {
                 [self addItem:kItemNameIceScroll];
                 break;
             
+            case NJTutorialPhaseFinish:
+                [self.delegate backToModeSelectionScene];
+            
             default:
                 break;
         }
     }
 }
 
+- (void)homeButton:(NJTutorialHomeButton *) button touchesEnded:(NSSet *)touches{
+    [self.delegate backToModeSelectionScene];
+}
 
 @end
