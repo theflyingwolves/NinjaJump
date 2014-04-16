@@ -538,11 +538,13 @@
                     player.jumpCooldown = 0;
                     [player runJumpTimerAction];
                     //resolve attack events
-                    for (NJPlayer *p in _players) {
-                        if (p == player) {
-                            continue;
-                        }
-                        if (hypotf(ninja.position.x-p.ninja.position.x,ninja.position.y-p.ninja.position.y)<=CGRectGetWidth(player.targetPile.frame)/2) {
+//                    for (NJPlayer *p in _players) {
+//                        if (p == player) {
+//                            continue;
+//                        }
+//                        if (hypotf(ninja.position.x-p.ninja.position.x,ninja.position.y-p.ninja.position.y)<=CGRectGetWidth(player.targetPile.frame)/2) {
+                        if (player.targetPile.standingCharacter) {
+                            NJPlayer *p = player.targetPile.standingCharacter.player;
                             if (!p.isDisabled) {
                                 [ninja attackCharacter:p.ninja];
                                 NJPile *pile = [self spawnAtRandomPileForNinja:YES];
@@ -569,11 +571,10 @@
                                 p.jumpRequested = NO;
                                 p.isJumping = NO;
                             }
-                        }
+//                        }
                     }
                     
                     if (player.targetPile.isOnFire) {
-                        NSLog(@"target on fire");
                         [player.ninja applyDamage:10];
                     }
                     
@@ -1018,6 +1019,7 @@
         return nil;
     }
     int index = arc4random() % [array count];
+    
     return ((NJPile*)array[index]);
 }
 
