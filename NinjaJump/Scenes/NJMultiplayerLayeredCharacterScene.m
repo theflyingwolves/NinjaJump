@@ -45,7 +45,6 @@
     BOOL isFirstTimeInitialized;
     BOOL isGameEnded;
     BOOL shouldPileStartDecreasing;
-    NSArray *musicName;
     AVAudioPlayer *music;
     NSUInteger kNumberOfFramesToSpawnItem;
 }
@@ -93,8 +92,10 @@
         
         self.doAddItemRandomly = YES;
         
-        musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
-        [self resetMusic];
+        if (mode != NJGameModeTutorial) {
+            self.musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
+            [self resetMusic];
+        }
         
         if (mode != NJGameModeTutorial) {
             [self initSelectionSystem];
@@ -419,8 +420,9 @@
 
 - (void)addWoodPiles
 {
-    CGFloat r= 120.0f;
+    CGFloat r= 120.0f;    
     NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 580)], [NSValue valueWithCGPoint:CGPointMake(250, 250)], [NSValue valueWithCGPoint:CGPointMake(350, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(100, 300)], [NSValue valueWithCGPoint:CGPointMake(250, 500)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 600)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
+    
     //add in the spawn pile of ninjas
     for (NSValue *posValue in pilePos){
         CGPoint pos = [posValue CGPointValue];
@@ -1089,8 +1091,8 @@
     if (music) {
         [music pause];
     }
-    int musicIndex = arc4random() % [musicName count];
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:musicName[musicIndex] ofType:@"mp3"]];
+    int musicIndex = arc4random() % [self.musicName count];
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.musicName[musicIndex] ofType:@"mp3"]];
     
     NSError *error;
     music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
@@ -1234,7 +1236,7 @@
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];
-    if (_gameMode != NJGameModeBeginner) {
+    if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
         shouldPileStartDecreasing = YES;
     }
 }

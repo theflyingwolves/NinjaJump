@@ -111,6 +111,16 @@
 		C42170E418E068DD00942374 /* NJIceScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170E318E068DD00942374 /* NJIceScroll.m */; };
 		C42170E718E068E800942374 /* NJFireScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = C42170E618E068E800942374 /* NJFireScroll.m */; };
 		C4966E5A18FEAC5E00D7BBA6 /* bomb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C4966E5918FEAC5E00D7BBA6 /* bomb.mp3 */; };
+		C4966E5E18FEBF3400D7BBA6 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E5B18FEBF3400D7BBA6 /* arrow.png */; };
+		C4966E6318FEC04500D7BBA6 /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6118FEC04500D7BBA6 /* backButton.png */; };
+		C4966E6418FEC04500D7BBA6 /* nextButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6218FEC04500D7BBA6 /* nextButton.png */; };
+		C4966E6B18FEC81000D7BBA6 /* dialogAttack.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6518FEC81000D7BBA6 /* dialogAttack.png */; };
+		C4966E6C18FEC81000D7BBA6 /* dialogFinish.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6618FEC81000D7BBA6 /* dialogFinish.png */; };
+		C4966E6D18FEC81000D7BBA6 /* dialogPickupMedikit.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6718FEC81000D7BBA6 /* dialogPickupMedikit.png */; };
+		C4966E6E18FEC81000D7BBA6 /* dialogPickupShuriken.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6818FEC81000D7BBA6 /* dialogPickupShuriken.png */; };
+		C4966E6F18FEC81000D7BBA6 /* dialogUseScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6918FEC81000D7BBA6 /* dialogUseScroll.png */; };
+		C4966E7018FEC81000D7BBA6 /* dialogUseShuriken.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6A18FEC81000D7BBA6 /* dialogUseShuriken.png */; };
+		C4966E7318FEEB4F00D7BBA6 /* NJTutorialHomeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4966E7218FEEB4F00D7BBA6 /* NJTutorialHomeButton.m */; };
 		C4AF3C1D18E803410036596A /* NJEffectMine.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AF3C1C18E803410036596A /* NJEffectMine.m */; };
 		C4AF3C1F18E806040036596A /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C1E18E806040036596A /* mine.png */; };
 		C4AF3C2318E852AA0036596A /* Ninja_Thunder.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2218E852AA0036596A /* Ninja_Thunder.atlas */; };
@@ -325,6 +335,17 @@
 		C42170E518E068E800942374 /* NJFireScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJFireScroll.h; path = Sprites/Item/NJFireScroll.h; sourceTree = "<group>"; };
 		C42170E618E068E800942374 /* NJFireScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJFireScroll.m; path = Sprites/Item/NJFireScroll.m; sourceTree = "<group>"; };
 		C4966E5918FEAC5E00D7BBA6 /* bomb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bomb.mp3; sourceTree = "<group>"; };
+		C4966E5B18FEBF3400D7BBA6 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Assets/control/arrow.png; sourceTree = "<group>"; };
+		C4966E6118FEC04500D7BBA6 /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backButton.png; path = Assets/control/backButton.png; sourceTree = "<group>"; };
+		C4966E6218FEC04500D7BBA6 /* nextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nextButton.png; path = Assets/control/nextButton.png; sourceTree = "<group>"; };
+		C4966E6518FEC81000D7BBA6 /* dialogAttack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogAttack.png; sourceTree = "<group>"; };
+		C4966E6618FEC81000D7BBA6 /* dialogFinish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogFinish.png; sourceTree = "<group>"; };
+		C4966E6718FEC81000D7BBA6 /* dialogPickupMedikit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogPickupMedikit.png; sourceTree = "<group>"; };
+		C4966E6818FEC81000D7BBA6 /* dialogPickupShuriken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogPickupShuriken.png; sourceTree = "<group>"; };
+		C4966E6918FEC81000D7BBA6 /* dialogUseScroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogUseScroll.png; sourceTree = "<group>"; };
+		C4966E6A18FEC81000D7BBA6 /* dialogUseShuriken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogUseShuriken.png; sourceTree = "<group>"; };
+		C4966E7118FEEB4F00D7BBA6 /* NJTutorialHomeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJTutorialHomeButton.h; path = Sprites/Control/NJTutorialHomeButton.h; sourceTree = "<group>"; };
+		C4966E7218FEEB4F00D7BBA6 /* NJTutorialHomeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJTutorialHomeButton.m; path = Sprites/Control/NJTutorialHomeButton.m; sourceTree = "<group>"; };
 		C4AF3C1B18E803410036596A /* NJEffectMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJEffectMine.h; path = Sprites/ItemEffect/NJEffectMine.h; sourceTree = "<group>"; };
 		C4AF3C1C18E803410036596A /* NJEffectMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJEffectMine.m; path = Sprites/ItemEffect/NJEffectMine.m; sourceTree = "<group>"; };
 		C4AF3C1E18E806040036596A /* mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mine.png; path = Assets/Items/mine.png; sourceTree = "<group>"; };
@@ -568,6 +589,8 @@
 				2FC5689F18E1BC9B00C6589D /* NJHPBar.m */,
 				C40AC1FE18FA5B450068E814 /* NJTuTorialNextButton.h */,
 				C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */,
+				C4966E7118FEEB4F00D7BBA6 /* NJTutorialHomeButton.h */,
+				C4966E7218FEEB4F00D7BBA6 /* NJTutorialHomeButton.m */,
 			);
 			name = Control;
 			sourceTree = "<group>";
@@ -575,6 +598,9 @@
 		2F63E13618E029F600E9A17B /* Control */ = {
 			isa = PBXGroup;
 			children = (
+				C4966E5B18FEBF3400D7BBA6 /* arrow.png */,
+				C4966E6118FEC04500D7BBA6 /* backButton.png */,
+				C4966E6218FEC04500D7BBA6 /* nextButton.png */,
 				2F8A72B618E44F0A00B88E79 /* itemControl.png */,
 				2FC568B518E1BE0900C6589D /* jumpButton.png */,
 				2F63E12D18E0291500E9A17B /* hp_bar_bottom.png */,
@@ -730,6 +756,12 @@
 		C40AC20118FAADE30068E814 /* tutorial */ = {
 			isa = PBXGroup;
 			children = (
+				C4966E6518FEC81000D7BBA6 /* dialogAttack.png */,
+				C4966E6618FEC81000D7BBA6 /* dialogFinish.png */,
+				C4966E6718FEC81000D7BBA6 /* dialogPickupMedikit.png */,
+				C4966E6818FEC81000D7BBA6 /* dialogPickupShuriken.png */,
+				C4966E6918FEC81000D7BBA6 /* dialogUseScroll.png */,
+				C4966E6A18FEC81000D7BBA6 /* dialogUseShuriken.png */,
 				C4D7116818FC2C7300567018 /* dialogIntro.png */,
 				C40AC20818FAB1920068E814 /* dialog.png */,
 				C40AC20318FAADE30068E814 /* NPC.png */,
@@ -1034,6 +1066,7 @@
 				2FC568BB18E1BE0900C6589D /* spawnLight.png in Resources */,
 				C9EC06FC18E1CE7000C43E24 /* spark.png in Resources */,
 				C9150B0818EC56EF00645698 /* victory bg.png in Resources */,
+				C4966E6F18FEC81000D7BBA6 /* dialogUseScroll.png in Resources */,
 				C980974118FA418400FDD5C4 /* unselectedYellow.png in Resources */,
 				2B067F5D18FA598B003755A4 /* touched button orange.png in Resources */,
 				2F63E13018E0291500E9A17B /* hp_bar.png in Resources */,
@@ -1042,6 +1075,7 @@
 				C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */,
 				2FC568BA18E1BE0900C6589D /* jumpButton.png in Resources */,
 				C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */,
+				C4966E6418FEC04500D7BBA6 /* nextButton.png in Resources */,
 				2F94CD7C18D419F1007DAFAD /* InfoPlist.strings in Resources */,
 				C40AC20918FAB1920068E814 /* dialog.png in Resources */,
 				C980973E18FA418400FDD5C4 /* unselectedBlue.png in Resources */,
@@ -1049,9 +1083,12 @@
 				C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */,
 				C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */,
 				C931A94318E05EF7002FE154 /* touched button purple.png in Resources */,
+				C4966E7018FEC81000D7BBA6 /* dialogUseShuriken.png in Resources */,
 				2FBFDD0118F96E2100A59A77 /* shadow.png in Resources */,
 				2F814E0A18FD5B25009CF268 /* selectionBG.png in Resources */,
 				C4C8747518F023A9004B6527 /* use skill.mid in Resources */,
+				C4966E6318FEC04500D7BBA6 /* backButton.png in Resources */,
+				C4966E6C18FEC81000D7BBA6 /* dialogFinish.png in Resources */,
 				C4C8746A18F023A9004B6527 /* shadowNinja.mp3 in Resources */,
 				C93DBCA918F03B660036136E /* Bomb.sks in Resources */,
 				2F94CD8F18D419F1007DAFAD /* Images.xcassets in Resources */,
@@ -1069,6 +1106,7 @@
 				C4C8747418F023A9004B6527 /* thunder.mid in Resources */,
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 				C4C8746B18F023A9004B6527 /* sunshining.mp3 in Resources */,
+				C4966E6E18FEC81000D7BBA6 /* dialogPickupShuriken.png in Resources */,
 				C40AC20618FAADE30068E814 /* NPC.png in Resources */,
 				2B067F5F18FA598B003755A4 /* yellowHalo.png in Resources */,
 				C980973B18FA418400FDD5C4 /* selectedOrange.png in Resources */,
@@ -1099,6 +1137,7 @@
 				2F050DBE18F574290094F07F /* wind.png in Resources */,
 				C93DBCAB18F03B960036136E /* Soft Cloud.png in Resources */,
 				C9150B0618EC45EF00645698 /* victory.png in Resources */,
+				C4966E6B18FEC81000D7BBA6 /* dialogAttack.png in Resources */,
 				C4C8746F18F023A9004B6527 /* firestrong.mid in Resources */,
 				2F42F72F18FA81BA00973113 /* touched button boss 03.png in Resources */,
 				C9150B0A18EC5ADD00645698 /* continue.png in Resources */,
@@ -1107,9 +1146,11 @@
 				C931A94018E05EF7002FE154 /* start button.png in Resources */,
 				C4C8747618F023A9004B6527 /* water.mid in Resources */,
 				2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */,
+				C4966E5E18FEBF3400D7BBA6 /* arrow.png in Resources */,
 				C408B40A18F0427A004E614C /* ice.mid in Resources */,
 				2F42F72918FA81BA00973113 /* selectedBoss_01.png in Resources */,
 				2FDD9C3C18ED940D0071C712 /* indicator_fire.png in Resources */,
+				C4966E6D18FEC81000D7BBA6 /* dialogPickupMedikit.png in Resources */,
 				2F63E12F18E0291500E9A17B /* hp_bar_bottom.png in Resources */,
 				C4C8747818F023A9004B6527 /* wind(2).mid in Resources */,
 				2F45B45518E7332700482453 /* restart button.png in Resources */,
@@ -1160,6 +1201,7 @@
 				C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */,
 				2FC568A818E1BCA900C6589D /* NJCharacter.m in Sources */,
 				C42170E718E068E800942374 /* NJFireScroll.m in Sources */,
+				C4966E7318FEEB4F00D7BBA6 /* NJTutorialHomeButton.m in Sources */,
 				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
 				C42170C318E066F800942374 /* NJSpecialItem.m in Sources */,
 				2B21F15118D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */,
