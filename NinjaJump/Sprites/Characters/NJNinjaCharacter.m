@@ -14,7 +14,7 @@
 #import "NJEffectMine.h"
 #import "NJPile.h"
 
-#define kSoundBomb @"hurt.mid"
+#define kSoundBomb @"bomb.mp3"
 #define kSoundShuriken @"hurt.mid"
 
 @implementation NJNinjaCharacter
@@ -82,26 +82,31 @@ const CGFloat medikitRecover = 40.0f;
     if (other.categoryBitMask & NJColliderTypeItemEffectShuriken) {
         NJItemEffect *effect =(NJItemEffect*)other.node;
         if (effect.owner != self) {
-            [self applyDamage:effect.damage];
             [effect removeAllActions];
             [effect removeFromParent];
-            [self runAction:[SKAction playSoundFileNamed:kSoundShuriken waitForCompletion:NO]];
+            [self.parent runAction:[SKAction playSoundFileNamed:kSoundShuriken waitForCompletion:NO]];
+            
+            [self applyDamage:effect.damage];
         }
     } else if (other.categoryBitMask & NJColliderTypeItemEffectMine) {
         NJEffectMine *effect =(NJEffectMine*)other.node;
         if (effect.owner != self && effect.pile.standingCharacter == self) {
-            [self applyDamage:effect.damage];
             [effect removeAllActions];
             [effect removeFromParent];
             effect.pile.itemEffectOnPile = nil;
-            [self runAction:[SKAction playSoundFileNamed:kSoundBomb waitForCompletion:NO]];
+            
+            [self.parent runAction:[SKAction playSoundFileNamed:kSoundBomb waitForCompletion:NO]];
+            
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Bomb" ofType:@"sks"];
             SKEmitterNode *bombEffect = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-            [self addChild:bombEffect];
+            bombEffect.position = self.position;
+            [self.parent addChild:bombEffect];
             SKAction *wait = [SKAction waitForDuration:0.5];
             SKAction *removeNode = [SKAction removeFromParent];
             SKAction *sequence = [SKAction sequence:@[wait, removeNode]];
             [bombEffect runAction:sequence];
+            
+            [self applyDamage:effect.damage];
         }
     }
 }
