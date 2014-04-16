@@ -9,7 +9,8 @@
 #define HP_BAR_IMAGE_NAME @"hp_bar"
 #define HP_BAR_BOTTOM_IMAGE_NAME @"hp_bar_bottom"
 #define FULL_HP 100
-#define BASE 0
+#define SCALE 0.9
+#define BASE 0.105
 
 #import "NJHPBar.h"
 #import "NJPlayer.h"
@@ -74,7 +75,9 @@
     }
 
     float ratio = newHp / FULL_HP;
-    [self.maskNode runAction:[SKAction rotateToAngle:M_PI/2*(1-ratio-BASE) duration:1]];
+    float angle = M_PI/2*(1-ratio)*SCALE+BASE;
+    
+    [self.maskNode runAction:[SKAction rotateToAngle:angle duration:1]];
     self.healthPoint = newHp;
 }
 @end
