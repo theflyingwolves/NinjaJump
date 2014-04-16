@@ -390,11 +390,11 @@
         case NJItemMedikit:
             item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
             break;
-            
+        
         case NJItemMine:
             item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
             break;
-            
+        
         case NJItemShuriken:
             item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
             break;
