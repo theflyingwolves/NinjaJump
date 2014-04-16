@@ -14,7 +14,7 @@
 #import "NJEffectMine.h"
 #import "NJPile.h"
 
-#define kSoundBomb @"hurt.mid"
+#define kSoundBomb @"bomb.mp3"
 #define kSoundShuriken @"hurt.mid"
 
 @implementation NJNinjaCharacter

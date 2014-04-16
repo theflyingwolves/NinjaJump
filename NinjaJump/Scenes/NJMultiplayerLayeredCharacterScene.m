@@ -371,25 +371,25 @@
     
     CGPoint position = CGPointZero;
     switch (index) {
-//        case NJItemThunderScroll:
-//            item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
-//            break;
-//            
-//        case NJItemWindScroll:
-//            item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
-//            break;
-//            
-//        case NJItemIceScroll:
-//            item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
-//            break;
-//            
-//        case NJItemFireScroll:
-//            item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
-//            break;
-//            
-//        case NJItemMedikit:
-//            item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
-//            break;
+        case NJItemThunderScroll:
+            item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemWindScroll:
+            item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemIceScroll:
+            item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemFireScroll:
+            item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
+            break;
+            
+        case NJItemMedikit:
+            item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+            break;
         
         case NJItemMine:
             item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
