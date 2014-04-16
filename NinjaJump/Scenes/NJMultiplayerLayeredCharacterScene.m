@@ -460,12 +460,10 @@
         float ySign = dy > 0? 1:-1;
         
         if (fabs(dx) < MINIMUM_VELOCITY) {
-            NSLog(@"dx: %f",dx);
             [pile.physicsBody applyImpulse:CGVectorMake(2*xSign, 0)];
         }
         
         if (fabs(dy) < MINIMUM_VELOCITY) {
-            NSLog(@"dy: %f",dy);
             [pile.physicsBody applyImpulse:CGVectorMake(0, 2*ySign)];
         }
     }
