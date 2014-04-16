@@ -452,6 +452,23 @@
         timeSinceLast = kMinTimeInterval;
         self.lastUpdateTimeInterval = currentTime;
     }
+
+    for (NJPile *pile in _woodPiles) {
+        float dx = pile.physicsBody.velocity.dx;
+        float dy = pile.physicsBody.velocity.dy;
+        float xSign = dx > 0? 1:-1;
+        float ySign = dy > 0? 1:-1;
+        
+        if (fabs(dx) < MINIMUM_VELOCITY) {
+            NSLog(@"dx: %f",dx);
+            [pile.physicsBody applyImpulse:CGVectorMake(2*xSign, 0)];
+        }
+        
+        if (fabs(dy) < MINIMUM_VELOCITY) {
+            NSLog(@"dy: %f",dy);
+            [pile.physicsBody applyImpulse:CGVectorMake(0, 2*ySign)];
+        }
+    }
     
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
     
