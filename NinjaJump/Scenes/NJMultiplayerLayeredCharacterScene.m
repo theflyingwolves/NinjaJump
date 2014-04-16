@@ -455,7 +455,7 @@
         self.lastUpdateTimeInterval = currentTime;
     }
 
-    if (_gameMode != NJGameModeBeginner) {
+    if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
         for (NJPile *pile in _woodPiles) {
             float dx = pile.physicsBody.velocity.dx;
             float dy = pile.physicsBody.velocity.dy;
