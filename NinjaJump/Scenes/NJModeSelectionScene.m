@@ -11,7 +11,7 @@
 #define SETTING_BUTTON_WIDTH 273.0f
 #define SETTING_BUTTON_HEIGHT 141.0f
 #define kNumOfSettingElmts 2
-#define titleWidth 700
+#define titleWidth 900
 
 #import "NJModeSelectionScene.h"
 #import "NJButton.h"
@@ -72,7 +72,7 @@
 - (void)initTitle
 {
     _title = [[SKSpriteNode alloc] initWithImageNamed:kModeSelectionSceneTitle];
-    _title.position = CGPointMake(-titleWidth/2,FRAME.size.height-200);
+    _title.position = CGPointMake(-titleWidth/2,FRAME.size.height-150);
     [self addChild:_title];
 }
 
