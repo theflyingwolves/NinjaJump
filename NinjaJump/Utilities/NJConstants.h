@@ -63,6 +63,8 @@
 #define kModeSelectionBarFilename @"banner"
 #define kTutorialModeBtnFileName @"tutorialBtn"
 #define kSettingBtnFileName @"settingBtn"
+#define kModeSelectionSceneTitle @"mainTitle"
+#define kFacebookBtnFileName @"facebookBtn"
 
 #pragma mark - Player Selection
 #define kShurikenButtons @"ready buttons"

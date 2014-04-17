@@ -5,12 +5,13 @@
 //  Created by Wang Kunzhen on 12/4/14.
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
-#define BUTTON_WIDTH 273.0f
-#define GAP 20.0f
+#define BUTTON_WIDTH 250.0f
+#define GAP 17.0f
 #define MODE_SELECTION_BUTTON_ANIM_LENGTH 0.4f
 #define SETTING_BUTTON_WIDTH 273.0f
 #define SETTING_BUTTON_HEIGHT 141.0f
 #define kNumOfSettingElmts 2
+#define titleWidth 700
 
 #import "NJModeSelectionScene.h"
 #import "NJButton.h"
@@ -22,8 +23,11 @@
 @property NJButton *survivalMode;
 @property SKSpriteNode *menuBar;
 @property NJButton *tutorialMode;
+@property NJButton *facebookBtn;
 @property NJButton *settingBtn;
 @property SKSpriteNode *bar;
+@property SKSpriteNode *sideMenu;
+@property SKSpriteNode *title;
 @property SKSpriteNode *background;
 @end
 
@@ -39,8 +43,10 @@
         [self initOneVSThreeModeButton];
         [self initBeginnerModeButton];
         [self initSurvivalModeButton];
-        [self initTutorialButton];
+        [self initSideMenu];
 //        [self initMenuBar];
+        [self initTitle];
+        [self showTitle];
     }
     
     return self;
@@ -63,6 +69,13 @@
     [_bar runAction:[SKAction scaleYTo:1.0f duration:0.4f]];
 }
 
+- (void)initTitle
+{
+    _title = [[SKSpriteNode alloc] initWithImageNamed:kModeSelectionSceneTitle];
+    _title.position = CGPointMake(-titleWidth/2,FRAME.size.height-200);
+    [self addChild:_title];
+}
+
 - (void)initMenuBar
 {
     _menuBar = [[SKSpriteNode alloc] init];
@@ -74,13 +87,23 @@
     [self addChild:_menuBar];
 }
 
-- (void)initTutorialButton
+- (void)initSideMenu
 {
+    _sideMenu = [[SKSpriteNode alloc] init];
+    _sideMenu.position = CGPointMake(80, 215);
     _tutorialMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
     _tutorialMode.delegate = self;
-    _tutorialMode.position = CGPointMake(500, 400);
+    _tutorialMode.position = CGPointMake(0, 30);
     _tutorialMode.index = NJGameModeTutorial;
-    [self addChild:_tutorialMode];
+    [_sideMenu addChild:_tutorialMode];
+    
+    _facebookBtn = [[NJButton alloc] initWithImageNamed:kFacebookBtnFileName];
+    _facebookBtn.delegate = self;
+    _facebookBtn.position = CGPointMake(0, -30);
+    [_sideMenu addChild:_facebookBtn];
+    
+    _sideMenu.alpha = 0;
+    [self addChild:_sideMenu];
 }
 
 - (void)initBeginnerModeButton
@@ -90,10 +113,6 @@
     _beginnerMode.index = NJGameModeBeginner;
     _beginnerMode.position = CGPointMake(1350, 220);
     [self addChild:_beginnerMode];
-    float x = FRAME.size.width - 2.5*BUTTON_WIDTH - 3*GAP;
-    SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
-    moveIn.timingMode = SKActionTimingEaseOut;
-    [_beginnerMode runAction:moveIn];
 }
 
 - (void)initSurvivalModeButton
@@ -103,10 +122,6 @@
     _survivalMode.index = NJGameModeSurvival;
     _survivalMode.position = CGPointMake(1350, 220);
     [self addChild:_survivalMode];
-    float x = FRAME.size.width - 1.5*BUTTON_WIDTH - 2*GAP;
-    SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
-    moveIn.timingMode = SKActionTimingEaseOut;
-    [_survivalMode runAction:moveIn];
 }
 
 - (void)initOneVSThreeModeButton
@@ -116,10 +131,36 @@
     _oneVSThreeMode.index = NJGameModeOneVsThree;
     _oneVSThreeMode.position = CGPointMake(1350, 220);
     [self addChild:_oneVSThreeMode];
-    float x = FRAME.size.width - 0.5*BUTTON_WIDTH - 1*GAP;
-    SKAction *moveIn = [SKAction moveToX:x duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
-    moveIn.timingMode = SKActionTimingEaseOut;
-    [_oneVSThreeMode runAction:moveIn];
+}
+
+- (void)showTitle
+{
+    SKAction *moveInTitle = [SKAction moveToX:titleWidth/2 duration:MODE_SELECTION_BUTTON_ANIM_LENGTH/2];
+    moveInTitle.timingMode = SKActionTimingEaseOut;
+    [_title runAction:moveInTitle completion:^{
+        [self showButtons];
+    }];
+}
+
+- (void)showButtons
+{
+    float xMode1V3 = FRAME.size.width - 0.5*BUTTON_WIDTH - 1*GAP;
+    SKAction *moveIn1V3 = [SKAction moveToX:xMode1V3 duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
+    moveIn1V3.timingMode = SKActionTimingEaseOut;
+    
+    float xSurvival = FRAME.size.width - 1.5*BUTTON_WIDTH - 2*GAP;
+    SKAction *moveInSurvival = [SKAction moveToX:xSurvival duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
+    moveInSurvival.timingMode = SKActionTimingEaseOut;
+    
+    float xBeginner = FRAME.size.width - 2.5*BUTTON_WIDTH - 3*GAP;
+    SKAction *moveInBeginner = [SKAction moveToX:xBeginner duration:MODE_SELECTION_BUTTON_ANIM_LENGTH];
+    moveInBeginner.timingMode = SKActionTimingEaseOut;
+    
+    [_beginnerMode runAction:moveInBeginner];
+    [_survivalMode runAction:moveInSurvival];
+    [_oneVSThreeMode runAction:moveIn1V3 completion:^{
+        [_sideMenu runAction:[SKAction fadeAlphaTo:1.0 duration:MODE_SELECTION_BUTTON_ANIM_LENGTH]];
+    }];
 }
 
 - (void)button:(NJButton *)button touchesBegan:(NSSet *)touches
