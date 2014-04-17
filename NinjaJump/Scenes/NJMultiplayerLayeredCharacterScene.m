@@ -272,6 +272,10 @@
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
+            player.shouldBlendCharacter = YES;
+            if (index == _bossIndex) {
+                player.shouldBlendCharacter = NO;
+            }
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
             [self addNode:ninja.shadow atWorldLayer:NJWorldLayerBelowCharacter];
             NJPile *pile = [self spawnAtRandomPileForNinja:NO];
@@ -297,7 +301,7 @@
         if (_bossIndex<[self.players count]) {
             NJPlayer *bossPlayer = [self.players objectAtIndex:_bossIndex];
             if (bossPlayer == player) {
-                ninja = [[NJNinjaCharacterBoss alloc ] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player];
+                ninja = [[NJNinjaCharacterBoss alloc ] initWithTextureNamed:kBossNinjaImageName atPosition:CGPointZero withPlayer:player];
             }
         }
     }
@@ -308,8 +312,10 @@
         [ninja addToScene:self];
         [(NSMutableArray *)self.ninjas addObject:ninja];
     }
-    ninja.color = player.color;
-    ninja.colorBlendFactor = 0.6;
+    if (player.shouldBlendCharacter) {
+        ninja.color = player.color;
+        ninja.colorBlendFactor = 0.6;
+    }
     player.ninja = ninja;
     
     return ninja;

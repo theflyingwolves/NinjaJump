@@ -35,7 +35,8 @@
 #define kWindIndicator @"indicator_wind"
 #define kIceIndicator @"indicator_ice"
 
-#define kNinjaImageName @"ninja.png"
+#define kNinjaImageName @"ninja"
+#define kBossNinjaImageName @"ninjaBoss"
 #define bossIndex @"bossIndex"
 
 #define kThunderScrollFileName @"thunderScroll"

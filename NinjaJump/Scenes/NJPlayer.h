@@ -31,6 +31,7 @@
 @property (nonatomic, strong) SKSpriteNode *jumpTimerSprite;
 @property (nonatomic) BOOL itemIndicatorAdded;
 @property (nonatomic) SKSpriteNode *indicatorNode;
+@property (nonatomic) BOOL shouldBlendCharacter;
 
 + (void)loadSharedAssets;
 - (void)runJumpTimerAction;

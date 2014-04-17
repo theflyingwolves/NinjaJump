@@ -22,6 +22,8 @@
 		2F01286618F97A7F00ED8179 /* itemShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F01286518F97A7F00ED8179 /* itemShadow.png */; };
 		2F050DBD18F574290094F07F /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBB18F574290094F07F /* fireArc.png */; };
 		2F050DBE18F574290094F07F /* wind.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBC18F574290094F07F /* wind.png */; };
+		2F34F0E5190024050056E103 /* Boss_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2F34F0E4190024050056E103 /* Boss_Jump.atlas */; };
+		2F34F0E719002B430056E103 /* ninjaBoss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F34F0E619002B430056E103 /* ninjaBoss.png */; };
 		2F42F71518FA59FC00973113 /* NJNinjaCharacterBoss.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F42F71418FA59FC00973113 /* NJNinjaCharacterBoss.m */; };
 		2F42F71B18FA61B400973113 /* NJ1V3SelectionButtonSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F42F71A18FA61B400973113 /* NJ1V3SelectionButtonSystem.m */; };
 		2F42F72918FA81BA00973113 /* selectedBoss_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F42F72118FA81BA00973113 /* selectedBoss_01.png */; };
@@ -216,6 +218,8 @@
 		2F050DBA18F56D060094F07F /* NJConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NJConstants.h; path = Utilities/NJConstants.h; sourceTree = "<group>"; };
 		2F050DBB18F574290094F07F /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/effect/fireArc.png; sourceTree = "<group>"; };
 		2F050DBC18F574290094F07F /* wind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wind.png; path = Assets/effect/wind.png; sourceTree = "<group>"; };
+		2F34F0E4190024050056E103 /* Boss_Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Boss_Jump.atlas; path = "Assets/Texture Altases/Boss_Jump.atlas"; sourceTree = "<group>"; };
+		2F34F0E619002B430056E103 /* ninjaBoss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ninjaBoss.png; path = Assets/GameBoard/ninjaBoss.png; sourceTree = "<group>"; };
 		2F42F71318FA59FC00973113 /* NJNinjaCharacterBoss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacterBoss.h; path = Sprites/Characters/NJNinjaCharacterBoss.h; sourceTree = "<group>"; };
 		2F42F71418FA59FC00973113 /* NJNinjaCharacterBoss.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJNinjaCharacterBoss.m; path = Sprites/Characters/NJNinjaCharacterBoss.m; sourceTree = "<group>"; };
 		2F42F71918FA61B400973113 /* NJ1V3SelectionButtonSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJ1V3SelectionButtonSystem.h; path = Sprites/characterSelection/NJ1V3SelectionButtonSystem.h; sourceTree = "<group>"; };
@@ -504,6 +508,7 @@
 		2B21F15518D439DC007220CF /* Texture Atlases */ = {
 			isa = PBXGroup;
 			children = (
+				2F34F0E4190024050056E103 /* Boss_Jump.atlas */,
 				2B813FFF18F5716D00F80DB9 /* Jump_Timer.atlas */,
 				C4AF3C2218E852AA0036596A /* Ninja_Thunder.atlas */,
 				2FC568C718E1EBC000C6589D /* Ninja_Attack.atlas */,
@@ -739,6 +744,7 @@
 		2FC568C218E1BE5A00C6589D /* GameBoard */ = {
 			isa = PBXGroup;
 			children = (
+				2F34F0E619002B430056E103 /* ninjaBoss.png */,
 				2FBFDD0018F96E2100A59A77 /* shadow.png */,
 				2FC568C318E1BEC000C6589D /* ninja.png */,
 				2FC568B918E1BE0900C6589D /* woodPile.png */,
@@ -1067,6 +1073,7 @@
 				2F45B45718E7335900482453 /* continue button.png in Resources */,
 				C41270F218E1D3AF00CAC44A /* thunderScroll.png in Resources */,
 				C9B8F2A018E05E8400FA877E /* light.png in Resources */,
+				2F34F0E719002B430056E103 /* ninjaBoss.png in Resources */,
 				2F42F72D18FA81BA00973113 /* touched button boss 01.png in Resources */,
 				2F42F73618FA8D3C00973113 /* oneVSThreeBtn.png in Resources */,
 				2FC568BB18E1BE0900C6589D /* spawnLight.png in Resources */,
@@ -1162,6 +1169,7 @@
 				C4C8747818F023A9004B6527 /* wind(2).mid in Resources */,
 				2F45B45518E7332700482453 /* restart button.png in Resources */,
 				2F42F72B18FA81BA00973113 /* selectedBoss_03.png in Resources */,
+				2F34F0E5190024050056E103 /* Boss_Jump.atlas in Resources */,
 				C4AF3C1F18E806040036596A /* mine.png in Resources */,
 				C40AC20718FAADE30068E814 /* NPC2.png in Resources */,
 				C4C8747018F023A9004B6527 /* hurt.mid in Resources */,
