@@ -39,6 +39,7 @@
 #define kImageDialogUseShurikenFileName @"dialogUseShuriken.png"
 #define kImageDialogPickupMedikitFileName @"dialogPickupMedikit.png"
 #define kImageDialogUseScrollFileName @"dialogUseScroll.png"
+#define kImageDialogIntroScrollIndicatorFileName @"dialogIntroScrollIndicator.png"
 #define kImageDialogFinishFileName @"dialogFinish.png"
 
 
@@ -55,6 +56,8 @@ typedef enum : uint8_t {
     NJTutorialPhaseIntroToMedikit,
     NJTutorialPhasePickupMedikit,
     NJTutorialPhaseIntroToIce,
+    NJTutorialPhasePickupIce,
+    NJTutorialPhaseIndicator,
     NJTutorialPhaseUseIce,
     NJTutorialPhaseFinish
 } NJTutorialPhase;
@@ -83,7 +86,7 @@ typedef enum : uint8_t {
 - (instancetype)initWithSizeWithoutSelection:(CGSize)size{
     self = [super initWithSize:size mode:NJGameModeTutorial];
     if (self){
-        dialogImageNames = [NSArray arrayWithObjects:kImageDialogIntroFileName, kImageDialogAttackFileName, kImageDialogPickupShurikenFileName, kImageDialogUseShurikenFileName, kImageDialogPickupMedikitFileName, kImageDialogUseScrollFileName, kImageDialogFinishFileName, nil];
+        dialogImageNames = [NSArray arrayWithObjects:kImageDialogIntroFileName, kImageDialogAttackFileName, kImageDialogPickupShurikenFileName, kImageDialogUseShurikenFileName, kImageDialogPickupMedikitFileName, kImageDialogUseScrollFileName, kImageDialogIntroScrollIndicatorFileName, kImageDialogFinishFileName, nil];
         dialogImageIndex = 0;
         
         [self initGameSettings];
@@ -216,6 +219,10 @@ typedef enum : uint8_t {
 #pragma mark - game setting utility
 
 - (void)addItem:(NSInteger)itemName{
+    if (!self.items) {
+        self.items = [NSMutableArray array];
+    }
+    
     NJPile *pile = [self spawnAtRandomPileForNinja:NO];
     if (!pile) {
         return;
@@ -250,8 +257,15 @@ typedef enum : uint8_t {
 
 }
 
-- (SKSpriteNode*)createArrowWithVector:(CGVector)vector andPosition:(CGPoint)position{
-    SKSpriteNode *arrow = [[SKSpriteNode alloc] initWithImageNamed:@"arrow.png"];
+- (SKSpriteNode*)createArrowWithVector:(CGVector)vector andPosition:(CGPoint)position andDirectionIsNormal:(BOOL)directionIsNormal{
+    
+    SKSpriteNode *arrow;
+    if (directionIsNormal) {
+        arrow = [[SKSpriteNode alloc] initWithImageNamed:@"arrow.png"];
+    } else {
+        arrow = [[SKSpriteNode alloc] initWithImageNamed:@"arrowReverse.png"];
+    }
+    
     arrow.size = CGSizeMake(600/6.0, 400/7.0);
     arrow.position = position;
     
@@ -272,6 +286,10 @@ typedef enum : uint8_t {
 
 - (void)addWoodPiles
 {
+    if (!self.woodPiles) {
+        self.woodPiles = [NSMutableArray array];
+    }
+    
     CGFloat r= 120.0f;
     
     NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 580)], [NSValue valueWithCGPoint:CGPointMake(250, 250)], [NSValue valueWithCGPoint:CGPointMake(350, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(100, 300)], [NSValue valueWithCGPoint:CGPointMake(250, 500)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 600)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
@@ -326,9 +344,19 @@ typedef enum : uint8_t {
                 }
             }
             break;
-            
+        
+        case NJTutorialPhasePickupIce:
+            if (((NJPlayer*)self.players[1]).item) {
+                [self goToNextPhaseWithDelay];
+            } else {
+                if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item){
+                    [self addItem:kItemNameIceScroll];
+                }
+            }
+            break;
+        
         case NJTutorialPhaseUseIce:
-            if (!((NJPlayer*)self.players[3]).item) {
+            if (!((NJPlayer*)self.players[1]).item) {
                 if (((NJPlayer*)self.players[3]).ninja.frozenCount > 0){
                     [self goToNextPhaseWithDelay];
                 } else if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item) {
@@ -337,6 +365,8 @@ typedef enum : uint8_t {
             }
 
             break;
+        
+        
 
         default:
             break;
@@ -384,7 +414,7 @@ typedef enum : uint8_t {
             case NJTutorialPhaseIntro:
                 [self toggleControl];
                 phaseNum++;
-                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(865, 100)]];
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(865, 100) andDirectionIsNormal:YES]];
             
                 break;
                 
@@ -393,7 +423,7 @@ typedef enum : uint8_t {
                 phaseNum++;
                 [self activateDummyPlayer];
             
-                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[3]).ninja.position.x-110, ((NJPlayer*)self.players[3]).ninja.position.y)]];
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[3]).ninja.position.x-110, ((NJPlayer*)self.players[3]).ninja.position.y) andDirectionIsNormal:YES]];
             
                 break;
             
@@ -402,7 +432,7 @@ typedef enum : uint8_t {
                 phaseNum++;
                 [self addItem:kItemNameShuriken];
             
-                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJSpecialItem*)self.items[0]).position.x-110, ((NJSpecialItem*)self.items[0]).position.y)]];
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJSpecialItem*)self.items[0]).position.x-110, ((NJSpecialItem*)self.items[0]).position.y) andDirectionIsNormal:YES]];
             
                 break;
                 
@@ -410,7 +440,7 @@ typedef enum : uint8_t {
                 [self toggleControl];
                 phaseNum++;
             
-                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(800, 50)]];
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(800, 50) andDirectionIsNormal:YES]];
 
                 break;
  
@@ -420,7 +450,7 @@ typedef enum : uint8_t {
                 [self addItem:kItemNameMedikit];
                 ((NJPlayer*)self.players[1]).ninja.health -= 40;
             
-                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJSpecialItem*)self.items[0]).position.x-110, ((NJSpecialItem*)self.items[0]).position.y)]];
+                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJSpecialItem*)self.items[0]).position.x-110, ((NJSpecialItem*)self.items[0]).position.y) andDirectionIsNormal:YES]];
             
                 break;
                 
@@ -430,8 +460,27 @@ typedef enum : uint8_t {
                 [self addItem:kItemNameIceScroll];
                 break;
             
+            case NJTutorialPhaseIndicator:
+                [self toggleControl];
+                phaseNum++;
+            
+                NSLog(@"%f, %f", ((NJPlayer*)self.players[1]).ninja.position.x, ((NJPlayer*)self.   players[1]).ninja.position.y);
+                if (((NJPlayer*)self.players[1]).ninja.position.x >= 200) {
+                    [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[1]).ninja.position.x-250, ((NJPlayer*)self.players[1]).ninja.position.y) andDirectionIsNormal:YES]];
+                } else {
+                    [self addChild:[self createArrowWithVector:CGVectorMake(30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[1]).ninja.position.x+250, ((NJPlayer*)self.players[1]).ninja.position.y) andDirectionIsNormal:NO]];
+                    
+                }
+            
+                break;
+            
             case NJTutorialPhaseFinish:
                 [self.delegate backToModeSelectionScene];
+                break;
+            
+            
+            
+            
             
             default:
                 break;
@@ -440,6 +489,8 @@ typedef enum : uint8_t {
 }
 
 - (void)homeButton:(NJTutorialHomeButton *) button touchesEnded:(NSSet *)touches{
+    [self.music pause];
+    self.music = nil;
     [self.delegate backToModeSelectionScene];
 }
 

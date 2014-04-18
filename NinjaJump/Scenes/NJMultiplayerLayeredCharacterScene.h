@@ -75,6 +75,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @property BOOL doAddItemRandomly;
 
 @property (nonatomic) NSArray *musicName;
+@property (nonatomic) AVAudioPlayer *music;
 
 - (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
 

@@ -125,6 +125,8 @@
 		C4966E6F18FEC81000D7BBA6 /* dialogUseScroll.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6918FEC81000D7BBA6 /* dialogUseScroll.png */; };
 		C4966E7018FEC81000D7BBA6 /* dialogUseShuriken.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E6A18FEC81000D7BBA6 /* dialogUseShuriken.png */; };
 		C4966E7318FEEB4F00D7BBA6 /* NJTutorialHomeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4966E7218FEEB4F00D7BBA6 /* NJTutorialHomeButton.m */; };
+		C4966E751901771600D7BBA6 /* dialogIntroScrollIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E741901771600D7BBA6 /* dialogIntroScrollIndicator.png */; };
+		C4966E7719017EA600D7BBA6 /* arrowReverse.png in Resources */ = {isa = PBXBuildFile; fileRef = C4966E7619017EA600D7BBA6 /* arrowReverse.png */; };
 		C4AF3C1D18E803410036596A /* NJEffectMine.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AF3C1C18E803410036596A /* NJEffectMine.m */; };
 		C4AF3C1F18E806040036596A /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C1E18E806040036596A /* mine.png */; };
 		C4AF3C2318E852AA0036596A /* Ninja_Thunder.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C4AF3C2218E852AA0036596A /* Ninja_Thunder.atlas */; };
@@ -354,6 +356,8 @@
 		C4966E6A18FEC81000D7BBA6 /* dialogUseShuriken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogUseShuriken.png; sourceTree = "<group>"; };
 		C4966E7118FEEB4F00D7BBA6 /* NJTutorialHomeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJTutorialHomeButton.h; path = Sprites/Control/NJTutorialHomeButton.h; sourceTree = "<group>"; };
 		C4966E7218FEEB4F00D7BBA6 /* NJTutorialHomeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJTutorialHomeButton.m; path = Sprites/Control/NJTutorialHomeButton.m; sourceTree = "<group>"; };
+		C4966E741901771600D7BBA6 /* dialogIntroScrollIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogIntroScrollIndicator.png; sourceTree = "<group>"; };
+		C4966E7619017EA600D7BBA6 /* arrowReverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrowReverse.png; path = Assets/control/arrowReverse.png; sourceTree = "<group>"; };
 		C4AF3C1B18E803410036596A /* NJEffectMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJEffectMine.h; path = Sprites/ItemEffect/NJEffectMine.h; sourceTree = "<group>"; };
 		C4AF3C1C18E803410036596A /* NJEffectMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJEffectMine.m; path = Sprites/ItemEffect/NJEffectMine.m; sourceTree = "<group>"; };
 		C4AF3C1E18E806040036596A /* mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mine.png; path = Assets/Items/mine.png; sourceTree = "<group>"; };
@@ -607,6 +611,7 @@
 		2F63E13618E029F600E9A17B /* Control */ = {
 			isa = PBXGroup;
 			children = (
+				C4966E7619017EA600D7BBA6 /* arrowReverse.png */,
 				C4966E5B18FEBF3400D7BBA6 /* arrow.png */,
 				C4966E6118FEC04500D7BBA6 /* backButton.png */,
 				C4966E6218FEC04500D7BBA6 /* nextButton.png */,
@@ -778,6 +783,7 @@
 				C40AC20818FAB1920068E814 /* dialog.png */,
 				C40AC20318FAADE30068E814 /* NPC.png */,
 				C40AC20418FAADE30068E814 /* NPC2.png */,
+				C4966E741901771600D7BBA6 /* dialogIntroScrollIndicator.png */,
 			);
 			name = tutorial;
 			path = Assets/tutorial;
@@ -1083,6 +1089,7 @@
 				C980974118FA418400FDD5C4 /* unselectedYellow.png in Resources */,
 				2B067F5D18FA598B003755A4 /* touched button orange.png in Resources */,
 				2F63E13018E0291500E9A17B /* hp_bar.png in Resources */,
+				C4966E751901771600D7BBA6 /* dialogIntroScrollIndicator.png in Resources */,
 				2F42F72A18FA81BA00973113 /* selectedBoss_02.png in Resources */,
 				2FDD9C4218EDB09E0071C712 /* pause_scene_left_bar.png in Resources */,
 				C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */,
@@ -1123,6 +1130,7 @@
 				C40AC20618FAADE30068E814 /* NPC.png in Resources */,
 				2B067F5F18FA598B003755A4 /* yellowHalo.png in Resources */,
 				C980973B18FA418400FDD5C4 /* selectedOrange.png in Resources */,
+				C4966E7719017EA600D7BBA6 /* arrowReverse.png in Resources */,
 				2FBFDCFD18F9108800A59A77 /* tutorialBtn.png in Resources */,
 				2FDD9C3E18ED940D0071C712 /* indicator_thunder.png in Resources */,
 				C9B8F2A218E05E8400FA877E /* loading bar2.png in Resources */,

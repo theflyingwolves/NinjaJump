@@ -7,7 +7,6 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJCharacter.h"
 
 @class NJItemEffect;
