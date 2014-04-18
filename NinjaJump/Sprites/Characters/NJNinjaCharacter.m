@@ -41,7 +41,6 @@ const CGFloat medikitRecover = 40.0f;
             
             pile.itemHolded = nil;
             [item removeFromParent];
-//            NSLog(@"picked up item: %@",self.player.item);
             
             switch (item.itemType) {
                 case NJItemMedikit:
@@ -67,11 +66,8 @@ const CGFloat medikitRecover = 40.0f;
         direction += M_PI / 2;
     }else if(direction <= -M_PI / 2 && direction >= - M_PI){
         direction += 5 * M_PI / 2;
-    }else{
-        NSLog(@"useItem: zRotation Detection Error");
     }
     
-    NSLog(@"direction: %f",direction);
     [item useAtPosition:self.position withDirection:direction byCharacter:self];
     self.player.item = nil;
 }
