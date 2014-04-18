@@ -36,7 +36,7 @@
         [character applyMagicalDamage:kWindScrollDamage];
         [self fireAttackedAnimation:character];
     }
-    [character performWindAnimationInScene:self.myParent direction:direction];
+    [character performWindAnimationInDirection:direction];
     [self runAction:[SKAction playSoundFileNamed:kSoundWind waitForCompletion:NO]];
 }
 

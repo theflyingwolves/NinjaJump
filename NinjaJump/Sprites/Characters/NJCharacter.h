@@ -7,7 +7,7 @@
 //
 
 /*
-    NJCharacter is a SKSpriteNode representation of game characters. It is designed to be generic so as to cater to different kinds of characters in the game.
+    NJCharacter is a SKSpriteNode representation of game characters. It is designed to be generic so as to cater to different kinds of characters in the game, so it has plenty of abstract methods (described below) to be overriden by subclasses.
  */
 
 /* The different animation states of an animated character. */
@@ -23,7 +23,12 @@ typedef enum : uint8_t {
 
 #import <SpriteKit/SpriteKit.h>
 
-@class NJSpecialItem, NJMultiplayerLayeredCharacterScene, NJPlayer, NJPile;
+@class NJSpecialItem, NJMultiplayerLayeredCharacterScene, NJPlayer, NJPile, NJCharacter;
+
+@protocol NJCharacterDelegate <NSObject>
+- (void)addCharacter:(NJCharacter *)character;
+- (void)addEffectNode:(SKSpriteNode *)effectNode;
+@end
 
 @interface NJCharacter : SKSpriteNode
 #pragma mark - Native Properties
@@ -48,15 +53,20 @@ typedef enum : uint8_t {
 @property float frozenCount;
 @property SKSpriteNode *frozenEffect;
 
+#pragma mark - Delegate
+@property (nonatomic) id<NJCharacterDelegate> delegate;
+
 #pragma mark - Initializer
 // EFFECTS: load the assets common to all characters to memory for future use. Executed only once
 +(void)loadSharedAssets;
 
 // REQUIRES: Texture named textureName should have been added to the project, position should be within the rendering screen
 // EFFECTS: Initialize a character with an initial texture and position
--(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position;
+-(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position delegate:(id<NJCharacterDelegate>)delegate;
 
-- (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
+//- (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
+#pragma mark - Render
+- (void)render;
 
 #pragma mark - Reset
 // EFFECTS: Reset the character back to initial states: Putting them back to starting position, removing all items possessed. However, the HP remains unchanged.
@@ -81,9 +91,9 @@ typedef enum : uint8_t {
 - (NSArray *)thunderAnimationFrames;
 
 //EFFECTS: Perform the animation when the character use the scroll
-- (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene;
+- (void)performThunderAnimation;
 
-- (void)performWindAnimationInScene:(NJMultiplayerLayeredCharacterScene *)scene direction:(CGFloat)direction;
+- (void)performWindAnimationInDirection:(CGFloat)direction;
 
 //REQUIRES: self != nil
 //MODIFIES: self.frozenEffect, self.frozenCount
@@ -98,7 +108,7 @@ typedef enum : uint8_t {
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
 
 #pragma mark - Basic Operation
-// EFFECTS: Remove ninja from game
+// EFFECTS: Remove ninja from game and Perform Death
 -(void)performDeath;
 
 // REQUIRES: amount >= 0

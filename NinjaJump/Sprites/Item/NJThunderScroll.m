@@ -34,11 +34,7 @@
         [character applyMagicalDamage:kThunderScrollDamage];
         [self fireAttackedAnimation:character];
     }
-    [character performThunderAnimationInScene:self.myParent];
+    [character performThunderAnimation];
     [self runAction:[SKAction playSoundFileNamed:kSoundThunder waitForCompletion:NO]];
 }
-
-
-
-
 @end

@@ -15,9 +15,9 @@
 
 @implementation NJNinjaCharacterNormal
 
-- (instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withPlayer:(NJPlayer *)player
+- (instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withPlayer:(NJPlayer *)player delegate:(id<NJCharacterDelegate>)delegate
 {
-    self = [super initWithTextureNamed:textureName atPosition:position withPlayer:player];
+    self = [super initWithTextureNamed:textureName atPosition:position withPlayer:player delegate:delegate];
     if (self) {
         self.magicalDamageMultiplier = 1.0f;
         self.physicalDamageMultiplier = 1.0f;

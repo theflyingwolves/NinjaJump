@@ -34,7 +34,7 @@
 
 #define BUTTON_COLORBLEND_FACTOR 0.5
 
-@interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate>
+@interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate,NJCharacterDelegate>
 
 @end
 
@@ -304,15 +304,15 @@
         if (_bossIndex<[self.players count]) {
             NJPlayer *bossPlayer = [self.players objectAtIndex:_bossIndex];
             if (bossPlayer == player) {
-                ninja = [[NJNinjaCharacterBoss alloc ] initWithTextureNamed:kBossNinjaImageName atPosition:CGPointZero withPlayer:player];
+                ninja = [[NJNinjaCharacterBoss alloc ] initWithTextureNamed:kBossNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
             }
         }
     }
     if (!ninja) {
-        ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player];
+        ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
     }
     if (ninja) {
-        [ninja addToScene:self];
+        [ninja render];
         [(NSMutableArray *)self.ninjas addObject:ninja];
     }
     if (player.shouldBlendCharacter) {
@@ -1287,4 +1287,13 @@
     return affectedPiles;
 }
 
+- (void)addCharacter:(NJCharacter *)character
+{
+    [self addNode:character atWorldLayer:NJWorldLayerCharacter];
+}
+
+- (void)addEffectNode:(SKSpriteNode *)effectNode
+{
+    [self addNode:effectNode atWorldLayer:NJWorldLayerAboveCharacter];
+}
 @end

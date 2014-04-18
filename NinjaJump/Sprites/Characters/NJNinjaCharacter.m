@@ -21,9 +21,9 @@
 
 const CGFloat medikitRecover = 40.0f;
 
-- (instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withPlayer:(NJPlayer *)player
+- (instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withPlayer:(NJPlayer *)player delegate:(id<NJCharacterDelegate>)delegate
 {
-    self = [super initWithTextureNamed:textureName AtPosition:position];
+    self = [super initWithTextureNamed:textureName AtPosition:position delegate:delegate];
     
     if (self) {
         self.player = player;

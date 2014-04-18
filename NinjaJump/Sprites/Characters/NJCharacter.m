@@ -22,10 +22,11 @@
 
 @implementation NJCharacter
 
--(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position
+-(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position delegate:(id<NJCharacterDelegate>)delegate
 {
     self = [super initWithImageNamed:textureName];
     if (self) {
+        self.delegate = delegate;
         self.position = position;
         self.movementSpeed = 800;
         self.animationSpeed = 1/60.0f;
@@ -77,11 +78,6 @@
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
 {
-    if (!self.texture) {
-        NSLog(@"no texture");
-        //self.texture = self.origTexture;
-    }
-    
     if (self.isAnimated) {
         [self resolveRequestedAnimation];
     }
@@ -167,12 +163,11 @@
     
 }
 
-- (void)performThunderAnimationInScene:(NJMultiplayerLayeredCharacterScene*)scene
+- (void)performThunderAnimation
 {
     SKSpriteNode *thunderEffect = [[SKSpriteNode alloc] initWithImageNamed:@"ninja_thunder_001.png"];
     thunderEffect.position = self.position;
-    
-    [scene addNode:thunderEffect atWorldLayer:NJWorldLayerAboveCharacter];
+    [self.delegate addEffectNode:thunderEffect];
     [thunderEffect runAction:[SKAction sequence:@[
                                          [SKAction animateWithTextures:[self thunderAnimationFrames] timePerFrame:kThunderAnimationSpeed resize:YES restore:YES],
                                          [SKAction runBlock:^{
@@ -180,11 +175,11 @@
     }]]]];
 }
 
-- (void)performWindAnimationInScene:(NJMultiplayerLayeredCharacterScene *)scene direction:(CGFloat)direction
+- (void)performWindAnimationInDirection:(CGFloat)direction
 {
     SKSpriteNode *windEffect= [[SKSpriteNode alloc] initWithImageNamed:@"wind.png"];
     windEffect.position = self.position;
-    [scene addNode:windEffect atWorldLayer:NJWorldLayerAboveCharacter];
+    [self.delegate addEffectNode:windEffect];
     CGVector vector = CGVectorMake(2000*cos(direction), 2000*sin(direction));
     SKAction *move = [SKAction moveBy:vector duration:1];
     SKAction *rotate = [SKAction rotateByAngle:M_PI*6 duration:1];
@@ -193,7 +188,6 @@
         [windEffect removeFromParent];
     }];
 }
-
 
 #pragma mark - Animation
 - (void)resolveRequestedAnimation
@@ -256,6 +250,11 @@
 - (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene
 {
     [scene addNode:self atWorldLayer:NJWorldLayerCharacter];
+}
+
+- (void)render
+{
+    [self.delegate addCharacter:self];
 }
 
 #pragma mark - Shared Assets
