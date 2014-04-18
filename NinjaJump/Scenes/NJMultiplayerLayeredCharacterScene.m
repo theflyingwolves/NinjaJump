@@ -38,7 +38,9 @@
 
 @end
 
-@implementation NJMultiplayerLayeredCharacterScene{
+@implementation NJMultiplayerLayeredCharacterScene
+
+{
     NJGameMode _gameMode;
     NSUInteger _bossIndex;
     BOOL isSelectionInited;
@@ -56,53 +58,26 @@
     self = [self initWithSize:size];
     if (self) {
         _gameMode = mode;
-        _items = [[NSMutableArray alloc] init];
-        _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
-        
-        for (int i=0; i<kNumPlayers ; i++) {
-            NJPlayer *player = [[NJPlayer alloc] init];
-            [(NSMutableArray *)_players addObject:player];
-        }
-        
         _world = [[SKNode alloc] init];
         [_world setName:@"world"];
-        _layers = [NSMutableArray arrayWithCapacity:kWorldLayerCount];
-        for (int i = 0; i < kWorldLayerCount; i++) {
-            SKNode *layer = [[SKNode alloc] init];
-            layer.zPosition = i - kWorldLayerCount;
-            [_world addChild:layer];
-            [(NSMutableArray *)_layers addObject:layer];
-        }
+        [self initLayers];
+        [self initPlayers];
         [self addChild:_world];
-        
-        self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-        self.physicsBody.usesPreciseCollisionDetection = YES;
-        self.physicsBody.friction = 0.0;
-        self.physicsBody.linearDamping = 0.0;
-        self.physicsBody.restitution = 1.0;
-        
+        [self configurePhysicsBody];
         [self initItemFrequency];
-        _ninjas = [[NSMutableArray alloc] init];
-        _items = [[NSMutableArray alloc] init];
-        _woodPiles = [[NSMutableArray alloc] init];
         isSelectionInited = NO;
         isFirstTimeInitialized = YES;
         isGameEnded = NO;
         shouldPileStartDecreasing = NO;
-        [self buildWorld];
-        
         self.doAddItemRandomly = YES;
+        hasBeenPaused = false;
+        [self buildWorld];
         
         if (mode != NJGameModeTutorial) {
             self.musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
             [self resetMusic];
-        }
-        
-        if (mode != NJGameModeTutorial) {
             [self initSelectionSystem];
         }
-        
-        hasBeenPaused = false;
     }
     return self;
 }
@@ -111,6 +86,35 @@
 {
     SKNode *layerNode = self.layers[layer];
     [layerNode addChild:node];
+}
+
+- (void)configurePhysicsBody
+{
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    self.physicsBody.usesPreciseCollisionDetection = YES;
+    self.physicsBody.friction = 0.0;
+    self.physicsBody.linearDamping = 0.0;
+    self.physicsBody.restitution = 1.0;
+}
+
+- (void)initLayers
+{
+    _layers = [NSMutableArray arrayWithCapacity:kWorldLayerCount];
+    for (int i = 0; i < kWorldLayerCount; i++) {
+        SKNode *layer = [[SKNode alloc] init];
+        layer.zPosition = i - kWorldLayerCount;
+        [_world addChild:layer];
+        [(NSMutableArray *)_layers addObject:layer];
+    }
+}
+
+- (void)initPlayers
+{
+    _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
+    for (int i=0; i<kNumPlayers ; i++) {
+        NJPlayer *player = [[NJPlayer alloc] init];
+        [(NSMutableArray *)_players addObject:player];
+    }
 }
 
 - (void)initItemFrequency
@@ -131,6 +135,7 @@
     }
 }
 
+// EFFECTS: Initialize the HP Bars for each player
 - (void)initHpBars
 {
     if (!_hpBars) {
@@ -138,26 +143,7 @@
     }
     
     for (int i=0; i < kNumPlayers; i++) {
-        CGPoint position;
-        float size = 250;
-        float offset = 10;
-        switch (i) {
-            case 0:
-                position = CGPointMake(size / 2 + offset, size / 2 + offset);
-                break;
-            case 1:
-                position = CGPointMake(self.frame.size.width - size / 2 - offset, size / 2+offset);
-                break;
-            case 2:
-                position = CGPointMake(self.frame.size.width - size / 2 - offset, self.frame.size.height - size / 2 - offset);
-                break;
-            case 3:
-                position = CGPointMake(size / 2 + offset, self.frame.size.height - size / 2 - offset);
-                break;
-            default:
-                break;
-        }
-        
+        CGPoint position = [self determinePositionOfHpBarIndexedBy:i];
         NJPlayer *player = self.players[i];
         if ([_hpBars count] < kNumPlayers) {
             NJHPBar *bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
@@ -336,6 +322,10 @@
 }
 
 - (void)addItem{
+    if (!_items) {
+        _items = [NSMutableArray array];
+    }
+    
     NJPile *pile = [self spawnAtRandomPileForNinja:NO];
     if (!pile || [self.items count]>=3 ) {
         return;
@@ -429,6 +419,10 @@
 
 - (void)addWoodPiles
 {
+    if (!_woodPiles) {
+        _woodPiles = [NSMutableArray array];
+    }
+    
     CGFloat r= 120.0f;    
     NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 580)], [NSValue valueWithCGPoint:CGPointMake(250, 250)], [NSValue valueWithCGPoint:CGPointMake(350, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(100, 300)], [NSValue valueWithCGPoint:CGPointMake(250, 500)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 600)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
     
@@ -1244,7 +1238,31 @@
     }
 }
 
-
+#pragma mark - Auxiliary Methods
+- (CGPoint)determinePositionOfHpBarIndexedBy:(NSUInteger)index
+{
+    CGPoint position;
+    float size = 250;
+    float offset = 10;
+    
+    switch (index) {
+        case 0:
+            position = CGPointMake(size / 2 + offset, size / 2 + offset);
+            break;
+        case 1:
+            position = CGPointMake(self.frame.size.width - size / 2 - offset, size / 2+offset);
+            break;
+        case 2:
+            position = CGPointMake(self.frame.size.width - size / 2 - offset, self.frame.size.height - size / 2 - offset);
+            break;
+        case 3:
+            position = CGPointMake(size / 2 + offset, self.frame.size.height - size / 2 - offset);
+            break;
+        default:
+            break;
+    }
+    return position;
+}
 
 #pragma mark - Delegate Methods
 

@@ -45,6 +45,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile;
 
 @protocol NJMultiplayerLayeredCharacterSceneDelegate <NSObject>
+// EFFECTS: Signals the delegate that a back transition is required.
 - (void)backToModeSelectionScene;
 @end
 
@@ -76,10 +77,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 - (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
 
-
-
-
-/* All sprites in the scene should be added through this method to ensure they are placed in the correct world layer. */
+// All sprites in the scene should be added through this method to ensure they are placed in the correct world layer.
 - (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer;
 
 /* Start loading all the shared assets for the scene in the background. This method calls +loadSceneAssets

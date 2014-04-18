@@ -111,8 +111,6 @@
             [halo runAction:sequence];
         }
         self.isHaloShining = YES;
-        NSLog(@"begin shining");
-        
     }
 }
 

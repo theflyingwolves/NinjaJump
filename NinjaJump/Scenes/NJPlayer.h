@@ -22,7 +22,7 @@
 @property (nonatomic) BOOL isJumping;
 @property BOOL finishJumpping; //for the use in tutorial mode
 
-@property (nonatomic) BOOL jumpRequested;               // used to track whether a move was requested
+@property (nonatomic) BOOL jumpRequested;// used to track whether a move was requested
 
 @property (nonatomic) NJSpecialItem *item;
 

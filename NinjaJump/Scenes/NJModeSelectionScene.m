@@ -5,6 +5,7 @@
 //  Created by Wang Kunzhen on 12/4/14.
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
+
 #define BUTTON_WIDTH 250.0f
 #define GAP 17.0f
 #define MODE_SELECTION_BUTTON_ANIM_LENGTH 0.4f
@@ -21,10 +22,8 @@
 @property NJButton *oneVSThreeMode;
 @property NJButton *beginnerMode;
 @property NJButton *survivalMode;
-@property SKSpriteNode *menuBar;
 @property NJButton *tutorialMode;
 @property NJButton *facebookBtn;
-@property NJButton *settingBtn;
 @property SKSpriteNode *bar;
 @property SKSpriteNode *sideMenu;
 @property SKSpriteNode *title;
@@ -44,7 +43,6 @@
         [self initBeginnerModeButton];
         [self initSurvivalModeButton];
         [self initSideMenu];
-//        [self initMenuBar];
         [self initTitle];
         [self showTitle];
     }
@@ -74,17 +72,6 @@
     _title = [[SKSpriteNode alloc] initWithImageNamed:kModeSelectionSceneTitle];
     _title.position = CGPointMake(-titleWidth/2,FRAME.size.height-150);
     [self addChild:_title];
-}
-
-- (void)initMenuBar
-{
-    _menuBar = [[SKSpriteNode alloc] init];
-    _menuBar.position = CGPointMake(self.frame.size.width - BUTTON_WIDTH/2, 500);
-    _settingBtn = [[NJButton alloc] initWithImageNamed:kSettingBtnFileName];
-    _settingBtn.position = CGPointMake(0, 100);
-    _settingBtn.delegate = self;
-    [_menuBar addChild:_settingBtn];
-    [self addChild:_menuBar];
 }
 
 - (void)initSideMenu
@@ -133,6 +120,7 @@
     [self addChild:_oneVSThreeMode];
 }
 
+// EFFECTS: Run the animation of showing the game main title
 - (void)showTitle
 {
     SKAction *moveInTitle = [SKAction moveToX:titleWidth/2 duration:MODE_SELECTION_BUTTON_ANIM_LENGTH/2];
@@ -142,6 +130,7 @@
     }];
 }
 
+// EFFECTS: Run the animation of showing the buttons
 - (void)showButtons
 {
     float xMode1V3 = FRAME.size.width - 0.5*BUTTON_WIDTH - 1*GAP;
