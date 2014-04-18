@@ -91,7 +91,6 @@ const CGFloat medikitRecover = 40.0f;
             [effect removeFromParent];
             effect.pile.itemEffectOnPile = nil;
             
-            [self.parent runAction:[SKAction playSoundFileNamed:kSoundBomb waitForCompletion:NO]];
             
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Bomb" ofType:@"sks"];
             SKEmitterNode *bombEffect = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
@@ -101,6 +100,7 @@ const CGFloat medikitRecover = 40.0f;
             SKAction *removeNode = [SKAction removeFromParent];
             SKAction *sequence = [SKAction sequence:@[wait, removeNode]];
             [bombEffect runAction:sequence];
+            [bombEffect runAction:[SKAction playSoundFileNamed:kSoundBomb waitForCompletion:NO]];
             
             [self applyDamage:effect.damage];
         }

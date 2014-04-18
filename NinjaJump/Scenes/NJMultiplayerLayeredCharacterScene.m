@@ -47,7 +47,6 @@
     BOOL isFirstTimeInitialized;
     BOOL isGameEnded;
     BOOL shouldPileStartDecreasing;
-    AVAudioPlayer *music;
     NSUInteger kNumberOfFramesToSpawnItem;
     BOOL hasBeenPaused;
 }
@@ -70,7 +69,7 @@
         isGameEnded = NO;
         shouldPileStartDecreasing = NO;
         self.doAddItemRandomly = YES;
-        hasBeenPaused = false;
+        hasBeenPaused = NO;
         [self buildWorld];
         
         if (mode != NJGameModeTutorial) {
@@ -87,6 +86,11 @@
 {
     SKNode *layerNode = self.layers[layer];
     [layerNode addChild:node];
+}
+
+- (void)addEffect:(NJItemEffect*)effect
+{
+    [self addNode:effect atWorldLayer:NJWorldLayerCharacter];
 }
 
 - (void)configurePhysicsBody
@@ -280,7 +284,9 @@
             }
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
             [self addNode:ninja.shadow atWorldLayer:NJWorldLayerBelowCharacter];
-            NJPile *pile = [self spawnAtRandomPileForNinja:NO];
+            
+            NJPile *pile = [self spawnAtRandomPileForNinja:YES];
+            
             pile.standingCharacter = ninja;
             ninja.position = pile.position;
         }else if(player.ninja){
@@ -726,7 +732,7 @@
 
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja
 {
-    NSMutableArray *array = [NSMutableArray new];
+    NSMutableArray *array = [NSMutableArray array];
     for (NJPile *pile in _woodPiles) {
         BOOL isFree = YES;
         for (NJPlayer *player in self.players) {
@@ -793,7 +799,7 @@
 {
     self.physicsWorld.speed = 0;
     hasBeenPaused = YES;
-    [music pause];
+    [self.music pause];
     
     [self showPausePanel];
 }
@@ -810,21 +816,22 @@
     } else if(actionIndex == HOME){
         NSNotificationCenter *nc  = [NSNotificationCenter defaultCenter];
         [nc removeObserver:self];
+        [self.music pause];
         [self.delegate backToModeSelectionScene];
     }
 }
 
 - (void)resetMusic {
-    if (music) {
-        [music pause];
+    if (self.music) {
+        [self.music pause];
     }
     int musicIndex = arc4random() % [self.musicName count];
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.musicName[musicIndex] ofType:@"mp3"]];
     
     NSError *error;
-    music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-    music.numberOfLoops = 100;
-    [music play];
+    self.music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    self.music.numberOfLoops = 100;
+    [self.music play];
 }
 
 - (void)restartGame{
@@ -848,6 +855,8 @@
     [self initSelectionSystem];
     
     [self resetMusic];
+    hasBeenPaused = NO;
+    self.physicsWorld.speed = 1;
 }
 
 - (void)removeNinjas

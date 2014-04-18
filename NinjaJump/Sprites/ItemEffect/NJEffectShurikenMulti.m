@@ -15,7 +15,7 @@
 #define kShurikenMultiDamage 10
 @implementation NJEffectShurikenMulti
 
--(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner{
+-(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(id<NJItemEffectSceneDelegate>)scene andOwner:(NJCharacter*)owner{
     self = [super initWithTextureNamed:kShurikenEffectFileName atPosition:position onScene:scene andOwner:owner];
     if (self) {
         _direction = direction;
