@@ -12,8 +12,18 @@
 
 @property (readonly) NJPile *pile;
 
--(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner;
+-(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(id<NJItemEffectSceneDelegate>)scene andOwner:(NJCharacter*)owner;
+//REQUIRES: position is valid; scene != nil; owner != nil; direction is valid
+//MODIFIES: self
+//EFFECTS: create an instance of this class, and add it to the scene
+//RETURNS: an instance of this class
+
 
 - (void)performEffect;
+//REQUIRES: self != nil
+//MODIFIES: self
+//EFFECTS: make the bomb appear for 1 sec and disappear
+
+
 
 @end

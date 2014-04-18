@@ -23,7 +23,7 @@
     [self runAction:[SKAction moveBy:CGVectorMake(0, 0) duration:1] completion:^{[mineTexture removeFromParent];}];
 }
 
--(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(NJMultiplayerLayeredCharacterScene*)scene andOwner:(NJCharacter*)owner{
+-(instancetype)initAtPosition:(CGPoint)position withDirection:(CGFloat)direction onScene:(id<NJItemEffectSceneDelegate>)scene andOwner:(NJCharacter*)owner{
     self = [super initWithTextureNamed:kMineEffectInvisible atPosition:position onScene:scene andOwner:owner];
     if (self) {
         _damage = kMineDamage;

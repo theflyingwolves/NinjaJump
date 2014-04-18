@@ -11,6 +11,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "NJConstants.h"
+#import "NJItemEffect.h"
 
 
 /* The layers in a scene. */
@@ -49,7 +50,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 - (void)backToModeSelectionScene;
 @end
 
-@interface NJMultiplayerLayeredCharacterScene:SKScene
+@interface NJMultiplayerLayeredCharacterScene:SKScene <NJItemEffectSceneDelegate>
 
 @property (nonatomic) BOOL startGame;
 

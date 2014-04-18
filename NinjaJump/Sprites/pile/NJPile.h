@@ -17,11 +17,14 @@ typedef enum : uint8_t {
 
 @interface NJPile : SKSpriteNode
 
+#pragma mark - movement
 @property float radius; //do we really need it?
 @property float speed;
 @property float angularSpeed;
 @property float angleRotatedSinceLastUpdate;
 @property NJDirection rotateDirection;
+
+#pragma mark - things on pile
 @property (nonatomic, weak) NJCharacter *standingCharacter;
 @property (nonatomic, weak) NJSpecialItem *itemHolded;
 @property (nonatomic, weak) NJItemEffect *itemEffectOnPile;

@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
+/*
+    This class subclass NJSpecialItem, it is the parent of all tools in the game
+*/
+
 #import "NJSpecialItem.h"
 
 @interface NJTool : NJSpecialItem

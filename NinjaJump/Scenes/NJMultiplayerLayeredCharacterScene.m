@@ -89,6 +89,11 @@
     [layerNode addChild:node];
 }
 
+- (void)addEffect:(NJItemEffect*)effect
+{
+    [self addNode:effect atWorldLayer:NJWorldLayerCharacter];
+}
+
 - (void)configurePhysicsBody
 {
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
