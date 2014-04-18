@@ -100,3 +100,10 @@ typedef enum : uint8_t {
     NJGameModeTutorial,
     NJGameModeCount
 } NJGameMode;
+
+typedef enum : uint8_t {
+    NJTeamOne = 0,
+    NJTeamTwo,
+    NJTeamThree,
+    NJTeamFour
+} NJTeamId;

@@ -115,6 +115,15 @@
     _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
     for (int i=0; i<kNumPlayers ; i++) {
         NJPlayer *player = [[NJPlayer alloc] init];
+        if (_gameMode == NJGameModeOneVsThree) {
+            if (i == _bossIndex) {
+                player.teamId = NJTeamOne;
+            }else{
+                player.teamId = NJTeamTwo;
+            }
+        }else{
+            player.teamId = (NJTeamId)i;
+        }
         [(NSMutableArray *)_players addObject:player];
     }
 }

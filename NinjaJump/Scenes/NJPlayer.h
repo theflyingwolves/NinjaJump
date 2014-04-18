@@ -32,6 +32,7 @@
 @property (nonatomic) BOOL itemIndicatorAdded;
 @property (nonatomic) SKSpriteNode *indicatorNode;
 @property (nonatomic) BOOL shouldBlendCharacter;
+@property (nonatomic) NJTeamId teamId;
 
 + (void)loadSharedAssets;
 - (void)runJumpTimerAction;
