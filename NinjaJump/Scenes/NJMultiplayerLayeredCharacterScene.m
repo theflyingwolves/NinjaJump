@@ -74,6 +74,7 @@
         [self buildWorld];
         
         if (mode != NJGameModeTutorial) {
+            /* If it is not in tutorial mode, initializes the selection system and plays the music specific to non-tutorial mode. (Tutorial mode has its own catebory of background musics defined.) */
             self.musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
             [self resetMusic];
             [self initSelectionSystem];
@@ -108,6 +109,7 @@
     }
 }
 
+
 - (void)initPlayers
 {
     _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
@@ -117,6 +119,7 @@
     }
 }
 
+// Initialize the frequency of occurrence for special items according to the mode selected
 - (void)initItemFrequency
 {
     switch (_gameMode) {
@@ -130,12 +133,12 @@
             kNumberOfFramesToSpawnItem = 200;
             break;
         default:
-            kNumberOfFramesToSpawnItem = 200;
+            kNumberOfFramesToSpawnItem = 0;
             break;
     }
 }
 
-// EFFECTS: Initialize the HP Bars for each player
+// Initialize the HP Bars for each player. This is a node where the amount of health points of a ninja is reflected on the screen
 - (void)initHpBars
 {
     if (!_hpBars) {
@@ -153,6 +156,7 @@
         }
 
         if (!player.isDisabled) {
+            // Only add hp bar for players that are enabled
             if (!((NJHPBar *)_hpBars[i]).parent) {
                 [self addChild:_hpBars[i]];
             }
@@ -459,334 +463,26 @@
             self.lastUpdateTimeInterval = currentTime;
         }
         
-        if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
-            for (NJPile *pile in _woodPiles) {
-                float dx = pile.physicsBody.velocity.dx;
-                float dy = pile.physicsBody.velocity.dy;
-                float xSign = dx > 0? 1:-1;
-                float ySign = dy > 0? 1:-1;
-                
-                if (fabs(dx) < MINIMUM_VELOCITY) {
-                    [pile.physicsBody applyImpulse:CGVectorMake(2*xSign, 0)];
-                }
-                
-                if (fabs(dy) < MINIMUM_VELOCITY) {
-                    [pile.physicsBody applyImpulse:CGVectorMake(0, 2*ySign)];
-                }
-            }
-        }
-        
         [self updateWithTimeSinceLastUpdate:timeSinceLast];
-        
-        for (NJPlayer *player in self.players) {
-            if ((id)player == [NSNull null]) {
-                continue;
-            }
-            NJNinjaCharacter *ninja = nil;
-            if ([self.ninjas count] > 0){
-                ninja = player.ninja;
-            }
-            
-            if (player.ninja.dying) {
-                if (player.indicatorNode) {
-                    [player.indicatorNode removeFromParent];
-                    player.indicatorNode = nil;
-                }
-                
-                if (player.item) {
-                    [player.item removeFromParent];
-                    if (player.item.itemShadow) {
-                        [player.item.itemShadow removeFromParent];
-                    }
-                    player.item = nil;
-                }
-                [player.ninja.shadow removeFromParent];
-            }
-            
-            if (player.item) {
-                NSString *fileName;
-                if ([player.item isKindOfClass:[NJThunderScroll class]]) {
-                    fileName = kThunderIndicator;
-                }else if([player.item isKindOfClass:[NJWindScroll class]]){
-                    fileName = kWindIndicator;
-                }else if([player.item isKindOfClass:[NJFireScroll class]]){
-                    fileName = kFireIndicator;
-                }else if([player.item isKindOfClass:[NJIceScroll class]]){
-                    fileName = kIceIndicator;
-                }
-                
-                if (!fileName) {
-                    [player.indicatorNode removeFromParent];
-                    player.indicatorNode = nil;
-                }else if (!player.itemIndicatorAdded && fileName) {
-                    if (player.indicatorNode) {
-                        [player.indicatorNode removeFromParent];
-                    }
-                    SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
-                    itemIndicator.alpha = kIndicatorAlpha;
-                    [self addNode:itemIndicator atWorldLayer:NJWorldLayerGround];
-                    player.indicatorNode = itemIndicator;
-                    player.itemIndicatorAdded = YES;
-                }
-            }else{
-                player.indicatorNode = nil;
-            }
-            
-            if (player.indicatorNode) {
-                player.indicatorNode.position = player.ninja.position;
-                player.indicatorNode.zRotation = player.ninja.zRotation;
-            }
-            
-            if (![ninja isDying]) {
-                ninja.position = CGPointApprox(ninja.position);
-                if (ninja.frozenCount > 0) {
-                    ninja.frozenCount -= timeSinceLast;
-                }
-                if (ninja.frozenCount < 0) {
-                    ninja.frozenCount = 0;
-                    [ninja.frozenEffect removeFromParent];
-                    ninja.frozenEffect = nil;
-                }
-                if (player.jumpRequested) {
-                    if (player.fromPile.standingCharacter == ninja) {
-                        player.fromPile.standingCharacter = nil;
-                    }
-                    //if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
-                    if (hypotf(ninja.position.x-player.targetPile.position.x, ninja.position.y-player.targetPile.position.y)>CGRectGetWidth(player.targetPile.frame)/2) {
-                        [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
-                    } else {
-                        player.jumpRequested = NO;
-                        player.isJumping = NO;
-                        player.finishJumpping = YES;
-                        player.jumpCooldown = 0;
-                        [player runJumpTimerAction];
-                        //resolve attack events
-                        //                    for (NJPlayer *p in _players) {
-                        //                        if (p == player) {
-                        //                            continue;
-                        //                        }
-                        //                        if (hypotf(ninja.position.x-p.ninja.position.x,ninja.position.y-p.ninja.position.y)<=CGRectGetWidth(player.targetPile.frame)/2) {
-                        if (player.targetPile.standingCharacter) {
-                            NJPlayer *p = player.targetPile.standingCharacter.player;
-                            if (!p.isDisabled) {
-                                [ninja attackCharacter:p.ninja];
-                                NJPile *pile = [self spawnAtRandomPileForNinja:YES];
-                                pile.standingCharacter = p.ninja;
-                                if (pile.itemHolded) {
-                                    [(NSMutableArray*)self.items removeObject:pile.itemHolded];
-                                    [pile.itemHolded removeFromParent];
-                                    [pile.itemHolded.itemShadow removeFromParent];
-                                }
-                                if (pile.itemEffectOnPile){
-                                    NJItemEffect *effect = pile.itemEffectOnPile;
-                                    if (effect.owner != p.ninja) {
-                                        [effect removeAllActions];
-                                        [effect removeFromParent];
-                                        pile.itemEffectOnPile = nil;
-                                    }
-                                }
-                                if (pile.isOnFire){
-                                    pile.isOnFire = NO;
-                                }
-                                
-                                [p.ninja resetToPosition:pile.position];
-                                p.targetPile = nil;
-                                p.jumpRequested = NO;
-                                p.isJumping = NO;
-                            }
-                            //                        }
-                        }
-                        
-                        if (player.targetPile.isOnFire) {
-                            [player.ninja applyDamage:10];
-                        }
-                        
-                        if (player.targetPile.standingCharacter) {
-                            player.targetPile.standingCharacter = nil;
-                        }
-                        
-                        player.targetPile.standingCharacter = ninja;
-                        ninja.position = player.targetPile.position;
-                        //pick up items if needed
-                        [player.ninja pickupItem:self.items onPile:player.targetPile];
-                        player.itemIndicatorAdded = NO;
-                    }
-                } else {
-                    player.jumpCooldown += timeSinceLast;
-                }
-            }
-        }
-        
-        NSMutableArray *itemsToRemove = [NSMutableArray array];
-        for (NJSpecialItem *item in self.items){
-            item.itemShadow.position = item.position;
-            if (item.isPickedUp) {
-                [item.itemShadow removeFromParent];
-                [itemsToRemove addObject:item];
-            }
-        }
-        
-        for (id item in itemsToRemove){
-            [(NSMutableArray*)self.items removeObject:item];
-        }
-        
-        itemsToRemove = [NSMutableArray array];
-        for (NJSpecialItem *item in self.items){
-            if (item.lifeTime > kMaxItemLifeTime) {
-                [item.itemShadow removeFromParent];
-                [itemsToRemove addObject:item];
-            }
-        }
-        for (NJSpecialItem *item in itemsToRemove){
-            [item removeFromParent];
-            [item.itemShadow removeFromParent];
-            [(NSMutableArray*)self.items removeObject:item];
-        }
+        [self removeDyingNinjas];
+        [self updatePlayers];
+        [self updateHpBars];
+        [self spawnNewItems];
+        [self checkGameEnded];
+        [self applyImpulseToSlowWoodpiles];
+        [self removePickedUpItem];
+        [self removeOutdatedItem];
     }
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
-    // Update all players' ninjas.
-    NSMutableArray *ninjasToRemove = [NSMutableArray new];
-    for (NJNinjaCharacter *ninja in self.ninjas) {
-        if (ninja.isDying) {
-            [ninja.player.jumpTimerSprite removeAllActions];
-            [ninja.player.jumpTimerSprite removeFromParent];
-            [ninjasToRemove addObject:ninja];
-        }
-    }
-    [self.ninjas removeObjectsInArray:ninjasToRemove];
-    for (NJNinjaCharacter *ninja in self.ninjas) {
-        [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
-        if ([ninja isKindOfClass:[NJNinjaCharacterBoss class]]) {
-            if (((NJNinjaCharacterBoss*)ninja).needsAddItem) {
-                ((NJNinjaCharacterBoss*)ninja).needsAddItem = NO;
-                if (ninja.player.item) {
-                    continue;
-                }
-                NJSpecialItem *item = nil;
-                while (item == nil) {
-                    item = [self generateRandomItem];
-                    if ([item isKindOfClass:[NJMedikit class]]) {
-                        item = nil;
-                    }
-                }
-                if (item) {
-                    ninja.player.item = item;
-                }
-            }
-        }
-    }
-
-    _pileDecreaseTime += timeSinceLast;
-    if (shouldPileStartDecreasing && _pileDecreaseTime >= kPileDecreaseTimeInterval) {
-        _pileDecreaseTime = 0;
-        if ([_woodPiles count] > [_ninjas count]+1) {
-            NSMutableArray *pilesToChoose = [NSMutableArray new];
-            for (NJPile *pile in _woodPiles) {
-                BOOL isFree = !pile.standingCharacter;
-                for (NJPlayer *player in self.players) {
-                    if (player.targetPile == pile) {
-                        isFree = NO;
-                        break;
-                    }
-                }
-                if (isFree) {
-                    [pilesToChoose addObject:pile];
-                }
-            }
-            if ([pilesToChoose count] > 0) {
-                int index = arc4random() % [pilesToChoose count];
-                NJPile *pileToRemove = [pilesToChoose objectAtIndex:index];
-                NJSpecialItem *itemToRemove = pileToRemove.itemHolded;
-                [itemToRemove removeFromParent];
-                [itemToRemove.itemShadow removeFromParent];
-                [_items removeObject:itemToRemove];
-                [pileToRemove removeFromParent];
-                [_woodPiles removeObject:pileToRemove];
-            }
-        }
-    }
-    
-    for (NJPile *pile in _woodPiles) {
-        [pile updateWithTimeSinceLastUpdate:timeSinceLast];
-        for (NJNinjaCharacter *ninja in _ninjas) {
-            if (hypotf(ninja.position.x-pile.position.x, ninja.position.y-pile.position.y)<=CGRectGetWidth(pile.frame)/2 && !ninja.player.isJumping) {
-                [pile addCharacterToPile:ninja];
-                ninja.zRotation += pile.angleRotatedSinceLastUpdate;
-                if (pile.rotateDirection == NJDirectionCounterClockwise) {
-                    while (ninja.zRotation>=2*M_PI) {
-                        ninja.zRotation -= 2*M_PI;
-                    }
-                } else {
-                    while (ninja.zRotation<0) {
-                        ninja.zRotation += 2*M_PI;
-                    }
-                }
-                ninja.zRotation = normalizeZRotation(ninja.zRotation);
-            }
-        }
-        
-        if (pile.itemHolded) {
-            pile.itemHolded.zRotation += pile.angleRotatedSinceLastUpdate;
-            if (pile.rotateDirection == NJDirectionCounterClockwise) {
-                while (pile.itemHolded.zRotation>=2*M_PI) {
-                    pile.itemHolded.zRotation -= 2*M_PI;
-                }
-            } else {
-                while (pile.itemHolded.zRotation<0) {
-                    pile.itemHolded.zRotation += 2*M_PI;
-                }
-            }
-            pile.itemHolded.zRotation = normalizeZRotation(pile.itemHolded.zRotation);
-        }
-        
-        if (hypotf(pile.standingCharacter.position.x-pile.position.x, pile.standingCharacter.position.y-pile.position.y) > CGRectGetWidth(pile.frame)/2) {
-            pile.standingCharacter = nil;
-        }
-        
-        if (pile.itemHolded && ![self.items containsObject:pile.itemHolded]) {
-            pile.itemHolded = nil;
-        }
-    }
-    
-    for (NJItemControl *control in _itemControls) {
-        [control updateWithTimeSinceLastUpdate:timeSinceLast];
-    }
-    
-    for (NJSpecialItem *item in self.items){
-        [item updateWithTimeSinceLastUpdate:timeSinceLast];
-    }
-    
-    for (NJPlayer *player in self.players) {
-        if (player.itemUseRequested) {
-            if (player.item != nil) {
-                // prevent player from using mine when jumping
-                if (![player.item isKindOfClass:[NJMine class]] || !player.isJumping) {
-                    [player.ninja useItem:player.item];
-                }
-                
-            }
-            player.itemIndicatorAdded = NO;
-            player.itemUseRequested = NO;
-            if (player.indicatorNode) {
-                [player.indicatorNode removeFromParent];
-            }
-        }
-    }
-    
-    for (NJHPBar *bar in _hpBars) {
-        [bar updateHealthPoint];
-    }
-    
-    int toSpawnItem = arc4random() % kNumberOfFramesToSpawnItem;
-    if (toSpawnItem==1 && self.doAddItemRandomly) {
-        [self addItem];
-    }
-    if (!isGameEnded) {
-        isGameEnded = [self isGameEnded];
-    }
+    [self updateNinjaStatesSinceLastUpdate:timeSinceLast];
+    [self decreasePilesSinceLastUpdate:timeSinceLast];
+    [self updateWoodpilesSinceLastUpdate:timeSinceLast];
+    [self updateItemControlsSinceLastUpdate:timeSinceLast];
+    [self updateItemsSinceLastUpdate:timeSinceLast];
+    [self resolveJumpRequestSinceLastUpdate:timeSinceLast];
 }
 
 - (void)didSimulatePhysics
@@ -1239,6 +935,366 @@
 }
 
 #pragma mark - Auxiliary Methods
+- (void)removeDyingNinjas
+{
+    NSMutableArray *ninjasToRemove = [NSMutableArray new];
+    for (NJNinjaCharacter *ninja in self.ninjas) {
+        if (ninja.isDying) {
+            [ninja.player.jumpTimerSprite removeAllActions];
+            [ninja.player.jumpTimerSprite removeFromParent];
+            [ninjasToRemove addObject:ninja];
+        }
+    }
+    [self.ninjas removeObjectsInArray:ninjasToRemove];
+}
+
+- (void)updateNinjaStatesSinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
+    for (NJNinjaCharacter *ninja in self.ninjas) {
+        [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
+        if ([ninja isKindOfClass:[NJNinjaCharacterBoss class]]) {
+            if (((NJNinjaCharacterBoss*)ninja).needsAddItem) {
+                ((NJNinjaCharacterBoss*)ninja).needsAddItem = NO;
+                if (ninja.player.item) {
+                    continue;
+                }
+                NJSpecialItem *item = nil;
+                while (item == nil) {
+                    item = [self generateRandomItem];
+                    if ([item isKindOfClass:[NJMedikit class]]) {
+                        item = nil;
+                    }
+                }
+                if (item) {
+                    ninja.player.item = item;
+                }
+            }
+        }
+    }
+}
+
+- (void)decreasePilesSinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
+    _pileDecreaseTime += timeSinceLast;
+    if (shouldPileStartDecreasing && _pileDecreaseTime >= kPileDecreaseTimeInterval) {
+        _pileDecreaseTime = 0;
+        if ([_woodPiles count] > [_ninjas count]+1) {
+            NSMutableArray *pilesToChoose = [NSMutableArray new];
+            for (NJPile *pile in _woodPiles) {
+                BOOL isFree = !pile.standingCharacter;
+                for (NJPlayer *player in self.players) {
+                    if (player.targetPile == pile) {
+                        isFree = NO;
+                        break;
+                    }
+                }
+                if (isFree) {
+                    [pilesToChoose addObject:pile];
+                }
+            }
+            if ([pilesToChoose count] > 0) {
+                int index = arc4random() % [pilesToChoose count];
+                NJPile *pileToRemove = [pilesToChoose objectAtIndex:index];
+                NJSpecialItem *itemToRemove = pileToRemove.itemHolded;
+                [itemToRemove removeFromParent];
+                [itemToRemove.itemShadow removeFromParent];
+                [_items removeObject:itemToRemove];
+                [pileToRemove removeFromParent];
+                [_woodPiles removeObject:pileToRemove];
+            }
+        }
+    }
+}
+
+- (void)updateWoodpilesSinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
+    for (NJPile *pile in _woodPiles) {
+        [pile updateWithTimeSinceLastUpdate:timeSinceLast];
+        for (NJNinjaCharacter *ninja in _ninjas) {
+            if (hypotf(ninja.position.x-pile.position.x, ninja.position.y-pile.position.y)<=CGRectGetWidth(pile.frame)/2 && !ninja.player.isJumping) {
+                [pile addCharacterToPile:ninja];
+                ninja.zRotation += pile.angleRotatedSinceLastUpdate;
+                if (pile.rotateDirection == NJDirectionCounterClockwise) {
+                    while (ninja.zRotation>=2*M_PI) {
+                        ninja.zRotation -= 2*M_PI;
+                    }
+                } else {
+                    while (ninja.zRotation<0) {
+                        ninja.zRotation += 2*M_PI;
+                    }
+                }
+                ninja.zRotation = normalizeZRotation(ninja.zRotation);
+            }
+        }
+        
+        if (pile.itemHolded) {
+            pile.itemHolded.zRotation += pile.angleRotatedSinceLastUpdate;
+            if (pile.rotateDirection == NJDirectionCounterClockwise) {
+                while (pile.itemHolded.zRotation>=2*M_PI) {
+                    pile.itemHolded.zRotation -= 2*M_PI;
+                }
+            } else {
+                while (pile.itemHolded.zRotation<0) {
+                    pile.itemHolded.zRotation += 2*M_PI;
+                }
+            }
+            pile.itemHolded.zRotation = normalizeZRotation(pile.itemHolded.zRotation);
+        }
+        
+        if (hypotf(pile.standingCharacter.position.x-pile.position.x, pile.standingCharacter.position.y-pile.position.y) > CGRectGetWidth(pile.frame)/2) {
+            pile.standingCharacter = nil;
+        }
+        
+        if (pile.itemHolded && ![self.items containsObject:pile.itemHolded]) {
+            pile.itemHolded = nil;
+        }
+    }
+}
+
+- (void)updateItemControlsSinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
+    for (NJItemControl *control in _itemControls) {
+        [control updateWithTimeSinceLastUpdate:timeSinceLast];
+    }
+}
+
+- (void)updateItemsSinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
+    for (NJSpecialItem *item in self.items){
+        [item updateWithTimeSinceLastUpdate:timeSinceLast];
+    }
+}
+
+- (void)updatePlayers
+{
+    for (NJPlayer *player in self.players) {
+        if (player.itemUseRequested) {
+            if (player.item != nil) {
+                // prevent player from using mine when jumping
+                if (![player.item isKindOfClass:[NJMine class]] || !player.isJumping) {
+                    [player.ninja useItem:player.item];
+                }
+                
+            }
+            player.itemIndicatorAdded = NO;
+            player.itemUseRequested = NO;
+            if (player.indicatorNode) {
+                [player.indicatorNode removeFromParent];
+            }
+        }
+    }
+}
+
+- (void)updateHpBars
+{
+    for (NJHPBar *bar in _hpBars) {
+        [bar updateHealthPoint];
+    }
+}
+
+- (void)spawnNewItems
+{
+    int toSpawnItem = arc4random() % kNumberOfFramesToSpawnItem;
+    if (toSpawnItem==1 && self.doAddItemRandomly) {
+        [self addItem];
+    }
+}
+
+- (void)checkGameEnded
+{
+    if (!isGameEnded) {
+        isGameEnded = [self isGameEnded];
+    }
+}
+
+- (void)applyImpulseToSlowWoodpiles
+{
+    if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
+        for (NJPile *pile in _woodPiles) {
+            float dx = pile.physicsBody.velocity.dx;
+            float dy = pile.physicsBody.velocity.dy;
+            float xSign = dx > 0? 1:-1;
+            float ySign = dy > 0? 1:-1;
+            
+            if (fabs(dx) < MINIMUM_VELOCITY) {
+                [pile.physicsBody applyImpulse:CGVectorMake(2*xSign, 0)];
+            }
+            
+            if (fabs(dy) < MINIMUM_VELOCITY) {
+                [pile.physicsBody applyImpulse:CGVectorMake(0, 2*ySign)];
+            }
+        }
+    }
+}
+
+- (void)removePickedUpItem
+{
+    NSMutableArray *itemsToRemove = [NSMutableArray array];
+    for (NJSpecialItem *item in self.items){
+        item.itemShadow.position = item.position;
+        if (item.isPickedUp) {
+            [item.itemShadow removeFromParent];
+            [itemsToRemove addObject:item];
+        }
+    }
+    
+    for (id item in itemsToRemove){
+        [(NSMutableArray*)self.items removeObject:item];
+    }
+}
+
+- (void)removeOutdatedItem
+{
+    NSMutableArray *itemsToRemove = [NSMutableArray array];
+    for (NJSpecialItem *item in self.items){
+        if (item.lifeTime > kMaxItemLifeTime) {
+            [item.itemShadow removeFromParent];
+            [itemsToRemove addObject:item];
+        }
+    }
+    for (NJSpecialItem *item in itemsToRemove){
+        [item removeFromParent];
+        [item.itemShadow removeFromParent];
+        [(NSMutableArray*)self.items removeObject:item];
+    }
+}
+
+- (void)resolveJumpRequestSinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
+    for (NJPlayer *player in self.players) {
+        if ((id)player == [NSNull null]) {
+            continue;
+        }
+        NJNinjaCharacter *ninja = nil;
+        if ([self.ninjas count] > 0){
+            ninja = player.ninja;
+        }
+        
+        if (player.ninja.dying) {
+            if (player.indicatorNode) {
+                [player.indicatorNode removeFromParent];
+                player.indicatorNode = nil;
+            }
+            
+            if (player.item) {
+                [player.item removeFromParent];
+                if (player.item.itemShadow) {
+                    [player.item.itemShadow removeFromParent];
+                }
+                player.item = nil;
+            }
+            [player.ninja.shadow removeFromParent];
+        }
+        
+        if (player.item) {
+            NSString *fileName;
+            if ([player.item isKindOfClass:[NJThunderScroll class]]) {
+                fileName = kThunderIndicator;
+            }else if([player.item isKindOfClass:[NJWindScroll class]]){
+                fileName = kWindIndicator;
+            }else if([player.item isKindOfClass:[NJFireScroll class]]){
+                fileName = kFireIndicator;
+            }else if([player.item isKindOfClass:[NJIceScroll class]]){
+                fileName = kIceIndicator;
+            }
+            
+            if (!fileName) {
+                [player.indicatorNode removeFromParent];
+                player.indicatorNode = nil;
+            }else if (!player.itemIndicatorAdded && fileName) {
+                if (player.indicatorNode) {
+                    [player.indicatorNode removeFromParent];
+                }
+                SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
+                itemIndicator.alpha = kIndicatorAlpha;
+                [self addNode:itemIndicator atWorldLayer:NJWorldLayerGround];
+                player.indicatorNode = itemIndicator;
+                player.itemIndicatorAdded = YES;
+            }
+        }else{
+            player.indicatorNode = nil;
+        }
+        
+        if (player.indicatorNode) {
+            player.indicatorNode.position = player.ninja.position;
+            player.indicatorNode.zRotation = player.ninja.zRotation;
+        }
+        
+        if (![ninja isDying]) {
+            ninja.position = CGPointApprox(ninja.position);
+            if (ninja.frozenCount > 0) {
+                ninja.frozenCount -= timeSinceLast;
+            }
+            if (ninja.frozenCount < 0) {
+                ninja.frozenCount = 0;
+                [ninja.frozenEffect removeFromParent];
+                ninja.frozenEffect = nil;
+            }
+            if (player.jumpRequested) {
+                if (player.fromPile.standingCharacter == ninja) {
+                    player.fromPile.standingCharacter = nil;
+                }
+                //if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
+                if (hypotf(ninja.position.x-player.targetPile.position.x, ninja.position.y-player.targetPile.position.y)>CGRectGetWidth(player.targetPile.frame)/2) {
+                    [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
+                } else {
+                    player.jumpRequested = NO;
+                    player.isJumping = NO;
+                    player.finishJumpping = YES;
+                    player.jumpCooldown = 0;
+                    [player runJumpTimerAction];
+                    
+                    if (player.targetPile.standingCharacter) {
+                        NJPlayer *p = player.targetPile.standingCharacter.player;
+                        if (!p.isDisabled) {
+                            [ninja attackCharacter:p.ninja];
+                            NJPile *pile = [self spawnAtRandomPileForNinja:YES];
+                            pile.standingCharacter = p.ninja;
+                            if (pile.itemHolded) {
+                                [(NSMutableArray*)self.items removeObject:pile.itemHolded];
+                                [pile.itemHolded removeFromParent];
+                                [pile.itemHolded.itemShadow removeFromParent];
+                            }
+                            if (pile.itemEffectOnPile){
+                                NJItemEffect *effect = pile.itemEffectOnPile;
+                                if (effect.owner != p.ninja) {
+                                    [effect removeAllActions];
+                                    [effect removeFromParent];
+                                    pile.itemEffectOnPile = nil;
+                                }
+                            }
+                            if (pile.isOnFire){
+                                pile.isOnFire = NO;
+                            }
+                            
+                            [p.ninja resetToPosition:pile.position];
+                            p.targetPile = nil;
+                            p.jumpRequested = NO;
+                            p.isJumping = NO;
+                        }
+                    }
+                    
+                    if (player.targetPile.isOnFire) {
+                        [player.ninja applyDamage:10];
+                    }
+                    
+                    if (player.targetPile.standingCharacter) {
+                        player.targetPile.standingCharacter = nil;
+                    }
+                    
+                    player.targetPile.standingCharacter = ninja;
+                    ninja.position = player.targetPile.position;
+                    //pick up items if needed
+                    [player.ninja pickupItem:self.items onPile:player.targetPile];
+                    player.itemIndicatorAdded = NO;
+                }
+            } else {
+                player.jumpCooldown += timeSinceLast;
+            }
+        }
+    }
+}
+
 - (CGPoint)determinePositionOfHpBarIndexedBy:(NSUInteger)index
 {
     CGPoint position;
