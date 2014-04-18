@@ -482,7 +482,7 @@
     [self updateWoodpilesSinceLastUpdate:timeSinceLast];
     [self updateItemControlsSinceLastUpdate:timeSinceLast];
     [self updateItemsSinceLastUpdate:timeSinceLast];
-    [self resolveJumpRequestSinceLastUpdate:timeSinceLast];
+    [self updatePlayersSinceLastUpdate:timeSinceLast];
 }
 
 - (void)didSimulatePhysics
@@ -839,7 +839,6 @@
     [self initSelectionSystem];
     
     [self resetMusic];
-    
 }
 
 - (void)removeNinjas
@@ -1107,6 +1106,7 @@
     }
 }
 
+// Checks if there is any piles that is too slow and if there is any, apply some impulse to speed them up
 - (void)applyImpulseToSlowWoodpiles
 {
     if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
@@ -1127,6 +1127,7 @@
     }
 }
 
+// Remove items from being rendered once picked up
 - (void)removePickedUpItem
 {
     NSMutableArray *itemsToRemove = [NSMutableArray array];
@@ -1143,6 +1144,7 @@
     }
 }
 
+// Remove items that has been existing longer than its maximum lifetime
 - (void)removeOutdatedItem
 {
     NSMutableArray *itemsToRemove = [NSMutableArray array];
@@ -1159,7 +1161,8 @@
     }
 }
 
-- (void)resolveJumpRequestSinceLastUpdate:(NSTimeInterval)timeSinceLast
+// Update the state of all players since last update
+- (void)updatePlayersSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJPlayer *player in self.players) {
         if ((id)player == [NSNull null]) {
@@ -1171,6 +1174,7 @@
         }
         
         if (player.ninja.dying) {
+            // If a ninja is dying, remove all items, indicator nodes and shadows attached to the ninja
             if (player.indicatorNode) {
                 [player.indicatorNode removeFromParent];
                 player.indicatorNode = nil;
@@ -1186,7 +1190,9 @@
             [player.ninja.shadow removeFromParent];
         }
         
+        
         if (player.item) {
+            // If the player is holding any item and no indicator node has been added yet, add an indicator node to the player so as to indicate the range where the item being held can affect
             NSString *fileName;
             if ([player.item isKindOfClass:[NJThunderScroll class]]) {
                 fileName = kThunderIndicator;
@@ -1212,86 +1218,102 @@
                 player.itemIndicatorAdded = YES;
             }
         }else{
+            // If the player is not holding any item, remove its indicator node
             player.indicatorNode = nil;
         }
         
         if (player.indicatorNode) {
+            // Update the indicator node to have the same position and zRotation as the player
             player.indicatorNode.position = player.ninja.position;
             player.indicatorNode.zRotation = player.ninja.zRotation;
         }
         
         if (![ninja isDying]) {
             ninja.position = CGPointApprox(ninja.position);
-            if (ninja.frozenCount > 0) {
-                ninja.frozenCount -= timeSinceLast;
-            }
-            if (ninja.frozenCount < 0) {
-                ninja.frozenCount = 0;
-                [ninja.frozenEffect removeFromParent];
-                ninja.frozenEffect = nil;
-            }
+            [self resolveSpecialItemEffectsForCharacter:ninja sinceLastUpdate:timeSinceLast];
+            
             if (player.jumpRequested) {
-                if (player.fromPile.standingCharacter == ninja) {
-                    player.fromPile.standingCharacter = nil;
-                }
-                //if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
-                if (hypotf(ninja.position.x-player.targetPile.position.x, ninja.position.y-player.targetPile.position.y)>CGRectGetWidth(player.targetPile.frame)/2) {
-                    [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
-                } else {
-                    player.jumpRequested = NO;
-                    player.isJumping = NO;
-                    player.finishJumpping = YES;
-                    player.jumpCooldown = 0;
-                    [player runJumpTimerAction];
-                    
-                    if (player.targetPile.standingCharacter) {
-                        NJPlayer *p = player.targetPile.standingCharacter.player;
-                        if (!p.isDisabled) {
-                            [ninja attackCharacter:p.ninja];
-                            NJPile *pile = [self spawnAtRandomPileForNinja:YES];
-                            pile.standingCharacter = p.ninja;
-                            if (pile.itemHolded) {
-                                [(NSMutableArray*)self.items removeObject:pile.itemHolded];
-                                [pile.itemHolded removeFromParent];
-                                [pile.itemHolded.itemShadow removeFromParent];
-                            }
-                            if (pile.itemEffectOnPile){
-                                NJItemEffect *effect = pile.itemEffectOnPile;
-                                if (effect.owner != p.ninja) {
-                                    [effect removeAllActions];
-                                    [effect removeFromParent];
-                                    pile.itemEffectOnPile = nil;
-                                }
-                            }
-                            if (pile.isOnFire){
-                                pile.isOnFire = NO;
-                            }
-                            
-                            [p.ninja resetToPosition:pile.position];
-                            p.targetPile = nil;
-                            p.jumpRequested = NO;
-                            p.isJumping = NO;
-                        }
-                    }
-                    
-                    if (player.targetPile.isOnFire) {
-                        [player.ninja applyDamage:10];
-                    }
-                    
-                    if (player.targetPile.standingCharacter) {
-                        player.targetPile.standingCharacter = nil;
-                    }
-                    
-                    player.targetPile.standingCharacter = ninja;
-                    ninja.position = player.targetPile.position;
-                    //pick up items if needed
-                    [player.ninja pickupItem:self.items onPile:player.targetPile];
-                    player.itemIndicatorAdded = NO;
-                }
+                [self resolveJumpRequestForPlayer:player sinceLastUpdate:timeSinceLast];
             } else {
                 player.jumpCooldown += timeSinceLast;
             }
         }
+    }
+}
+
+// Resolve all effects applied to the character by special items
+- (void)resolveSpecialItemEffectsForCharacter:(NJCharacter *)character sinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
+    if (character.frozenCount > 0) {
+        character.frozenCount -= timeSinceLast;
+    }
+    if (character.frozenCount < 0) {
+        character.frozenCount = 0;
+        [character.frozenEffect removeFromParent];
+        character.frozenEffect = nil;
+    }
+}
+
+// Resolve jumping requests for the player specified
+- (void)resolveJumpRequestForPlayer:(NJPlayer *)player sinceLastUpdate:(NSTimeInterval)timeSinceLast
+{
+    NJCharacter *ninja = player.ninja;
+    if (player.fromPile.standingCharacter == ninja) {
+        player.fromPile.standingCharacter = nil;
+    }
+    //if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
+    if (hypotf(ninja.position.x-player.targetPile.position.x, ninja.position.y-player.targetPile.position.y)>CGRectGetWidth(player.targetPile.frame)/2) {
+        [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
+    } else {
+        player.jumpRequested = NO;
+        player.isJumping = NO;
+        player.finishJumpping = YES;
+        player.jumpCooldown = 0;
+        [player runJumpTimerAction];
+        
+        if (player.targetPile.standingCharacter) {
+            NJPlayer *p = player.targetPile.standingCharacter.player;
+            if (!p.isDisabled) {
+                [ninja attackCharacter:p.ninja];
+                NJPile *pile = [self spawnAtRandomPileForNinja:YES];
+                pile.standingCharacter = p.ninja;
+                if (pile.itemHolded) {
+                    [(NSMutableArray*)self.items removeObject:pile.itemHolded];
+                    [pile.itemHolded removeFromParent];
+                    [pile.itemHolded.itemShadow removeFromParent];
+                }
+                if (pile.itemEffectOnPile){
+                    NJItemEffect *effect = pile.itemEffectOnPile;
+                    if (effect.owner != p.ninja) {
+                        [effect removeAllActions];
+                        [effect removeFromParent];
+                        pile.itemEffectOnPile = nil;
+                    }
+                }
+                if (pile.isOnFire){
+                    pile.isOnFire = NO;
+                }
+                
+                [p.ninja resetToPosition:pile.position];
+                p.targetPile = nil;
+                p.jumpRequested = NO;
+                p.isJumping = NO;
+            }
+        }
+        
+        if (player.targetPile.isOnFire) {
+            [player.ninja applyDamage:10];
+        }
+        
+        if (player.targetPile.standingCharacter) {
+            player.targetPile.standingCharacter = nil;
+        }
+        
+        player.targetPile.standingCharacter = ninja;
+        ninja.position = player.targetPile.position;
+        //pick up items if needed
+        [player.ninja pickupItem:self.items onPile:player.targetPile];
+        player.itemIndicatorAdded = NO;
     }
 }
 
