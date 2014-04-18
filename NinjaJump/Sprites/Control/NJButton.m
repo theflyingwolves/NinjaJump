@@ -23,6 +23,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [self setScale:1.1];
     [self.delegate button:self touchesBegan:touches];
 }
 

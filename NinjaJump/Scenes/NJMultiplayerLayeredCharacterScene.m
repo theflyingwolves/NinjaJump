@@ -803,11 +803,11 @@
     NSUInteger actionIndex = [(NSNumber *)[note object] integerValue];
     if (!isSelectionInited && actionIndex == RESTART){
         [self restartGame];
-    } else if(actionIndex == CONTINUE){
+    } else if(actionIndex == RESUME){
         hasBeenPaused = NO;
         self.physicsWorld.speed = 1;
         [music play];
-    } else if(actionIndex == BACK){
+    } else if(actionIndex == HOME){
         NSNotificationCenter *nc  = [NSNotificationCenter defaultCenter];
         [nc removeObserver:self];
         [self.delegate backToModeSelectionScene];

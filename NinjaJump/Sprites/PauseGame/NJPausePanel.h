@@ -8,9 +8,10 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-#define CONTINUE 0
-#define RESTART 1
-#define BACK 2
+
+#define RESTART 0
+#define HOME 1
+#define RESUME 2
 
 @interface NJPausePanel : SKSpriteNode
 
