@@ -93,7 +93,11 @@
     if (character.health <= 0) {
         return ; // to prevent the attack animation to be wrongly performed
     }
-    [character applyPhysicalDamage:kAttackDamage];
+    float damageToApply = kAttackDamage;
+    if (character.player.teamId == self.player.teamId) {
+        damageToApply = damageToApply / 2.0f;
+    }
+    [character applyPhysicalDamage:damageToApply];
     self.requestedAnimation = NJAnimationStateAttack;
     [self runAction:[SKAction playSoundFileNamed:kSoundAttack waitForCompletion:NO]];
 }

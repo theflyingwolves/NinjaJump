@@ -27,7 +27,10 @@ typedef enum : uint8_t {
 
 @protocol NJCharacterDelegate <NSObject>
 - (void)addCharacter:(NJCharacter *)character;
+// EFFECTS: Render characters to delegate (expected to be a SKScene)
+
 - (void)addEffectNode:(SKSpriteNode *)effectNode;
+// EFFECTS: Render the given effect node to the delegate (expected to be a SKScene)
 @end
 
 @interface NJCharacter : SKSpriteNode
@@ -57,112 +60,110 @@ typedef enum : uint8_t {
 @property (nonatomic) id<NJCharacterDelegate> delegate;
 
 #pragma mark - Initializer
-// EFFECTS: load the assets common to all characters to memory for future use. Executed only once
 +(void)loadSharedAssets;
+// EFFECTS: load the assets common to all characters to memory for future use. Executed only once
 
+-(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position delegate:(id<NJCharacterDelegate>)delegate;
 // REQUIRES: Texture named textureName should have been added to the project, position should be within the rendering screen
 // EFFECTS: Initialize a character with an initial texture and position
--(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position delegate:(id<NJCharacterDelegate>)delegate;
 
-//- (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene;
 #pragma mark - Render
 - (void)render;
 
 #pragma mark - Reset
-// EFFECTS: Reset the character back to initial states: Putting them back to starting position, removing all items possessed. However, the HP remains unchanged.
 -(void)reset;
+// EFFECTS: Reset the character back to initial states: Putting them back to starting position, removing all items possessed. However, the HP remains unchanged.
 
+- (void)resetToPosition:(CGPoint)position;
 // REQUIRES: position within the renderring screen
 // MODIFIES: self.position
 // EFFECTS: Respawn the character at the given position with respawn effects
-- (void)resetToPosition:(CGPoint)position;
 
 #pragma mark - Animation
+-(void)animationDidComplete;
 // EFFECTS: Handle following animation after the jumping animation is complete, making ninja spin with the piles
 // Abstract
--(void)animationDidComplete;
 
+- (NSArray *)jumpAnimationFrames;
 // RETURNS: An array of frames for jumping animation
 // Abstract
-- (NSArray *)jumpAnimationFrames;
 
+- (NSArray *)attackAnimationFrames;
 // RETURNS: An array of frames for attack animation
 // Abstract
-- (NSArray *)attackAnimationFrames;
 
+- (NSArray *)thunderAnimationFrames;
 //RETURNS: An array of frames for thunder animation
 // Abstract
-- (NSArray *)thunderAnimationFrames;
 
-//EFFECTS: Perform the animation when the character use a thunder scroll
 - (void)performThunderAnimation;
+//EFFECTS: Perform the animation when the character use a thunder scroll
 
-//EFFECTS: Perform the animation when the character use a wind scroll
 - (void)performWindAnimationInDirection:(CGFloat)direction;
+//EFFECTS: Perform the animation when the character use a wind scroll
 
+- (void)performFrozenEffect;
 //REQUIRES: self != nil
 //MODIFIES: self.frozenEffect, self.frozenCount
 //EFFECTS: Perform the animation when being applied the effect freeze
-- (void)performFrozenEffect;
 
 #pragma mark - Update
+- (void)updateAngularSpeed:(float) angularSpeed;
 // EFFECTS: Update the angular speed for ninja's spinning when idle
 // Abstract
-- (void)updateAngularSpeed:(float) angularSpeed;
 
-// EFFECTS: Update the next-frame rendering of the character
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval;
+// EFFECTS: Update the next-frame rendering of the character
 
 #pragma mark - Basic Operation
-// EFFECTS: Remove ninja from game and Perform Death
 -(void)performDeath;
+// EFFECTS: Remove ninja from game and Perform Death
 
+-(BOOL)applyDamage:(CGFloat)amount;
 // REQUIRES: amount >= 0
 // MODIFIES: self.health
 // EFFECTS: Apply a given amount of damage to the character.
--(BOOL)applyDamage:(CGFloat)amount;
 
+- (BOOL)applyMagicalDamage:(CGFloat)damage;
 // REQUIRES: amont >= 0
 // MODIFIES: self.health
 // EFFECTS: Apply the given amount of damage as magical damage to the character
-- (BOOL)applyMagicalDamage:(CGFloat)damage;
 
+- (BOOL)applyPhysicalDamage:(CGFloat)damage;
 // REQUIRES: amont >= 0
 // MODIFIES: self.health
 // EFFECTS: Apply the given amount of damage as physical damage to the character
-- (BOOL)applyPhysicalDamage:(CGFloat)damage;
 
+-(void)recover:(CGFloat)amount;
 // REQUIRES: amount >=0
 // MODIFIES: self.health
 // EFFECTS:  Apply a given amount of recover to the character.
--(void)recover:(CGFloat)amount;
 
+- (void)attackCharacter:(NJCharacter *)character;
 // REQUIRES: character != nil
 // MODIFIES: character.health, self.requestedAnimation
 // EFFECTS:  Deduct the corresponding amount of health points from character and perform the corresponding attack animation
-- (void)attackCharacter:(NJCharacter *)character;
 
+- (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval;
 // EFFECTS: character jump to a given position
 // MODIFIES: self.position, self.targetPile, self.fromPile
-- (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval;
 
-// EFFECTS: Handles the animation of using the given item
 -(void)useItem:(NJSpecialItem *)item;
+// EFFECTS: Handles the animation of using the given item
 
+- (void)pickupItem:(NSArray *)items onPile:(NJPile *)pile;
 // REQUIRES: items != nil, pile != nil, self != nil
 // MODIFIES: self.itemHolded, item.isPickedup for each item in items, pile.itemHolded
 // EFFECTS: Pick up the array of items given on a specific pile
-- (void)pickupItem:(NSArray *)items onPile:(NJPile *)pile;
 
 #pragma mark - PhysicsBody
+-(void)configurePhysicsBody;
 // EFFECTS: Configure physics body to enable physics engine
 // Abstract
--(void)configurePhysicsBody;
 
+- (void)collidedWith:(SKPhysicsBody *)other;
 // REQUIRES: other != nil
 // MODIFIES: self.health
 // EFFECTS: Collision handler that specifies what are the actions to be performed when a collision occurs
 // Abstract
-- (void)collidedWith:(SKPhysicsBody *)other;
-
 @end
