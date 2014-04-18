@@ -105,5 +105,6 @@ typedef enum : uint8_t {
     NJTeamOne = 0,
     NJTeamTwo,
     NJTeamThree,
-    NJTeamFour
+    NJTeamFour,
+    NJTeamCount
 } NJTeamId;

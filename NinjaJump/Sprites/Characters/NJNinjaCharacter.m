@@ -107,7 +107,9 @@ const CGFloat medikitRecover = 40.0f;
     }
 }
 
--(void)configurePhysicsBody{
+// Configure physics body for the ninja character
+-(void)configurePhysicsBody
+{
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];
     self.physicsBody.categoryBitMask = NJColliderTypeCharacter;
     
