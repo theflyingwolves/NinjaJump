@@ -22,6 +22,7 @@
 
 @implementation NJCharacter
 
+#pragma mark - Initializer
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position delegate:(id<NJCharacterDelegate>)delegate
 {
     self = [super initWithImageNamed:textureName];
@@ -47,6 +48,7 @@
     _shadow.alpha = 0.7;
 }
 
+#pragma mark - Jump
 - (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval
 {
     [self prepareForJump];
@@ -61,9 +63,11 @@
     CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(toPile.position, curPosition));
     self.zRotation = normalizeZRotation(ang);
     if (distRemaining <= dt) {
+        // If the target position should have been reached by now, then directly snap the character to the target pile
         self.position = toPile.position;
         toPile.standingCharacter = self;
     } else {
+        // Otherwise, proceed one step
         self.position = CGPointMake(curPosition.x - sinf(ang)*dt,
                                     curPosition.y + cosf(ang)*dt);
     }
@@ -128,7 +132,6 @@
     return [self applyDamage:damage * multiplier];
 }
 
-// EFFECTS:  a given amount of recover to the character.
 -(void)recover:(CGFloat)amount{
     [self applyDamage:(0-amount)];
     if (self.health > FULL_HP) {
@@ -155,38 +158,6 @@
     self.attacking = NO;
     self.animated = NO;
     [self removeAllActions];
-}
-
-#pragma mark - Use Items
-- (void)useItem:(NJSpecialItem *)item
-{
-    
-}
-
-- (void)performThunderAnimation
-{
-    SKSpriteNode *thunderEffect = [[SKSpriteNode alloc] initWithImageNamed:@"ninja_thunder_001.png"];
-    thunderEffect.position = self.position;
-    [self.delegate addEffectNode:thunderEffect];
-    [thunderEffect runAction:[SKAction sequence:@[
-                                         [SKAction animateWithTextures:[self thunderAnimationFrames] timePerFrame:kThunderAnimationSpeed resize:YES restore:YES],
-                                         [SKAction runBlock:^{
-        [thunderEffect removeFromParent];
-    }]]]];
-}
-
-- (void)performWindAnimationInDirection:(CGFloat)direction
-{
-    SKSpriteNode *windEffect= [[SKSpriteNode alloc] initWithImageNamed:@"wind.png"];
-    windEffect.position = self.position;
-    [self.delegate addEffectNode:windEffect];
-    CGVector vector = CGVectorMake(2000*cos(direction), 2000*sin(direction));
-    SKAction *move = [SKAction moveBy:vector duration:1];
-    SKAction *rotate = [SKAction rotateByAngle:M_PI*6 duration:1];
-    SKAction *group = [SKAction group:@[move,rotate]];
-    [windEffect runAction:group completion:^{
-        [windEffect removeFromParent];
-    }];
 }
 
 #pragma mark - Animation
@@ -247,9 +218,41 @@
     }
 }
 
-- (void)addToScene:(NJMultiplayerLayeredCharacterScene *)scene
+- (void)performThunderAnimation
 {
-    [scene addNode:self atWorldLayer:NJWorldLayerCharacter];
+    SKSpriteNode *thunderEffect = [[SKSpriteNode alloc] initWithImageNamed:@"ninja_thunder_001.png"];
+    thunderEffect.position = self.position;
+    [self.delegate addEffectNode:thunderEffect];
+    [thunderEffect runAction:[SKAction sequence:@[
+                                                  [SKAction animateWithTextures:[self thunderAnimationFrames] timePerFrame:kThunderAnimationSpeed resize:YES restore:YES],
+                                                  [SKAction runBlock:^{
+        [thunderEffect removeFromParent];
+    }]]]];
+}
+
+- (void)performWindAnimationInDirection:(CGFloat)direction
+{
+    SKSpriteNode *windEffect= [[SKSpriteNode alloc] initWithImageNamed:@"wind.png"];
+    windEffect.position = self.position;
+    [self.delegate addEffectNode:windEffect];
+    CGVector vector = CGVectorMake(2000*cos(direction), 2000*sin(direction));
+    SKAction *move = [SKAction moveBy:vector duration:1];
+    SKAction *rotate = [SKAction rotateByAngle:M_PI*6 duration:1];
+    SKAction *group = [SKAction group:@[move,rotate]];
+    [windEffect runAction:group completion:^{
+        [windEffect removeFromParent];
+    }];
+}
+
+- (void)performFrozenEffect{
+    SKSpriteNode *frozen = [[SKSpriteNode alloc] initWithImageNamed:kFrozenEffectFileName];
+    frozen.alpha = 0.8;
+    frozen.position = CGPointMake(0, 0);
+    frozen.zPosition = self.zPosition+1;
+    [self addChild:frozen];
+    
+    self.frozenEffect = frozen;
+    self.frozenCount = kFrozenTime;
 }
 
 - (void)render
@@ -258,12 +261,18 @@
 }
 
 #pragma mark - Shared Assets
-+ (void)loadSharedAssets {
++ (void)loadSharedAssets
+{
     // overridden by subclasses
 }
 
 
 #pragma mark - Abstract Methods
+- (void)useItem:(NJSpecialItem *)item
+{
+    // overridden by subclasses
+}
+
 - (NSArray *)jumpAnimationFrames
 {
     // overridden by subclasses
@@ -288,19 +297,6 @@
     return nil;
 }
 
-#pragma mark - animation when applied effect
-- (void)performFrozenEffect{
-    SKSpriteNode *frozen = [[SKSpriteNode alloc] initWithImageNamed:kFrozenEffectFileName];
-    frozen.alpha = 0.8;
-    frozen.position = CGPointMake(0, 0);
-    frozen.zPosition = self.zPosition+1;
-    [self addChild:frozen];
-    
-    self.frozenEffect = frozen;
-    self.frozenCount = kFrozenTime;
-}
-
-#pragma mark - Abstract Methods
 - (void)animationDidComplete
 {
     // Overridden by Subclasses

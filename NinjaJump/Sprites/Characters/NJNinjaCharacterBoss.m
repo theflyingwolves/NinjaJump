@@ -10,6 +10,12 @@
 #define NUM_OF_FRAMES_FOR_BOSS_NINJA_DEATH 10
 #define NUM_OF_FRAMES_FOR_BOSS_NINJA_ATTACK 6
 #define NUM_OF_FRAMES_FOR_BOSS_NINJA_THUNDER 6
+#define BOSS_THUNDER_ANIMATION_FRAMES_ATLAS_NAME @"Ninja_Thunder"
+#define BOSS_THUNDER_ANIMATION_FRAMES_BASE_NAME @"ninja_thunder_"
+#define BOSS_ATTACK_ANIMATION_FRAMES_ATLAS_NAME @"Ninja_Attack"
+#define BOSS_ATTACK_ANIMATION_FRAMES_BASE_NAME @"attack_light_"
+#define BOSS_JUMP_ANIMATION_FRAMES_ATLAS_NAME @"Boss_Jump"
+#define BOSS_JUMP_ANIMATION_FRAMES_BASE_NAME @"bossJump_"
 
 #import "NJNinjaCharacterBoss.h"
 #import "NJGraphicsUnitilities.h"
@@ -34,9 +40,9 @@
     [super loadSharedAssets];
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sSharedJumpAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Boss_Jump" withBaseName:@"bossJump_" andNumOfFrames:NUM_OF_FRAMES_FOR_BOSS_NINJA_JUMP];
-        sSharedAttackAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Ninja_Attack" withBaseName:@"attack_light_" andNumOfFrames:NUM_OF_FRAMES_FOR_BOSS_NINJA_ATTACK];
-        sSharedThunderAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:@"Ninja_Thunder" withBaseName:@"ninja_thunder_" andNumOfFrames:NUM_OF_FRAMES_FOR_BOSS_NINJA_THUNDER];
+        sSharedJumpAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:BOSS_JUMP_ANIMATION_FRAMES_ATLAS_NAME withBaseName:BOSS_JUMP_ANIMATION_FRAMES_BASE_NAME andNumOfFrames:NUM_OF_FRAMES_FOR_BOSS_NINJA_JUMP];
+        sSharedAttackAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:BOSS_ATTACK_ANIMATION_FRAMES_ATLAS_NAME withBaseName:BOSS_ATTACK_ANIMATION_FRAMES_BASE_NAME andNumOfFrames:NUM_OF_FRAMES_FOR_BOSS_NINJA_ATTACK];
+        sSharedThunderAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:BOSS_THUNDER_ANIMATION_FRAMES_ATLAS_NAME withBaseName:BOSS_THUNDER_ANIMATION_FRAMES_BASE_NAME andNumOfFrames:NUM_OF_FRAMES_FOR_BOSS_NINJA_THUNDER];
     });
 }
 

@@ -79,20 +79,25 @@ typedef enum : uint8_t {
 
 #pragma mark - Animation
 // EFFECTS: Handle following animation after the jumping animation is complete, making ninja spin with the piles
+// Abstract
 -(void)animationDidComplete;
 
 // RETURNS: An array of frames for jumping animation
+// Abstract
 - (NSArray *)jumpAnimationFrames;
 
 // RETURNS: An array of frames for attack animation
+// Abstract
 - (NSArray *)attackAnimationFrames;
 
 //RETURNS: An array of frames for thunder animation
+// Abstract
 - (NSArray *)thunderAnimationFrames;
 
-//EFFECTS: Perform the animation when the character use the scroll
+//EFFECTS: Perform the animation when the character use a thunder scroll
 - (void)performThunderAnimation;
 
+//EFFECTS: Perform the animation when the character use a wind scroll
 - (void)performWindAnimationInDirection:(CGFloat)direction;
 
 //REQUIRES: self != nil
@@ -102,6 +107,7 @@ typedef enum : uint8_t {
 
 #pragma mark - Update
 // EFFECTS: Update the angular speed for ninja's spinning when idle
+// Abstract
 - (void)updateAngularSpeed:(float) angularSpeed;
 
 // EFFECTS: Update the next-frame rendering of the character
@@ -150,11 +156,13 @@ typedef enum : uint8_t {
 
 #pragma mark - PhysicsBody
 // EFFECTS: Configure physics body to enable physics engine
+// Abstract
 -(void)configurePhysicsBody;
 
 // REQUIRES: other != nil
 // MODIFIES: self.health
 // EFFECTS: Collision handler that specifies what are the actions to be performed when a collision occurs
+// Abstract
 - (void)collidedWith:(SKPhysicsBody *)other;
 
 @end

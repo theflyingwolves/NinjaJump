@@ -11,7 +11,5 @@
 @class NJPlayer;
 
 @interface NJNinjaCharacter : NJCharacter
-//@property (nonatomic, weak) NJPlayer *player;
-
 - (id)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withPlayer:(NJPlayer *)player delegate:(id<NJCharacterDelegate>)delegate;
 @end

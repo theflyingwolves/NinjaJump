@@ -111,15 +111,10 @@ const CGFloat medikitRecover = 40.0f;
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];
     self.physicsBody.categoryBitMask = NJColliderTypeCharacter;
     
-    // Collides with these objects.
-//    self.physicsBody.collisionBitMask = NJColliderTypeItemEffect;
-    
     // We want notifications for colliding with these objects.
     self.physicsBody.contactTestBitMask = NJColliderTypeItemEffectShuriken | NJColliderTypeItemEffectMine;
 
     self.physicsBody.dynamic = NO;
-//    self.physicsBody.linearDamping = 0.0f;
-    
 }
 
 @end

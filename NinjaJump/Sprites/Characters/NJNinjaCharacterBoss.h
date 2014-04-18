@@ -9,8 +9,6 @@
 #import "NJNinjaCharacter.h"
 
 @interface NJNinjaCharacterBoss : NJNinjaCharacter
-
 @property (nonatomic) BOOL needsAddItem;
 @property (nonatomic) NSTimeInterval addItemTimer;
-
 @end
