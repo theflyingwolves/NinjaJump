@@ -42,8 +42,6 @@
 #define kImageDialogIntroScrollIndicatorFileName @"dialogIntroScrollIndicator.png"
 #define kImageDialogFinishFileName @"dialogFinish.png"
 
-
-
 typedef enum : uint8_t {
     NJTutorialPhaseIntro = 0,
 	NJTutorialPhaseJump,

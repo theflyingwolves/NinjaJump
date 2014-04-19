@@ -23,7 +23,6 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"clickable area");
     [self.delegate backgroundTouchesEnded:(NSSet *)touches];
 }
 

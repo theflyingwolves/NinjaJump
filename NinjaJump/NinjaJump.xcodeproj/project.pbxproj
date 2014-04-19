@@ -22,6 +22,12 @@
 		2F01286618F97A7F00ED8179 /* itemShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F01286518F97A7F00ED8179 /* itemShadow.png */; };
 		2F050DBD18F574290094F07F /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBB18F574290094F07F /* fireArc.png */; };
 		2F050DBE18F574290094F07F /* wind.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBC18F574290094F07F /* wind.png */; };
+		2F08C91319029CD800048ABE /* bossLoss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C90E19029CD800048ABE /* bossLoss.png */; };
+		2F08C91419029CD800048ABE /* bossWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C90F19029CD800048ABE /* bossWin.png */; };
+		2F08C91519029CD800048ABE /* continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C91019029CD800048ABE /* continue.png */; };
+		2F08C91619029CD800048ABE /* victory bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C91119029CD800048ABE /* victory bg.png */; };
+		2F08C91719029CD800048ABE /* victory.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C91219029CD800048ABE /* victory.png */; };
+		2F08C91A19029F7000048ABE /* NJVictoryRestart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F08C91919029F7000048ABE /* NJVictoryRestart.m */; };
 		2F34F0E5190024050056E103 /* Boss_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2F34F0E4190024050056E103 /* Boss_Jump.atlas */; };
 		2F34F0E719002B430056E103 /* ninjaBoss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F34F0E619002B430056E103 /* ninjaBoss.png */; };
 		2F42F71518FA59FC00973113 /* NJNinjaCharacterBoss.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F42F71418FA59FC00973113 /* NJNinjaCharacterBoss.m */; };
@@ -222,6 +228,13 @@
 		2F050DBA18F56D060094F07F /* NJConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NJConstants.h; path = Utilities/NJConstants.h; sourceTree = "<group>"; };
 		2F050DBB18F574290094F07F /* fireArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireArc.png; path = Assets/effect/fireArc.png; sourceTree = "<group>"; };
 		2F050DBC18F574290094F07F /* wind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wind.png; path = Assets/effect/wind.png; sourceTree = "<group>"; };
+		2F08C90E19029CD800048ABE /* bossLoss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bossLoss.png; path = "Assets/victory scene/bossLoss.png"; sourceTree = "<group>"; };
+		2F08C90F19029CD800048ABE /* bossWin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bossWin.png; path = "Assets/victory scene/bossWin.png"; sourceTree = "<group>"; };
+		2F08C91019029CD800048ABE /* continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = continue.png; path = "Assets/victory scene/continue.png"; sourceTree = "<group>"; };
+		2F08C91119029CD800048ABE /* victory bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "victory bg.png"; path = "Assets/victory scene/victory bg.png"; sourceTree = "<group>"; };
+		2F08C91219029CD800048ABE /* victory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = victory.png; path = "Assets/victory scene/victory.png"; sourceTree = "<group>"; };
+		2F08C91819029F7000048ABE /* NJVictoryRestart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJVictoryRestart.h; path = Sprites/PauseGame/NJVictoryRestart.h; sourceTree = "<group>"; };
+		2F08C91919029F7000048ABE /* NJVictoryRestart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJVictoryRestart.m; path = Sprites/PauseGame/NJVictoryRestart.m; sourceTree = "<group>"; };
 		2F34F0E4190024050056E103 /* Boss_Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Boss_Jump.atlas; path = "Assets/Texture Altases/Boss_Jump.atlas"; sourceTree = "<group>"; };
 		2F34F0E619002B430056E103 /* ninjaBoss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ninjaBoss.png; path = Assets/GameBoard/ninjaBoss.png; sourceTree = "<group>"; };
 		2F42F71318FA59FC00973113 /* NJNinjaCharacterBoss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacterBoss.h; path = Sprites/Characters/NJNinjaCharacterBoss.h; sourceTree = "<group>"; };
@@ -739,6 +752,11 @@
 		2FC568C218E1BE5A00C6589D /* GameBoard */ = {
 			isa = PBXGroup;
 			children = (
+				2F08C90E19029CD800048ABE /* bossLoss.png */,
+				2F08C90F19029CD800048ABE /* bossWin.png */,
+				2F08C91019029CD800048ABE /* continue.png */,
+				2F08C91119029CD800048ABE /* victory bg.png */,
+				2F08C91219029CD800048ABE /* victory.png */,
 				C93BFECA190188A8002898E2 /* countdown1.png */,
 				C93BFECB190188A8002898E2 /* countdown2.png */,
 				C93BFECC190188A8002898E2 /* countdown3.png */,
@@ -989,6 +1007,8 @@
 			children = (
 				2F45B44C18E7327300482453 /* NJPausePanel.h */,
 				2F45B44D18E7327300482453 /* NJPausePanel.m */,
+				2F08C91819029F7000048ABE /* NJVictoryRestart.h */,
+				2F08C91919029F7000048ABE /* NJVictoryRestart.m */,
 			);
 			name = PauseGame;
 			sourceTree = "<group>";
@@ -1089,6 +1109,7 @@
 				2F42F73418FA8B1300973113 /* touched button boss 00.png in Resources */,
 				C4C8746918F023A9004B6527 /* patrit.mp3 in Resources */,
 				C4C8747718F023A9004B6527 /* wind(1).mid in Resources */,
+				2F08C91419029CD800048ABE /* bossWin.png in Resources */,
 				2F050DBD18F574290094F07F /* fireArc.png in Resources */,
 				2FC568BC18E1BE0900C6589D /* spotlight.png in Resources */,
 				C931A93F18E05EF7002FE154 /* shade.png in Resources */,
@@ -1115,6 +1136,7 @@
 				2F63E13018E0291500E9A17B /* hp_bar.png in Resources */,
 				C4966E751901771600D7BBA6 /* dialogIntroScrollIndicator.png in Resources */,
 				2F42F72A18FA81BA00973113 /* selectedBoss_02.png in Resources */,
+				2F08C91719029CD800048ABE /* victory.png in Resources */,
 				C9D8D08E18ED8D3D00F63E9A /* Firework.sks in Resources */,
 				2FC568BA18E1BE0900C6589D /* jumpButton.png in Resources */,
 				C98B5A6E18E8523100CD51D0 /* FreezeEffect.sks in Resources */,
@@ -1125,10 +1147,12 @@
 				C980973E18FA418400FDD5C4 /* unselectedBlue.png in Resources */,
 				C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */,
 				C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */,
+				2F08C91619029CD800048ABE /* victory bg.png in Resources */,
 				C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */,
 				C931A94318E05EF7002FE154 /* touched button purple.png in Resources */,
 				C4966E7018FEC81000D7BBA6 /* dialogUseShuriken.png in Resources */,
 				2FBFDD0118F96E2100A59A77 /* shadow.png in Resources */,
+				2F08C91319029CD800048ABE /* bossLoss.png in Resources */,
 				2F814E0A18FD5B25009CF268 /* selectionBG.png in Resources */,
 				C4C8747518F023A9004B6527 /* use skill.mid in Resources */,
 				C4966E6318FEC04500D7BBA6 /* backButton.png in Resources */,
@@ -1186,6 +1210,7 @@
 				C4966E6B18FEC81000D7BBA6 /* dialogAttack.png in Resources */,
 				C4C8746F18F023A9004B6527 /* firestrong.mid in Resources */,
 				2F42F72F18FA81BA00973113 /* touched button boss 03.png in Resources */,
+				2F08C91519029CD800048ABE /* continue.png in Resources */,
 				C9150B0A18EC5ADD00645698 /* continue.png in Resources */,
 				2FBFDCFF18F95CCF00A59A77 /* banner.png in Resources */,
 				C931A94118E05EF7002FE154 /* touched button blue.png in Resources */,
@@ -1277,6 +1302,7 @@
 				2FBFDCF618F8FEF400A59A77 /* NJModeSelectionScene.m in Sources */,
 				C98B5A6C18E8516500CD51D0 /* NJScrollAnimation.m in Sources */,
 				2FC568A018E1BC9B00C6589D /* NJButton.m in Sources */,
+				2F08C91A19029F7000048ABE /* NJVictoryRestart.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

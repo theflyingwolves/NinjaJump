@@ -74,6 +74,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 @property (nonatomic) NSArray *musicName;
 @property (nonatomic) AVAudioPlayer *music;
+@property (nonatomic) BOOL isBossLost;
 
 - (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
 
