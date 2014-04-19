@@ -52,8 +52,6 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 @interface NJMultiplayerLayeredCharacterScene:SKScene <NJItemEffectSceneDelegate>
 
-@property (nonatomic) BOOL startGame;
-
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;

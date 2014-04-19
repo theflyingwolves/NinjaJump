@@ -279,7 +279,7 @@
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
             player.shouldBlendCharacter = YES;
-            if (index == _bossIndex) {
+            if (index == _bossIndex && _gameMode == NJGameModeOneVsThree) {
                 player.shouldBlendCharacter = NO;
             }
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
@@ -975,7 +975,7 @@
     [self performSelector:@selector(startGame) withObject:nil afterDelay:3.0];
 }
 
-- (void) startGame
+- (void)startGame
 {
     SKAction *fadeIn = [SKAction fadeInWithDuration:0.1];
     SKAction *wait = [SKAction fadeInWithDuration:0.3];
