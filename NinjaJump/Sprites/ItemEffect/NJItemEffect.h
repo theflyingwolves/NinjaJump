@@ -16,7 +16,6 @@
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @end
 
-
 @interface NJItemEffect : SKSpriteNode{
 @protected NSInteger _damage;
 }

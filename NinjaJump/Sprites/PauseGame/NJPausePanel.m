@@ -12,11 +12,7 @@
 #define kBtnY 100
 
 @interface NJPausePanel () <NJButtonDelegate>
-@property NJButton *restartBtn;
-@property NJButton *homeBtn;
-@property NJButton *resumeBtn;
 @property SKSpriteNode *shade;
-
 @property BOOL isReacted;
 @property BOOL isInitDone;
 @end
@@ -41,7 +37,6 @@
         self.homeBtn.delegate = self;
         self.resumeBtn.delegate = self;
         self.userInteractionEnabled = YES;
-        
     }
     return self;
 }

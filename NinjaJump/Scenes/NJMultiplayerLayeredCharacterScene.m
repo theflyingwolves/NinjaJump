@@ -29,6 +29,7 @@
 #import "NJMine.h"
 #import "NJShuriken.h"
 #import "NJMedikit.h"
+#import "NJVictoryRestart.h"
 
 #import "NJItemEffect.h"
 
@@ -71,7 +72,7 @@
         self.doAddItemRandomly = YES;
         hasBeenPaused = NO;
         [self buildWorld];
-        
+
         if (mode != NJGameModeTutorial) {
             /* If it is not in tutorial mode, initializes the selection system and plays the music specific to non-tutorial mode. (Tutorial mode has its own catebory of background musics defined.) */
             self.musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
@@ -483,10 +484,10 @@
         [self updatePlayers];
         [self updateHpBars];
         [self spawnNewItems];
-        [self checkGameEnded];
         [self applyImpulseToSlowWoodpiles];
         [self removePickedUpItem];
         [self removeOutdatedItem];
+        [self checkGameEnded];
     }
 }
 
@@ -534,11 +535,8 @@
     if (_gameMode == NJGameModeOneVsThree) {
         if (!isGameEnded && ((NJPlayer *)self.players[_bossIndex]).ninja.isDying){
             isGameEnded = YES;
-//            for (int i=0; i<4; i++) {
-//                if (((NJPlayer *)self.players[i]).isDisabled == NO) {
-                    [self victoryAnimationToPlayer:0];
-//                }
-//            }
+            _isBossLost = YES;
+            [self victoryAnimationToPlayer:_bossIndex];
             return YES;
         } else {
             if (!isGameEnded && [livingNinjas count] == 1) {
@@ -567,9 +565,20 @@
 - (void)victoryAnimationToPlayer:(NSInteger)index
 {
     float angle = atan(1024/768)+0.1;
-    _victoryBackground = [SKSpriteNode spriteNodeWithImageNamed:@"victory bg.png"];
+    _victoryBackground = [SKSpriteNode spriteNodeWithImageNamed:@"victory bg"];
     _victoryBackground.position = CGPointMake(1024/2, 768/2);
-    SKSpriteNode *victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"victory.png"];
+    SKSpriteNode *victoryLabel;
+    
+    if (_gameMode == NJGameModeOneVsThree) {
+        if (_isBossLost) {
+            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossLoss"];
+        }else{
+            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossWin"];
+        }
+    }else{
+        victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"victory"];
+    }
+
     switch (index) {
         case 0:
             victoryLabel.zRotation = -angle;
@@ -613,8 +622,24 @@
     SKAction *shrinkRepeatly = [SKAction repeatAction:shrink count:3];
     SKAction *sequenceScale = [SKAction sequence:@[scaleUp,shrinkRepeatly]];
     [victoryLabel runAction:sequenceScale completion:^{
-        [_victoryBackground addChild:_continueButton];
+//        [_victoryBackground removeFromParent];
+        [_victoryBackground runAction:[SKAction scaleTo:0.0f duration:0.5] completion:^{
+            [_victoryBackground removeFromParent];
+        }];
+        [self presentVictoryRestartScene];
     }];
+}
+
+- (void)presentVictoryRestartScene
+{
+    NJVictoryRestart *victoryRestart = [[NJVictoryRestart alloc] init];
+    victoryRestart.position = CGPointMake(FRAME.size.width/2, FRAME.size.height/2);
+    victoryRestart.xScale = 0.0f;
+    victoryRestart.yScale = 0.0f;
+    [self addChild:victoryRestart];
+    [victoryRestart runAction:[SKAction scaleTo:1.0f duration:0.5]];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
 }
 
 #pragma mark - Shared Assets
