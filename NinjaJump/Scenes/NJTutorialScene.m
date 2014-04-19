@@ -405,6 +405,15 @@ typedef enum : uint8_t {
     }
 }
 
+- (NSArray *)getAffectedTargetsWithRange:(NJRange *)range
+{
+    return [super getAffectedTargetsWithRange:range];
+}
+
+- (NSArray *)getAffectedPilesWithRange:(NJRange *)range
+{
+    return [super getAffectedPilesWithRange:range];
+}
 
 
 #pragma mark - delegate method

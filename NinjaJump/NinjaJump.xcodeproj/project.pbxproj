@@ -879,10 +879,10 @@
 		C4F0820E18E4545C00F81C8C /* ItemEffect */ = {
 			isa = PBXGroup;
 			children = (
-				C4F0821218E4569E00F81C8C /* NJEffectShurikenMulti.h */,
-				C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */,
 				C4F0821518E459B700F81C8C /* NJItemEffect.h */,
 				C4F0821618E459B700F81C8C /* NJItemEffect.m */,
+				C4F0821218E4569E00F81C8C /* NJEffectShurikenMulti.h */,
+				C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */,
 				C4AF3C1B18E803410036596A /* NJEffectMine.h */,
 				C4AF3C1C18E803410036596A /* NJEffectMine.m */,
 			);
