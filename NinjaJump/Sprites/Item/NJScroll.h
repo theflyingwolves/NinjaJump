@@ -23,6 +23,10 @@
 @property id<NJScrollDelegate> delegate;
 
 - (id)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate;
+//REQUIRES: textureName is valid (e.g. such texture exits); position is valid; delegate is valid
+//MODIFIES: self
+//EFFECTS: create an instance of this class
+//RETURNS: an instance of this class
 
 - (void)fireAttackedAnimation:(NJCharacter *)character;
 

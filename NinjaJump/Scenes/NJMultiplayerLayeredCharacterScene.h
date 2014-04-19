@@ -43,7 +43,7 @@ typedef enum : uint8_t {
 typedef void (^NJAssetLoadCompletionHandler)(void);
 
 /* Forward declarations */
-@class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile;
+@class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile, NJRange;
 
 @protocol NJMultiplayerLayeredCharacterSceneDelegate <NSObject>
 // EFFECTS: Signals the delegate that a back transition is required.
@@ -100,5 +100,11 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 - (void) activateSelectedPlayersWithPreSetting;
 
 - (void)resetMusic;
+
+/* the following two methods are defined in NJScroll delegate
+    they are declared here in order to be used by tutorial scene
+*/
+- (NSArray *)getAffectedTargetsWithRange:(NJRange *)range;
+- (NSArray *)getAffectedPilesWithRange:(NJRange *)range;
 
 @end

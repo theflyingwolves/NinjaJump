@@ -478,12 +478,10 @@
 				C9C34F2618E71F97003B6979 /* PauseGame */,
 				C4F0820E18E4545C00F81C8C /* ItemEffect */,
 				C42170C018E066AE00942374 /* Item */,
-				C9B8F29018E05B1400FA877E /* playerSelection */,
 				2F63E13518E029BA00E9A17B /* Control */,
 				2F63E13418E0299A00E9A17B /* Characters */,
-				C98B5A6918E8514F00CD51D0 /* Animation */,
 				C9EC06F818E1CDFD00C43E24 /* Particle */,
-				C4CAA7F418DB21520070F3D5 /* Pile */,
+				C4CAA7F418DB21520070F3D5 /* Ground */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -497,8 +495,6 @@
 				2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */,
 				2B21F14F18D433D2007220CF /* NJMultiplayerLayeredCharacterScene.h */,
 				2B21F15018D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m */,
-				2B21F15218D4342E007220CF /* NJPlayer.h */,
-				2B21F15318D4342E007220CF /* NJPlayer.m */,
 				C4E8E70718FD706200BDFACA /* NJTutorialScene.h */,
 				C4E8E70818FD706200BDFACA /* NJTutorialScene.m */,
 			);
@@ -607,18 +603,9 @@
 		2F63E13518E029BA00E9A17B /* Control */ = {
 			isa = PBXGroup;
 			children = (
-				2F45B43E18E72F6600482453 /* NJResponsibleBG.h */,
-				2F45B43F18E72F6600482453 /* NJResponsibleBG.m */,
-				2FC5689C18E1BC9B00C6589D /* NJButton.h */,
-				2FC5689D18E1BC9B00C6589D /* NJButton.m */,
-				2F8A72B118E449B300B88E79 /* NJItemControl.h */,
-				2F8A72B218E449B300B88E79 /* NJItemControl.m */,
-				2FC5689E18E1BC9B00C6589D /* NJHPBar.h */,
-				2FC5689F18E1BC9B00C6589D /* NJHPBar.m */,
-				C40AC1FE18FA5B450068E814 /* NJTuTorialNextButton.h */,
-				C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */,
-				C4966E7118FEEB4F00D7BBA6 /* NJTutorialHomeButton.h */,
-				C4966E7218FEEB4F00D7BBA6 /* NJTutorialHomeButton.m */,
+				C4966E791902562000D7BBA6 /* MainScene */,
+				C4966E781902560000D7BBA6 /* Tutorial */,
+				C9B8F29018E05B1400FA877E /* PlayerSelection */,
 			);
 			name = Control;
 			sourceTree = "<group>";
@@ -643,6 +630,7 @@
 			children = (
 				2FC568AB18E1BCF200C6589D /* Utilities */,
 				2B21F14918D430B0007220CF /* Scenes */,
+				C4966E7A1902606900D7BBA6 /* Player */,
 				2B21F14518D43005007220CF /* Sprites */,
 				2B21F14A18D430DB007220CF /* Assets */,
 				2F94CD7718D419F1007DAFAD /* NinjaJump */,
@@ -856,6 +844,41 @@
 			name = Scroll;
 			sourceTree = "<group>";
 		};
+		C4966E781902560000D7BBA6 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				C40AC1FE18FA5B450068E814 /* NJTuTorialNextButton.h */,
+				C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */,
+				C4966E7118FEEB4F00D7BBA6 /* NJTutorialHomeButton.h */,
+				C4966E7218FEEB4F00D7BBA6 /* NJTutorialHomeButton.m */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
+		C4966E791902562000D7BBA6 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				2F45B43E18E72F6600482453 /* NJResponsibleBG.h */,
+				2F45B43F18E72F6600482453 /* NJResponsibleBG.m */,
+				2FC5689C18E1BC9B00C6589D /* NJButton.h */,
+				2FC5689D18E1BC9B00C6589D /* NJButton.m */,
+				2F8A72B118E449B300B88E79 /* NJItemControl.h */,
+				2F8A72B218E449B300B88E79 /* NJItemControl.m */,
+				2FC5689E18E1BC9B00C6589D /* NJHPBar.h */,
+				2FC5689F18E1BC9B00C6589D /* NJHPBar.m */,
+			);
+			name = MainScene;
+			sourceTree = "<group>";
+		};
+		C4966E7A1902606900D7BBA6 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				2B21F15218D4342E007220CF /* NJPlayer.h */,
+				2B21F15318D4342E007220CF /* NJPlayer.m */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
 		C4C8745418F023A9004B6527 /* music */ = {
 			isa = PBXGroup;
 			children = (
@@ -891,24 +914,26 @@
 			path = Assets/sound;
 			sourceTree = "<group>";
 		};
-		C4CAA7F418DB21520070F3D5 /* Pile */ = {
+		C4CAA7F418DB21520070F3D5 /* Ground */ = {
 			isa = PBXGroup;
 			children = (
 				C4CAA7FD18DB21830070F3D5 /* NJPile.h */,
 				C4CAA7FE18DB21830070F3D5 /* NJPile.m */,
 			);
-			name = Pile;
+			name = Ground;
 			sourceTree = "<group>";
 		};
 		C4F0820E18E4545C00F81C8C /* ItemEffect */ = {
 			isa = PBXGroup;
 			children = (
-				C4F0821218E4569E00F81C8C /* NJEffectShurikenMulti.h */,
-				C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */,
 				C4F0821518E459B700F81C8C /* NJItemEffect.h */,
 				C4F0821618E459B700F81C8C /* NJItemEffect.m */,
+				C4F0821218E4569E00F81C8C /* NJEffectShurikenMulti.h */,
+				C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */,
 				C4AF3C1B18E803410036596A /* NJEffectMine.h */,
 				C4AF3C1C18E803410036596A /* NJEffectMine.m */,
+				C98B5A6A18E8516500CD51D0 /* NJScrollAnimation.h */,
+				C98B5A6B18E8516500CD51D0 /* NJScrollAnimation.m */,
 			);
 			name = ItemEffect;
 			sourceTree = "<group>";
@@ -925,16 +950,7 @@
 			name = Effects;
 			sourceTree = "<group>";
 		};
-		C98B5A6918E8514F00CD51D0 /* Animation */ = {
-			isa = PBXGroup;
-			children = (
-				C98B5A6A18E8516500CD51D0 /* NJScrollAnimation.h */,
-				C98B5A6B18E8516500CD51D0 /* NJScrollAnimation.m */,
-			);
-			name = Animation;
-			sourceTree = "<group>";
-		};
-		C9B8F29018E05B1400FA877E /* playerSelection */ = {
+		C9B8F29018E05B1400FA877E /* PlayerSelection */ = {
 			isa = PBXGroup;
 			children = (
 				C9B8F29118E05B3B00FA877E /* NJSelectCharacterButton.h */,
@@ -944,7 +960,7 @@
 				2F42F71918FA61B400973113 /* NJ1V3SelectionButtonSystem.h */,
 				2F42F71A18FA61B400973113 /* NJ1V3SelectionButtonSystem.m */,
 			);
-			name = playerSelection;
+			name = PlayerSelection;
 			sourceTree = "<group>";
 		};
 		C9B8F29A18E05D9400FA877E /* Load Scene */ = {
