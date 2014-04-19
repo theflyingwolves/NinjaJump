@@ -102,8 +102,10 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 - (void)resetMusic;
 
+/* the following two methods are defined in NJScroll delegate
+    they are declared here in order to be used by tutorial scene
+*/
 - (NSArray *)getAffectedTargetsWithRange:(NJRange *)range;
-
 - (NSArray *)getAffectedPilesWithRange:(NJRange *)range;
 
 @end
