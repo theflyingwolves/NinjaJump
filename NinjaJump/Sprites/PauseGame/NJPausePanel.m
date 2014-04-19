@@ -7,17 +7,16 @@
 //
 
 #import "NJPausePanel.h"
+#import "NJButton.h"
 
-#define btnX 150
+#define kBtnY 100
 
-@interface NJPausePanel ()
-@property SKCropNode *pausePanelCrop;
-@property SKSpriteNode *pausePanel;
-@property SKSpriteNode *mask;
-@property SKSpriteNode *backBtn;
-@property SKSpriteNode *restartBtn;
-@property SKSpriteNode *panelBarLeft;
-@property SKSpriteNode *panelBarRight;
+@interface NJPausePanel () <NJButtonDelegate>
+@property NJButton *restartBtn;
+@property NJButton *homeBtn;
+@property NJButton *resumeBtn;
+@property SKSpriteNode *shade;
+
 @property BOOL isReacted;
 @property BOOL isInitDone;
 @end
@@ -27,60 +26,43 @@
 -(id)init{
     self = [super init];
     if (self) {
-        self.pausePanelCrop = [[SKCropNode alloc] init];
-        self.pausePanel = [[SKSpriteNode alloc] initWithImageNamed:@"pause scene bg"];
-        self.mask = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:self.pausePanel.frame.size];
-        self.mask.xScale = 0.05;
-        [self.pausePanelCrop addChild:self.pausePanel];
-        [self.pausePanelCrop setMaskNode:self.mask];
-        
-        self.backBtn = [[SKSpriteNode alloc]initWithImageNamed:@"continue button.png"];
-        self.restartBtn = [[SKSpriteNode alloc]initWithImageNamed:@"restart button.png"];
-        self.panelBarLeft = [[SKSpriteNode alloc] initWithImageNamed:@"pause_scene_left_bar"];
-        self.panelBarRight = [[SKSpriteNode alloc] initWithImageNamed:@"pause_scene_right_bar"];
-        self.backBtn.position = CGPointMake(btnX, 0);
-        self.restartBtn.position = CGPointMake(-btnX, 0);
-        
-        self.panelBarLeft.position = CGPointMake(-50, 15);
-        self.panelBarRight.position = CGPointMake(50, 15);
-        
+        self.homeBtn = [[NJButton alloc]initWithImageNamed:@"home button"];
+        self.restartBtn = [[NJButton alloc]initWithImageNamed:@"restart button"];
+        self.resumeBtn = [[NJButton alloc] initWithImageNamed:@"resume button"];
+        self.shade = [SKSpriteNode spriteNodeWithImageNamed:@"pauseShade"];
+        self.homeBtn.position = CGPointMake(0, kBtnY);
+        self.restartBtn.position = CGPointMake(0, 0);
+        self.resumeBtn.position = CGPointMake(0, -kBtnY);
+        [self addChild:self.shade];
+        [self addChild:self.homeBtn];
+        [self addChild:self.restartBtn];
+        [self addChild:self.resumeBtn];
+        self.restartBtn.delegate = self;
+        self.homeBtn.delegate = self;
+        self.resumeBtn.delegate = self;
         self.userInteractionEnabled = YES;
-        [self.pausePanelCrop addChild:self.backBtn];
-        [self.pausePanelCrop addChild:self.restartBtn];
-        [self addChild:self.pausePanelCrop];
-        [self addChild:self.panelBarLeft];
-        [self addChild:self.panelBarRight];
         
-        [self.mask runAction:[SKAction scaleXTo:1.0 duration:1.2]];
-        [self.panelBarLeft runAction:[SKAction moveToX:-325 duration:0.8]];
-        [self.panelBarRight runAction:[SKAction moveToX:325 duration:0.8]];
     }
     return self;
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInNode:self];
-    CGFloat dist2restartBtn = sqrt((touchPoint.x+btnX)*(touchPoint.x+btnX)+touchPoint.y*touchPoint.y);
-    CGFloat dist2backBtn = sqrt((touchPoint.x-btnX)*(touchPoint.x-btnX)+touchPoint.y*touchPoint.y);
-
-    SKAction *fadeAway = [SKAction fadeOutWithDuration:0.5];
-    SKAction *scaleUp = [SKAction scaleBy:1.2 duration:0.5];
-    SKAction *actionGroup =[SKAction group:@[fadeAway, scaleUp]];
+-(void)button:(NJButton *)button touchesBegan:(NSSet *)touches{
     
-    if (dist2restartBtn<60) {
-        [self.restartBtn runAction:actionGroup];
+}
+
+-(void)button:(NJButton *)sender touchesEnded:(NSSet *)touches{
+    if (sender == self.restartBtn) {
         NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:RESTART]];
         [[NSNotificationCenter defaultCenter] postNotification:note];
         [self removeFromParent];
         self.isReacted = YES;
-    } else if (dist2backBtn<60) {
-        NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:BACK]];
+    } else if (sender == self.homeBtn) {
+        NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:HOME]];
         [[NSNotificationCenter defaultCenter] postNotification:note];
         [self removeFromParent];
         self.isReacted = YES;
-    } else {
-        NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:CONTINUE]];
+    } else if (sender == self.resumeBtn){
+        NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:RESUME]];
         [[NSNotificationCenter defaultCenter] postNotification:note];
         [self removeFromParent];
         self.isReacted = YES;

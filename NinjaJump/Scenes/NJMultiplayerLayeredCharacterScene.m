@@ -279,7 +279,7 @@
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
             player.shouldBlendCharacter = YES;
-            if (index == _bossIndex) {
+            if (index == _bossIndex && _gameMode == NJGameModeOneVsThree) {
                 player.shouldBlendCharacter = NO;
             }
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
@@ -809,11 +809,11 @@
     NSUInteger actionIndex = [(NSNumber *)[note object] integerValue];
     if (!isSelectionInited && actionIndex == RESTART){
         [self restartGame];
-    } else if(actionIndex == CONTINUE){
+    } else if(actionIndex == RESUME){
         hasBeenPaused = NO;
         self.physicsWorld.speed = 1;
-        [self.music play];
-    } else if(actionIndex == BACK){
+        [_music play];
+    } else if(actionIndex == HOME){
         NSNotificationCenter *nc  = [NSNotificationCenter defaultCenter];
         [nc removeObserver:self];
         [self.music pause];
@@ -892,6 +892,8 @@
 - (void)initSelectionSystem{
     isSelectionInited = YES;
     shouldPileStartDecreasing = NO;
+    hasBeenPaused = YES;
+    self.physicsWorld.speed=0;
     NJSelectionButtonSystem *selectionSystem = nil;
     if (_gameMode == NJGameModeOneVsThree) {
         selectionSystem = [[NJ1V3SelectionButtonSystem alloc] init];
@@ -942,13 +944,49 @@
     [self activateSelectedPlayersWithPreSetting];
 }
 
-- (void) activateSelectedPlayersWithPreSetting{
+- (void) activateSelectedPlayersWithPreSetting
+{
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];
     if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
         shouldPileStartDecreasing = YES;
     }
+    hasBeenPaused = NO;
+    SKSpriteNode *countdown1 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown1"];
+    SKSpriteNode *countdown2 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown2"];
+    SKSpriteNode *countdown3 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown3"];
+    SKSpriteNode *countdown = [[SKSpriteNode alloc]init];
+    [self addChild:countdown];
+    countdown.position = CGPointMake(1024/2, 768/2);
+    NSArray *countdownSeries = [NSArray arrayWithObjects:countdown3, countdown2, countdown1, nil];
+    SKAction *fadeIn = [SKAction fadeInWithDuration:0.2];
+    SKAction *wait = [SKAction fadeInWithDuration:0.4];
+    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.2];
+    SKAction *removeNode = [SKAction removeFromParent];
+    for(int i=0;i<3;i++){
+        SKSpriteNode *countdownNum = countdownSeries[i];
+        countdownNum.alpha = 0.0;
+        [countdown addChild:countdownNum];
+        SKAction *pending = [SKAction waitForDuration:i];
+        SKAction *appear = [SKAction sequence:@[pending,fadeIn,wait,fadeOut,removeNode]];
+        [countdownNum runAction:appear];
+    }
+    [self performSelector:@selector(startGame) withObject:nil afterDelay:3.0];
+}
+
+- (void)startGame
+{
+    SKAction *fadeIn = [SKAction fadeInWithDuration:0.1];
+    SKAction *wait = [SKAction fadeInWithDuration:0.3];
+    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.1];
+    SKAction *removeNode = [SKAction removeFromParent];
+    SKAction *appear = [SKAction sequence:@[fadeIn,wait,fadeOut,removeNode]];
+    SKSpriteNode *startNote = [SKSpriteNode spriteNodeWithImageNamed:@"start"];
+    startNote.position = CGPointMake(1024/2, 768/2);
+    [self addChild:startNote];
+    [startNote runAction:appear];
+    self.physicsWorld.speed = 1.0;
 }
 
 #pragma mark - Auxiliary Methods
