@@ -482,8 +482,6 @@
 				2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */,
 				2B21F14F18D433D2007220CF /* NJMultiplayerLayeredCharacterScene.h */,
 				2B21F15018D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m */,
-				2B21F15218D4342E007220CF /* NJPlayer.h */,
-				2B21F15318D4342E007220CF /* NJPlayer.m */,
 				C4E8E70718FD706200BDFACA /* NJTutorialScene.h */,
 				C4E8E70818FD706200BDFACA /* NJTutorialScene.m */,
 			);
@@ -619,6 +617,7 @@
 			children = (
 				2FC568AB18E1BCF200C6589D /* Utilities */,
 				2B21F14918D430B0007220CF /* Scenes */,
+				C4966E7A1902606900D7BBA6 /* Player */,
 				2B21F14518D43005007220CF /* Sprites */,
 				2B21F14A18D430DB007220CF /* Assets */,
 				2F94CD7718D419F1007DAFAD /* NinjaJump */,
@@ -851,6 +850,15 @@
 				2FC5689F18E1BC9B00C6589D /* NJHPBar.m */,
 			);
 			name = MainScene;
+			sourceTree = "<group>";
+		};
+		C4966E7A1902606900D7BBA6 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				2B21F15218D4342E007220CF /* NJPlayer.h */,
+				2B21F15318D4342E007220CF /* NJPlayer.m */,
+			);
+			name = Player;
 			sourceTree = "<group>";
 		};
 		C4C8745418F023A9004B6527 /* music */ = {
