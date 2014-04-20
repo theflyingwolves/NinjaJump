@@ -309,26 +309,6 @@ typedef enum : uint8_t {
 
 #pragma mark - overriden method
 
-//override the method in order to prevent them from moving
-- (void)addWoodPiles
-{
-    if (!self.woodPiles) {
-        self.woodPiles = [NSMutableArray array];
-    }
-    
-    CGFloat r= 120.0f;
-    
-    NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 580)], [NSValue valueWithCGPoint:CGPointMake(250, 250)], [NSValue valueWithCGPoint:CGPointMake(350, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(100, 300)], [NSValue valueWithCGPoint:CGPointMake(250, 500)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 600)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
-    
-    //add in the spawn pile of ninjas
-    for (NSValue *posValue in pilePos){
-        CGPoint pos = [posValue CGPointValue];
-        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pos withSpeed:0 angularSpeed:3 direction:arc4random()%2];
-        [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
-        [self.woodPiles addObject:pile];
-    }
-}
-
 - (void)update:(NSTimeInterval)currentTime{
     [super update:currentTime];
 
