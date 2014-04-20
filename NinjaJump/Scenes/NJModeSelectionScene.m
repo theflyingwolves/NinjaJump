@@ -84,14 +84,14 @@
     _sideMenu.position = CGPointMake(80, 215);
     _tutorialMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
     _tutorialMode.delegate = self;
-    _tutorialMode.position = CGPointMake(0, 30);
+    _tutorialMode.position = CGPointMake(0, 0);
     _tutorialMode.index = NJGameModeTutorial;
     [_sideMenu addChild:_tutorialMode];
     
-    _facebookBtn = [[NJButton alloc] initWithImageNamed:kFacebookBtnFileName];
-    _facebookBtn.delegate = self;
-    _facebookBtn.position = CGPointMake(0, -30);
-    [_sideMenu addChild:_facebookBtn];
+//    _facebookBtn = [[NJButton alloc] initWithImageNamed:kFacebookBtnFileName];
+//    _facebookBtn.delegate = self;
+//    _facebookBtn.position = CGPointMake(0, -30);
+//    [_sideMenu addChild:_facebookBtn];
     
     _sideMenu.alpha = 0;
     [self addChild:_sideMenu];
