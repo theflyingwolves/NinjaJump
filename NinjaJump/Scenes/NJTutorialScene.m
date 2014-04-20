@@ -33,7 +33,6 @@
 #define kHomeButtonPositionX 60
 #define kHomeButtonPositionY 30
 
-//file names for dialog image
 #define kImageDialogIntroFileName @"dialogIntro.png"
 #define kImageDialogAttackFileName @"dialogAttack.png"
 #define kImageDialogPickupShurikenFileName @"dialogPickupShuriken.png"
