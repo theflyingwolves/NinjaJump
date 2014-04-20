@@ -5,6 +5,10 @@
 //  Created by Wang Kunzhen on 9/4/14.
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
+/*
+ Defines the set of commonly used constatns for the whole game
+ Note that some of the constants that are very specific to a certain class will still be declared in its corresponding class, rather than being specified here
+ */
 
 #pragma mark - Game World
 #define kTimeAddItemToBoss 5.0f

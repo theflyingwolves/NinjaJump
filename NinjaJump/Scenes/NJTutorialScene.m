@@ -65,7 +65,6 @@ typedef enum : uint8_t {
 
 @end
 
-
 @implementation NJTutorialScene{
     SKSpriteNode *cover; //a transparent cover to hold images and prevent touch event
     SKSpriteNode *NPC;

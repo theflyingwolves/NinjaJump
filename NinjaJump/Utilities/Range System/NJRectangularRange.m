@@ -19,7 +19,7 @@
     
     double distance = hypotf(point.x-self.origin.x, point.y - self.origin.y);
     
-    if (distance > 0.5f) {
+    if (distance > 0.5f) { // To prevent self to be included
         if (updatedX >= 0) {
             if (updatedY <= self.farDist && updatedY >= -self.farDist) {
                 return YES;
