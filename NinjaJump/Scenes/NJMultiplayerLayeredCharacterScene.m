@@ -906,7 +906,6 @@
     [self addWoodPiles];
 }
 
-
 #pragma mark - Selection System
 
 - (void)initSelectionSystem{
@@ -981,7 +980,8 @@
     SKSpriteNode *countdown = [[SKSpriteNode alloc]init];
     [self addChild:coverLayer];
     [self addChild:countdown];
-    countdown.position = CGPointMake(1024/2, 768/2);
+    countdown.position = CGPointMake(FRAME.size.width/2, FRAME.size
+                                     .height/2);
     NSArray *countdownSeries = [NSArray arrayWithObjects:countdown3, countdown2, countdown1, nil];
     SKAction *fadeIn = [SKAction fadeInWithDuration:0.2];
     SKAction *wait = [SKAction fadeInWithDuration:0.4];
