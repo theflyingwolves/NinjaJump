@@ -952,10 +952,7 @@
     }
     
     for (NSNumber *index in fullIndices){ //inactivate unselected players
-        //NSLog(@"activated %d",[index intValue]);
-        //int convertedIndex = [self convertIndex:[index intValue]];
         ((NJPlayer *)self.players[[index intValue]]).isDisabled = YES;
-//        [((NJPlayer *)self.players[[index intValue]]).ninja.shadow removeFromParent];
     }
     
     for (int i=0; i<kNumPlayers; i++) {
