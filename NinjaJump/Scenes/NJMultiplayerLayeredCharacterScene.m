@@ -453,7 +453,7 @@
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
         CGFloat ang = NJRandomAngle();
-        if (_gameMode != NJGameModeBeginner) {
+        if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
             [pile.physicsBody applyImpulse:CGVectorMake(NJWoodPileInitialImpluse*sinf(ang), NJWoodPileInitialImpluse*cosf(ang))];
         }
     }

@@ -26,7 +26,7 @@
 
 // EFFECTS: Update the next-frame state of the item on the screen
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval{
-    _lifeTime += interval;
+    _lifeTime += interval; //increase the lifetime until hit the max, item will disappear
 }
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter *)character

@@ -16,7 +16,7 @@
         self.position = position;
         _owner = owner;
         [self configurePhysicsBody];
-        [scene addEffect:self];
+        [scene addEffect:self]; //add effect to the scene
     }
     return self;
 }
