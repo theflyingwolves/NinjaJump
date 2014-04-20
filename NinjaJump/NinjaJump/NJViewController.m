@@ -41,9 +41,7 @@
 - (void)modeSelected:(NJGameMode)mode
 {
     [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
-        NSLog(@"loading assets completed.");
         if (mode == NJGameModeTutorial) {
-            NSLog(@"Initializing Tutorial");
             // Initialize Tutorial Scene Here
             NJTutorialScene *scene = [[NJTutorialScene alloc] initWithSizeWithoutSelection:_skView.bounds.size];
             self.scene = scene;

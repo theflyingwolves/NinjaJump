@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
+/*
+ Main Scene of the game after the loading scene has been completed. Allows players to select which mode to enter or enters a tutorial.
+ */
+
 #define BUTTON_WIDTH 250.0f
 #define GAP 17.0f
 #define MODE_SELECTION_BUTTON_ANIM_LENGTH 0.4f

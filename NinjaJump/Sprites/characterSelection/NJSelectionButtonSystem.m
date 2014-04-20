@@ -13,17 +13,6 @@
 @end
 
 @implementation NJSelectionButtonSystem
-//{
-//    NSMutableArray *selectionButtons;
-//    NSMutableArray *activePlayerList;
-//    NSArray *haloList;
-//    NSArray *unselectedNinjas;
-//    NSArray *selectedNinjas;
-//    SKSpriteNode *startButton;
-//    SKSpriteNode *shade;
-//    SKSpriteNode *background;
-//    bool isHaloShining;
-//}
 
 - (id) init{
     self = [super init];
@@ -99,16 +88,12 @@
 - (void)addSelectionButtons {
     NJSelectCharacterButton *selectionButtonOrange = [[NJSelectCharacterButton alloc] initWithType:ORANGE];
     selectionButtonOrange.isSelected = NO;
-//    selectionButtonOrange.position = CGPointMake(-19, 0);
     NJSelectCharacterButton *selectionButtonBlue = [[NJSelectCharacterButton alloc] initWithType:BLUE];
     selectionButtonBlue.isSelected = NO;
-//    selectionButtonBlue.position = CGPoinjtMake(0, 0);
     NJSelectCharacterButton *selectionButtonYellow = [[NJSelectCharacterButton alloc] initWithType:YELLOW];
     selectionButtonYellow.isSelected = NO;
-//    selectionButtonYellow.position = CGPointMake(-26, 0);
     NJSelectCharacterButton *selectionButtonPurple = [[NJSelectCharacterButton alloc] initWithType:PURPLE];
     selectionButtonPurple.isSelected = NO;
-//    selectionButtonPurple.position = CGPointMake(1, 0);
     _selectionButtons = [NSMutableArray arrayWithObjects:selectionButtonOrange, selectionButtonBlue, selectionButtonYellow, selectionButtonPurple, nil];
     for (NJSelectCharacterButton *selectionButton in _selectionButtons) {
         selectionButton.hidden = YES;
@@ -148,9 +133,7 @@
             SKAction *sequence = [SKAction sequence:@[wait,flashRepeatly]];
             [halo runAction:sequence];
         }
-        _isHaloShining = YES;
-        NSLog(@"begin shining");
-        
+        _isHaloShining = YES;        
     }
 }
 
@@ -160,7 +143,6 @@
         halo.alpha = 0.0;
     }
     _isHaloShining = false;
-    NSLog(@"stop shining");
 }
 
 - (void)button:(NJSelectCharacterButton *) button touchesEnded:(NSSet *)touches {
