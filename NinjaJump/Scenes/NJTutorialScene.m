@@ -23,6 +23,7 @@
 #define kItemNameMedikit 1
 #define kItemNameIceScroll 2
 
+//constants for positions of image on the screen
 #define kNPCPositionX -330
 #define kNPCPositionY -200
 #define kDialogPositionX -150
@@ -32,7 +33,7 @@
 #define kHomeButtonPositionX 60
 #define kHomeButtonPositionY 30
 
-
+//file names for dialog image
 #define kImageDialogIntroFileName @"dialogIntro.png"
 #define kImageDialogAttackFileName @"dialogAttack.png"
 #define kImageDialogPickupShurikenFileName @"dialogPickupShuriken.png"
@@ -66,17 +67,16 @@ typedef enum : uint8_t {
 
 
 @implementation NJTutorialScene{
-    SKSpriteNode *cover;
+    SKSpriteNode *cover; //a transparent cover to hold images and prevent touch event
     SKSpriteNode *NPC;
     SKSpriteNode *dialog;
     
     NSInteger dialogImageIndex;
-    NSArray *dialogImageNames;
+    NSArray *dialogImageNames; //an array to store the image names for different dialogs
     
-    
-    BOOL isPaused;
-    NSInteger phaseNum;
-    CGFloat timeToGoToNextPhase;
+    BOOL isPaused; //just an indicator to show that whether the game control is disabled
+    NSInteger phaseNum; //phase of the tutorial
+    CGFloat timeToGoToNextPhase; //a small time break between completion of a task and the appearance of the NPC
 }
 
 #pragma mark - init
@@ -84,25 +84,41 @@ typedef enum : uint8_t {
 - (instancetype)initWithSizeWithoutSelection:(CGSize)size{
     self = [super initWithSize:size mode:NJGameModeTutorial];
     if (self){
-        dialogImageNames = [NSArray arrayWithObjects:kImageDialogIntroFileName, kImageDialogAttackFileName, kImageDialogPickupShurikenFileName, kImageDialogUseShurikenFileName, kImageDialogPickupMedikitFileName, kImageDialogUseScrollFileName, kImageDialogIntroScrollIndicatorFileName, kImageDialogFinishFileName, nil];
-        dialogImageIndex = 0;
-        
+        [self initDialogImageNames];
         [self initGameSettings];
         [self initCover];
-        
-        phaseNum = NJTutorialPhaseIntro;
-        timeToGoToNextPhase = -1;
-        
+        [self initPhaseSetting];
         [self disableControl];
-        
-        self.musicName = [NSArray arrayWithObjects:kMusicFunny, nil];
-        [self resetMusic];
+        [self initMusic];
     }
     
     return  self;
 }
 
+//add all the dialog image names into the array
+- (void)initDialogImageNames {
+    dialogImageNames = [NSArray arrayWithObjects:kImageDialogIntroFileName, kImageDialogAttackFileName, kImageDialogPickupShurikenFileName, kImageDialogUseShurikenFileName, kImageDialogPickupMedikitFileName, kImageDialogUseScrollFileName, kImageDialogIntroScrollIndicatorFileName, kImageDialogFinishFileName, nil];
+    dialogImageIndex = 0;
+}
 
+- (void)initPhaseSetting {
+    phaseNum = NJTutorialPhaseIntro;
+    timeToGoToNextPhase = -1;
+}
+
+- (void)initMusic {
+    self.musicName = [NSArray arrayWithObjects:kMusicFunny, nil];
+    [self resetMusic];
+}
+
+- (void)initCover{
+    [self initCoverBackground];
+    [self initNPC];
+    [self initDialog];
+    [self initButtons];
+}
+
+//only create one player
 - (void)initGameSettings {
     ((NJPlayer*)self.players[1]).isDisabled = NO;
     ((NJPlayer*)self.players[3]).isDisabled = YES;
@@ -112,11 +128,11 @@ typedef enum : uint8_t {
     ((NJPlayer*)self.players[1]).finishJumpping = NO;
     
     [self activateSelectedPlayersWithPreSetting];
-    self.doAddItemRandomly = NO;
+    self.doAddItemRandomly = NO; //diable automatic item creation
 }
 
-- (void)initCover{
-    
+//init a tranparent background for cover
+- (void)initCoverBackground {
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
@@ -126,17 +142,23 @@ typedef enum : uint8_t {
     cover.alpha = 1;
     cover.userInteractionEnabled = YES;
     cover.color = [UIColor clearColor];
+}
 
+- (void)initNPC {
     NPC = [[SKSpriteNode alloc] initWithImageNamed:@"NPC2.png"];
     NPC.position = CGPointMake(kNPCPositionX, kNPCPositionY);
     NPC.size = CGSizeMake(700/2.0, 768/2.0);
     [cover addChild:NPC];
-    
+}
+
+- (void)initDialog {
     dialog = [[SKSpriteNode alloc] initWithImageNamed:dialogImageNames[dialogImageIndex]];
     dialog.position = CGPointMake(kDialogPositionX, kDialogPositionY);
     dialog.size = CGSizeMake(600/2.0, 410/2.0);
     [cover addChild:dialog];
-    
+}
+
+- (void)initButtons {
     self.nextButton = [[NJTuTorialNextButton alloc] init];
     [dialog addChild:self.nextButton];
     self.nextButton.delegate = self;
@@ -151,20 +173,22 @@ typedef enum : uint8_t {
 #pragma mark - control
 
 - (void)disableControl{
-    [self addChild:cover];
+    [self addChild:cover]; //add the cover to disable touch event and also show the NPC and    dialog
     isPaused = YES;
 }
 
 - (void)enableControl{
-    [cover removeFromParent];
+    [cover removeFromParent]; //remove the NPC and dialog and also enable control
     isPaused = NO;
 }
 
+//change dialog image
 - (void)nextImageForDialog{
     dialogImageIndex++;
     dialog.texture = [SKTexture textureWithImageNamed:dialogImageNames[dialogImageIndex]];
 }
 
+//toggle between free control and NPC dialog
 - (void)toggleControl{
     if (isPaused) {
         [self enableControl];
@@ -190,16 +214,19 @@ typedef enum : uint8_t {
     [self toggleControl];
 }
 
+//when the cover is present, show the NPC and dialog
 - (void)showGuide{
     [cover addChild:NPC];
     [cover addChild:dialog];
 }
 
+//when the cover is present, hide the NPC and dialog (but control is still disabled)
 - (void)hideGuide{
     [NPC removeFromParent];
     [dialog removeFromParent];
 }
 
+//activate the enemy
 - (void)activateDummyPlayer{
     NJPlayer *player = self.players[3];
     player.isDisabled = NO;
@@ -225,10 +252,11 @@ typedef enum : uint8_t {
     if (!pile) {
         return;
     }
-    CGPoint position = pile.position;
     
+    CGPoint position = pile.position;
     NJSpecialItem *item;
     
+    //can only add 3 types of item
     switch (itemName) {
         case kItemNameIceScroll:
         item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
@@ -255,6 +283,7 @@ typedef enum : uint8_t {
 
 }
 
+//create an arrow to indicate the position of important object
 - (SKSpriteNode*)createArrowWithVector:(CGVector)vector andPosition:(CGPoint)position andDirectionIsNormal:(BOOL)directionIsNormal{
     
     SKSpriteNode *arrow;
@@ -267,6 +296,7 @@ typedef enum : uint8_t {
     arrow.size = CGSizeMake(600/6.0, 400/7.0);
     arrow.position = position;
     
+    //animate the arrow
     SKAction *moveForward = [SKAction moveBy:vector duration:0.25];
     SKAction *moveBackward = [SKAction moveBy:CGVectorMake(-vector.dx,-vector.dy) duration:0.5];
     SKAction *moveBackAndForth = [SKAction sequence:[NSArray arrayWithObjects:moveBackward, moveForward, nil]];
@@ -278,10 +308,9 @@ typedef enum : uint8_t {
 }
 
 
-
-
 #pragma mark - overriden method
 
+//override the method in order to prevent them from moving
 - (void)addWoodPiles
 {
     if (!self.woodPiles) {
@@ -385,7 +414,7 @@ typedef enum : uint8_t {
 }
 
 - (void)backgroundTouchesEnded:(NSSet *)touches{
-    
+    //do nothing becasue we want to prevent the default behavior
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast{
@@ -471,7 +500,6 @@ typedef enum : uint8_t {
                 [self toggleControl];
                 phaseNum++;
             
-                NSLog(@"%f, %f", ((NJPlayer*)self.players[1]).ninja.position.x, ((NJPlayer*)self.   players[1]).ninja.position.y);
                 if (((NJPlayer*)self.players[1]).ninja.position.x >= 200) {
                     [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[1]).ninja.position.x-250, ((NJPlayer*)self.players[1]).ninja.position.y) andDirectionIsNormal:YES]];
                 } else {
@@ -484,10 +512,6 @@ typedef enum : uint8_t {
             case NJTutorialPhaseFinish:
                 [self.delegate backToModeSelectionScene];
                 break;
-            
-            
-            
-            
             
             default:
                 break;
