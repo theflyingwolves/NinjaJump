@@ -64,7 +64,6 @@ typedef enum : uint8_t {
 
 @end
 
-
 @implementation NJTutorialScene{
     SKSpriteNode *cover;
     SKSpriteNode *NPC;
