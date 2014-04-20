@@ -5,6 +5,9 @@
 //  Created by Wang Kunzhen on 15/3/14.
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
+/*
+ NJCharacter is a SKSpriteNode representation of game characters. It is designed to be generic so as to cater to different kinds of characters in the game, so it has plenty of abstract methods (described below) to be overriden by subclasses.
+ */
 
 #import "NJCharacter.h"
 #import "NJSpecialItem.h"
