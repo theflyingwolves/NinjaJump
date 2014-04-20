@@ -8,13 +8,14 @@
 
 #import "NJPausePanel.h"
 #import "NJButton.h"
+#import "NJConstants.h"
 
 #define kBtnY 100
 
 @interface NJPausePanel () <NJButtonDelegate>
 @property SKSpriteNode *shade;
-@property BOOL isReacted;
-@property BOOL isInitDone;
+@property BOOL isReacted;     //
+//@property BOOL isInitDone;
 @end
 
 @implementation NJPausePanel
@@ -22,10 +23,10 @@
 -(id)init{
     self = [super init];
     if (self) {
-        self.homeBtn = [[NJButton alloc]initWithImageNamed:@"home button"];
-        self.restartBtn = [[NJButton alloc]initWithImageNamed:@"restart button"];
-        self.resumeBtn = [[NJButton alloc] initWithImageNamed:@"resume button"];
-        self.shade = [SKSpriteNode spriteNodeWithImageNamed:@"pauseShade"];
+        self.homeBtn = [[NJButton alloc]initWithImageNamed:kHomeBtn];
+        self.restartBtn = [[NJButton alloc]initWithImageNamed:kRestartBtn];
+        self.resumeBtn = [[NJButton alloc] initWithImageNamed:kResumeBtn];
+        self.shade = [SKSpriteNode spriteNodeWithImageNamed:kPauseShade];
         self.homeBtn.position = CGPointMake(0, kBtnY);
         self.restartBtn.position = CGPointMake(0, 0);
         self.resumeBtn.position = CGPointMake(0, -kBtnY);
@@ -45,19 +46,21 @@
     
 }
 
+
+//Handles the press event of the three buttons: home button, resume button and restart button
 -(void)button:(NJButton *)sender touchesEnded:(NSSet *)touches{
     if (sender == self.restartBtn) {
-        NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:RESTART]];
+        NSNotification *note = [NSNotification notificationWithName:kNotificationAfterPause object:[NSNumber numberWithInt:RESTART]];
         [[NSNotificationCenter defaultCenter] postNotification:note];
         [self removeFromParent];
         self.isReacted = YES;
     } else if (sender == self.homeBtn) {
-        NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:HOME]];
+        NSNotification *note = [NSNotification notificationWithName:kNotificationAfterPause object:[NSNumber numberWithInt:HOME]];
         [[NSNotificationCenter defaultCenter] postNotification:note];
         [self removeFromParent];
         self.isReacted = YES;
     } else if (sender == self.resumeBtn){
-        NSNotification *note = [NSNotification notificationWithName:@"actionAfterPause" object:[NSNumber numberWithInt:RESUME]];
+        NSNotification *note = [NSNotification notificationWithName:kNotificationAfterPause object:[NSNumber numberWithInt:RESUME]];
         [[NSNotificationCenter defaultCenter] postNotification:note];
         [self removeFromParent];
         self.isReacted = YES;
