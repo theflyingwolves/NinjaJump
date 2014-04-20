@@ -875,8 +875,8 @@
     [self initSelectionSystem];
     
     [self resetMusic];
-    hasBeenPaused = NO;
-    self.physicsWorld.speed = 1;
+    //hasBeenPaused = NO;
+    //self.physicsWorld.speed = 1;
 }
 
 - (void)removeNinjas
@@ -973,10 +973,16 @@
         shouldPileStartDecreasing = YES;
     }
     hasBeenPaused = NO;
+    CGRect frame = FRAME;
+    SKSpriteNode *coverLayer = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:frame.size];
+    coverLayer.position = CGPointMake(frame.size.width/2, frame.size.height/2);
+    coverLayer.alpha = 0.0;
+    coverLayer.userInteractionEnabled = YES;
     SKSpriteNode *countdown1 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown1"];
     SKSpriteNode *countdown2 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown2"];
     SKSpriteNode *countdown3 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown3"];
     SKSpriteNode *countdown = [[SKSpriteNode alloc]init];
+    [self addChild:coverLayer];
     [self addChild:countdown];
     countdown.position = CGPointMake(1024/2, 768/2);
     NSArray *countdownSeries = [NSArray arrayWithObjects:countdown3, countdown2, countdown1, nil];
@@ -992,10 +998,10 @@
         SKAction *appear = [SKAction sequence:@[pending,fadeIn,wait,fadeOut,removeNode]];
         [countdownNum runAction:appear];
     }
-    [self performSelector:@selector(startGame) withObject:nil afterDelay:3.0];
+    [self performSelector:@selector(startGame:) withObject:coverLayer afterDelay:3.0];
 }
 
-- (void)startGame
+- (void)startGame:(SKSpriteNode *)cover
 {
     SKAction *fadeIn = [SKAction fadeInWithDuration:0.1];
     SKAction *wait = [SKAction fadeInWithDuration:0.3];
@@ -1005,7 +1011,9 @@
     SKSpriteNode *startNote = [SKSpriteNode spriteNodeWithImageNamed:@"start"];
     startNote.position = CGPointMake(1024/2, 768/2);
     [self addChild:startNote];
-    [startNote runAction:appear];
+    [startNote runAction:appear completion:^{
+        [cover removeFromParent];
+    }];
     self.physicsWorld.speed = 1.0;
 }
 
