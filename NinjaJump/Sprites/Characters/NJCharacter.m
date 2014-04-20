@@ -113,6 +113,7 @@
 }
 
 #pragma mark - Damage
+// A generic method for applying a certain amount of unattributed damage
 - (BOOL)applyDamage:(CGFloat)damage
 {
     self.health -= damage;
@@ -124,18 +125,21 @@
     }
 }
 
+// Apply a damage caused by magics, for example, those caused by scrolls
 - (BOOL)applyMagicalDamage:(CGFloat)damage
 {
     float multiplier = self.magicalDamageMultiplier;
     return [self applyDamage:damage * multiplier];
 }
 
+// Apply a damage caused by physical attack, for example, those caused by shurikens
 - (BOOL)applyPhysicalDamage:(CGFloat)damage
 {
     float multiplier = self.physicalDamageMultiplier;
     return [self applyDamage:damage * multiplier];
 }
 
+// Recover a certain amount of health points for the character
 -(void)recover:(CGFloat)amount{
     [self applyDamage:(0-amount)];
     if (self.health > FULL_HP) {
@@ -144,6 +148,9 @@
 }
 
 #pragma mark - Resets
+
+// Actions to be performed when being physically attacked by another ninja
+// To spawn at a random position with halo
 - (void)resetToPosition:(CGPoint)position
 {
     self.position = position;
@@ -155,6 +162,7 @@
     [spawnEffect runAction:[SKAction sequence:@[[SKAction repeatAction:blink count:4],[SKAction removeFromParent]]]];
 }
 
+// Reset the ninja to its original state
 - (void)reset
 {
     self.health = FULL_HP;
@@ -165,6 +173,7 @@
 }
 
 #pragma mark - Animation
+// Resolve the requested animation by running the corresponding set of animation frames with the corresponding set of animatni key
 - (void)resolveRequestedAnimation
 {
     NSString *animationKey = nil;
@@ -197,6 +206,7 @@
     }
 }
 
+// Carry out the animation frames
 - (void)fireAnimationForState:(NJAnimationState)animationState usingTextures:(NSArray *)animationFrames withKey:(NSString *)animationKey
 {
     SKAction *animAction = [self actionForKey:animationKey];
@@ -212,6 +222,7 @@
     }]]] withKey:animationKey];
 }
 
+// Animation Completion Handler
 - (void)animationHasCompleted:(NJAnimationState)animationState
 {
     self.animated = NO;

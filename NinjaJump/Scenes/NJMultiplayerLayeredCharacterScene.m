@@ -453,7 +453,7 @@
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
         CGFloat ang = NJRandomAngle();
-        if (_gameMode != NJGameModeBeginner) {
+        if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
             [pile.physicsBody applyImpulse:CGVectorMake(NJWoodPileInitialImpluse*sinf(ang), NJWoodPileInitialImpluse*cosf(ang))];
         }
     }
@@ -605,10 +605,6 @@
     fireworkRed.zRotation = victoryLabel.zRotation-M_PI/8;
     firework.userInteractionEnabled = NO;
     fireworkRed.userInteractionEnabled = NO;
-    _continueButton = [SKSpriteNode spriteNodeWithImageNamed:@"continue.png"];
-    _continueButton.name = @"continueButtonAfterVictory";
-    _continueButton.zRotation = victoryLabel.zRotation;
-    [_continueButton setScale:1/0.8];
     [self addChild:_victoryBackground];
     [_victoryBackground addChild:firework];
     [_victoryBackground addChild:fireworkRed];
@@ -622,7 +618,6 @@
     SKAction *shrinkRepeatly = [SKAction repeatAction:shrink count:3];
     SKAction *sequenceScale = [SKAction sequence:@[scaleUp,shrinkRepeatly]];
     [victoryLabel runAction:sequenceScale completion:^{
-//        [_victoryBackground removeFromParent];
         [_victoryBackground runAction:[SKAction scaleTo:0.0f duration:0.5] completion:^{
             [_victoryBackground removeFromParent];
         }];
@@ -1020,6 +1015,7 @@
 }
 
 #pragma mark - Auxiliary Methods
+// Remove Ninjas that are dying from being rendered in MScene and disables the control
 - (void)removeDyingNinjas
 {
     NSMutableArray *ninjasToRemove = [NSMutableArray new];
@@ -1033,6 +1029,7 @@
     [self.ninjas removeObjectsInArray:ninjasToRemove];
 }
 
+// Triggers the update loop in NJCharacter instances, which resolves the character-level animations requested inside NJCharacter and also generates random item for boss player, if in 1V3 mode.
 - (void)updateNinjaStatesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJNinjaCharacter *ninja in self.ninjas) {
@@ -1058,6 +1055,7 @@
     }
 }
 
+// Decrease the number of woodpiles, if necessary according to the result of a randome number generator
 - (void)decreasePilesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     _pileDecreaseTime += timeSinceLast;
@@ -1091,10 +1089,13 @@
     }
 }
 
+// Update the state of each woodpiles since last update. Checks if there is any item or ninja on it and if yes, add it to the corresponding property of a pile
 - (void)updateWoodpilesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJPile *pile in _woodPiles) {
         [pile updateWithTimeSinceLastUpdate:timeSinceLast];
+        
+        // Updates the position ad zrotation of the woodpile's standing character to be the same as the woodpile
         for (NJNinjaCharacter *ninja in _ninjas) {
             if (hypotf(ninja.position.x-pile.position.x, ninja.position.y-pile.position.y)<=CGRectGetWidth(pile.frame)/2 && !ninja.player.isJumping) {
                 [pile addCharacterToPile:ninja];
@@ -1112,6 +1113,7 @@
             }
         }
         
+        // If there is any item on the pile, update the items position and zrotation to be the same with the woodpile
         if (pile.itemHolded) {
             pile.itemHolded.zRotation += pile.angleRotatedSinceLastUpdate;
             if (pile.rotateDirection == NJDirectionCounterClockwise) {
@@ -1126,6 +1128,7 @@
             pile.itemHolded.zRotation = normalizeZRotation(pile.itemHolded.zRotation);
         }
         
+        // Remove the its standing character reference if the character has jumped away from the woodpile
         if (hypotf(pile.standingCharacter.position.x-pile.position.x, pile.standingCharacter.position.y-pile.position.y) > CGRectGetWidth(pile.frame)/2) {
             pile.standingCharacter = nil;
         }
@@ -1136,6 +1139,7 @@
     }
 }
 
+// Update the item control reflected in the user interface
 - (void)updateItemControlsSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJItemControl *control in _itemControls) {
@@ -1143,6 +1147,7 @@
     }
 }
 
+// Triggers the update loop in each of the items
 - (void)updateItemsSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJSpecialItem *item in self.items){
@@ -1150,6 +1155,7 @@
     }
 }
 
+// Checks if there are any time-independent actions requested by the players. If YES, perform those actions
 - (void)updatePlayers
 {
     for (NJPlayer *player in self.players) {
@@ -1170,6 +1176,7 @@
     }
 }
 
+// Update the mask of the Health Point Bars to reflect the correct amount of health points left for each player
 - (void)updateHpBars
 {
     for (NJHPBar *bar in _hpBars) {
@@ -1177,6 +1184,7 @@
     }
 }
 
+// Decide whether to spawn new items on screen, and if yes, spawn a random new item at a random woodpile selected
 - (void)spawnNewItems
 {
     int toSpawnItem = arc4random() % kNumberOfFramesToSpawnItem;
@@ -1185,6 +1193,7 @@
     }
 }
 
+// Checks if the game has ended and if yes, announce the winner
 - (void)checkGameEnded
 {
     if (!isGameEnded) {
@@ -1347,10 +1356,11 @@
     if (player.fromPile.standingCharacter == ninja) {
         player.fromPile.standingCharacter = nil;
     }
-    //if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
     if (hypotf(ninja.position.x-player.targetPile.position.x, ninja.position.y-player.targetPile.position.y)>CGRectGetWidth(player.targetPile.frame)/2) {
+        // If it is not close enough, calculate the amount of distance the ninja should have jumped and let the ninja to jump to that position
         [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
     } else {
+        // If the ninja is close enough to its target pile, it snaps to the target pile
         player.jumpRequested = NO;
         player.isJumping = NO;
         player.finishJumpping = YES;
@@ -1358,6 +1368,7 @@
         [player runJumpTimerAction];
         
         if (player.targetPile.standingCharacter) {
+            // If there is any character standing in the target pile, attack the character.
             NJPlayer *p = player.targetPile.standingCharacter.player;
             if (!p.isDisabled) {
                 [ninja attackCharacter:p.ninja];
@@ -1368,6 +1379,7 @@
                     [pile.itemHolded removeFromParent];
                     [pile.itemHolded.itemShadow removeFromParent];
                 }
+                
                 if (pile.itemEffectOnPile){
                     NJItemEffect *effect = pile.itemEffectOnPile;
                     if (effect.owner != p.ninja) {
@@ -1387,6 +1399,7 @@
             }
         }
         
+        // If there is any item effect imposed on the target file, for example if the pile is on fire, perform the corresponding effect to the jumping character
         if (player.targetPile.isOnFire) {
             [player.ninja applyDamage:10];
         }
@@ -1397,6 +1410,7 @@
         
         player.targetPile.standingCharacter = ninja;
         ninja.position = player.targetPile.position;
+        
         //pick up items if needed
         [player.ninja pickupItem:self.items onPile:player.targetPile];
         player.itemIndicatorAdded = NO;

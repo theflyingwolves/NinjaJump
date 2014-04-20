@@ -24,6 +24,7 @@
     return self;
 }
 
+//make the shuriken move
 - (void)fireShuriken
 {
     CGVector movement = vectorForMovement(_direction, kShurikenMaxDistance);

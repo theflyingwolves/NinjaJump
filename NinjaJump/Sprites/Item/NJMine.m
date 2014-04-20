@@ -17,6 +17,8 @@
     if (self){
 //        _itemType = NJItemMine;
         NSString *filePath2 = [[NSBundle mainBundle] pathForResource:@"FireworkRed" ofType:@"sks"];
+        
+        //animation
         SKEmitterNode *fireworkRed = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath2];
         fireworkRed.position = CGPointMake(15, 15);
         [fireworkRed setScale:0.2];
