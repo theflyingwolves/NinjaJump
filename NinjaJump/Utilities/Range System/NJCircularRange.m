@@ -12,7 +12,7 @@
 - (BOOL)isPointWithinRange:(CGPoint)point
 {
     double distance = hypotf(point.x-self.origin.x, point.y - self.origin.y);
-    if (distance <= self.farDist && distance>=0.5) {
+    if (distance <= self.farDist && distance>=0.5) { // >= 0.5 so as to prevent self to be included
         return YES;
     }else{
         return NO;
