@@ -94,8 +94,15 @@
 #define kButtonHaloShinningTime 0.2
 #define kShurikenBUttonsFadeoutDuration 1.0
 
+#pragma mark - Control
+#define kHomeBtn @"home button"
+#define kRestartBtn @"restart button"
+#define kResumeBtn @"resume button"
+#define kPauseShade @"pauseShade"
+
 #pragma mark - Notification
 #define kNotificationPlayerIndex @"activatedPlayerIndex"
+#define kNotificationAfterPause @"actionAfterPause"
 
 typedef enum : uint8_t {
     NJGameModeBeginner=0,
