@@ -312,23 +312,26 @@ typedef enum : uint8_t {
 - (void)update:(NSTimeInterval)currentTime{
     [super update:currentTime];
 
+    //check whether the task of a specific phase is completed
     switch (phaseNum) {
         case NJTutorialPhaseJump:
-            if (((NJPlayer*)self.players[1]).finishJumpping == YES) {
+            if (((NJPlayer*)self.players[1]).finishJumpping == YES) {  //when finish jumping
                 [self goToNextPhaseWithDelay];
             }
             break;
             
         case NJTutorialPhaseAttack:
-            if (((NJPlayer*)self.players[3]).ninja.health <FULL_HP){
+            if (((NJPlayer*)self.players[3]).ninja.health <FULL_HP){ //when finish attacking
                 [self goToNextPhaseWithDelay];
             }
             break;
         
         case NJTutorialPhasePickupShuriken:
-            if (((NJPlayer*)self.players[1]).item) {
+            if (((NJPlayer*)self.players[1]).item) { //when finsih picking up the shuriken
                 [self goToNextPhaseWithDelay];
             } else {
+                //if shuriken disappears for some reason but hasn't been picked up
+                //recreate it
                 if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item){
                     [self addItem:kItemNameShuriken];
                 }
@@ -336,13 +339,13 @@ typedef enum : uint8_t {
             break;
             
         case NJTutorialPhaseUseShuriken:
-            if (!((NJPlayer*)self.players[1]).item) {
+            if (!((NJPlayer*)self.players[1]).item) { //when finish using shuriken
                 [self goToNextPhaseWithDelay];
             }
             break;
             
         case NJTutorialPhasePickupMedikit:
-            if (((NJPlayer*)self.players[1]).ninja.health == FULL_HP) {
+            if (((NJPlayer*)self.players[1]).ninja.health == FULL_HP) { //when finish picking up medikit
                 [self goToNextPhaseWithDelay];
             } else {
                 if ([self.items count] == 0){
@@ -352,9 +355,11 @@ typedef enum : uint8_t {
             break;
         
         case NJTutorialPhasePickupIce:
-            if (((NJPlayer*)self.players[1]).item) {
+            if (((NJPlayer*)self.players[1]).item) { //when finish picking up the ice scroll
                 [self goToNextPhaseWithDelay];
             } else {
+                //if scroll disappears for some reason but hasn't been picked up
+                //recreate it
                 if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item){
                     [self addItem:kItemNameIceScroll];
                 }
@@ -362,17 +367,17 @@ typedef enum : uint8_t {
             break;
         
         case NJTutorialPhaseUseIce:
-            if (!((NJPlayer*)self.players[1]).item) {
+            if (!((NJPlayer*)self.players[1]).item) { //when the scroll is used
                 if (((NJPlayer*)self.players[3]).ninja.frozenCount > 0){
                     [self goToNextPhaseWithDelay];
                 } else if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item) {
+                    //if the enemy is not frozen
+                    //recreate the scorll
                     [self addItem:kItemNameIceScroll];
                 }
             }
 
             break;
-        
-        
 
         default:
             break;
@@ -380,14 +385,17 @@ typedef enum : uint8_t {
     
     if (((NJPlayer*)self.players[3]).ninja.health <(FULL_HP-20)) {
         if (phaseNum < NJTutorialPhaseUseShuriken) {
+            //ensure the lower bound of HP of the enemy
             ((NJPlayer*)self.players[3]).ninja.health = FULL_HP-20;
         }
     }
     if (((NJPlayer*)self.players[3]).ninja.health <(FULL_HP-40)) {
+        //ensure the lower bound of HP of the enemy
         ((NJPlayer*)self.players[3]).ninja.health = FULL_HP-40;
     }
 }
 
+//prevent default behavior
 - (bool)isGameEnded{
     return NO;
 }
@@ -399,6 +407,7 @@ typedef enum : uint8_t {
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast{
     [super updateWithTimeSinceLastUpdate:timeSinceLast];
     
+    //implement time break between completion of a task and appearance of the NPC
     if (timeToGoToNextPhase < 0 && timeToGoToNextPhase > -1) {
         [self showGuide];
         timeToGoToNextPhase = -1;
@@ -406,6 +415,7 @@ typedef enum : uint8_t {
         timeToGoToNextPhase -= timeSinceLast;
     }
     
+    //prevent the item from disappearing
     for (NJSpecialItem *item in self.items){
         item.lifeTime -= timeSinceLast;
     }
@@ -423,6 +433,8 @@ typedef enum : uint8_t {
 
 
 #pragma mark - delegate method
+
+//event handler for the next button in the dialog
 - (void)nextButton:(NJTuTorialNextButton *) button touchesEnded:(NSSet *)touches{
     if (button == self.nextButton) {
         switch (phaseNum) {
@@ -479,7 +491,9 @@ typedef enum : uint8_t {
                 [self toggleControl];
                 phaseNum++;
             
-                if (((NJPlayer*)self.players[1]).ninja.position.x >= 200) {
+                //since the rnage of the indicator is large, we need to decide whether to add
+                //the arrow from left or from the right hand side
+                if (((NJPlayer*)self.players[1]).ninja.position.x >= 200) { //add from left
                     [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[1]).ninja.position.x-250, ((NJPlayer*)self.players[1]).ninja.position.y) andDirectionIsNormal:YES]];
                 } else {
                     [self addChild:[self createArrowWithVector:CGVectorMake(30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[1]).ninja.position.x+250, ((NJPlayer*)self.players[1]).ninja.position.y) andDirectionIsNormal:NO]];
