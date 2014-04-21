@@ -68,9 +68,9 @@
         isSelectionInited = NO;
         isFirstTimeInitialized = YES;
         isGameEnded = NO;
+        hasBeenPaused = NO;
         shouldPileStartDecreasing = NO;
         self.doAddItemRandomly = YES;
-        hasBeenPaused = NO;
         [self buildWorld];
 
         if (mode != NJGameModeTutorial) {
@@ -933,6 +933,7 @@
 }
 
 - (void)activateSelectedPlayers:(NSNotification *)note{
+    NSLog(@"notified");
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
     isSelectionInited = NO;
@@ -962,12 +963,20 @@
 
 - (void) activateSelectedPlayersWithPreSetting
 {
+    NSLog(@"activate");
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];
     if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
         shouldPileStartDecreasing = YES;
     }
+    if(_gameMode != NJGameModeTutorial){
+        [self fireCountdown];
+    }
+}
+
+-(void)fireCountdown {
+    NSLog(@"count down");
     hasBeenPaused = NO;
     CGRect frame = FRAME;
     SKSpriteNode *coverLayer = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:frame.size];
