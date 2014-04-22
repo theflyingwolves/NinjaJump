@@ -32,7 +32,7 @@
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter *)character
 {
     //Overridden by Subclasses
-    NSLog(@"use item!");
+    //NSLog(@"use item!");
 }
 
 @end

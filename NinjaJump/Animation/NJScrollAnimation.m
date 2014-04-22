@@ -17,7 +17,7 @@
     fireAttack.position = CGPointMake(ninja.position.x-50*sin(ninja.zRotation), ninja.position.y+50*cos(ninja.zRotation));
     [ninja.parent addChild:fireAttack];
     
-    NSLog(@"ninja rotate %f",ninja.zRotation);
+    //NSLog(@"ninja rotate %f",ninja.zRotation);
     //[fireAttack runAction:sequence];
     [self performSelector:@selector(fadeOut:) withObject:fireAttack afterDelay:1.5];
 }
