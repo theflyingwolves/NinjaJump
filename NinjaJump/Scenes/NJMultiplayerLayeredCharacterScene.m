@@ -933,7 +933,6 @@
 }
 
 - (void)activateSelectedPlayers:(NSNotification *)note{
-    NSLog(@"notified");
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
     isSelectionInited = NO;
@@ -963,7 +962,6 @@
 
 - (void) activateSelectedPlayersWithPreSetting
 {
-    NSLog(@"activate");
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];
@@ -975,8 +973,8 @@
     }
 }
 
+//fire the countdown animation before starting game
 -(void)fireCountdown {
-    NSLog(@"count down");
     hasBeenPaused = NO;
     CGRect frame = FRAME;
     SKSpriteNode *coverLayer = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:frame.size];
