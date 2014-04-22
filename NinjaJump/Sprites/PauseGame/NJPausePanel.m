@@ -15,7 +15,6 @@
 @interface NJPausePanel () <NJButtonDelegate>
 @property SKSpriteNode *shade;
 @property BOOL isReacted;     //
-//@property BOOL isInitDone;
 @end
 
 @implementation NJPausePanel

@@ -738,6 +738,8 @@
     }
 }
 
+// Determine the target wood pile according to the ninja's facing direction
+// If there is no target wood pile in the corresponding direction, return nil
 - (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja
 {
     NJPile *nearest = nil;
@@ -769,6 +771,8 @@
     return nearest;
 }
 
+// Determine a random pile among the free ones for ninja or item to spawn at
+// Returns nil if no free ones available, return nil
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja
 {
     NSMutableArray *array = [NSMutableArray array];
@@ -894,8 +898,6 @@
     [self initSelectionSystem];
     
     [self resetMusic];
-    //hasBeenPaused = NO;
-    //self.physicsWorld.speed = 1;
 }
 
 - (void)removeNinjas

@@ -100,8 +100,8 @@ const CGFloat medikitRecover = 40.0f;
             SKAction *removeNode = [SKAction removeFromParent];
             SKAction *sequence = [SKAction sequence:@[wait, removeNode]];
             [bombEffect runAction:sequence];
-            [bombEffect runAction:[SKAction playSoundFileNamed:kSoundBomb waitForCompletion:NO]];
-            
+//            [bombEffect runAction:[SKAction playSoundFileNamed:kSoundBomb waitForCompletion:NO]];
+            [bombEffect runAction:[SKAction playSoundFileNamed:kSoundShuriken waitForCompletion:NO]];
             [self applyDamage:effect.damage];
         }
     }
