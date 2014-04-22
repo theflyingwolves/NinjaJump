@@ -51,9 +51,6 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @end
 
 @interface NJMultiplayerLayeredCharacterScene:SKScene <NJItemEffectSceneDelegate>
-
-@property (nonatomic) BOOL startGame;
-
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;
@@ -98,7 +95,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja;
 
 /* for the use of tutorial scene */
-- (void) activateSelectedPlayersWithPreSetting;
+- (void)activateSelectedPlayersWithPreSetting;
 
 - (void)resetMusic;
 

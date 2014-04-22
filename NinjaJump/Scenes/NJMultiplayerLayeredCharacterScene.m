@@ -20,8 +20,6 @@
 #import "NJResponsibleBG.h"
 #import "NJPausePanel.h"
 #import "NJScroll.h"
-
-
 #import "NJThunderScroll.h"
 #import "NJWindScroll.h"
 #import "NJIceScroll.h"
@@ -29,7 +27,6 @@
 #import "NJMine.h"
 #import "NJShuriken.h"
 #import "NJMedikit.h"
-
 #import "NJItemEffect.h"
 
 #define BUTTON_COLORBLEND_FACTOR 0.5
@@ -975,7 +972,7 @@
     [self performSelector:@selector(startGame) withObject:nil afterDelay:3.0];
 }
 
-- (void) startGame
+- (void)startGame
 {
     SKAction *fadeIn = [SKAction fadeInWithDuration:0.1];
     SKAction *wait = [SKAction fadeInWithDuration:0.3];
