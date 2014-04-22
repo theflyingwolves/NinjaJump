@@ -17,7 +17,6 @@
 		2B21F15418D4342E007220CF /* NJPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B21F15318D4342E007220CF /* NJPlayer.m */; };
 		2B43F57618DEA8C9001D98AC /* Ninja_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */; };
 		2B81400018F5716D00F80DB9 /* Jump_Timer.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B813FFF18F5716D00F80DB9 /* Jump_Timer.atlas */; };
-		2BDFAC8018E7EAB000B4007D /* fog.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2BDFAC7F18E7EAB000B4007D /* fog.sks */; };
 		2BFA6DB318E6BA7300EBA279 /* NJLoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */; };
 		2F01286618F97A7F00ED8179 /* itemShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F01286518F97A7F00ED8179 /* itemShadow.png */; };
 		2F050DBD18F574290094F07F /* fireArc.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F050DBB18F574290094F07F /* fireArc.png */; };
@@ -221,7 +220,6 @@
 		2B21F15318D4342E007220CF /* NJPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJPlayer.m; path = Scenes/NJPlayer.m; sourceTree = "<group>"; };
 		2B43F57518DEA8C9001D98AC /* Ninja_Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Ninja_Jump.atlas; path = "Assets/Texture Altases/Ninja_Jump.atlas"; sourceTree = "<group>"; };
 		2B813FFF18F5716D00F80DB9 /* Jump_Timer.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Jump_Timer.atlas; path = "Assets/Texture Altases/Jump_Timer.atlas"; sourceTree = "<group>"; };
-		2BDFAC7F18E7EAB000B4007D /* fog.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = fog.sks; path = Particle/fog.sks; sourceTree = "<group>"; };
 		2BFA6DB118E6BA7300EBA279 /* NJLoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJLoadingScene.h; path = Scenes/NJLoadingScene.h; sourceTree = "<group>"; };
 		2BFA6DB218E6BA7300EBA279 /* NJLoadingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJLoadingScene.m; path = Scenes/NJLoadingScene.m; sourceTree = "<group>"; };
 		2F01286518F97A7F00ED8179 /* itemShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = itemShadow.png; path = Assets/GameBoard/itemShadow.png; sourceTree = "<group>"; };
@@ -1020,7 +1018,6 @@
 				C9EC06F918E1CE7000C43E24 /* FireEffect.sks */,
 				C98B5A6D18E8523100CD51D0 /* FreezeEffect.sks */,
 				C9EC06FA18E1CE7000C43E24 /* spark.png */,
-				2BDFAC7F18E7EAB000B4007D /* fog.sks */,
 				C959C29D18E9A25000F11783 /* WoodFire.sks */,
 				C9D8D08D18ED8D3D00F63E9A /* Firework.sks */,
 				C9D8D09018ED940F00F63E9A /* FireworkRed.sks */,
@@ -1240,7 +1237,6 @@
 				2F4DB99718FFE99100E6685F /* mainTitle.png in Resources */,
 				2FBFDCFB18F9108800A59A77 /* beginnerBtn.png in Resources */,
 				2FDBC06518F42DAC00814C70 /* lakeMoonBG.png in Resources */,
-				2BDFAC8018E7EAB000B4007D /* fog.sks in Resources */,
 				2B067F5A18FA598B003755A4 /* blueHalo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

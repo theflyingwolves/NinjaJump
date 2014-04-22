@@ -32,6 +32,7 @@
 #import "NJItemEffect.h"
 
 #define BUTTON_COLORBLEND_FACTOR 0.5
+#define GAMEBOARD_RADIUS 170
 
 @interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate,NJCharacterDelegate>
 
@@ -94,11 +95,31 @@
 
 - (void)configurePhysicsBody
 {
-    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    //self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    UIBezierPath *path = [self drawGameAreaBoarder];
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:path.CGPath];
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.physicsBody.friction = 0.0;
     self.physicsBody.linearDamping = 0.0;
     self.physicsBody.restitution = 1.0;
+}
+
+- (UIBezierPath *)drawGameAreaBoarder
+{
+    float width = CGRectGetWidth(self.frame);
+    float height = CGRectGetHeight(self.frame);
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(GAMEBOARD_RADIUS, 0)];
+    [path addArcWithCenter:CGPointMake(0, 0) radius:GAMEBOARD_RADIUS startAngle:0 endAngle:M_PI*3/2 clockwise:YES];
+    [path addLineToPoint:CGPointMake(0, height-GAMEBOARD_RADIUS)];
+    [path addArcWithCenter:CGPointMake(0, height) radius:GAMEBOARD_RADIUS startAngle:M_PI/2 endAngle:0 clockwise:YES];
+    [path addLineToPoint:CGPointMake(width-GAMEBOARD_RADIUS, height)];
+    [path addArcWithCenter:CGPointMake(width, height) radius:GAMEBOARD_RADIUS startAngle:M_PI endAngle:M_PI/2 clockwise:YES];
+    [path addLineToPoint:CGPointMake(width, GAMEBOARD_RADIUS)];
+    [path addArcWithCenter:CGPointMake(width, 0) radius:GAMEBOARD_RADIUS startAngle:M_PI*3/2 endAngle:M_PI clockwise:YES];
+    [path addLineToPoint:CGPointMake(GAMEBOARD_RADIUS, 0)];
+    [path closePath];
+    return path;
 }
 
 - (void)initLayers
@@ -441,8 +462,8 @@
         _woodPiles = [NSMutableArray array];
     }
     
-    CGFloat r= 120.0f;    
-    NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 580)], [NSValue valueWithCGPoint:CGPointMake(250, 250)], [NSValue valueWithCGPoint:CGPointMake(350, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(100, 300)], [NSValue valueWithCGPoint:CGPointMake(250, 500)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 600)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
+    CGFloat r= 230.0f;
+    NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(350, 220)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 500)], [NSValue valueWithCGPoint:CGPointMake(400, 350)], [NSValue valueWithCGPoint:CGPointMake(300, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(200, 300)], [NSValue valueWithCGPoint:CGPointMake(260, 410)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 610)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
     
     //add in the spawn pile of ninjas
     for (NSValue *posValue in pilePos){
