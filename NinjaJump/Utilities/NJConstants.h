@@ -5,6 +5,10 @@
 //  Created by Wang Kunzhen on 9/4/14.
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
+/*
+ Defines the set of commonly used constatns for the whole game
+ Note that some of the constants that are very specific to a certain class will still be declared in its corresponding class, rather than being specified here
+ */
 
 #pragma mark - Game World
 #define kTimeAddItemToBoss 5.0f
@@ -90,8 +94,15 @@
 #define kButtonHaloShinningTime 0.2
 #define kShurikenBUttonsFadeoutDuration 1.0
 
+#pragma mark - Control
+#define kHomeBtn @"home button"
+#define kRestartBtn @"restart button"
+#define kResumeBtn @"resume button"
+#define kPauseShade @"pauseShade"
+
 #pragma mark - Notification
 #define kNotificationPlayerIndex @"activatedPlayerIndex"
+#define kNotificationAfterPause @"actionAfterPause"
 
 typedef enum : uint8_t {
     NJGameModeBeginner=0,

@@ -43,7 +43,7 @@ typedef enum : uint8_t {
 typedef void (^NJAssetLoadCompletionHandler)(void);
 
 /* Forward declarations */
-@class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile;
+@class NJNinjaCharacter, NJPlayer, NJNinjaCharacterNormal, NJPile, NJRange;
 
 @protocol NJMultiplayerLayeredCharacterSceneDelegate <NSObject>
 // EFFECTS: Signals the delegate that a back transition is required.
@@ -51,6 +51,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @end
 
 @interface NJMultiplayerLayeredCharacterScene:SKScene <NJItemEffectSceneDelegate>
+
 @property (nonatomic, readwrite) NSMutableArray *ninjas;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @property (nonatomic ,readwrite) NSMutableArray *items;
@@ -73,6 +74,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 @property (nonatomic) NSArray *musicName;
 @property (nonatomic) AVAudioPlayer *music;
+@property (nonatomic) BOOL isBossLost;
 
 - (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
 
@@ -95,8 +97,14 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja;
 
 /* for the use of tutorial scene */
-- (void)activateSelectedPlayersWithPreSetting;
+- (void) activateSelectedPlayersWithPreSetting;
 
 - (void)resetMusic;
+
+/* the following two methods are defined in NJScroll delegate
+    they are declared here in order to be used by tutorial scene
+*/
+- (NSArray *)getAffectedTargetsWithRange:(NJRange *)range;
+- (NSArray *)getAffectedPilesWithRange:(NJRange *)range;
 
 @end

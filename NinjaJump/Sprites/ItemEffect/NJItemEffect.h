@@ -6,6 +6,11 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
+/*
+    This class is used for using item.
+    e.g. when an item is used, the corresponding item effect is created
+*/
+
 #import <SpriteKit/SpriteKit.h>
 #import "NJCharacter.h"
 
@@ -15,7 +20,6 @@
 - (void)addEffect:(NJItemEffect*)effect;
 @property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
 @end
-
 
 @interface NJItemEffect : SKSpriteNode{
 @protected NSInteger _damage;

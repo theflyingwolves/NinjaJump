@@ -49,6 +49,7 @@
         direction3 += 2*M_PI;
     }
     
+    //create 3 shurikens to be thrown out
     NJEffectShurikenMulti *shuriken1 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction1 onScene:self.myParent andOwner:character];
     
     NJEffectShurikenMulti *shuriken2 = [[NJEffectShurikenMulti alloc] initAtPosition:position withDirection:direction2 onScene:self.myParent andOwner:character];

@@ -27,6 +27,8 @@
 #import "NJMine.h"
 #import "NJShuriken.h"
 #import "NJMedikit.h"
+#import "NJVictoryRestart.h"
+
 #import "NJItemEffect.h"
 
 #define BUTTON_COLORBLEND_FACTOR 0.5
@@ -64,11 +66,11 @@
         isSelectionInited = NO;
         isFirstTimeInitialized = YES;
         isGameEnded = NO;
+        hasBeenPaused = NO;
         shouldPileStartDecreasing = NO;
         self.doAddItemRandomly = YES;
-        hasBeenPaused = NO;
         [self buildWorld];
-        
+
         if (mode != NJGameModeTutorial) {
             /* If it is not in tutorial mode, initializes the selection system and plays the music specific to non-tutorial mode. (Tutorial mode has its own catebory of background musics defined.) */
             self.musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
@@ -276,7 +278,7 @@
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
             player.shouldBlendCharacter = YES;
-            if (index == _bossIndex) {
+            if (index == _bossIndex && _gameMode == NJGameModeOneVsThree) {
                 player.shouldBlendCharacter = NO;
             }
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
@@ -449,7 +451,7 @@
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
         CGFloat ang = NJRandomAngle();
-        if (_gameMode != NJGameModeBeginner) {
+        if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
             [pile.physicsBody applyImpulse:CGVectorMake(NJWoodPileInitialImpluse*sinf(ang), NJWoodPileInitialImpluse*cosf(ang))];
         }
     }
@@ -480,10 +482,10 @@
         [self updatePlayers];
         [self updateHpBars];
         [self spawnNewItems];
-        [self checkGameEnded];
         [self applyImpulseToSlowWoodpiles];
         [self removePickedUpItem];
         [self removeOutdatedItem];
+        [self checkGameEnded];
     }
 }
 
@@ -531,11 +533,8 @@
     if (_gameMode == NJGameModeOneVsThree) {
         if (!isGameEnded && ((NJPlayer *)self.players[_bossIndex]).ninja.isDying){
             isGameEnded = YES;
-//            for (int i=0; i<4; i++) {
-//                if (((NJPlayer *)self.players[i]).isDisabled == NO) {
-                    [self victoryAnimationToPlayer:0];
-//                }
-//            }
+            _isBossLost = YES;
+            [self victoryAnimationToPlayer:_bossIndex];
             return YES;
         } else {
             if (!isGameEnded && [livingNinjas count] == 1) {
@@ -564,9 +563,20 @@
 - (void)victoryAnimationToPlayer:(NSInteger)index
 {
     float angle = atan(1024/768)+0.1;
-    _victoryBackground = [SKSpriteNode spriteNodeWithImageNamed:@"victory bg.png"];
+    _victoryBackground = [SKSpriteNode spriteNodeWithImageNamed:@"victory bg"];
     _victoryBackground.position = CGPointMake(1024/2, 768/2);
-    SKSpriteNode *victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"victory.png"];
+    SKSpriteNode *victoryLabel;
+    
+    if (_gameMode == NJGameModeOneVsThree) {
+        if (_isBossLost) {
+            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossLoss"];
+        }else{
+            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossWin"];
+        }
+    }else{
+        victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"victory"];
+    }
+
     switch (index) {
         case 0:
             victoryLabel.zRotation = -angle;
@@ -593,10 +603,6 @@
     fireworkRed.zRotation = victoryLabel.zRotation-M_PI/8;
     firework.userInteractionEnabled = NO;
     fireworkRed.userInteractionEnabled = NO;
-    _continueButton = [SKSpriteNode spriteNodeWithImageNamed:@"continue.png"];
-    _continueButton.name = @"continueButtonAfterVictory";
-    _continueButton.zRotation = victoryLabel.zRotation;
-    [_continueButton setScale:1/0.8];
     [self addChild:_victoryBackground];
     [_victoryBackground addChild:firework];
     [_victoryBackground addChild:fireworkRed];
@@ -610,8 +616,23 @@
     SKAction *shrinkRepeatly = [SKAction repeatAction:shrink count:3];
     SKAction *sequenceScale = [SKAction sequence:@[scaleUp,shrinkRepeatly]];
     [victoryLabel runAction:sequenceScale completion:^{
-        [_victoryBackground addChild:_continueButton];
+        [_victoryBackground runAction:[SKAction scaleTo:0.0f duration:0.5] completion:^{
+            [_victoryBackground removeFromParent];
+        }];
+        [self presentVictoryRestartScene];
     }];
+}
+
+- (void)presentVictoryRestartScene
+{
+    NJVictoryRestart *victoryRestart = [[NJVictoryRestart alloc] init];
+    victoryRestart.position = CGPointMake(FRAME.size.width/2, FRAME.size.height/2);
+    victoryRestart.xScale = 0.0f;
+    victoryRestart.yScale = 0.0f;
+    [self addChild:victoryRestart];
+    [victoryRestart runAction:[SKAction scaleTo:1.0f duration:0.5]];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
 }
 
 #pragma mark - Shared Assets
@@ -852,8 +873,8 @@
     [self initSelectionSystem];
     
     [self resetMusic];
-    hasBeenPaused = NO;
-    self.physicsWorld.speed = 1;
+    //hasBeenPaused = NO;
+    //self.physicsWorld.speed = 1;
 }
 
 - (void)removeNinjas
@@ -883,7 +904,6 @@
     [self addWoodPiles];
 }
 
-
 #pragma mark - Selection System
 
 - (void)initSelectionSystem{
@@ -911,6 +931,7 @@
 }
 
 - (void)activateSelectedPlayers:(NSNotification *)note{
+    NSLog(@"notified");
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
     isSelectionInited = NO;
@@ -924,10 +945,7 @@
     }
     
     for (NSNumber *index in fullIndices){ //inactivate unselected players
-        //NSLog(@"activated %d",[index intValue]);
-        //int convertedIndex = [self convertIndex:[index intValue]];
         ((NJPlayer *)self.players[[index intValue]]).isDisabled = YES;
-//        [((NJPlayer *)self.players[[index intValue]]).ninja.shadow removeFromParent];
     }
     
     for (int i=0; i<kNumPlayers; i++) {
@@ -943,19 +961,34 @@
 
 - (void) activateSelectedPlayersWithPreSetting
 {
+    NSLog(@"activate");
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];
     if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
         shouldPileStartDecreasing = YES;
     }
+    if(_gameMode != NJGameModeTutorial){
+        [self fireCountdown];
+    }
+}
+
+-(void)fireCountdown {
+    NSLog(@"count down");
     hasBeenPaused = NO;
+    CGRect frame = FRAME;
+    SKSpriteNode *coverLayer = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:frame.size];
+    coverLayer.position = CGPointMake(frame.size.width/2, frame.size.height/2);
+    coverLayer.alpha = 0.0;
+    coverLayer.userInteractionEnabled = YES;
     SKSpriteNode *countdown1 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown1"];
     SKSpriteNode *countdown2 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown2"];
     SKSpriteNode *countdown3 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown3"];
     SKSpriteNode *countdown = [[SKSpriteNode alloc]init];
+    [self addChild:coverLayer];
     [self addChild:countdown];
-    countdown.position = CGPointMake(1024/2, 768/2);
+    countdown.position = CGPointMake(FRAME.size.width/2, FRAME.size
+                                     .height/2);
     NSArray *countdownSeries = [NSArray arrayWithObjects:countdown3, countdown2, countdown1, nil];
     SKAction *fadeIn = [SKAction fadeInWithDuration:0.2];
     SKAction *wait = [SKAction fadeInWithDuration:0.4];
@@ -969,10 +1002,10 @@
         SKAction *appear = [SKAction sequence:@[pending,fadeIn,wait,fadeOut,removeNode]];
         [countdownNum runAction:appear];
     }
-    [self performSelector:@selector(startGame) withObject:nil afterDelay:3.0];
+    [self performSelector:@selector(startGame:) withObject:coverLayer afterDelay:3.0];
 }
 
-- (void)startGame
+- (void)startGame:(SKSpriteNode *)cover
 {
     SKAction *fadeIn = [SKAction fadeInWithDuration:0.1];
     SKAction *wait = [SKAction fadeInWithDuration:0.3];
@@ -982,11 +1015,14 @@
     SKSpriteNode *startNote = [SKSpriteNode spriteNodeWithImageNamed:@"start"];
     startNote.position = CGPointMake(1024/2, 768/2);
     [self addChild:startNote];
-    [startNote runAction:appear];
+    [startNote runAction:appear completion:^{
+        [cover removeFromParent];
+    }];
     self.physicsWorld.speed = 1.0;
 }
 
 #pragma mark - Auxiliary Methods
+// Remove Ninjas that are dying from being rendered in MScene and disables the control
 - (void)removeDyingNinjas
 {
     NSMutableArray *ninjasToRemove = [NSMutableArray new];
@@ -1000,6 +1036,7 @@
     [self.ninjas removeObjectsInArray:ninjasToRemove];
 }
 
+// Triggers the update loop in NJCharacter instances, which resolves the character-level animations requested inside NJCharacter and also generates random item for boss player, if in 1V3 mode.
 - (void)updateNinjaStatesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJNinjaCharacter *ninja in self.ninjas) {
@@ -1025,6 +1062,7 @@
     }
 }
 
+// Decrease the number of woodpiles, if necessary according to the result of a randome number generator
 - (void)decreasePilesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     _pileDecreaseTime += timeSinceLast;
@@ -1058,10 +1096,13 @@
     }
 }
 
+// Update the state of each woodpiles since last update. Checks if there is any item or ninja on it and if yes, add it to the corresponding property of a pile
 - (void)updateWoodpilesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJPile *pile in _woodPiles) {
         [pile updateWithTimeSinceLastUpdate:timeSinceLast];
+        
+        // Updates the position ad zrotation of the woodpile's standing character to be the same as the woodpile
         for (NJNinjaCharacter *ninja in _ninjas) {
             if (hypotf(ninja.position.x-pile.position.x, ninja.position.y-pile.position.y)<=CGRectGetWidth(pile.frame)/2 && !ninja.player.isJumping) {
                 [pile addCharacterToPile:ninja];
@@ -1079,6 +1120,7 @@
             }
         }
         
+        // If there is any item on the pile, update the items position and zrotation to be the same with the woodpile
         if (pile.itemHolded) {
             pile.itemHolded.zRotation += pile.angleRotatedSinceLastUpdate;
             if (pile.rotateDirection == NJDirectionCounterClockwise) {
@@ -1093,6 +1135,7 @@
             pile.itemHolded.zRotation = normalizeZRotation(pile.itemHolded.zRotation);
         }
         
+        // Remove the its standing character reference if the character has jumped away from the woodpile
         if (hypotf(pile.standingCharacter.position.x-pile.position.x, pile.standingCharacter.position.y-pile.position.y) > CGRectGetWidth(pile.frame)/2) {
             pile.standingCharacter = nil;
         }
@@ -1103,6 +1146,7 @@
     }
 }
 
+// Update the item control reflected in the user interface
 - (void)updateItemControlsSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJItemControl *control in _itemControls) {
@@ -1110,6 +1154,7 @@
     }
 }
 
+// Triggers the update loop in each of the items
 - (void)updateItemsSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJSpecialItem *item in self.items){
@@ -1117,6 +1162,7 @@
     }
 }
 
+// Checks if there are any time-independent actions requested by the players. If YES, perform those actions
 - (void)updatePlayers
 {
     for (NJPlayer *player in self.players) {
@@ -1137,6 +1183,7 @@
     }
 }
 
+// Update the mask of the Health Point Bars to reflect the correct amount of health points left for each player
 - (void)updateHpBars
 {
     for (NJHPBar *bar in _hpBars) {
@@ -1144,6 +1191,7 @@
     }
 }
 
+// Decide whether to spawn new items on screen, and if yes, spawn a random new item at a random woodpile selected
 - (void)spawnNewItems
 {
     int toSpawnItem = arc4random() % kNumberOfFramesToSpawnItem;
@@ -1152,6 +1200,7 @@
     }
 }
 
+// Checks if the game has ended and if yes, announce the winner
 - (void)checkGameEnded
 {
     if (!isGameEnded) {
@@ -1314,10 +1363,11 @@
     if (player.fromPile.standingCharacter == ninja) {
         player.fromPile.standingCharacter = nil;
     }
-    //if (!CGPointEqualToPointApprox(player.targetPile.position, ninja.position)) {
     if (hypotf(ninja.position.x-player.targetPile.position.x, ninja.position.y-player.targetPile.position.y)>CGRectGetWidth(player.targetPile.frame)/2) {
+        // If it is not close enough, calculate the amount of distance the ninja should have jumped and let the ninja to jump to that position
         [ninja jumpToPile:player.targetPile fromPile:player.fromPile withTimeInterval:timeSinceLast];
     } else {
+        // If the ninja is close enough to its target pile, it snaps to the target pile
         player.jumpRequested = NO;
         player.isJumping = NO;
         player.finishJumpping = YES;
@@ -1325,6 +1375,7 @@
         [player runJumpTimerAction];
         
         if (player.targetPile.standingCharacter) {
+            // If there is any character standing in the target pile, attack the character.
             NJPlayer *p = player.targetPile.standingCharacter.player;
             if (!p.isDisabled) {
                 [ninja attackCharacter:p.ninja];
@@ -1335,6 +1386,7 @@
                     [pile.itemHolded removeFromParent];
                     [pile.itemHolded.itemShadow removeFromParent];
                 }
+                
                 if (pile.itemEffectOnPile){
                     NJItemEffect *effect = pile.itemEffectOnPile;
                     if (effect.owner != p.ninja) {
@@ -1354,6 +1406,7 @@
             }
         }
         
+        // If there is any item effect imposed on the target file, for example if the pile is on fire, perform the corresponding effect to the jumping character
         if (player.targetPile.isOnFire) {
             [player.ninja applyDamage:10];
         }
@@ -1364,6 +1417,7 @@
         
         player.targetPile.standingCharacter = ninja;
         ninja.position = player.targetPile.position;
+        
         //pick up items if needed
         [player.ninja pickupItem:self.items onPile:player.targetPile];
         player.itemIndicatorAdded = NO;

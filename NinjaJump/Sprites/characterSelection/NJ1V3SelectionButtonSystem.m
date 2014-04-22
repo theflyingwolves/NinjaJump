@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
+/*
+ Boss Selection System for 1V3Mode.
+ */
+
 #import "NJ1V3SelectionButtonSystem.h"
 #import "NJSelectionButtonSystem.h"
 #import "NJConstants.h"
@@ -161,7 +165,6 @@
 
 - (void)didStartButtonClicked
 {
-    //NSLog(@"game start");
     SKAction *flyAway2TopLeft = [SKAction moveByX:-700 y:700 duration:1.0];
     SKAction *flyAway2BottomLeft = [SKAction moveByX:-700 y:-700 duration:1.0];
     SKAction *flyAway2BottomRight = [SKAction moveByX:700 y:-700 duration:1.0];

@@ -10,9 +10,6 @@
 #import "NJItemEffect.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 
-
-
-
 @interface NJEffectShurikenMulti : NJItemEffect
 
 @property (readonly) CGFloat direction; //in radians, same as definition of zPosition

@@ -16,8 +16,8 @@
 
 @interface NJTutorialScene : NJMultiplayerLayeredCharacterScene <NJTuTorialNextButtonDelegate, NJTuTorialHomeButtonDelegate>
 
-@property (nonatomic) NJTuTorialNextButton *nextButton;
-@property (nonatomic) NJTutorialHomeButton *homeButton;
+@property (nonatomic) NJTuTorialNextButton *nextButton; //the next button in the dialog
+@property (nonatomic) NJTutorialHomeButton *homeButton; //button to go back to home scene
 
 - (instancetype)initWithSizeWithoutSelection:(CGSize)size;
 //REQUIRES: size to be a valid size (e.g. screen size)

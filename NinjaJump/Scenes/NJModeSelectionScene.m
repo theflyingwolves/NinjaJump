@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
+/*
+ Main Scene of the game after the loading scene has been completed. Allows players to select which mode to enter or enters a tutorial.
+ */
+
 #define BUTTON_WIDTH 250.0f
 #define GAP 17.0f
 #define MODE_SELECTION_BUTTON_ANIM_LENGTH 0.4f
@@ -80,14 +84,14 @@
     _sideMenu.position = CGPointMake(80, 215);
     _tutorialMode = [[NJButton alloc] initWithImageNamed:KTutorialModeBtnFileName];
     _tutorialMode.delegate = self;
-    _tutorialMode.position = CGPointMake(0, 30);
+    _tutorialMode.position = CGPointMake(0, 0);
     _tutorialMode.index = NJGameModeTutorial;
     [_sideMenu addChild:_tutorialMode];
     
-    _facebookBtn = [[NJButton alloc] initWithImageNamed:kFacebookBtnFileName];
-    _facebookBtn.delegate = self;
-    _facebookBtn.position = CGPointMake(0, -30);
-    [_sideMenu addChild:_facebookBtn];
+//    _facebookBtn = [[NJButton alloc] initWithImageNamed:kFacebookBtnFileName];
+//    _facebookBtn.delegate = self;
+//    _facebookBtn.position = CGPointMake(0, -30);
+//    [_sideMenu addChild:_facebookBtn];
     
     _sideMenu.alpha = 0;
     [self addChild:_sideMenu];

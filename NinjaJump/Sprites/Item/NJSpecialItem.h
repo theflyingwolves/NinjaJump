@@ -13,6 +13,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJCharacter.h"
+
 #import "NJRange.h"
 #import "NJItemEffect.h"
 
@@ -35,14 +36,14 @@ typedef enum : uint8_t {
 
 
 #pragma mark - basic property
-@property BOOL isPickedUp;
+@property BOOL isPickedUp; //used for the game update loop to remove the picked-up item from the screen
 @property (readonly) NJItemType itemType;
 @property  float lifeTime; //when life time > max life time, item will disappear
 @property SKSpriteNode *itemShadow;
-@property (weak, nonatomic) id<NJItemEffectSceneDelegate> myParent;
+@property (weak, nonatomic) id<NJItemEffectSceneDelegate> myParent; //the scene where the item is used
 
 #pragma mark - item effect
-@property NJRange *range; //rango of effect of the item
+@property NJRange *range; //range of effect of the item
 
 
 
