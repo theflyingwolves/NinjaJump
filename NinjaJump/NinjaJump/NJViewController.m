@@ -24,7 +24,7 @@
 {
     [super viewWillAppear:animated];
 
-    // Configure the view.    
+    // Configure the view.
     NJLoadingScene *loadingScene = [[NJLoadingScene alloc] initWithSize:_skView.bounds.size];
     loadingScene.scaleMode = SKSceneScaleModeAspectFill;
     [_skView presentScene:loadingScene];
