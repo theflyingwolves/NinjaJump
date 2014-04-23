@@ -23,10 +23,10 @@
     UIColor *hurtColor = [UIColor whiteColor];
     SKAction *colorize = [SKAction colorizeWithColor:hurtColor colorBlendFactor:1 duration:0.0];
     SKAction *wait = [SKAction waitForDuration:0.3];
-    SKAction *colorizeBack = [SKAction colorizeWithColor:ninjaColor colorBlendFactor:0.6 duration:0.0];
+    SKAction *colorizeBack = [SKAction colorizeWithColor:ninjaColor colorBlendFactor:kNinjaColorBlendFactor duration:0.0];
     SKAction *colorizeSequence = [SKAction sequence:@[colorize,wait,colorizeBack,wait,]];
     SKAction *repeatColorizing = [SKAction repeatAction:colorizeSequence count:5];
-    [character runAction:repeatColorizing];
+    [character runAction:repeatColorizing withKey:@"anim_attacked"];
 }
 
 @end

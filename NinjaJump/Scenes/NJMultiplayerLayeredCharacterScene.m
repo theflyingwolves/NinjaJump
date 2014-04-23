@@ -31,8 +31,6 @@
 
 #import "NJItemEffect.h"
 
-#define BUTTON_COLORBLEND_FACTOR 0.5
-#define GAMEBOARD_RADIUS 170
 
 @interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate,NJCharacterDelegate>
 
@@ -109,15 +107,15 @@
     float width = CGRectGetWidth(self.frame);
     float height = CGRectGetHeight(self.frame);
     UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(GAMEBOARD_RADIUS, 0)];
-    [path addArcWithCenter:CGPointMake(0, 0) radius:GAMEBOARD_RADIUS startAngle:0 endAngle:M_PI*3/2 clockwise:YES];
-    [path addLineToPoint:CGPointMake(0, height-GAMEBOARD_RADIUS)];
-    [path addArcWithCenter:CGPointMake(0, height) radius:GAMEBOARD_RADIUS startAngle:M_PI/2 endAngle:0 clockwise:YES];
-    [path addLineToPoint:CGPointMake(width-GAMEBOARD_RADIUS, height)];
-    [path addArcWithCenter:CGPointMake(width, height) radius:GAMEBOARD_RADIUS startAngle:M_PI endAngle:M_PI/2 clockwise:YES];
-    [path addLineToPoint:CGPointMake(width, GAMEBOARD_RADIUS)];
-    [path addArcWithCenter:CGPointMake(width, 0) radius:GAMEBOARD_RADIUS startAngle:M_PI*3/2 endAngle:M_PI clockwise:YES];
-    [path addLineToPoint:CGPointMake(GAMEBOARD_RADIUS, 0)];
+    [path moveToPoint:CGPointMake(kGameBoardRadius, 0)];
+    [path addArcWithCenter:CGPointMake(0, 0) radius:kGameBoardRadius startAngle:0 endAngle:M_PI*3/2 clockwise:YES];
+    [path addLineToPoint:CGPointMake(0, height-kGameBoardRadius)];
+    [path addArcWithCenter:CGPointMake(0, height) radius:kGameBoardRadius startAngle:M_PI/2 endAngle:0 clockwise:YES];
+    [path addLineToPoint:CGPointMake(width-kGameBoardRadius, height)];
+    [path addArcWithCenter:CGPointMake(width, height) radius:kGameBoardRadius startAngle:M_PI endAngle:M_PI/2 clockwise:YES];
+    [path addLineToPoint:CGPointMake(width, kGameBoardRadius)];
+    [path addArcWithCenter:CGPointMake(width, 0) radius:kGameBoardRadius startAngle:M_PI*3/2 endAngle:M_PI clockwise:YES];
+    [path addLineToPoint:CGPointMake(kGameBoardRadius, 0)];
     [path closePath];
     return path;
 }
@@ -229,19 +227,19 @@
     ((NJItemControl *)_itemControls[0]).position = CGPointMake(0+xDiff, 0+yDiff);
     ((NJItemControl *)_itemControls[0]).zRotation = - M_PI / 4;
     ((NJItemControl *)_itemControls[0]).color = kNinjaOneColor;
-    ((NJItemControl *)_itemControls[0]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJItemControl *)_itemControls[0]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-yDiff, xDiff);
     ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
     ((NJItemControl *)_itemControls[1]).color = kNinjaTwoColor;
-    ((NJItemControl *)_itemControls[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJItemControl *)_itemControls[1]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
     ((NJItemControl *)_itemControls[2]).zRotation = 3* M_PI / 4;
     ((NJItemControl *)_itemControls[2]).color = kNinjaThreeColor;
-    ((NJItemControl *)_itemControls[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJItemControl *)_itemControls[2]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJItemControl *)_itemControls[3]).position = CGPointMake(yDiff, 768-xDiff);
     ((NJItemControl *)_itemControls[3]).zRotation = -3*M_PI / 4;
     ((NJItemControl *)_itemControls[3]).color = kNinjaFourColor;
-    ((NJItemControl *)_itemControls[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJItemControl *)_itemControls[3]).colorBlendFactor = kButtonColorBlendFactor;
     
     if (!_buttons) {
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
@@ -269,22 +267,22 @@
     ((NJButton*)_buttons[0]).position = CGPointMake(yDiff, xDiff);
     ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
     ((NJButton*)_buttons[0]).color = kNinjaOneColor;
-    ((NJButton*)_buttons[0]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJButton*)_buttons[0]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJButton*)_buttons[0]).player.color = kNinjaOneColor;
     ((NJButton*)_buttons[1]).position = CGPointMake(1024-xDiff, yDiff);
     ((NJButton*)_buttons[1]).zRotation = M_PI/4;
     ((NJButton*)_buttons[1]).color = kNinjaTwoColor;
-    ((NJButton*)_buttons[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJButton*)_buttons[1]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJButton*)_buttons[1]).player.color = kNinjaTwoColor;
     ((NJButton*)_buttons[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
     ((NJButton*)_buttons[2]).zRotation = M_PI/4*3;
     ((NJButton*)_buttons[2]).color = kNinjaThreeColor;
-    ((NJButton*)_buttons[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJButton*)_buttons[2]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJButton*)_buttons[2]).player.color = kNinjaThreeColor;
     ((NJButton*)_buttons[3]).position = CGPointMake(xDiff, 768-yDiff);
     ((NJButton*)_buttons[3]).zRotation = -M_PI/4*3;
     ((NJButton*)_buttons[3]).color = kNinjaFourColor;
-    ((NJButton*)_buttons[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJButton*)_buttons[3]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJButton*)_buttons[3]).player.color = kNinjaFourColor;
 }
 
@@ -342,7 +340,7 @@
     }
     if (player.shouldBlendCharacter) {
         ninja.color = player.color;
-        ninja.colorBlendFactor = 0.6;
+        ninja.colorBlendFactor = kNinjaColorBlendFactor;
     }
     player.ninja = ninja;
     
@@ -702,7 +700,7 @@
 }
 
 - (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {
-    button.colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    button.colorBlendFactor = kButtonColorBlendFactor;
     NSArray *ninjas = self.ninjas;
     if ([ninjas count] < 1) {
         return;
@@ -727,7 +725,7 @@
 
 - (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
 {
-    control.colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    control.colorBlendFactor = kButtonColorBlendFactor;
     NSArray *ninjas = self.ninjas;
     if ([ninjas count]<1) {
         return ;
