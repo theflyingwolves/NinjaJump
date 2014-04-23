@@ -7,6 +7,7 @@
 //
 
 #import "NJMultiplayerLayeredCharacterScene.h"
+#import "NJItemEffect.h"
 #import "NJResponsibleBG.h"
 #import <SpriteKit/SpriteKit.h>
 #import <AVFoundation/AVFoundation.h>
@@ -26,10 +27,10 @@ typedef enum : uint8_t {
 
 /* Bitmask for the different entities with physics bodies. */
 typedef enum : uint8_t {
-    NJColliderTypeCharacter = 1,
-    NJColliderTypeItemEffectShuriken = 2,
-    NJColliderTypeWoodPile = 4,
-    NJColliderTypeItemEffectMine = 8
+    NJColliderTypeCharacter = 0x1<<0,
+    NJColliderTypeItemEffectShuriken = 0x1<<1,
+    NJColliderTypeWoodPile = 0x1<<2,
+    NJColliderTypeItemEffectMine = 0x1<<3
 } NJColliderType;
 
 #define kMinTimeInterval (1.0f / 60.0f)
@@ -51,35 +52,25 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @end
 
 @interface NJMultiplayerLayeredCharacterScene:SKScene <NJItemEffectSceneDelegate>
-
-@property (nonatomic, readwrite) NSMutableArray *ninjas;
-@property (nonatomic, readwrite) NSMutableArray *woodPiles;// all the wood piles in the scene
-@property (nonatomic ,readwrite) NSMutableArray *items;
-@property (nonatomic, readwrite) NSMutableArray *players;          // array of player objects or NSNull for no player
-
-@property (nonatomic, readwrite) SKNode *world;                    // root node to which all game renderables are attached
-@property (nonatomic) NSMutableArray *layers;                      // different layer nodes within the world
-@property (nonatomic) NSMutableArray *buttons;
-@property (nonatomic) NSMutableArray *itemControls;
-@property (nonatomic) NSMutableArray *hpBars;
-@property (nonatomic) SKSpriteNode *continueButton;
-@property (nonatomic) NJResponsibleBG *clickableArea;
-
-@property (nonatomic) SKSpriteNode *victoryBackground;
-
-@property (nonatomic) NSTimeInterval pileDecreaseTime;
-@property (nonatomic) NSTimeInterval lastUpdateTimeInterval; // the previous update: loop time interval
+@property (nonatomic) NSMutableArray *ninjas;                   // array of ninja character objects in the scene
+@property (nonatomic) NSMutableArray *woodPiles;                // array of woodpile object in the scene
+@property (nonatomic) NSMutableArray *items;                    // array of special item objects currently in the scene
+@property (nonatomic) NSMutableArray *players;                  // array of player objects
+@property (nonatomic) SKNode *world;                            // root node to which all game renderables are attached
+@property (nonatomic) NSMutableArray *layers;                   // different layer nodes within the world
+@property (nonatomic) NSMutableArray *buttons;                  // array of jump button objects
+@property (nonatomic) NSMutableArray *itemControls;             // array of use item button objects
+@property (nonatomic) NSMutableArray *hpBars;                   // array of health point bar objects
+@property (nonatomic) SKSpriteNode *continueButton;             // continue button that presents after game ends
+@property (nonatomic) NJResponsibleBG *clickableArea;           // an invisible rectangle area at the center of the scene
+@property (nonatomic) SKSpriteNode *victoryBackground;          // vicotry background node
+@property (nonatomic) NSTimeInterval pileDecreaseTime;          // the previous a wood pile decresed time interval
+@property (nonatomic) NSTimeInterval lastUpdateTimeInterval;    // the previous update: loop time interval
+@property (nonatomic) NSArray *musicName;                       // array of music names
+@property (nonatomic) AVAudioPlayer *music;                     // an audio player
+@property (nonatomic) BOOL isBossLost;                          // indicates whether boss player loses in 1 vs 3 mode
+@property (nonatomic) BOOL doAddItemRandomly;                   // indicates whether add item randomly to the scene
 @property (nonatomic) id<NJMultiplayerLayeredCharacterSceneDelegate> delegate;
-@property BOOL doAddItemRandomly;
-
-@property (nonatomic) NSArray *musicName;
-@property (nonatomic) AVAudioPlayer *music;
-@property (nonatomic) BOOL isBossLost;
-
-- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
-
-// All sprites in the scene should be added through this method to ensure they are placed in the correct world layer.
-- (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer;
 
 /* Start loading all the shared assets for the scene in the background. This method calls +loadSceneAssets
  on a background queue, then calls the callback handler on the main thread. */
@@ -88,23 +79,28 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 /* Overridden by subclasses to load scene-specific assets. */
 + (void)loadSceneAssets;
 
+/* Designated initializer. */
+- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
+
+/* All sprites in the scene should be added through this method to ensure they are placed in the correct world layer. */
+- (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer;
+
 /* Overridden by subclasses to update the scene - called once per frame. */
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast;
 
-/* Heroes and players. */
+/* Adds a ninja the a specific player. */
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player;
 
+/* Returns a random woodpile to spawn for ninja or item */
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja;
 
-/* for the use of tutorial scene */
+/* for the use of tutorial scene. */
 - (void) activateSelectedPlayersWithPreSetting;
 
+/* resets the background music. */
 - (void)resetMusic;
 
-/* the following two methods are defined in NJScroll delegate
-    they are declared here in order to be used by tutorial scene
-*/
+/* the following two methods are defined in NJScroll delegate they are declared here in order to be used by tutorial scene. */
 - (NSArray *)getAffectedTargetsWithRange:(NJRange *)range;
 - (NSArray *)getAffectedPilesWithRange:(NJRange *)range;
-
 @end

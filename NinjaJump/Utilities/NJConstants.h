@@ -11,11 +11,16 @@
  */
 
 #pragma mark - Game World
+
+#define GameWorld @"world"
 #define kTimeAddItemToBoss 5.0f
 #define NJWoodPileInitialImpluse 3
 #define MINIMUM_VELOCITY 1
 #define FRAME CGRectMake(1024/2, 768/2, 1024, 768)
 #define kBackgroundFileName @"lakeMoonBG"
+#define NJButtonJump @"jumpButton"
+#define NJButtonItemControl @"itemControl"
+#define NJWoodPileImageName @"woodPile"
 
 #pragma mark - Ninja Characters
 #define FULL_HP 100

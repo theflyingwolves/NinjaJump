@@ -29,8 +29,6 @@
 #import "NJMedikit.h"
 #import "NJVictoryRestart.h"
 
-#import "NJItemEffect.h"
-
 
 @interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate,NJCharacterDelegate>
 
@@ -39,24 +37,25 @@
 @implementation NJMultiplayerLayeredCharacterScene
 
 {
-    NJGameMode _gameMode;
-    NSUInteger _bossIndex;
-    BOOL isSelectionInited;
-    BOOL isFirstTimeInitialized;
-    BOOL isGameEnded;
-    BOOL shouldPileStartDecreasing;
-    NSUInteger kNumberOfFramesToSpawnItem;
-    BOOL hasBeenPaused;
+    NJGameMode _gameMode;                           // game mode
+    NSUInteger _bossIndex;                          // indicates boss player in 1 vs 3 mode. Index range {0,...,kNumPlayer-1}
+    BOOL isSelectionInited;                         // indicates whether selection system has been initialized
+    BOOL isFirstTimeInitialized;                    // indicates whether selection system initialized for the first time
+    BOOL isGameEnded;                               // indicates whether the game ends
+    BOOL shouldPileStartDecreasing;                 // indicates whether woodpiles should start decreasing periodically
+    NSUInteger kNumberOfFramesToSpawnItem;          // rate for items to spawn
+    BOOL hasBeenPaused;                             // indicates whether game is paused
 }
 
 #pragma mark - Initialization
+/* Designated initializer. Initializes with a size and a game mode. */
 - (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode
 {
     self = [self initWithSize:size];
     if (self) {
         _gameMode = mode;
         _world = [[SKNode alloc] init];
-        [_world setName:@"world"];
+        [_world setName:GameWorld];
         [self initLayers];
         [self initPlayers];
         [self addChild:_world];
@@ -69,7 +68,6 @@
         shouldPileStartDecreasing = NO;
         self.doAddItemRandomly = YES;
         [self buildWorld];
-
         if (mode != NJGameModeTutorial) {
             /* If it is not in tutorial mode, initializes the selection system and plays the music specific to non-tutorial mode. (Tutorial mode has its own catebory of background musics defined.) */
             self.musicName = [NSArray arrayWithObjects:kMusicPatrit, kMusicWater, kMusicShadow, kMusicSun, kMusicFunny, nil];
@@ -80,46 +78,7 @@
     return self;
 }
 
-- (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer
-{
-    SKNode *layerNode = self.layers[layer];
-    [layerNode addChild:node];
-}
-
-- (void)addEffect:(NJItemEffect*)effect
-{
-    [self addNode:effect atWorldLayer:NJWorldLayerCharacter];
-}
-
-- (void)configurePhysicsBody
-{
-    //self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-    UIBezierPath *path = [self drawGameAreaBoarder];
-    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:path.CGPath];
-    self.physicsBody.usesPreciseCollisionDetection = YES;
-    self.physicsBody.friction = 0.0;
-    self.physicsBody.linearDamping = 0.0;
-    self.physicsBody.restitution = 1.0;
-}
-
-- (UIBezierPath *)drawGameAreaBoarder
-{
-    float width = CGRectGetWidth(self.frame);
-    float height = CGRectGetHeight(self.frame);
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(kGameBoardRadius, 0)];
-    [path addArcWithCenter:CGPointMake(0, 0) radius:kGameBoardRadius startAngle:0 endAngle:M_PI*3/2 clockwise:YES];
-    [path addLineToPoint:CGPointMake(0, height-kGameBoardRadius)];
-    [path addArcWithCenter:CGPointMake(0, height) radius:kGameBoardRadius startAngle:M_PI/2 endAngle:0 clockwise:YES];
-    [path addLineToPoint:CGPointMake(width-kGameBoardRadius, height)];
-    [path addArcWithCenter:CGPointMake(width, height) radius:kGameBoardRadius startAngle:M_PI endAngle:M_PI/2 clockwise:YES];
-    [path addLineToPoint:CGPointMake(width, kGameBoardRadius)];
-    [path addArcWithCenter:CGPointMake(width, 0) radius:kGameBoardRadius startAngle:M_PI*3/2 endAngle:M_PI clockwise:YES];
-    [path addLineToPoint:CGPointMake(kGameBoardRadius, 0)];
-    [path closePath];
-    return path;
-}
-
+/* Intializes different layers in game world. */
 - (void)initLayers
 {
     _layers = [NSMutableArray arrayWithCapacity:kWorldLayerCount];
@@ -127,11 +86,11 @@
         SKNode *layer = [[SKNode alloc] init];
         layer.zPosition = i - kWorldLayerCount;
         [_world addChild:layer];
-        [(NSMutableArray *)_layers addObject:layer];
+        [_layers addObject:layer];
     }
 }
 
-
+/* Intializes players in the game. */
 - (void)initPlayers
 {
     _players = [[NSMutableArray alloc] initWithCapacity:kNumPlayers];
@@ -146,11 +105,11 @@
         }else{
             player.teamId = (NJTeamId)i;
         }
-        [(NSMutableArray *)_players addObject:player];
+        [_players addObject:player];
     }
 }
 
-// Initialize the frequency of occurrence for special items according to the mode selected
+/* Initializes frequency of occurrences for special items according to the mode selected. */
 - (void)initItemFrequency
 {
     switch (_gameMode) {
@@ -169,13 +128,23 @@
     }
 }
 
-// Initialize the HP Bars for each player. This is a node where the amount of health points of a ninja is reflected on the screen
+/* Configures physics body for the scene. */
+- (void)configurePhysicsBody
+{
+    UIBezierPath *path = [self drawGameAreaBoarder];
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:path.CGPath];
+    self.physicsBody.usesPreciseCollisionDetection = YES;
+    self.physicsBody.friction = 0.0;
+    self.physicsBody.linearDamping = 0.0;
+    self.physicsBody.restitution = 1.0;
+}
+
+/* Initializes the HP Bars for each player. This is a node where the amount of health points of a ninja is reflected on the screen. */
 - (void)initHpBars
 {
     if (!_hpBars) {
         _hpBars = [NSMutableArray arrayWithCapacity:kNumPlayers];
     }
-    
     for (int i=0; i < kNumPlayers; i++) {
         CGPoint position = [self determinePositionOfHpBarIndexedBy:i];
         NJPlayer *player = self.players[i];
@@ -185,7 +154,6 @@
             bar.zRotation = angle;
             [_hpBars addObject:bar];
         }
-
         if (!player.isDisabled) {
             // Only add hp bar for players that are enabled
             if (!((NJHPBar *)_hpBars[i]).parent) {
@@ -197,102 +165,13 @@
     }
 }
 
-- (void)initButtonsAndItemControls
-{
-    double xDiff = 40, yDiff=90;
-
-    if (!_itemControls) {
-        _itemControls = [NSMutableArray arrayWithCapacity:kNumPlayers];
-    }
-    
-    for (int i=0; i<kNumPlayers; i++) {
-        NJPlayer *player = (NJPlayer *)self.players[i];
-        
-        if ([_itemControls count]<kNumPlayers) {
-            NJItemControl *control = [[NJItemControl alloc] initWithImageNamed:@"itemControl"];
-            control.delegate = self;
-            control.player = self.players[i];
-            [_itemControls addObject:control];
-        }
-        
-        if (!player.isDisabled) {
-            if (!((NJItemControl *)_itemControls[i]).parent) {
-                [self addChild:_itemControls[i]];
-            }
-        }else{
-            [(NJItemControl *)_itemControls[i] removeFromParent];
-        }
-    }
-    
-    ((NJItemControl *)_itemControls[0]).position = CGPointMake(0+xDiff, 0+yDiff);
-    ((NJItemControl *)_itemControls[0]).zRotation = - M_PI / 4;
-    ((NJItemControl *)_itemControls[0]).color = kNinjaOneColor;
-    ((NJItemControl *)_itemControls[0]).colorBlendFactor = kButtonColorBlendFactor;
-    ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-yDiff, xDiff);
-    ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
-    ((NJItemControl *)_itemControls[1]).color = kNinjaTwoColor;
-    ((NJItemControl *)_itemControls[1]).colorBlendFactor = kButtonColorBlendFactor;
-    ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
-    ((NJItemControl *)_itemControls[2]).zRotation = 3* M_PI / 4;
-    ((NJItemControl *)_itemControls[2]).color = kNinjaThreeColor;
-    ((NJItemControl *)_itemControls[2]).colorBlendFactor = kButtonColorBlendFactor;
-    ((NJItemControl *)_itemControls[3]).position = CGPointMake(yDiff, 768-xDiff);
-    ((NJItemControl *)_itemControls[3]).zRotation = -3*M_PI / 4;
-    ((NJItemControl *)_itemControls[3]).color = kNinjaFourColor;
-    ((NJItemControl *)_itemControls[3]).colorBlendFactor = kButtonColorBlendFactor;
-    
-    if (!_buttons) {
-        _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
-    }
-    
-    for (int i = 0; i < kNumPlayers; i++) {
-        NJPlayer *player = (NJPlayer *)self.players[i];
-        
-        if ([_buttons count]<kNumPlayers) {
-            NJButton *button = [[NJButton alloc] initWithImageNamed:@"jumpButton"];
-            button.delegate = self;
-            button.player = self.players[i];
-            [_buttons addObject:button];
-        }
-        
-        if (!player.isDisabled) {
-            if (!((NJButton *)_buttons[i]).parent) {
-                [self addChild:_buttons[i]];
-            }
-        }else{
-            [(NJButton *)_buttons[i] removeFromParent];
-        }
-    }
-    
-    ((NJButton*)_buttons[0]).position = CGPointMake(yDiff, xDiff);
-    ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
-    ((NJButton*)_buttons[0]).color = kNinjaOneColor;
-    ((NJButton*)_buttons[0]).colorBlendFactor = kButtonColorBlendFactor;
-    ((NJButton*)_buttons[0]).player.color = kNinjaOneColor;
-    ((NJButton*)_buttons[1]).position = CGPointMake(1024-xDiff, yDiff);
-    ((NJButton*)_buttons[1]).zRotation = M_PI/4;
-    ((NJButton*)_buttons[1]).color = kNinjaTwoColor;
-    ((NJButton*)_buttons[1]).colorBlendFactor = kButtonColorBlendFactor;
-    ((NJButton*)_buttons[1]).player.color = kNinjaTwoColor;
-    ((NJButton*)_buttons[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
-    ((NJButton*)_buttons[2]).zRotation = M_PI/4*3;
-    ((NJButton*)_buttons[2]).color = kNinjaThreeColor;
-    ((NJButton*)_buttons[2]).colorBlendFactor = kButtonColorBlendFactor;
-    ((NJButton*)_buttons[2]).player.color = kNinjaThreeColor;
-    ((NJButton*)_buttons[3]).position = CGPointMake(xDiff, 768-yDiff);
-    ((NJButton*)_buttons[3]).zRotation = -M_PI/4*3;
-    ((NJButton*)_buttons[3]).color = kNinjaFourColor;
-    ((NJButton*)_buttons[3]).colorBlendFactor = kButtonColorBlendFactor;
-    ((NJButton*)_buttons[3]).player.color = kNinjaFourColor;
-}
-
+/* Initializes all characters in the game. */
 - (void)initCharacters
 {
     if (!_ninjas) {
         _ninjas = [NSMutableArray array];
     }
     [_ninjas removeAllObjects];
-    
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
         if (!player.isDisabled) {
@@ -302,9 +181,7 @@
             }
             NJNinjaCharacter *ninja = [self addNinjaForPlayer:player];
             [self addNode:ninja.shadow atWorldLayer:NJWorldLayerBelowCharacter];
-            
             NJPile *pile = [self spawnAtRandomPileForNinja:YES];
-            
             pile.standingCharacter = ninja;
             ninja.position = pile.position;
         }else if(player.ninja){
@@ -314,8 +191,124 @@
     }
 }
 
-#pragma mark - Heroes and Players
+/* Initializes jump buttons and item control buttons in the scene. */
+- (void)initButtonsAndItemControls
+{
+    double xDiff = 40, yDiff=90;
+    if (!_itemControls) {
+        _itemControls = [NSMutableArray arrayWithCapacity:kNumPlayers];
+    }
+    for (int i=0; i<kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        if ([_itemControls count]<kNumPlayers) {
+            NJItemControl *control = [[NJItemControl alloc] initWithImageNamed:NJButtonItemControl];
+            control.delegate = self;
+            control.player = self.players[i];
+            [_itemControls addObject:control];
+        }
+        if (!player.isDisabled) {
+            if (!((NJItemControl *)_itemControls[i]).parent) {
+                [self addChild:_itemControls[i]];
+            }
+        }else{
+            [(NJItemControl *)_itemControls[i] removeFromParent];
+        }
+    }
+    float width = CGRectGetWidth(self.frame);
+    float height = CGRectGetHeight(self.frame);
+    //configure item control buttons for players.
+    [self configureControlButton:_itemControls[0] ForPlayerIndex:0 atPosition:CGPointMake(0+xDiff, 0+yDiff) withRotation:-M_PI/4];
+    [self configureControlButton:_itemControls[1] ForPlayerIndex:1 atPosition:CGPointMake(width-yDiff, xDiff) withRotation:M_PI/4];
+    [self configureControlButton:_itemControls[2] ForPlayerIndex:2 atPosition:CGPointMake(width-xDiff, height-yDiff) withRotation:3*M_PI/4];
+    [self configureControlButton:_itemControls[3] ForPlayerIndex:3 atPosition:CGPointMake(yDiff, height-xDiff) withRotation:-3*M_PI/4];
+    if (!_buttons) {
+        _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
+    }
+    for (int i = 0; i < kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        if ([_buttons count]<kNumPlayers) {
+            NJButton *button = [[NJButton alloc] initWithImageNamed:NJButtonJump];
+            button.delegate = self;
+            button.player = self.players[i];
+            [_buttons addObject:button];
+        }
+        if (!player.isDisabled) {
+            if (!((NJButton *)_buttons[i]).parent) {
+                [self addChild:_buttons[i]];
+            }
+        }else{
+            [(NJButton *)_buttons[i] removeFromParent];
+        }
+    }
+    //configure jump buttons for players
+    [self configureControlButton:_buttons[0] ForPlayerIndex:0 atPosition:CGPointMake(yDiff, xDiff) withRotation:-M_PI/4];
+    [self configureControlButton:_buttons[1] ForPlayerIndex:1 atPosition:CGPointMake(width-xDiff, yDiff) withRotation:M_PI/4];
+    [self configureControlButton:_buttons[2] ForPlayerIndex:2 atPosition:CGPointMake(width-yDiff, height-xDiff) withRotation:3*M_PI/4];
+    [self configureControlButton:_buttons[3] ForPlayerIndex:3 atPosition:CGPointMake(xDiff, height-yDiff) withRotation:-3*M_PI/4];
+}
 
+/* Configures a jump or item control button. */
+- (void)configureControlButton:(SKSpriteNode *)button ForPlayerIndex:(int)index atPosition:(CGPoint)position withRotation:(CGFloat)rotation
+{
+    SKSpriteNode *btn;
+    if ([button isKindOfClass:[NJButton class]]) {
+        btn = _buttons[index];
+        switch (index) {
+            case 0:
+                ((NJButton*)btn).player.color = kNinjaOneColor;
+                break;
+            case 1:
+                ((NJButton*)btn).player.color = kNinjaTwoColor;
+                break;
+            case 2:
+                ((NJButton*)btn).player.color = kNinjaThreeColor;
+                break;
+            case 3:
+                ((NJButton*)btn).player.color = kNinjaFourColor;
+                break;
+            default:
+                break;
+        }
+    } else {
+        btn = _itemControls[index];
+    }
+    btn.position = position;
+    btn.zRotation = rotation;
+    switch (index) {
+        case 0:
+            btn.color = kNinjaOneColor;
+            break;
+        case 1:
+            btn.color = kNinjaTwoColor;
+            break;
+        case 2:
+            btn.color = kNinjaThreeColor;
+            break;
+        case 3:
+            btn.color = kNinjaFourColor;
+            break;
+        default:
+            break;
+    }
+    btn.colorBlendFactor = kButtonColorBlendFactor;
+}
+
+#pragma mark - Layers
+/* Adds a node on a specific layer in the world. */
+- (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer
+{
+    SKNode *layerNode = self.layers[layer];
+    [layerNode addChild:node];
+}
+
+/* Adds an effect node on a specific layer in the world. */
+- (void)addEffect:(NJItemEffect*)effect
+{
+    [self addNode:effect atWorldLayer:NJWorldLayerCharacter];
+}
+
+#pragma mark - Heroes and Players
+/* Adds a ninja character for a player. */
 - (NJNinjaCharacter *)addNinjaForPlayer:(NJPlayer *)player
 {
     if (player.ninja && !player.ninja.dying) {
@@ -358,24 +351,50 @@
     [self addClickableArea];
 }
 
+- (void)addWoodPiles
+{
+    if (!_woodPiles) {
+        _woodPiles = [NSMutableArray array];
+    }
+    
+    CGFloat r= 230.0f;
+    NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(350, 220)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 500)], [NSValue valueWithCGPoint:CGPointMake(400, 350)], [NSValue valueWithCGPoint:CGPointMake(300, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(200, 300)], [NSValue valueWithCGPoint:CGPointMake(260, 410)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 610)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
+    //add in the spawn pile of ninjas
+    for (NSValue *posValue in pilePos){
+        CGPoint pos = [posValue CGPointValue];
+        NJPile *pile = [[NJPile alloc] initWithTextureNamed:NJWoodPileImageName atPosition:pos withSpeed:0 angularSpeed:3 direction:arc4random()%2];
+        [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
+        [self.woodPiles addObject:pile];
+        CGFloat ang = NJRandomAngle();
+        if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
+            [pile.physicsBody applyImpulse:CGVectorMake(NJWoodPileInitialImpluse*sinf(ang), NJWoodPileInitialImpluse*cosf(ang))];
+        }
+    }
+}
+
+- (void)addBackground
+{
+    SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:kBackgroundFileName];
+    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addNode:background atWorldLayer:NJWorldLayerGround];
+}
+
+#pragma mark - Items
 - (void)addItem{
     if (!_items) {
         _items = [NSMutableArray array];
     }
-    
     NJPile *pile = [self spawnAtRandomPileForNinja:NO];
     if (!pile || [self.items count]>=3 ) {
         return;
     }
     CGPoint position = pile.position;
     NJSpecialItem *item;
-    
     if (_gameMode == NJGameModeBeginner) {
         item = [self generateRandomItemForBeginnerMode];
     } else {
         item = [self generateRandomItem];
     }
-    
     if (item != nil) {
         item.myParent = self;
         pile.itemHolded = item;
@@ -401,7 +420,6 @@
         default:
         break;
     }
-
     return item;
 }
 
@@ -449,46 +467,7 @@
     return item;
 }
 
-- (BOOL)hasItemOnPosition:(CGPoint)position{
-    for (NJSpecialItem *item in self.items){
-        if (CGPointEqualToPointApprox(position, item.position)) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (void)addWoodPiles
-{
-    if (!_woodPiles) {
-        _woodPiles = [NSMutableArray array];
-    }
-    
-    CGFloat r= 230.0f;
-    NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(350, 220)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 500)], [NSValue valueWithCGPoint:CGPointMake(400, 350)], [NSValue valueWithCGPoint:CGPointMake(300, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(200, 300)], [NSValue valueWithCGPoint:CGPointMake(260, 410)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 610)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
-    
-    //add in the spawn pile of ninjas
-    for (NSValue *posValue in pilePos){
-        CGPoint pos = [posValue CGPointValue];
-        NJPile *pile = [[NJPile alloc] initWithTextureNamed:@"woodPile" atPosition:pos withSpeed:0 angularSpeed:3 direction:arc4random()%2];
-        [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
-        [self.woodPiles addObject:pile];
-        CGFloat ang = NJRandomAngle();
-        if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
-            [pile.physicsBody applyImpulse:CGVectorMake(NJWoodPileInitialImpluse*sinf(ang), NJWoodPileInitialImpluse*cosf(ang))];
-        }
-    }
-}
-
-- (void)addBackground
-{
-    SKSpriteNode *background = [[SKSpriteNode alloc] initWithImageNamed:kBackgroundFileName];
-    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    [self addNode:background atWorldLayer:NJWorldLayerGround];
-}
-
 #pragma mark - Loop Update
-
 - (void)update:(NSTimeInterval)currentTime {
     if (!hasBeenPaused) {
         // Handle time delta.
@@ -522,7 +501,7 @@
     [self updatePlayersSinceLastUpdate:timeSinceLast];
 }
 
-//force the objects with wrong position (due to physics world) back to the right position
+/* Forces the objects with wrong position (due to physics world) back to the right position */
 - (void)didSimulatePhysics
 {
     for (NJPile *pile in _woodPiles) {
@@ -543,7 +522,7 @@
     }
 }
 
-#pragma mark - game ending test
+#pragma mark - Game Ending Test
 - (bool)isGameEnded
 {
     NSMutableArray *livingNinjas = [NSMutableArray array];
@@ -665,16 +644,21 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         // Load the shared assets in the background.
         [self loadSceneAssets];
-        
         if (!handler) {
             return;
         }
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             // Call the completion handler back on the main queue.
             handler();
         });
     });
+}
+
++ (void)loadSceneAssets
+{
+    [NJNinjaCharacterNormal loadSharedAssets];
+    [NJNinjaCharacterBoss loadSharedAssets];
+    [NJPlayer loadSharedAssets];
 }
 
 #pragma mark - Event Handling
@@ -698,55 +682,6 @@
             [self restartGame];
         }];
     }
-}
-
-- (void)button:(NJButton *)button touchesBegan:(NSSet *)touches {
-    button.colorBlendFactor = 0.0;
-}
-
-- (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {
-    button.colorBlendFactor = kButtonColorBlendFactor;
-    NSArray *ninjas = self.ninjas;
-    if ([ninjas count] < 1) {
-        return;
-    }
-    
-    NJPile *pile = [self woodPileToJump:button.player.ninja];
-    if (pile && !button.player.isJumping && button.player.ninja.frozenCount == 0) {
-        if (button.player.jumpCooldown >= kJumpCooldownTime) {
-            button.player.jumpCooldown = 0;
-            button.player.fromPile = button.player.targetPile;
-            button.player.targetPile = pile;
-            button.player.jumpRequested = YES;
-            button.player.isJumping = YES;
-        }
-    }
-}
-
-- (void)itemControl:(NJItemControl *)control touchesBegan:(NSSet *)touches
-{
-    control.colorBlendFactor = 0.0;
-}
-
-- (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
-{
-    control.colorBlendFactor = kButtonColorBlendFactor;
-    NSArray *ninjas = self.ninjas;
-    if ([ninjas count]<1) {
-        return ;
-    }
-    // Use Item
-    if (control.player.ninja.frozenCount == 0) {
-        control.player.itemUseRequested = YES;
-    }
-}
-
-#pragma mark - Shared Assets
-+ (void)loadSceneAssets
-{
-    [NJNinjaCharacterNormal loadSharedAssets];
-    [NJNinjaCharacterBoss loadSharedAssets];
-    [NJPlayer loadSharedAssets];
 }
 
 #pragma mark - Pause Game
@@ -872,7 +807,6 @@
 }
 
 #pragma mark - Selection System
-
 - (void)initSelectionSystem{
     isSelectionInited = YES;
     shouldPileStartDecreasing = NO;
@@ -998,9 +932,26 @@
 }
 
 #pragma mark - Auxiliary Methods
+/* Returns the game boarder. */
+- (UIBezierPath *)drawGameAreaBoarder
+{
+    float width = CGRectGetWidth(self.frame);
+    float height = CGRectGetHeight(self.frame);
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(kGameBoardRadius, 0)];
+    [path addArcWithCenter:CGPointMake(0, 0) radius:kGameBoardRadius startAngle:0 endAngle:M_PI*3/2 clockwise:YES];
+    [path addLineToPoint:CGPointMake(0, height-kGameBoardRadius)];
+    [path addArcWithCenter:CGPointMake(0, height) radius:kGameBoardRadius startAngle:M_PI/2 endAngle:0 clockwise:YES];
+    [path addLineToPoint:CGPointMake(width-kGameBoardRadius, height)];
+    [path addArcWithCenter:CGPointMake(width, height) radius:kGameBoardRadius startAngle:M_PI endAngle:M_PI/2 clockwise:YES];
+    [path addLineToPoint:CGPointMake(width, kGameBoardRadius)];
+    [path addArcWithCenter:CGPointMake(width, 0) radius:kGameBoardRadius startAngle:M_PI*3/2 endAngle:M_PI clockwise:YES];
+    [path addLineToPoint:CGPointMake(kGameBoardRadius, 0)];
+    [path closePath];
+    return path;
+}
 
-// Determine the target wood pile according to the ninja's facing direction
-// If there is no target wood pile in the corresponding direction, return nil
+/* Determines the target wood pile according to the ninja's facing direction. If there is no target wood pile in the corresponding direction, return nil. */
 - (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja
 {
     NJPile *nearest = nil;
@@ -1032,8 +983,7 @@
     return nearest;
 }
 
-// Determine a random pile among the free ones for ninja or item to spawn at
-// Returns nil if no free ones available, return nil
+/* Determines a random pile among the free ones for ninja or item to spawn at. Returns nil if no free ones available, return nil. */
 - (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja
 {
     NSMutableArray *array = [NSMutableArray array];
@@ -1063,7 +1013,7 @@
 }
 
 
-// Remove Ninjas that are dying from being rendered in MScene and disables the control
+/* Removes Ninjas that are dying from being rendered in MScene and disables the control. */
 - (void)removeDyingNinjas
 {
     NSMutableArray *ninjasToRemove = [NSMutableArray new];
@@ -1077,7 +1027,7 @@
     [self.ninjas removeObjectsInArray:ninjasToRemove];
 }
 
-// Triggers the update loop in NJCharacter instances, which resolves the character-level animations requested inside NJCharacter and also generates random item for boss player, if in 1V3 mode.
+/* Triggers the update loop in NJCharacter instances, which resolves the character-level animations requested inside NJCharacter and also generates random item for boss player, if in 1V3 mode. */
 - (void)updateNinjaStatesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJNinjaCharacter *ninja in self.ninjas) {
@@ -1103,7 +1053,7 @@
     }
 }
 
-// Decrease the number of woodpiles, if necessary according to the result of a randome number generator
+/* Decreases the number of woodpiles, if necessary according to the result of a randome number generator. */
 - (void)decreasePilesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     _pileDecreaseTime += timeSinceLast;
@@ -1137,7 +1087,7 @@
     }
 }
 
-// Update the state of each woodpiles since last update. Checks if there is any item or ninja on it and if yes, add it to the corresponding property of a pile
+/* Update the state of each woodpiles since last update. Checks if there is any item or ninja on it and if yes, add it to the corresponding property of a pile. */
 - (void)updateWoodpilesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJPile *pile in _woodPiles) {
@@ -1187,7 +1137,7 @@
     }
 }
 
-// Update the item control reflected in the user interface
+/* Update the item control reflected in the user interface. */
 - (void)updateItemControlsSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJItemControl *control in _itemControls) {
@@ -1195,7 +1145,7 @@
     }
 }
 
-// Triggers the update loop in each of the items
+/* Triggers the update loop in each of the items. */
 - (void)updateItemsSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJSpecialItem *item in self.items){
@@ -1203,7 +1153,7 @@
     }
 }
 
-// Checks if there are any time-independent actions requested by the players. If YES, perform those actions
+/* Checks if there are any time-independent actions requested by the players. If YES, perform those actions. */
 - (void)updatePlayers
 {
     for (NJPlayer *player in self.players) {
@@ -1224,7 +1174,7 @@
     }
 }
 
-// Update the mask of the Health Point Bars to reflect the correct amount of health points left for each player
+/* Updates the mask of the Health Point Bars to reflect the correct amount of health points left for each player. */
 - (void)updateHpBars
 {
     for (NJHPBar *bar in _hpBars) {
@@ -1232,7 +1182,7 @@
     }
 }
 
-// Decide whether to spawn new items on screen, and if yes, spawn a random new item at a random woodpile selected
+/* Decides whether to spawn new items on screen, and if yes, spawn a random new item at a random woodpile selected. */
 - (void)spawnNewItems
 {
     int toSpawnItem = arc4random() % kNumberOfFramesToSpawnItem;
@@ -1241,7 +1191,7 @@
     }
 }
 
-// Checks if the game has ended and if yes, announce the winner
+/* Checks if the game has ended and if yes, announce the winner. */
 - (void)checkGameEnded
 {
     if (!isGameEnded) {
@@ -1249,7 +1199,7 @@
     }
 }
 
-// Checks if there is any piles that is too slow and if there is any, apply some impulse to speed them up
+/* Checks if there is any piles that is too slow and if there is any, apply some impulse to speed them up. */
 - (void)applyImpulseToSlowWoodpiles
 {
     if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
@@ -1270,7 +1220,7 @@
     }
 }
 
-// Remove items from being rendered once picked up
+/* Removes items from being rendered once picked up. */
 - (void)removePickedUpItem
 {
     NSMutableArray *itemsToRemove = [NSMutableArray array];
@@ -1287,7 +1237,7 @@
     }
 }
 
-// Remove items that has been existing longer than its maximum lifetime
+/* Removes items that has been existing longer than its maximum lifetime. */
 - (void)removeOutdatedItem
 {
     NSMutableArray *itemsToRemove = [NSMutableArray array];
@@ -1304,7 +1254,7 @@
     }
 }
 
-// Update the state of all players since last update
+/* Updates the state of all players since last update. */
 - (void)updatePlayersSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJPlayer *player in self.players) {
@@ -1332,7 +1282,6 @@
             }
             [player.ninja.shadow removeFromParent];
         }
-        
         
         if (player.item) {
             // If the player is holding any item and no indicator node has been added yet, add an indicator node to the player so as to indicate the range where the item being held can affect
@@ -1384,7 +1333,7 @@
     }
 }
 
-// Resolve all effects applied to the character by special items
+/* Resolve all effects applied to the character by special items. */
 - (void)resolveSpecialItemEffectsForCharacter:(NJCharacter *)character sinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     if (character.frozenCount > 0) {
@@ -1397,7 +1346,7 @@
     }
 }
 
-// Resolve jumping requests for the player specified
+/* Resolve jumping requests for the player specified. */
 - (void)resolveJumpRequestForPlayer:(NJPlayer *)player sinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     NJCharacter *ninja = player.ninja;
@@ -1486,8 +1435,51 @@
     return position;
 }
 
-#pragma mark - Delegate Methods
 
+#pragma mark - NJButtonDelegate
+- (void)button:(NJButton *)button touchesBegan:(NSSet *)touches {
+    button.colorBlendFactor = 0.0;
+}
+
+- (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {
+    button.colorBlendFactor = kButtonColorBlendFactor;
+    NSArray *ninjas = self.ninjas;
+    if ([ninjas count] < 1) {
+        return;
+    }
+    
+    NJPile *pile = [self woodPileToJump:button.player.ninja];
+    if (pile && !button.player.isJumping && button.player.ninja.frozenCount == 0) {
+        if (button.player.jumpCooldown >= kJumpCooldownTime) {
+            button.player.jumpCooldown = 0;
+            button.player.fromPile = button.player.targetPile;
+            button.player.targetPile = pile;
+            button.player.jumpRequested = YES;
+            button.player.isJumping = YES;
+        }
+    }
+}
+
+#pragma mark - NJItemControlDelegate
+- (void)itemControl:(NJItemControl *)control touchesBegan:(NSSet *)touches
+{
+    control.colorBlendFactor = 0.0;
+}
+
+- (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
+{
+    control.colorBlendFactor = kButtonColorBlendFactor;
+    NSArray *ninjas = self.ninjas;
+    if ([ninjas count]<1) {
+        return ;
+    }
+    // Use Item
+    if (control.player.ninja.frozenCount == 0) {
+        control.player.itemUseRequested = YES;
+    }
+}
+
+#pragma mark - Delegate Methods
 - (void)didBeginContact:(SKPhysicsContact *)contact {
     // Either bodyA or bodyB in the collision could be a character.
     SKNode *node = contact.bodyA.node;
