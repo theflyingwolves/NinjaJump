@@ -161,6 +161,7 @@
     spawnEffect.color = [SKColor yellowColor];
     spawnEffect.colorBlendFactor = 4.0;
     [self addChild:spawnEffect];
+    
     SKAction *blink = [SKAction sequence:@[[SKAction fadeAlphaTo:0 duration:0.25],[SKAction fadeAlphaTo:0.4 duration:0.25]]];
     [spawnEffect runAction:[SKAction sequence:@[[SKAction repeatAction:blink count:4],[SKAction removeFromParent]]]];
 }

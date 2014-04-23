@@ -370,30 +370,16 @@
         return;
     }
     CGPoint position = pile.position;
+    NJSpecialItem *item;
     
     if (_gameMode == NJGameModeBeginner) {
-        int index = arc4random() % 2;
-        NJSpecialItem *item;
-        switch (index) {
-            case 0:
-                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
-                break;
-            case 1:
-                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-                break;
-            default:
-                break;
-        }
-        if (item != nil) {
-            item.myParent = self;
-            pile.itemHolded = item;
-            [self addNode:item atWorldLayer:NJWorldLayerCharacter];
-            [_items addObject:item];
-        }
-        return;
+        item = [self generateRandomItemForBeginnerMode];
+    } else {
+        item = [self generateRandomItem];
     }
-    NJSpecialItem *item = [self generateRandomItem];
+    
     if (item != nil) {
+        item.myParent = self;
         pile.itemHolded = item;
         item.position = position;
         item.itemShadow.position = position;
@@ -401,6 +387,24 @@
         [self addNode:item.itemShadow atWorldLayer:NJWorldLayerBelowCharacter];
         [_items addObject:item];
     }
+}
+
+- (NJSpecialItem *)generateRandomItemForBeginnerMode{
+    int index = arc4random() % 2;
+    NJSpecialItem *item;
+    CGPoint position = CGPointZero;
+    switch (index) {
+        case 0:
+        item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+        break;
+        case 1:
+        item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+        break;
+        default:
+        break;
+    }
+
+    return item;
 }
 
 - (NJSpecialItem *)generateRandomItem
@@ -520,6 +524,7 @@
     [self updatePlayersSinceLastUpdate:timeSinceLast];
 }
 
+//force the objects with wrong position (due to physics world) back to the right position
 - (void)didSimulatePhysics
 {
     for (NJPile *pile in _woodPiles) {
@@ -738,6 +743,264 @@
     }
 }
 
+#pragma mark - Shared Assets
++ (void)loadSceneAssets
+{
+    [NJNinjaCharacterNormal loadSharedAssets];
+    [NJNinjaCharacterBoss loadSharedAssets];
+    [NJPlayer loadSharedAssets];
+}
+
+#pragma mark - Pause Game
+- (void)addClickableArea
+{
+    _clickableArea = [[NJResponsibleBG alloc] init];
+    _clickableArea.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addNode:_clickableArea atWorldLayer:NJWorldLayerAboveCharacter];
+    _clickableArea.delegate = self;
+}
+
+- (void)backgroundTouchesEnded:(NSSet *)touches{
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInNode:self];
+    if (touchPoint.x>120 && touchPoint.x<1024-120 && touchPoint.y>120 && touchPoint.y<768-120) {
+        [self pauseGame];
+    }
+}
+
+- (void)showPausePanel
+{
+    NJPausePanel *pausePanel = [[NJPausePanel alloc]init];
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
+    pausePanel.position = center;
+    
+    [self addChild:pausePanel];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
+}
+
+- (void)pauseGame
+{
+    self.physicsWorld.speed = 0;
+    hasBeenPaused = YES;
+    [self.music pause];
+    
+    [self showPausePanel];
+}
+
+- (void)restartOrContinue:(NSNotification *)note
+{
+    NSUInteger actionIndex = [(NSNumber *)[note object] integerValue];
+    if (!isSelectionInited && actionIndex == RESTART){
+        [self restartGame];
+    } else if(actionIndex == RESUME){
+        hasBeenPaused = NO;
+        self.physicsWorld.speed = 1;
+        [_music play];
+    } else if(actionIndex == HOME){
+        NSNotificationCenter *nc  = [NSNotificationCenter defaultCenter];
+        [nc removeObserver:self];
+        [self.music pause];
+        [self.delegate backToModeSelectionScene];
+    }
+}
+
+- (void)resetMusic {
+    if (self.music) {
+        [self.music pause];
+    }
+    int musicIndex = arc4random() % [self.musicName count];
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.musicName[musicIndex] ofType:@"mp3"]];
+    
+    NSError *error;
+    self.music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    self.music.numberOfLoops = 100;
+    [self.music play];
+}
+
+- (void)restartGame{
+    isGameEnded = NO;
+    
+    for (int i=0; i<[self.players count]; i++) {
+        NJPlayer *player = [self.players objectAtIndex:i];
+        player.isDisabled = NO;
+        [player.ninja reset];
+        player.item = nil;
+        [player.indicatorNode removeFromParent];
+        [player.ninja.shadow removeFromParent];
+        player.indicatorNode = nil;
+        player.targetPile = nil;
+        player.fromPile = nil;
+        player.isJumping = NO;
+        player.jumpRequested = NO;
+    }
+    
+    [self removeNinjas];
+    [self resetItems];
+    [self resetWoodPiles];
+    [self initSelectionSystem];
+    
+    [self resetMusic];
+}
+
+- (void)removeNinjas
+{
+    for (NJNinjaCharacter *ninja in _ninjas) {
+        [ninja removeFromParent];
+        ninja.player.ninja = nil;
+    }
+    [_ninjas removeAllObjects];
+}
+
+- (void)resetItems
+{
+    for (NJSpecialItem *item in _items) {
+        [item removeFromParent];
+        [item.itemShadow removeFromParent];
+    }
+    [_items removeAllObjects];
+}
+
+- (void)resetWoodPiles
+{
+    for (NJPile *pile in _woodPiles) {
+        [pile removeFromParent];
+    }
+    [_woodPiles removeAllObjects];
+    [self addWoodPiles];
+}
+
+#pragma mark - Selection System
+
+- (void)initSelectionSystem{
+    isSelectionInited = YES;
+    shouldPileStartDecreasing = NO;
+    hasBeenPaused = YES;
+    self.physicsWorld.speed=0;
+    
+    NJSelectionButtonSystem *selectionSystem;
+    if (_gameMode == NJGameModeOneVsThree) {
+        selectionSystem = [[NJ1V3SelectionButtonSystem alloc] init];
+    } else {
+        selectionSystem = [[NJSelectionButtonSystem alloc]init];
+    }
+    
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
+    selectionSystem.position = center;
+    [self addChild:selectionSystem];
+    
+    //add notification to actived players Index
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
+    [nc addObserver:self selector:@selector(activateSelectedPlayers:) name:kNotificationPlayerIndex object:nil];
+}
+
+- (void)activateSelectedPlayers:(NSNotification *)note{
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
+    isSelectionInited = NO;
+    
+    NSArray *activePlayerIndices = [note object];
+    if (_gameMode==NJGameModeOneVsThree) {
+        _bossIndex = [[activePlayerIndices firstObject] integerValue];
+    }
+    NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
+    for (NSNumber *index in activePlayerIndices) {
+        [fullIndices removeObject:index];
+    }
+    
+    for (NSNumber *index in fullIndices){ //inactivate unselected players
+        ((NJPlayer *)self.players[[index intValue]]).isDisabled = YES;
+    }
+    
+    for (int i=0; i<kNumPlayers; i++) {
+        NJPlayer *player = (NJPlayer *)self.players[i];
+        if(player.isDisabled){
+            [_ninjas removeObject:player.ninja];
+            [player.ninja removeFromParent];
+        }
+    }
+    
+    [self activateSelectedPlayersWithPreSetting];
+}
+
+- (void) activateSelectedPlayersWithPreSetting
+{
+    [self initHpBars];
+    [self initButtonsAndItemControls];
+    [self initCharacters];
+    if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
+        shouldPileStartDecreasing = YES;
+    }
+    if(_gameMode != NJGameModeTutorial){
+        [self fireCountdown];
+    }
+}
+
+//fire the countdown animation before starting game
+-(void)fireCountdown {
+    hasBeenPaused = NO;
+    CGRect frame = FRAME;
+    
+    SKSpriteNode *coverLayer = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:frame.size];
+    coverLayer.position = CGPointMake(frame.size.width/2, frame.size.height/2);
+    coverLayer.alpha = 0.0;
+    coverLayer.userInteractionEnabled = YES;
+    
+    SKSpriteNode *countdown1 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown1"];
+    SKSpriteNode *countdown2 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown2"];
+    SKSpriteNode *countdown3 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown3"];
+    SKSpriteNode *countdown = [[SKSpriteNode alloc]init];
+    
+    [self addChild:coverLayer];
+    [self addChild:countdown];
+    
+    countdown.position = CGPointMake(FRAME.size.width/2, FRAME.size
+                                     .height/2);
+    NSArray *countdownSeries = [NSArray arrayWithObjects:countdown3, countdown2, countdown1, nil];
+    
+    SKAction *fadeIn = [SKAction fadeInWithDuration:0.2];
+    SKAction *wait = [SKAction fadeInWithDuration:0.4];
+    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.2];
+    SKAction *removeNode = [SKAction removeFromParent];
+    
+    for(int i=0;i<3;i++){
+        SKSpriteNode *countdownNum = countdownSeries[i];
+        countdownNum.alpha = 0.0;
+        [countdown addChild:countdownNum];
+        SKAction *pending = [SKAction waitForDuration:i];
+        SKAction *appear = [SKAction sequence:@[pending,fadeIn,wait,fadeOut,removeNode]];
+        [countdownNum runAction:appear];
+    }
+    
+    [self performSelector:@selector(startGame:) withObject:coverLayer afterDelay:3.0];
+}
+
+- (void)startGame:(SKSpriteNode *)cover
+{
+    SKAction *fadeIn = [SKAction fadeInWithDuration:0.1];
+    SKAction *wait = [SKAction fadeInWithDuration:0.3];
+    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.1];
+    SKAction *removeNode = [SKAction removeFromParent];
+    SKAction *appear = [SKAction sequence:@[fadeIn,wait,fadeOut,removeNode]];
+    
+    SKSpriteNode *startNote = [SKSpriteNode spriteNodeWithImageNamed:@"start"];
+    startNote.position = CGPointMake(1024/2, 768/2);
+    [self addChild:startNote];
+    
+    [startNote runAction:appear completion:^{
+        [cover removeFromParent];
+    }];
+    self.physicsWorld.speed = 1.0;
+}
+
+#pragma mark - Auxiliary Methods
+
 // Determine the target wood pile according to the ninja's facing direction
 // If there is no target wood pile in the corresponding direction, return nil
 - (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja
@@ -801,248 +1064,7 @@
     return ((NJPile*)array[index]);
 }
 
-#pragma mark - Shared Assets
-+ (void)loadSceneAssets
-{
-    [NJNinjaCharacterNormal loadSharedAssets];
-    [NJNinjaCharacterBoss loadSharedAssets];
-    [NJPlayer loadSharedAssets];
-}
 
-#pragma mark - Pause Game
-- (void)addClickableArea
-{
-    _clickableArea = [[NJResponsibleBG alloc] init];
-    _clickableArea.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    [self addNode:_clickableArea atWorldLayer:NJWorldLayerAboveCharacter];
-    _clickableArea.delegate = self;
-}
-
-- (void)backgroundTouchesEnded:(NSSet *)touches{
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInNode:self];
-    if (touchPoint.x>120 && touchPoint.x<1024-120 && touchPoint.y>120 && touchPoint.y<768-120) {
-        [self pauseGame];
-    }
-}
-
-- (void)showPausePanel
-{
-    NJPausePanel *pausePanel = [[NJPausePanel alloc]init];
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
-    pausePanel.position = center;
-    [self addChild:pausePanel];
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
-}
-
-- (void)pauseGame
-{
-    self.physicsWorld.speed = 0;
-    hasBeenPaused = YES;
-    [self.music pause];
-    
-    [self showPausePanel];
-}
-
-- (void)restartOrContinue:(NSNotification *)note
-{
-    NSUInteger actionIndex = [(NSNumber *)[note object] integerValue];
-    if (!isSelectionInited && actionIndex == RESTART){
-        [self restartGame];
-    } else if(actionIndex == RESUME){
-        hasBeenPaused = NO;
-        self.physicsWorld.speed = 1;
-        [_music play];
-    } else if(actionIndex == HOME){
-        NSNotificationCenter *nc  = [NSNotificationCenter defaultCenter];
-        [nc removeObserver:self];
-        [self.music pause];
-        [self.delegate backToModeSelectionScene];
-    }
-}
-
-- (void)resetMusic {
-    if (self.music) {
-        [self.music pause];
-    }
-    int musicIndex = arc4random() % [self.musicName count];
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.musicName[musicIndex] ofType:@"mp3"]];
-    
-    NSError *error;
-    self.music = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-    self.music.numberOfLoops = 100;
-    [self.music play];
-}
-
-- (void)restartGame{
-    isGameEnded = NO;
-    for (int i=0; i<[self.players count]; i++) {
-        NJPlayer *player = [self.players objectAtIndex:i];
-        player.isDisabled = NO;
-        [player.ninja reset];
-        player.item = nil;
-        [player.indicatorNode removeFromParent];
-        [player.ninja.shadow removeFromParent];
-        player.indicatorNode = nil;
-        player.targetPile = nil;
-        player.fromPile = nil;
-        player.isJumping = NO;
-        player.jumpRequested = NO;
-    }
-    [self removeNinjas];
-    [self resetItems];
-    [self resetWoodPiles];
-    [self initSelectionSystem];
-    
-    [self resetMusic];
-}
-
-- (void)removeNinjas
-{
-    for (NJNinjaCharacter *ninja in _ninjas) {
-        [ninja removeFromParent];
-        ninja.player.ninja = nil;
-    }
-    [_ninjas removeAllObjects];
-}
-
-- (void)resetItems
-{
-    for (NJSpecialItem *item in _items) {
-        [item removeFromParent];
-        [item.itemShadow removeFromParent];
-    }
-    [_items removeAllObjects];
-}
-
-- (void)resetWoodPiles
-{
-    for (NJPile *pile in _woodPiles) {
-        [pile removeFromParent];
-    }
-    [_woodPiles removeAllObjects];
-    [self addWoodPiles];
-}
-
-#pragma mark - Selection System
-
-- (void)initSelectionSystem{
-    isSelectionInited = YES;
-    shouldPileStartDecreasing = NO;
-    hasBeenPaused = YES;
-    self.physicsWorld.speed=0;
-    NJSelectionButtonSystem *selectionSystem = nil;
-    if (_gameMode == NJGameModeOneVsThree) {
-        selectionSystem = [[NJ1V3SelectionButtonSystem alloc] init];
-    } else {
-        selectionSystem = [[NJSelectionButtonSystem alloc]init];
-    }
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
-    selectionSystem.position = center;
-    [self addChild:selectionSystem];
-    
-    //add notification to actived players Index
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
-    [nc addObserver:self selector:@selector(activateSelectedPlayers:) name:kNotificationPlayerIndex object:nil];
-}
-
-- (void)activateSelectedPlayers:(NSNotification *)note{
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
-    isSelectionInited = NO;
-    NSArray *activePlayerIndices = [note object];
-    if (_gameMode==NJGameModeOneVsThree) {
-        _bossIndex = [[activePlayerIndices firstObject] integerValue];
-    }
-    NSMutableArray *fullIndices = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
-    for (NSNumber *index in activePlayerIndices) {
-        [fullIndices removeObject:index];
-    }
-    
-    for (NSNumber *index in fullIndices){ //inactivate unselected players
-        ((NJPlayer *)self.players[[index intValue]]).isDisabled = YES;
-    }
-    
-    for (int i=0; i<kNumPlayers; i++) {
-        NJPlayer *player = (NJPlayer *)self.players[i];
-        if(player.isDisabled){
-            [_ninjas removeObject:player.ninja];
-            [player.ninja removeFromParent];
-        }
-    }
-    
-    [self activateSelectedPlayersWithPreSetting];
-}
-
-- (void) activateSelectedPlayersWithPreSetting
-{
-    [self initHpBars];
-    [self initButtonsAndItemControls];
-    [self initCharacters];
-    if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
-        shouldPileStartDecreasing = YES;
-    }
-    if(_gameMode != NJGameModeTutorial){
-        [self fireCountdown];
-    }
-}
-
-//fire the countdown animation before starting game
--(void)fireCountdown {
-    hasBeenPaused = NO;
-    CGRect frame = FRAME;
-    SKSpriteNode *coverLayer = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:frame.size];
-    coverLayer.position = CGPointMake(frame.size.width/2, frame.size.height/2);
-    coverLayer.alpha = 0.0;
-    coverLayer.userInteractionEnabled = YES;
-    SKSpriteNode *countdown1 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown1"];
-    SKSpriteNode *countdown2 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown2"];
-    SKSpriteNode *countdown3 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown3"];
-    SKSpriteNode *countdown = [[SKSpriteNode alloc]init];
-    [self addChild:coverLayer];
-    [self addChild:countdown];
-    countdown.position = CGPointMake(FRAME.size.width/2, FRAME.size
-                                     .height/2);
-    NSArray *countdownSeries = [NSArray arrayWithObjects:countdown3, countdown2, countdown1, nil];
-    SKAction *fadeIn = [SKAction fadeInWithDuration:0.2];
-    SKAction *wait = [SKAction fadeInWithDuration:0.4];
-    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.2];
-    SKAction *removeNode = [SKAction removeFromParent];
-    for(int i=0;i<3;i++){
-        SKSpriteNode *countdownNum = countdownSeries[i];
-        countdownNum.alpha = 0.0;
-        [countdown addChild:countdownNum];
-        SKAction *pending = [SKAction waitForDuration:i];
-        SKAction *appear = [SKAction sequence:@[pending,fadeIn,wait,fadeOut,removeNode]];
-        [countdownNum runAction:appear];
-    }
-    [self performSelector:@selector(startGame:) withObject:coverLayer afterDelay:3.0];
-}
-
-- (void)startGame:(SKSpriteNode *)cover
-{
-    SKAction *fadeIn = [SKAction fadeInWithDuration:0.1];
-    SKAction *wait = [SKAction fadeInWithDuration:0.3];
-    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.1];
-    SKAction *removeNode = [SKAction removeFromParent];
-    SKAction *appear = [SKAction sequence:@[fadeIn,wait,fadeOut,removeNode]];
-    SKSpriteNode *startNote = [SKSpriteNode spriteNodeWithImageNamed:@"start"];
-    startNote.position = CGPointMake(1024/2, 768/2);
-    [self addChild:startNote];
-    [startNote runAction:appear completion:^{
-        [cover removeFromParent];
-    }];
-    self.physicsWorld.speed = 1.0;
-}
-
-#pragma mark - Auxiliary Methods
 // Remove Ninjas that are dying from being rendered in MScene and disables the control
 - (void)removeDyingNinjas
 {
@@ -1430,10 +1452,6 @@
         // If there is any item effect imposed on the target file, for example if the pile is on fire, perform the corresponding effect to the jumping character
         if (player.targetPile.isOnFire) {
             [player.ninja applyDamage:10];
-        }
-        
-        if (player.targetPile.standingCharacter) {
-            player.targetPile.standingCharacter = nil;
         }
         
         player.targetPile.standingCharacter = ninja;
