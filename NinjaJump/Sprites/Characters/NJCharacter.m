@@ -88,6 +88,7 @@
     if (self.isAnimated) {
         [self resolveRequestedAnimation];
     }
+    [self checkColor];
 }
 
 #pragma mark - Attack
@@ -161,6 +162,7 @@
     spawnEffect.color = [SKColor yellowColor];
     spawnEffect.colorBlendFactor = 4.0;
     [self addChild:spawnEffect];
+    
     SKAction *blink = [SKAction sequence:@[[SKAction fadeAlphaTo:0 duration:0.25],[SKAction fadeAlphaTo:0.4 duration:0.25]]];
     [spawnEffect runAction:[SKAction sequence:@[[SKAction repeatAction:blink count:4],[SKAction removeFromParent]]]];
 }
@@ -233,6 +235,15 @@
     if (animationState == NJAnimationStateAttack) {
         [self removeActionForKey:@"anim_attack"];
         self.texture = self.origTexture;
+    }
+}
+
+//Check whether the color has been correctly reversed after attacked animation commited or interuptted
+- (void)checkColor
+{
+    if (![self actionForKey:@"anim_attacked"] && (self.color!=self.player.color || self.colorBlendFactor != kNinjaColorBlendFactor)){
+        self.color = self.player.color;
+        self.colorBlendFactor = kNinjaColorBlendFactor;
     }
 }
 

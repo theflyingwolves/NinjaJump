@@ -31,8 +31,6 @@
 
 #import "NJItemEffect.h"
 
-#define BUTTON_COLORBLEND_FACTOR 0.5
-#define GAMEBOARD_RADIUS 170
 
 @interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate,NJCharacterDelegate>
 
@@ -109,15 +107,15 @@
     float width = CGRectGetWidth(self.frame);
     float height = CGRectGetHeight(self.frame);
     UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(GAMEBOARD_RADIUS, 0)];
-    [path addArcWithCenter:CGPointMake(0, 0) radius:GAMEBOARD_RADIUS startAngle:0 endAngle:M_PI*3/2 clockwise:YES];
-    [path addLineToPoint:CGPointMake(0, height-GAMEBOARD_RADIUS)];
-    [path addArcWithCenter:CGPointMake(0, height) radius:GAMEBOARD_RADIUS startAngle:M_PI/2 endAngle:0 clockwise:YES];
-    [path addLineToPoint:CGPointMake(width-GAMEBOARD_RADIUS, height)];
-    [path addArcWithCenter:CGPointMake(width, height) radius:GAMEBOARD_RADIUS startAngle:M_PI endAngle:M_PI/2 clockwise:YES];
-    [path addLineToPoint:CGPointMake(width, GAMEBOARD_RADIUS)];
-    [path addArcWithCenter:CGPointMake(width, 0) radius:GAMEBOARD_RADIUS startAngle:M_PI*3/2 endAngle:M_PI clockwise:YES];
-    [path addLineToPoint:CGPointMake(GAMEBOARD_RADIUS, 0)];
+    [path moveToPoint:CGPointMake(kGameBoardRadius, 0)];
+    [path addArcWithCenter:CGPointMake(0, 0) radius:kGameBoardRadius startAngle:0 endAngle:M_PI*3/2 clockwise:YES];
+    [path addLineToPoint:CGPointMake(0, height-kGameBoardRadius)];
+    [path addArcWithCenter:CGPointMake(0, height) radius:kGameBoardRadius startAngle:M_PI/2 endAngle:0 clockwise:YES];
+    [path addLineToPoint:CGPointMake(width-kGameBoardRadius, height)];
+    [path addArcWithCenter:CGPointMake(width, height) radius:kGameBoardRadius startAngle:M_PI endAngle:M_PI/2 clockwise:YES];
+    [path addLineToPoint:CGPointMake(width, kGameBoardRadius)];
+    [path addArcWithCenter:CGPointMake(width, 0) radius:kGameBoardRadius startAngle:M_PI*3/2 endAngle:M_PI clockwise:YES];
+    [path addLineToPoint:CGPointMake(kGameBoardRadius, 0)];
     [path closePath];
     return path;
 }
@@ -229,19 +227,19 @@
     ((NJItemControl *)_itemControls[0]).position = CGPointMake(0+xDiff, 0+yDiff);
     ((NJItemControl *)_itemControls[0]).zRotation = - M_PI / 4;
     ((NJItemControl *)_itemControls[0]).color = kNinjaOneColor;
-    ((NJItemControl *)_itemControls[0]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJItemControl *)_itemControls[0]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJItemControl *)_itemControls[1]).position = CGPointMake(1024-yDiff, xDiff);
     ((NJItemControl *)_itemControls[1]).zRotation = M_PI / 4;
     ((NJItemControl *)_itemControls[1]).color = kNinjaTwoColor;
-    ((NJItemControl *)_itemControls[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJItemControl *)_itemControls[1]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJItemControl *)_itemControls[2]).position = CGPointMake(1024-xDiff, 768-yDiff);
     ((NJItemControl *)_itemControls[2]).zRotation = 3* M_PI / 4;
     ((NJItemControl *)_itemControls[2]).color = kNinjaThreeColor;
-    ((NJItemControl *)_itemControls[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJItemControl *)_itemControls[2]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJItemControl *)_itemControls[3]).position = CGPointMake(yDiff, 768-xDiff);
     ((NJItemControl *)_itemControls[3]).zRotation = -3*M_PI / 4;
     ((NJItemControl *)_itemControls[3]).color = kNinjaFourColor;
-    ((NJItemControl *)_itemControls[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJItemControl *)_itemControls[3]).colorBlendFactor = kButtonColorBlendFactor;
     
     if (!_buttons) {
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
@@ -269,22 +267,22 @@
     ((NJButton*)_buttons[0]).position = CGPointMake(yDiff, xDiff);
     ((NJButton*)_buttons[0]).zRotation = -M_PI/4;
     ((NJButton*)_buttons[0]).color = kNinjaOneColor;
-    ((NJButton*)_buttons[0]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJButton*)_buttons[0]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJButton*)_buttons[0]).player.color = kNinjaOneColor;
     ((NJButton*)_buttons[1]).position = CGPointMake(1024-xDiff, yDiff);
     ((NJButton*)_buttons[1]).zRotation = M_PI/4;
     ((NJButton*)_buttons[1]).color = kNinjaTwoColor;
-    ((NJButton*)_buttons[1]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJButton*)_buttons[1]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJButton*)_buttons[1]).player.color = kNinjaTwoColor;
     ((NJButton*)_buttons[2]).position = CGPointMake(1024-yDiff, 768-xDiff);
     ((NJButton*)_buttons[2]).zRotation = M_PI/4*3;
     ((NJButton*)_buttons[2]).color = kNinjaThreeColor;
-    ((NJButton*)_buttons[2]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJButton*)_buttons[2]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJButton*)_buttons[2]).player.color = kNinjaThreeColor;
     ((NJButton*)_buttons[3]).position = CGPointMake(xDiff, 768-yDiff);
     ((NJButton*)_buttons[3]).zRotation = -M_PI/4*3;
     ((NJButton*)_buttons[3]).color = kNinjaFourColor;
-    ((NJButton*)_buttons[3]).colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    ((NJButton*)_buttons[3]).colorBlendFactor = kButtonColorBlendFactor;
     ((NJButton*)_buttons[3]).player.color = kNinjaFourColor;
 }
 
@@ -342,7 +340,7 @@
     }
     if (player.shouldBlendCharacter) {
         ninja.color = player.color;
-        ninja.colorBlendFactor = 0.6;
+        ninja.colorBlendFactor = kNinjaColorBlendFactor;
     }
     player.ninja = ninja;
     
@@ -370,30 +368,16 @@
         return;
     }
     CGPoint position = pile.position;
+    NJSpecialItem *item;
     
     if (_gameMode == NJGameModeBeginner) {
-        int index = arc4random() % 2;
-        NJSpecialItem *item;
-        switch (index) {
-            case 0:
-                item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
-                break;
-            case 1:
-                item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-                break;
-            default:
-                break;
-        }
-        if (item != nil) {
-            item.myParent = self;
-            pile.itemHolded = item;
-            [self addNode:item atWorldLayer:NJWorldLayerCharacter];
-            [_items addObject:item];
-        }
-        return;
+        item = [self generateRandomItemForBeginnerMode];
+    } else {
+        item = [self generateRandomItem];
     }
-    NJSpecialItem *item = [self generateRandomItem];
+    
     if (item != nil) {
+        item.myParent = self;
         pile.itemHolded = item;
         item.position = position;
         item.itemShadow.position = position;
@@ -401,6 +385,24 @@
         [self addNode:item.itemShadow atWorldLayer:NJWorldLayerBelowCharacter];
         [_items addObject:item];
     }
+}
+
+- (NJSpecialItem *)generateRandomItemForBeginnerMode{
+    int index = arc4random() % 2;
+    NJSpecialItem *item;
+    CGPoint position = CGPointZero;
+    switch (index) {
+        case 0:
+        item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+        break;
+        case 1:
+        item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+        break;
+        default:
+        break;
+    }
+
+    return item;
 }
 
 - (NJSpecialItem *)generateRandomItem
@@ -520,6 +522,7 @@
     [self updatePlayersSinceLastUpdate:timeSinceLast];
 }
 
+//force the objects with wrong position (due to physics world) back to the right position
 - (void)didSimulatePhysics
 {
     for (NJPile *pile in _woodPiles) {
@@ -702,7 +705,7 @@
 }
 
 - (void)button:(NJButton *)button touchesEnded:(NSSet *)touches {
-    button.colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    button.colorBlendFactor = kButtonColorBlendFactor;
     NSArray *ninjas = self.ninjas;
     if ([ninjas count] < 1) {
         return;
@@ -727,7 +730,7 @@
 
 - (void)itemControl:(NJItemControl *)control touchesEnded:(NSSet *)touches
 {
-    control.colorBlendFactor = BUTTON_COLORBLEND_FACTOR;
+    control.colorBlendFactor = kButtonColorBlendFactor;
     NSArray *ninjas = self.ninjas;
     if ([ninjas count]<1) {
         return ;
@@ -736,65 +739,6 @@
     if (control.player.ninja.frozenCount == 0) {
         control.player.itemUseRequested = YES;
     }
-}
-
-- (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja
-{
-    NJPile *nearest = nil;
-    for (NJPile *pile in _woodPiles) {
-        if (!CGPointEqualToPointApprox(pile.position, ninja.position) && (!pile.standingCharacter || pile.standingCharacter.frozenCount==0)) {
-            float dx = pile.position.x - ninja.position.x;
-            float dy = pile.position.y - ninja.position.y;
-            float zRotation = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(pile.position, ninja.position));
-            if (zRotation < 0 && zRotation >= -M_PI/2) {
-                zRotation += 2*M_PI;
-            }
-            float ninjaZRotation = ninja.zRotation;
-            if (ninjaZRotation < 0) {
-                float diff = ninjaZRotation + M_PI;
-                ninjaZRotation = M_PI + diff;
-            }
-            float dist = hypotf(dx, dy);
-            float radius = pile.size.width / 2;
-            float angleSpaned = atan2f(radius,dist);
-            if (zRotation-3*angleSpaned <= ninjaZRotation && zRotation+3*angleSpaned >= ninjaZRotation) {
-                if (nearest == nil) {
-                    nearest = pile;
-                } else if (NJDistanceBetweenPoints(ninja.position, nearest.position)>NJDistanceBetweenPoints(ninja.position, pile.position)) {
-                    nearest = pile;
-                }
-            }
-        }
-    }
-    return nearest;
-}
-
-- (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja
-{
-    NSMutableArray *array = [NSMutableArray array];
-    for (NJPile *pile in _woodPiles) {
-        BOOL isFree = YES;
-        for (NJPlayer *player in self.players) {
-            if (pile.standingCharacter || player.targetPile==pile) {
-                isFree = NO;
-                break;
-            }
-        }
-        
-        if (!isNinja && pile.itemHolded && [self.items containsObject:pile.itemHolded]) {
-            isFree = NO;
-        }
-        
-        if (isFree) {
-            [array addObject:pile];
-        }
-    }
-    if ([array count]<=0) {
-        return nil;
-    }
-    int index = arc4random() % [array count];
-    
-    return ((NJPile*)array[index]);
 }
 
 #pragma mark - Shared Assets
@@ -829,7 +773,9 @@
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGPoint center = CGPointMake(screenHeight/2, screenWidth/2);
     pausePanel.position = center;
+    
     [self addChild:pausePanel];
+    
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(restartOrContinue:) name:@"actionAfterPause" object:nil];
 }
@@ -875,6 +821,7 @@
 
 - (void)restartGame{
     isGameEnded = NO;
+    
     for (int i=0; i<[self.players count]; i++) {
         NJPlayer *player = [self.players objectAtIndex:i];
         player.isDisabled = NO;
@@ -888,14 +835,13 @@
         player.isJumping = NO;
         player.jumpRequested = NO;
     }
+    
     [self removeNinjas];
     [self resetItems];
     [self resetWoodPiles];
     [self initSelectionSystem];
     
     [self resetMusic];
-    //hasBeenPaused = NO;
-    //self.physicsWorld.speed = 1;
 }
 
 - (void)removeNinjas
@@ -932,7 +878,8 @@
     shouldPileStartDecreasing = NO;
     hasBeenPaused = YES;
     self.physicsWorld.speed=0;
-    NJSelectionButtonSystem *selectionSystem = nil;
+    
+    NJSelectionButtonSystem *selectionSystem;
     if (_gameMode == NJGameModeOneVsThree) {
         selectionSystem = [[NJ1V3SelectionButtonSystem alloc] init];
     } else {
@@ -955,6 +902,7 @@
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:kNotificationPlayerIndex object:nil];
     isSelectionInited = NO;
+    
     NSArray *activePlayerIndices = [note object];
     if (_gameMode==NJGameModeOneVsThree) {
         _bossIndex = [[activePlayerIndices firstObject] integerValue];
@@ -996,23 +944,29 @@
 -(void)fireCountdown {
     hasBeenPaused = NO;
     CGRect frame = FRAME;
+    
     SKSpriteNode *coverLayer = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:frame.size];
     coverLayer.position = CGPointMake(frame.size.width/2, frame.size.height/2);
     coverLayer.alpha = 0.0;
     coverLayer.userInteractionEnabled = YES;
+    
     SKSpriteNode *countdown1 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown1"];
     SKSpriteNode *countdown2 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown2"];
     SKSpriteNode *countdown3 = [SKSpriteNode spriteNodeWithImageNamed:@"countdown3"];
     SKSpriteNode *countdown = [[SKSpriteNode alloc]init];
+    
     [self addChild:coverLayer];
     [self addChild:countdown];
+    
     countdown.position = CGPointMake(FRAME.size.width/2, FRAME.size
                                      .height/2);
     NSArray *countdownSeries = [NSArray arrayWithObjects:countdown3, countdown2, countdown1, nil];
+    
     SKAction *fadeIn = [SKAction fadeInWithDuration:0.2];
     SKAction *wait = [SKAction fadeInWithDuration:0.4];
     SKAction *fadeOut = [SKAction fadeOutWithDuration:0.2];
     SKAction *removeNode = [SKAction removeFromParent];
+    
     for(int i=0;i<3;i++){
         SKSpriteNode *countdownNum = countdownSeries[i];
         countdownNum.alpha = 0.0;
@@ -1021,6 +975,7 @@
         SKAction *appear = [SKAction sequence:@[pending,fadeIn,wait,fadeOut,removeNode]];
         [countdownNum runAction:appear];
     }
+    
     [self performSelector:@selector(startGame:) withObject:coverLayer afterDelay:3.0];
 }
 
@@ -1031,9 +986,11 @@
     SKAction *fadeOut = [SKAction fadeOutWithDuration:0.1];
     SKAction *removeNode = [SKAction removeFromParent];
     SKAction *appear = [SKAction sequence:@[fadeIn,wait,fadeOut,removeNode]];
+    
     SKSpriteNode *startNote = [SKSpriteNode spriteNodeWithImageNamed:@"start"];
     startNote.position = CGPointMake(1024/2, 768/2);
     [self addChild:startNote];
+    
     [startNote runAction:appear completion:^{
         [cover removeFromParent];
     }];
@@ -1041,6 +998,71 @@
 }
 
 #pragma mark - Auxiliary Methods
+
+// Determine the target wood pile according to the ninja's facing direction
+// If there is no target wood pile in the corresponding direction, return nil
+- (NJPile *)woodPileToJump:(NJNinjaCharacter *)ninja
+{
+    NJPile *nearest = nil;
+    for (NJPile *pile in _woodPiles) {
+        if (!CGPointEqualToPointApprox(pile.position, ninja.position) && (!pile.standingCharacter || pile.standingCharacter.frozenCount==0)) {
+            float dx = pile.position.x - ninja.position.x;
+            float dy = pile.position.y - ninja.position.y;
+            float zRotation = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(pile.position, ninja.position));
+            if (zRotation < 0 && zRotation >= -M_PI/2) {
+                zRotation += 2*M_PI;
+            }
+            float ninjaZRotation = ninja.zRotation;
+            if (ninjaZRotation < 0) {
+                float diff = ninjaZRotation + M_PI;
+                ninjaZRotation = M_PI + diff;
+            }
+            float dist = hypotf(dx, dy);
+            float radius = pile.size.width / 2;
+            float angleSpaned = atan2f(radius,dist);
+            if (zRotation-3*angleSpaned <= ninjaZRotation && zRotation+3*angleSpaned >= ninjaZRotation) {
+                if (nearest == nil) {
+                    nearest = pile;
+                } else if (NJDistanceBetweenPoints(ninja.position, nearest.position)>NJDistanceBetweenPoints(ninja.position, pile.position)) {
+                    nearest = pile;
+                }
+            }
+        }
+    }
+    return nearest;
+}
+
+// Determine a random pile among the free ones for ninja or item to spawn at
+// Returns nil if no free ones available, return nil
+- (NJPile *)spawnAtRandomPileForNinja:(BOOL)isNinja
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for (NJPile *pile in _woodPiles) {
+        BOOL isFree = YES;
+        for (NJPlayer *player in self.players) {
+            if (pile.standingCharacter || player.targetPile==pile) {
+                isFree = NO;
+                break;
+            }
+        }
+        
+        if (!isNinja && pile.itemHolded && [self.items containsObject:pile.itemHolded]) {
+            isFree = NO;
+        }
+        
+        if (isFree) {
+            [array addObject:pile];
+        }
+    }
+    if ([array count]<=0) {
+        return nil;
+    }
+    int index = arc4random() % [array count];
+    
+    return ((NJPile*)array[index]);
+}
+
+
 // Remove Ninjas that are dying from being rendered in MScene and disables the control
 - (void)removeDyingNinjas
 {
@@ -1428,10 +1450,6 @@
         // If there is any item effect imposed on the target file, for example if the pile is on fire, perform the corresponding effect to the jumping character
         if (player.targetPile.isOnFire) {
             [player.ninja applyDamage:10];
-        }
-        
-        if (player.targetPile.standingCharacter) {
-            player.targetPile.standingCharacter = nil;
         }
         
         player.targetPile.standingCharacter = ninja;
