@@ -55,6 +55,7 @@
         _gameMode = mode;
         _world = [[SKNode alloc] init];
         [_world setName:GameWorld];
+        [self initusableItemTypes];
         [self initGameAttributeWithMode:mode];
         [self initLayers];
         [self initPlayers];
@@ -76,6 +77,49 @@
         }
     }
     return self;
+}
+
+// Retrieve items that are unlocked and store their product ids in the property _usableItemTypes
+- (void)initusableItemTypes
+{
+    _usableItemTypes = [NSMutableArray array];
+    NSArray *arrayOfAllItemIds = [self getAllItemIds];
+    for (ProductId *pId in arrayOfAllItemIds){
+        if ([_store isProductUnlocked:pId]) {
+            NJItemType itemType = [self determineItemTypeFromProductId:pId];
+            if (itemType >= 0) {
+                [_usableItemTypes addObject:[NSNumber numberWithInt:itemType]];
+            }
+        }
+    }
+}
+
+// Return product ids for all special items, regardless of whether it has been unlocked or not
+- (NSArray *)getAllItemIds
+{
+    NSArray *itemIds = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductId" ofType:@"plist"]];
+    return itemIds;
+}
+
+- (NJItemType)determineItemTypeFromProductId:(ProductId *)pId
+{
+    if ([pId isEqualToString:kIceScrollProductId]) {
+        return NJItemIceScroll;
+    }else if([pId isEqualToString:kFireScrollProductId]){
+        return NJItemFireScroll;
+    }else if([pId isEqualToString:kWindScrollProductId]){
+        return NJItemWindScroll;
+    }else if([pId isEqualToString:kThunderScrollProductId]){
+        return NJItemThunderScroll;
+    }else if([pId isEqualToString:kMedikitProductId]){
+        return NJItemMedikit;
+    }else if([pId isEqualToString:kMineProductId]){
+        return NJItemMine;
+    }else if([pId isEqualToString:kShurikenProductId]){
+        return NJItemShuriken;
+    }else{
+        return -1;
+    }
 }
 
 - (void)initGameAttributeWithMode:(NJGameMode)mode
@@ -420,11 +464,12 @@
 
 - (NJSpecialItem *)generateRandomItem
 {
-    int index = arc4random() % NJItemCount;
+    int randNum = arc4random() % ([_usableItemTypes count]);
+    NJItemType itemType = (NJItemType)[((NSNumber *)[_usableItemTypes objectAtIndex:randNum]) integerValue];
     NJSpecialItem *item;
-    
+
     CGPoint position = CGPointZero;
-    switch (index) {
+    switch (itemType) {
         case NJItemThunderScroll:
             item = [NJThunderScroll itemAtPosition:position delegate:self];
             break;

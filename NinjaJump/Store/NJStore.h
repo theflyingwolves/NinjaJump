@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NJProductId.h"
 
 @interface NJStore : NSObject
-- (BOOL)isProductUnlocked;
+- (BOOL)isProductUnlocked:(ProductId *)pId;
 @end

@@ -30,6 +30,7 @@
 		2F0AB7E619304A8F00654F0B /* NJGameAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AB7E519304A8F00654F0B /* NJGameAttribute.m */; };
 		2F0AB7EA193081E600654F0B /* ProductInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F0AB7E9193081E600654F0B /* ProductInfo.plist */; };
 		2F0AB7EE193088BE00654F0B /* NJStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AB7ED193088BE00654F0B /* NJStore.m */; };
+		2F0AB7F019309E8100654F0B /* ProductIdItem.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F0AB7EF19309E8100654F0B /* ProductIdItem.plist */; };
 		2F34F0E5190024050056E103 /* Boss_Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2F34F0E4190024050056E103 /* Boss_Jump.atlas */; };
 		2F34F0E719002B430056E103 /* ninjaBoss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F34F0E619002B430056E103 /* ninjaBoss.png */; };
 		2F42F71518FA59FC00973113 /* NJNinjaCharacterBoss.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F42F71418FA59FC00973113 /* NJNinjaCharacterBoss.m */; };
@@ -242,6 +243,7 @@
 		2F0AB7E9193081E600654F0B /* ProductInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ProductInfo.plist; path = GameData/ProductInfo.plist; sourceTree = "<group>"; };
 		2F0AB7EC193088BE00654F0B /* NJStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJStore.h; path = Store/NJStore.h; sourceTree = "<group>"; };
 		2F0AB7ED193088BE00654F0B /* NJStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJStore.m; path = Store/NJStore.m; sourceTree = "<group>"; };
+		2F0AB7EF19309E8100654F0B /* ProductIdItem.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ProductIdItem.plist; path = GameData/ProductIdItem.plist; sourceTree = "<group>"; };
 		2F34F0E4190024050056E103 /* Boss_Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Boss_Jump.atlas; path = "Assets/Texture Altases/Boss_Jump.atlas"; sourceTree = "<group>"; };
 		2F34F0E619002B430056E103 /* ninjaBoss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ninjaBoss.png; path = Assets/GameBoard/ninjaBoss.png; sourceTree = "<group>"; };
 		2F42F71318FA59FC00973113 /* NJNinjaCharacterBoss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJNinjaCharacterBoss.h; path = Sprites/Characters/NJNinjaCharacterBoss.h; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 			isa = PBXGroup;
 			children = (
 				2F0AB7E9193081E600654F0B /* ProductInfo.plist */,
+				2F0AB7EF19309E8100654F0B /* ProductIdItem.plist */,
 			);
 			name = GameData;
 			sourceTree = "<group>";
@@ -1212,6 +1215,7 @@
 				2F94CD8518D419F1007DAFAD /* Main.storyboard in Resources */,
 				C4C8746B18F023A9004B6527 /* sunshining.mp3 in Resources */,
 				C4966E6E18FEC81000D7BBA6 /* dialogPickupShuriken.png in Resources */,
+				2F0AB7F019309E8100654F0B /* ProductIdItem.plist in Resources */,
 				C40AC20618FAADE30068E814 /* NPC.png in Resources */,
 				2B067F5F18FA598B003755A4 /* yellowHalo.png in Resources */,
 				C980973B18FA418400FDD5C4 /* selectedOrange.png in Resources */,
