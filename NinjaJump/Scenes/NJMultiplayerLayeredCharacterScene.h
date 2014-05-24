@@ -54,9 +54,11 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @interface NJMultiplayerLayeredCharacterScene:SKScene <NJItemEffectSceneDelegate>
 @property (nonatomic) NJGameAttribute *attribute;
 @property (nonatomic) NSMutableArray *ninjas;                   // array of ninja character objects in the scene
+@property (nonatomic) NSMutableArray *AICharacters;             // array of AI character objects
 @property (nonatomic) NSMutableArray *woodPiles;                // array of woodpile object in the scene
 @property (nonatomic) NSMutableArray *items;                    // array of special item objects currently in the scene
 @property (nonatomic) NSMutableArray *players;                  // array of player objects
+@property (nonatomic) NSMutableArray *AIplayers;                  // array of AI player objects
 @property (nonatomic) SKNode *world;                            // root node to which all game renderables are attached
 @property (nonatomic) NSMutableArray *layers;                   // different layer nodes within the world
 @property (nonatomic) NSMutableArray *buttons;                  // array of jump button objects

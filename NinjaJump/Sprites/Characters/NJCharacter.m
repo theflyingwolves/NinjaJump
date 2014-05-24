@@ -85,10 +85,6 @@
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
 {
-    if(self.hasAI){
-        
-    }
-    
     if (self.isAnimated) {
         [self resolveRequestedAnimation];
     }
