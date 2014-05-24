@@ -9,5 +9,16 @@
 #import "NJStore.h"
 
 @implementation NJStore
-
+- (BOOL)isProductUnlocked:(NSString *)pId
+{
+    if ([pId isEqualToString:kIceScrollProductId]) {
+        return NO;
+    }else if([pId isEqualToString:kThunderScrollProductId]){
+        return NO;
+    }else if([pId isEqualToString:kWindScrollProductId]){
+        return NO;
+    }else{
+        return YES;
+    }
+}
 @end

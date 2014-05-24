@@ -55,7 +55,8 @@
         _gameMode = mode;
         _world = [[SKNode alloc] init];
         [_world setName:GameWorld];
-        [self initusableItemTypes];
+        [self initStore];
+        [self initUsableItemTypes];
         [self initGameAttributeWithMode:mode];
         [self initLayers];
         [self initPlayers];
@@ -79,11 +80,17 @@
     return self;
 }
 
+- (void)initStore
+{
+    _store = [[NJStore alloc] init];
+}
+
 // Retrieve items that are unlocked and store their product ids in the property _usableItemTypes
-- (void)initusableItemTypes
+- (void)initUsableItemTypes
 {
     _usableItemTypes = [NSMutableArray array];
     NSArray *arrayOfAllItemIds = [self getAllItemIds];
+    
     for (ProductId *pId in arrayOfAllItemIds){
         if ([_store isProductUnlocked:pId]) {
             NJItemType itemType = [self determineItemTypeFromProductId:pId];
@@ -97,7 +104,7 @@
 // Return product ids for all special items, regardless of whether it has been unlocked or not
 - (NSArray *)getAllItemIds
 {
-    NSArray *itemIds = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductId" ofType:@"plist"]];
+    NSArray *itemIds = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductIdItem" ofType:@"plist"]];
     return itemIds;
 }
 
