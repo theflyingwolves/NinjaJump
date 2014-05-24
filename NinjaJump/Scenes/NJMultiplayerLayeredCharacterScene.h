@@ -13,7 +13,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "NJConstants.h"
 #import "NJItemEffect.h"
-
+#import "NJGameAttribute.h"
 
 /* The layers in a scene. */
 typedef enum : uint8_t {
@@ -52,6 +52,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @end
 
 @interface NJMultiplayerLayeredCharacterScene:SKScene <NJItemEffectSceneDelegate>
+@property (nonatomic) NJGameAttribute *attribute;
 @property (nonatomic) NSMutableArray *ninjas;                   // array of ninja character objects in the scene
 @property (nonatomic) NSMutableArray *woodPiles;                // array of woodpile object in the scene
 @property (nonatomic) NSMutableArray *items;                    // array of special item objects currently in the scene

@@ -46,6 +46,7 @@ typedef enum : uint8_t {
 @property NJRange *range; //range of effect of the item
 
 
++(instancetype)itemAtPosition:(CGPoint)position;
 
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position;
 //REQUIRES: textureName is valid (e.g. such texture exits); position is valid;

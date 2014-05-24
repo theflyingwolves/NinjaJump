@@ -11,6 +11,11 @@
 
 @implementation NJMedikit
 
++(instancetype)itemAtPosition:(CGPoint)position
+{
+    return [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+}
+
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){

@@ -12,10 +12,14 @@
 
 @implementation NJMine
 
++(instancetype)itemAtPosition:(CGPoint)position
+{
+    return [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+}
+
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){
-//        _itemType = NJItemMine;
         NSString *filePath2 = [[NSBundle mainBundle] pathForResource:@"FireworkRed" ofType:@"sks"];
         
         //animation

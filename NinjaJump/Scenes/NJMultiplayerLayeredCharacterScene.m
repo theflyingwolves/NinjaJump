@@ -29,7 +29,6 @@
 #import "NJMedikit.h"
 #import "NJVictoryRestart.h"
 
-
 @interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate,NJCharacterDelegate>
 
 @end
@@ -56,6 +55,7 @@
         _gameMode = mode;
         _world = [[SKNode alloc] init];
         [_world setName:GameWorld];
+        [self initGameAttributeWithMode:mode];
         [self initLayers];
         [self initPlayers];
         [self addChild:_world];
@@ -76,6 +76,11 @@
         }
     }
     return self;
+}
+
+- (void)initGameAttributeWithMode:(NJGameMode)mode
+{
+    self.attribute = [NJGameAttribute attributeWithMode:mode];
 }
 
 /* Intializes different layers in game world. */
@@ -112,20 +117,7 @@
 /* Initializes frequency of occurrences for special items according to the mode selected. */
 - (void)initItemFrequency
 {
-    switch (_gameMode) {
-        case NJGameModeOneVsThree:
-            kNumberOfFramesToSpawnItem = 200;
-            break;
-        case NJGameModeBeginner:
-            kNumberOfFramesToSpawnItem = 600;
-            break;
-        case NJGameModeSurvival:
-            kNumberOfFramesToSpawnItem = 200;
-            break;
-        default:
-            kNumberOfFramesToSpawnItem = 0;
-            break;
-    }
+    kNumberOfFramesToSpawnItem = [self.attribute getNumberOfFramesToSpawnItem];
 }
 
 /* Configures physics body for the scene. */
@@ -315,7 +307,9 @@
         [player.ninja removeFromParent];
         [player.indicatorNode removeFromParent];
     }
+    
     NJNinjaCharacter *ninja = nil;
+    
     if (_gameMode == NJGameModeOneVsThree) {
         if (_bossIndex<[self.players count]) {
             NJPlayer *bossPlayer = [self.players objectAtIndex:_bossIndex];
@@ -327,6 +321,7 @@
     if (!ninja) {
         ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
     }
+    
     if (ninja) {
         [ninja render];
         [(NSMutableArray *)self.ninjas addObject:ninja];
@@ -366,7 +361,7 @@
         [self addNode:pile atWorldLayer:NJWorldLayerBelowCharacter];
         [self.woodPiles addObject:pile];
         CGFloat ang = NJRandomAngle();
-        if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
+        if ([_attribute shouldWoodpileMove]) {
             [pile.physicsBody applyImpulse:CGVectorMake(NJWoodPileInitialImpluse*sinf(ang), NJWoodPileInitialImpluse*cosf(ang))];
         }
     }
@@ -412,13 +407,13 @@
     CGPoint position = CGPointZero;
     switch (index) {
         case 0:
-        item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
-        break;
+            item = [NJMedikit itemAtPosition:position];
+            break;
         case 1:
-        item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
-        break;
+            item = [NJShuriken itemAtPosition:position];
+            break;
         default:
-        break;
+            break;
     }
     return item;
 }
@@ -431,31 +426,31 @@
     CGPoint position = CGPointZero;
     switch (index) {
         case NJItemThunderScroll:
-            item = [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:self];
+            item = [NJThunderScroll itemAtPosition:position delegate:self];
             break;
             
         case NJItemWindScroll:
-            item = [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:self];
+            item = [NJWindScroll itemAtPosition:position delegate:self];
             break;
             
         case NJItemIceScroll:
-            item = [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:self];
+            item = [NJIceScroll itemAtPosition:position delegate:self];
             break;
             
         case NJItemFireScroll:
-            item = [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:self];
+            item = [NJFireScroll itemAtPosition:position delegate:self];
             break;
             
         case NJItemMedikit:
-            item = [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
+            item = [NJMedikit itemAtPosition:position];
             break;
         
         case NJItemMine:
-            item = [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
+            item = [NJMine itemAtPosition:position];
             break;
         
         case NJItemShuriken:
-            item = [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+            item = [NJShuriken itemAtPosition:position];
             break;
             
         default:
@@ -565,37 +560,9 @@
 
 - (void)victoryAnimationToPlayer:(NSInteger)index
 {
-    float angle = atan(1024/768)+0.1;
     _victoryBackground = [SKSpriteNode spriteNodeWithImageNamed:@"victory bg"];
-    _victoryBackground.position = CGPointMake(1024/2, 768/2);
-    SKSpriteNode *victoryLabel;
-    
-    if (_gameMode == NJGameModeOneVsThree) {
-        if (_isBossLost) {
-            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossLoss"];
-        }else{
-            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossWin"];
-        }
-    }else{
-        victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"victory"];
-    }
-
-    switch (index) {
-        case 0:
-            victoryLabel.zRotation = -angle;
-            break;
-        case 1:
-            victoryLabel.zRotation = angle;
-            break;
-        case 2:
-            victoryLabel.zRotation = M_PI-angle;
-            break;
-        case 3:
-            victoryLabel.zRotation = M_PI+angle;
-            break;
-        default:
-            break;
-    }
+    _victoryBackground.position = CGPointMake(CGRectGetMidX(FRAME), CGRectGetMidY(FRAME));
+    SKSpriteNode *victoryLabel = [_attribute getVictoryLabelForWinnerIndex:index];
     NSString *filePath1 = [[NSBundle mainBundle] pathForResource:@"Firework" ofType:@"sks"];
     SKEmitterNode *firework = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath1];
     firework.position = CGPointMake(-100, -100);
@@ -1163,7 +1130,6 @@
                 if (![player.item isKindOfClass:[NJMine class]] || !player.isJumping) {
                     [player.ninja useItem:player.item];
                 }
-                
             }
             player.itemIndicatorAdded = NO;
             player.itemUseRequested = NO;
@@ -1202,7 +1168,7 @@
 /* Checks if there is any piles that is too slow and if there is any, apply some impulse to speed them up. */
 - (void)applyImpulseToSlowWoodpiles
 {
-    if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
+    if ([_attribute shouldApplyImpulesToSlowWoodpiles]) {
         for (NJPile *pile in _woodPiles) {
             float dx = pile.physicsBody.velocity.dx;
             float dy = pile.physicsBody.velocity.dy;

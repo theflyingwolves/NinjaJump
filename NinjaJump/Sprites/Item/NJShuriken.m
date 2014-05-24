@@ -13,6 +13,11 @@
 
 @implementation NJShuriken
 
++(instancetype)itemAtPosition:(CGPoint)position
+{
+    return [[NJShuriken alloc] initWithTextureNamed:kShurikenFileName atPosition:position];
+}
+
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){

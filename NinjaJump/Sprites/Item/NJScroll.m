@@ -11,6 +11,12 @@
 
 @implementation NJScroll
 
++ (id)itemAtPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate
+{
+    // Overridden By Subclasses
+    return nil;
+}
+
 - (id)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate
 {
     // Overridden By Subclasses

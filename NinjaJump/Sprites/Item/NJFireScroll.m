@@ -18,6 +18,11 @@
 
 @implementation NJFireScroll
 
++ (instancetype)itemAtPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate
+{
+    return [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:delegate];
+}
+
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){

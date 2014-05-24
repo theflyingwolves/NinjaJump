@@ -11,6 +11,12 @@
 
 @implementation NJSpecialItem
 
++(instancetype)itemAtPosition:(CGPoint)position
+{
+    //Overridden by Subclasses
+    return nil;
+}
+
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position
 {
     self = [super initWithImageNamed:textureName];

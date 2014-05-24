@@ -22,6 +22,8 @@
 @interface NJScroll : NJSpecialItem
 @property id<NJScrollDelegate> delegate;
 
++ (id)itemAtPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate;
+
 - (id)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate;
 //REQUIRES: textureName is valid (e.g. such texture exits); position is valid; delegate is valid
 //MODIFIES: self

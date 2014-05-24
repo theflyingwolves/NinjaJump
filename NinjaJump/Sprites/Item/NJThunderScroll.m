@@ -16,6 +16,11 @@
 
 @implementation NJThunderScroll
 
++ (instancetype)itemAtPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate
+{
+    return [[NJThunderScroll alloc] initWithTextureNamed:kThunderScrollFileName atPosition:position delegate:delegate];
+}
+
 -(instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate{
     self = [super initWithTextureNamed:textureName atPosition:position];
     if (self){
