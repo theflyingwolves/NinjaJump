@@ -59,6 +59,10 @@ typedef enum : uint8_t {
 #pragma mark - Delegate
 @property (nonatomic) id<NJCharacterDelegate> delegate;
 
+#pragma mark = AI
+@property BOOL hasAI;
+//@property Intelligence intelligence;
+
 #pragma mark - Initializer
 +(void)loadSharedAssets;
 // EFFECTS: load the assets common to all characters to memory for future use. Executed only once
