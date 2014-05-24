@@ -550,6 +550,7 @@
         [self updateWithTimeSinceLastUpdate:timeSinceLast];
         [self removeDyingNinjas];
         [self updatePlayers];
+        [self updateAIPlayers];
         [self updateHpBars];
         [self spawnNewItems];
         [self applyImpulseToSlowWoodpiles];
@@ -1277,6 +1278,26 @@
     }
 }
 
+-(void)updateAIPlayers{
+    for (NJAIPlayer *player in self.AIplayers){
+        NSArray *AICharacters = self.AICharacters;
+        if ([AICharacters count] < 1) {
+            return;
+        }
+        
+        NJPile *pile = [self woodPileToJump:player.character];
+        if (pile && !player.isJumping && player.character.frozenCount == 0) {
+            if (player.jumpCooldown >= kJumpCooldownTime) {
+                player.jumpCooldown = 0;
+                player.fromPile = player.targetPile;
+                player.targetPile = pile;
+                player.jumpRequested = YES;
+                player.isJumping = YES;
+            }
+        }
+    }
+}
+
 /* Updates the mask of the Health Point Bars to reflect the correct amount of health points left for each player. */
 - (void)updateHpBars
 {
@@ -1357,87 +1378,95 @@
     }
 }
 
+- (void)updateOnePlayer:(NJPlayer *)player timeSinceLast:(NSTimeInterval)timeSinceLast
+{
+    if ((id)player == [NSNull null]) {
+        return;
+    }
+    NJCharacter *ninja = nil;
+    if ([self.ninjas count] > 0){
+        ninja = player.character;
+        //            ninja = player.ninja;
+    }
+    
+    if (player.character.dying) {
+        //        if (player.ninja.dying) {
+        // If a ninja is dying, remove all items, indicator nodes and shadows attached to the ninja
+        if (player.indicatorNode) {
+            [player.indicatorNode removeFromParent];
+            player.indicatorNode = nil;
+        }
+        
+        if (player.item) {
+            [player.item removeFromParent];
+            if (player.item.itemShadow) {
+                [player.item.itemShadow removeFromParent];
+            }
+            player.item = nil;
+        }
+        [player.character.shadow removeFromParent];
+        //            [player.ninja.shadow removeFromParent];
+    }
+    
+    if (player.item) {
+        // If the player is holding any item and no indicator node has been added yet, add an indicator node to the player so as to indicate the range where the item being held can affect
+        NSString *fileName;
+        if ([player.item isKindOfClass:[NJThunderScroll class]]) {
+            fileName = kThunderIndicator;
+        }else if([player.item isKindOfClass:[NJWindScroll class]]){
+            fileName = kWindIndicator;
+        }else if([player.item isKindOfClass:[NJFireScroll class]]){
+            fileName = kFireIndicator;
+        }else if([player.item isKindOfClass:[NJIceScroll class]]){
+            fileName = kIceIndicator;
+        }
+        
+        if (!fileName) {
+            [player.indicatorNode removeFromParent];
+            player.indicatorNode = nil;
+        }else if (!player.itemIndicatorAdded && fileName) {
+            if (player.indicatorNode) {
+                [player.indicatorNode removeFromParent];
+            }
+            SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
+            itemIndicator.alpha = kIndicatorAlpha;
+            [self addNode:itemIndicator atWorldLayer:NJWorldLayerGround];
+            player.indicatorNode = itemIndicator;
+            player.itemIndicatorAdded = YES;
+        }
+    }else{
+        // If the player is not holding any item, remove its indicator node
+        player.indicatorNode = nil;
+    }
+    
+    if (player.indicatorNode) {
+        // Update the indicator node to have the same position and zRotation as the player
+        player.indicatorNode.position = player.character.position;
+        player.indicatorNode.zRotation = player.character.zRotation;
+        //            player.indicatorNode.position = player.ninja.position;
+        //            player.indicatorNode.zRotation = player.ninja.zRotation;
+    }
+    
+    if (![ninja isDying]) {
+        ninja.position = CGPointApprox(ninja.position);
+        [self resolveSpecialItemEffectsForCharacter:ninja sinceLastUpdate:timeSinceLast];
+        
+        if (player.jumpRequested) {
+            [self resolveJumpRequestForPlayer:player sinceLastUpdate:timeSinceLast];
+        } else {
+            player.jumpCooldown += timeSinceLast;
+        }
+    }
+}
+
 /* Updates the state of all players since last update. */
 - (void)updatePlayersSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJPlayer *player in self.players) {
-        if ((id)player == [NSNull null]) {
-            continue;
-        }
-        NJCharacter *ninja = nil;
-        if ([self.ninjas count] > 0){
-            ninja = player.character;
-//            ninja = player.ninja;
-        }
-        
-        if (player.character.dying) {
-//        if (player.ninja.dying) {
-            // If a ninja is dying, remove all items, indicator nodes and shadows attached to the ninja
-            if (player.indicatorNode) {
-                [player.indicatorNode removeFromParent];
-                player.indicatorNode = nil;
-            }
-            
-            if (player.item) {
-                [player.item removeFromParent];
-                if (player.item.itemShadow) {
-                    [player.item.itemShadow removeFromParent];
-                }
-                player.item = nil;
-            }
-            [player.character.shadow removeFromParent];
-//            [player.ninja.shadow removeFromParent];
-        }
-        
-        if (player.item) {
-            // If the player is holding any item and no indicator node has been added yet, add an indicator node to the player so as to indicate the range where the item being held can affect
-            NSString *fileName;
-            if ([player.item isKindOfClass:[NJThunderScroll class]]) {
-                fileName = kThunderIndicator;
-            }else if([player.item isKindOfClass:[NJWindScroll class]]){
-                fileName = kWindIndicator;
-            }else if([player.item isKindOfClass:[NJFireScroll class]]){
-                fileName = kFireIndicator;
-            }else if([player.item isKindOfClass:[NJIceScroll class]]){
-                fileName = kIceIndicator;
-            }
-            
-            if (!fileName) {
-                [player.indicatorNode removeFromParent];
-                player.indicatorNode = nil;
-            }else if (!player.itemIndicatorAdded && fileName) {
-                if (player.indicatorNode) {
-                    [player.indicatorNode removeFromParent];
-                }
-                SKSpriteNode *itemIndicator = [SKSpriteNode spriteNodeWithImageNamed:fileName];
-                itemIndicator.alpha = kIndicatorAlpha;
-                [self addNode:itemIndicator atWorldLayer:NJWorldLayerGround];
-                player.indicatorNode = itemIndicator;
-                player.itemIndicatorAdded = YES;
-            }
-        }else{
-            // If the player is not holding any item, remove its indicator node
-            player.indicatorNode = nil;
-        }
-        
-        if (player.indicatorNode) {
-            // Update the indicator node to have the same position and zRotation as the player
-            player.indicatorNode.position = player.character.position;
-            player.indicatorNode.zRotation = player.character.zRotation;
-//            player.indicatorNode.position = player.ninja.position;
-//            player.indicatorNode.zRotation = player.ninja.zRotation;
-        }
-        
-        if (![ninja isDying]) {
-            ninja.position = CGPointApprox(ninja.position);
-            [self resolveSpecialItemEffectsForCharacter:ninja sinceLastUpdate:timeSinceLast];
-            
-            if (player.jumpRequested) {
-                [self resolveJumpRequestForPlayer:player sinceLastUpdate:timeSinceLast];
-            } else {
-                player.jumpCooldown += timeSinceLast;
-            }
-        }
+        [self updateOnePlayer:player timeSinceLast:timeSinceLast];
+    }
+    for (NJAIPlayer *player in self.AIplayers){
+        [self updateOnePlayer:player timeSinceLast:timeSinceLast];
     }
 }
 
