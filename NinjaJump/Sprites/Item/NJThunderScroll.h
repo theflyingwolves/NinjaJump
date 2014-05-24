@@ -9,5 +9,4 @@
 #import "NJScroll.h"
 
 @interface NJThunderScroll : NJScroll
-
 @end
