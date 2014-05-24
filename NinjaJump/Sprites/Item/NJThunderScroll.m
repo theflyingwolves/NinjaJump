@@ -42,4 +42,5 @@
     [character performThunderAnimation];
     [self runAction:[SKAction playSoundFileNamed:kSoundThunder waitForCompletion:NO]];
 }
+
 @end

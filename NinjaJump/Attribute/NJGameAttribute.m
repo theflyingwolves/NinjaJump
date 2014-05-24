@@ -49,39 +49,6 @@
     return self.numberOfFramesToSpawnItem;
 }
 
-- (SKSpriteNode *)getVictoryLabelForWinnerIndex:(NSInteger)index
-{
-    SKSpriteNode *victoryLabel;
-    float angle = atan(FRAME.size.width/FRAME.size.height)+0.1;
-    
-    if (_mode == NJGameModeOneVsThree) {
-        if (_isBossLost) {
-            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossLoss"];
-        }else{
-            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossWin"];
-        }
-    }else{
-        victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"victory"];
-    }
-    
-    switch (index) {
-        case 0:
-            victoryLabel.zRotation = -angle;
-            break;
-        case 1:
-            victoryLabel.zRotation = angle;
-            break;
-        case 2:
-            victoryLabel.zRotation = M_PI-angle;
-            break;
-        case 3:
-            victoryLabel.zRotation = M_PI+angle;
-            break;
-        default:
-            break;
-    }
-}
-
 - (BOOL)shouldApplyImpulesToSlowWoodpiles
 {
     if (_mode != NJGameModeBeginner && _mode != NJGameModeTutorial) {
@@ -96,12 +63,9 @@
     return _mode != NJGameModeBeginner && _mode != NJGameModeTutorial;
 }
 
-- (NSMutableArray *)usableItems
+- (BOOL)shouldPileDecrease
 {
-    NSMutableArray *usableItems = [NSMutableArray array];
-    if (_mode == NJGameModeBeginner) {
-//        usableItems
-    }
+    return _mode != NJGameModeBeginner && _mode != NJGameModeTutorial;
 }
 
 @end

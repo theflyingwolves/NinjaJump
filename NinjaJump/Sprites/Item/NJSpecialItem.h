@@ -59,5 +59,4 @@ typedef enum : uint8_t {
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character;
 // EFFECTS: Use the item at a position with a direction (which is the zRotation of the player)
-
 @end

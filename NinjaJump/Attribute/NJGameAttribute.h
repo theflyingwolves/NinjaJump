@@ -15,7 +15,7 @@
 
 + (id)attributeWithMode:(NJGameMode)mode;
 - (int)getNumberOfFramesToSpawnItem;
-- (SKSpriteNode *)getVictoryLabelForWinnerIndex:(NSInteger)index;
 - (BOOL)shouldApplyImpulesToSlowWoodpiles;
 - (BOOL)shouldWoodpileMove;
+- (BOOL)shouldPileDecrease;
 @end

@@ -562,7 +562,37 @@
 {
     _victoryBackground = [SKSpriteNode spriteNodeWithImageNamed:@"victory bg"];
     _victoryBackground.position = CGPointMake(CGRectGetMidX(FRAME), CGRectGetMidY(FRAME));
-    SKSpriteNode *victoryLabel = [_attribute getVictoryLabelForWinnerIndex:index];
+//    SKSpriteNode *victoryLabel = [_attribute getVictoryLabelForWinnerIndex:index];
+    SKSpriteNode *victoryLabel;
+    float angle = atan(FRAME.size.width/FRAME.size.height)+0.1;
+    
+    if (_gameMode == NJGameModeOneVsThree) {
+        if (_isBossLost) {
+            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossLoss"];
+        }else{
+            victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"bossWin"];
+        }
+    }else{
+        victoryLabel = [SKSpriteNode spriteNodeWithImageNamed:@"victory"];
+    }
+    
+    switch (index) {
+        case 0:
+            victoryLabel.zRotation = -angle;
+            break;
+        case 1:
+            victoryLabel.zRotation = angle;
+            break;
+        case 2:
+            victoryLabel.zRotation = M_PI-angle;
+            break;
+        case 3:
+            victoryLabel.zRotation = M_PI+angle;
+            break;
+        default:
+            break;
+    }
+    
     NSString *filePath1 = [[NSBundle mainBundle] pathForResource:@"Firework" ofType:@"sks"];
     SKEmitterNode *firework = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath1];
     firework.position = CGPointMake(-100, -100);
@@ -784,7 +814,7 @@
     if (_gameMode == NJGameModeOneVsThree) {
         selectionSystem = [[NJ1V3SelectionButtonSystem alloc] init];
     } else {
-        selectionSystem = [[NJSelectionButtonSystem alloc]init];
+        selectionSystem = [[NJSelectionButtonSystem alloc] init];
     }
     
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -833,9 +863,7 @@
     [self initHpBars];
     [self initButtonsAndItemControls];
     [self initCharacters];
-    if (_gameMode != NJGameModeBeginner && _gameMode != NJGameModeTutorial) {
-        shouldPileStartDecreasing = YES;
-    }
+    shouldPileStartDecreasing = [_attribute shouldPileDecrease];
     if(_gameMode != NJGameModeTutorial){
         [self fireCountdown];
     }
