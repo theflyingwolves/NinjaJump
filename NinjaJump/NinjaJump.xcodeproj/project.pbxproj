@@ -153,6 +153,7 @@
 		C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CAA7FE18DB21830070F3D5 /* NJPile.m */; };
 		C4D7116918FC2C7300567018 /* dialogIntro.png in Resources */ = {isa = PBXBuildFile; fileRef = C4D7116818FC2C7300567018 /* dialogIntro.png */; };
 		C4E8E70918FD706200BDFACA /* NJTutorialScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E8E70818FD706200BDFACA /* NJTutorialScene.m */; };
+		C4ED02EA19306E3D00044202 /* NJAIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4ED02E919306E3D00044202 /* NJAIPlayer.m */; };
 		C4F0821418E4569E00F81C8C /* NJEffectShurikenMulti.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */; };
 		C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821618E459B700F81C8C /* NJItemEffect.m */; };
 		C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0821918E4708300F81C8C /* shurikenEffect.png */; };
@@ -395,6 +396,8 @@
 		C4D7116818FC2C7300567018 /* dialogIntro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogIntro.png; sourceTree = "<group>"; };
 		C4E8E70718FD706200BDFACA /* NJTutorialScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJTutorialScene.h; path = Scenes/NJTutorialScene.h; sourceTree = "<group>"; };
 		C4E8E70818FD706200BDFACA /* NJTutorialScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJTutorialScene.m; path = Scenes/NJTutorialScene.m; sourceTree = "<group>"; };
+		C4ED02E819306E3D00044202 /* NJAIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJAIPlayer.h; path = Player/AI/NJAIPlayer.h; sourceTree = "<group>"; };
+		C4ED02E919306E3D00044202 /* NJAIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJAIPlayer.m; path = Player/AI/NJAIPlayer.m; sourceTree = "<group>"; };
 		C4F0821218E4569E00F81C8C /* NJEffectShurikenMulti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJEffectShurikenMulti.h; path = Sprites/ItemEffect/NJEffectShurikenMulti.h; sourceTree = "<group>"; };
 		C4F0821318E4569E00F81C8C /* NJEffectShurikenMulti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJEffectShurikenMulti.m; path = Sprites/ItemEffect/NJEffectShurikenMulti.m; sourceTree = "<group>"; };
 		C4F0821518E459B700F81C8C /* NJItemEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJItemEffect.h; path = Sprites/ItemEffect/NJItemEffect.h; sourceTree = "<group>"; };
@@ -871,8 +874,8 @@
 		C4966E7A1902606900D7BBA6 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				2B21F15218D4342E007220CF /* NJPlayer.h */,
-				2B21F15318D4342E007220CF /* NJPlayer.m */,
+				C4ED02E719306E0100044202 /* AI */,
+				C4ED02E619306DFA00044202 /* human */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -919,6 +922,24 @@
 				C4CAA7FE18DB21830070F3D5 /* NJPile.m */,
 			);
 			name = Ground;
+			sourceTree = "<group>";
+		};
+		C4ED02E619306DFA00044202 /* human */ = {
+			isa = PBXGroup;
+			children = (
+				2B21F15218D4342E007220CF /* NJPlayer.h */,
+				2B21F15318D4342E007220CF /* NJPlayer.m */,
+			);
+			name = human;
+			sourceTree = "<group>";
+		};
+		C4ED02E719306E0100044202 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				C4ED02E819306E3D00044202 /* NJAIPlayer.h */,
+				C4ED02E919306E3D00044202 /* NJAIPlayer.m */,
+			);
+			name = AI;
 			sourceTree = "<group>";
 		};
 		C4F0820E18E4545C00F81C8C /* ItemEffect */ = {
@@ -1270,6 +1291,7 @@
 				C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */,
 				2FC568A818E1BCA900C6589D /* NJCharacter.m in Sources */,
 				C42170E718E068E800942374 /* NJFireScroll.m in Sources */,
+				C4ED02EA19306E3D00044202 /* NJAIPlayer.m in Sources */,
 				C4966E7318FEEB4F00D7BBA6 /* NJTutorialHomeButton.m in Sources */,
 				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
 				C42170C318E066F800942374 /* NJSpecialItem.m in Sources */,
