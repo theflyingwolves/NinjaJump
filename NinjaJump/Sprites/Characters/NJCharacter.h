@@ -66,7 +66,7 @@ typedef enum : uint8_t {
 
 #pragma mark - Anmiation Properties
 @property (nonatomic) CGFloat animationSpeed;
-@property (nonatomic) CGFloat movementSpeed;
+//@property (nonatomic) CGFloat movementSpeed;
 @property (nonatomic) NSString *activeAnimationKey;
 @property (nonatomic) NJAnimationState requestedAnimation;
 @property float frozenCount;

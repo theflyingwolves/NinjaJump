@@ -32,7 +32,7 @@
     if (self) {
         self.delegate = delegate;
         self.position = position;
-        self.movementSpeed = 800;
+//        self.movementSpeed = 800;
         self.animationSpeed = 1/60.0f;
         self.health = FULL_HP;
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
@@ -70,7 +70,8 @@
     CGPoint curPosition = self.position;
     CGFloat dx = toPile.position.x - curPosition.x;
     CGFloat dy = toPile.position.y - curPosition.y;
-    CGFloat dt = self.movementSpeed * timeInterval;
+//    CGFloat dt = self.movementSpeed * timeInterval;
+    CGFloat dt = self.jumpSpeed * timeInterval;
     CGFloat distRemaining = hypotf(dx, dy);
     
     CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(toPile.position, curPosition));
