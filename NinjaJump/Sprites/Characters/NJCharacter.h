@@ -34,6 +34,22 @@ typedef enum : uint8_t {
 @end
 
 @interface NJCharacter : SKSpriteNode
+
+#pragma mark - ability
+@property NSInteger strength;
+@property NSInteger intellect;
+@property NSInteger vitality;
+@property NSInteger agility;
+
+#pragma mark - actual ability
+@property (readonly) NSInteger physicalAttack;
+@property (readonly) NSInteger physicalDefense;
+@property (readonly) NSInteger hp;
+@property (readonly) NSInteger magicAttack;
+@property (readonly) NSInteger magicDefense;
+@property (readonly) CGFloat JumpCoolTime;
+@property (readonly) NSInteger jumpSpeed;
+
 #pragma mark - Native Properties
 @property (nonatomic) CGFloat health;
 @property (nonatomic) SKTexture *origTexture;
@@ -66,6 +82,10 @@ typedef enum : uint8_t {
 -(instancetype)initWithTextureNamed:(NSString *)textureName AtPosition:(CGPoint)position delegate:(id<NJCharacterDelegate>)delegate;
 // REQUIRES: Texture named textureName should have been added to the project, position should be within the rendering screen
 // EFFECTS: Initialize a character with an initial texture and position
+
+- (void)initActualAbility;
+// REQUIRES: all Ability is well initialized for the specific characters
+// EFFECTS: initialize the actual ability for a character based on the general ability
 
 #pragma mark - Render
 - (void)render;

@@ -1632,7 +1632,8 @@
     
     NJPile *pile = [self woodPileToJump:button.player.character];
     if (pile && !button.player.isJumping && button.player.character.frozenCount == 0) {
-        if (button.player.jumpCooldown >= kJumpCooldownTime) {
+        if (button.player.jumpCooldown >= button.player.character.JumpCoolTime) {
+//        if (button.player.jumpCooldown >= kJumpCooldownTime) {
             button.player.jumpCooldown = 0;
             button.player.fromPile = button.player.targetPile;
             button.player.targetPile = pile;

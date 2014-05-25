@@ -27,6 +27,12 @@
     if (self) {
         self.magicalDamageMultiplier = 1.0f;
         self.physicalDamageMultiplier = 1.0f;
+        
+        self.strength = 100;
+        self.vitality = 100;
+        self.intellect = 100;
+        self.agility = 100;
+        [self initActualAbility];
     }
     return self;
 }

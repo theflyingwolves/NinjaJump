@@ -51,6 +51,16 @@
     _shadow.alpha = 0.7;
 }
 
+- (void)initActualAbility{
+    _physicalAttack = (NSInteger)_strength/2.5;
+    _physicalDefense = (NSInteger)(_strength/5.0);
+    _hp = _vitality;
+    _magicAttack = (NSInteger)(_intellect/2.5);
+    _magicDefense = (NSInteger)(_intellect/5.0);
+    _JumpCoolTime = (NSInteger)(70.0/_agility);
+    _jumpSpeed = (NSInteger)(_agility*8);
+}
+
 #pragma mark - Jump
 - (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval
 {
