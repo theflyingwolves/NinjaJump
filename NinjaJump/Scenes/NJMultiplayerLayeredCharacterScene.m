@@ -1661,4 +1661,24 @@
 {
     [self addNode:effectNode atWorldLayer:NJWorldLayerAboveCharacter];
 }
+
+- (BOOL)containsPile:(NJPile *)pile
+{
+    return [_woodPiles containsObject:pile];
+}
+
+- (NJCharacter *)getNearestCharacter:(NJCharacter *)selfNinja
+{
+    CGFloat minDist = INFINITY;
+    NJCharacter * nearestCharacter;
+    for (NJCharacter *aCharacter in _ninjas){
+        CGFloat dist = NJDistanceBetweenPoints(selfNinja.position, aCharacter.position);
+        if (aCharacter != selfNinja && dist < minDist) {
+            minDist = dist;
+            nearestCharacter = aCharacter;
+        }
+    }
+    return nearestCharacter;
+}
+
 @end

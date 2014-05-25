@@ -11,34 +11,31 @@
 
 @implementation NJAIStateGeneral
 
-- (void)enter
-{
-    
-}
+
 
 - (void)execute
 {
-    NJPile *pile = [self.delegate woodPileToJump:self.owner.character];
-    if (pile && !self.owner.isJumping && self.owner.character.frozenCount == 0 /*&& rand()/RAND_MAX>kAIJumpFrequency*/) {
-        if (self.owner.jumpCooldown >= kJumpCooldownTime) {
-            self.owner.jumpCooldown = 0;
-            self.owner.fromPile = self.owner.targetPile;
-            self.owner.targetPile = pile;
-            self.owner.jumpRequested = YES;
-            self.owner.isJumping = YES;
-//            if (rand()/RAND_MAX>kAIWanderFrequency) {
-//                [self.owner changeToState:WANDER];
-//            }
-        }
-    }
-    if (self.owner.character.health<=kAISurvivalHp) {
-        [self.owner changeToState:SURVIVAL];
-    }
+    [self jumpWithFrequency:kAIGeneralJumpFrequency and:kAIJumpRandom];
+    [self useItemWithDistance:kAIAlertRadius];
+    [self changeState];
 }
 
-- (void)exit
+
+
+
+- (void)changeState
 {
-    
+    if (self.jumpFlag && NJRandomValue() < kAIStateChangeFrequency) {
+        [self.owner changeToState:WANDER];
+    } else {
+        self.jumpFlag = NO;
+        if (self.owner.character.health < kAISurvivalHp) {
+            [self.owner changeToState:SURVIVAL];
+        }
+        if (self.owner.item) {
+            [self.owner changeToState:ARMED];
+        }
+    }
 }
 
 @end

@@ -12,7 +12,6 @@
 
 @interface NJAIStateWander()
 
-@property NJPile *prevPile;
 
 @end
 
@@ -20,29 +19,23 @@
 
 - (void)enter
 {
-    
+    [super enter];
+    NSLog(@"enter wander");
 }
 
 - (void)execute
 {
-    NJPile *pile = [self.delegate woodPileToJump:self.owner.character];
-    if ((pile==_prevPile || _prevPile) && !self.owner.isJumping && self.owner.character.frozenCount == 0) {
-        if (self.owner.jumpCooldown >= kJumpCooldownTime) {
-            self.owner.jumpCooldown = 0;
-            self.owner.fromPile = self.owner.targetPile;
-            self.owner.targetPile = pile;
-            self.owner.jumpRequested = YES;
-            self.owner.isJumping = YES;
-            if (rand()/RAND_MAX>kAIWanderFrequency) {
-                [self.owner changeToState:WANDER];
-            }
-        }
-    }
+    [self jumpWithFrequency:kAIGeneralJumpFrequency and:kAIJumpWandering];
+    [self changeState];
 }
 
-- (void)exit
+- (void)changeState
 {
-    
+    NJCharacter *nearestCharacter = [self.delegate getNearestCharacter:self.owner.character];
+    CGFloat dist = NJDistanceBetweenPoints(self.owner.character.position, nearestCharacter.position);
+    if (dist < kAIAlertRadius) {
+        [self.owner changeToState:GENERAL];
+    }
 }
 
 @end

@@ -12,19 +12,11 @@
 
 @implementation NJAIStateSurvival
 
-- (void)enter
-{
-    
-}
 
 - (void)execute
 {
-    
+    [self jumpWithFrequency:kAISurvivalJumpFrequency and:kAIJumpRandom];
 }
 
-- (void)exit
-{
-    
-}
 
 @end

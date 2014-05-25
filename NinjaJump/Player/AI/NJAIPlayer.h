@@ -17,6 +17,7 @@ typedef enum {GENERAL, WANDER, SURVIVAL, ARMED} NJAIStateType;
 
 @property id<NJAIDelegate> delegate;
 @property NJAIState *currState;
+@property NSMutableArray *prevPileList;
 
 - (void) update;
 

@@ -11,19 +11,13 @@
 
 @implementation NJAIStateArmed
 
-- (void)enter
-{
-    
-}
 
 - (void)execute
 {
-    
-}
-
-- (void)exit
-{
-    
+    [self jumpWithFrequency:kAISurvivalJumpFrequency and:kAIJumpRandom];
+    if(self.owner.item){
+        [self useItemWithDistance:kAIArmedAttackRadius];
+    }
 }
 
 @end

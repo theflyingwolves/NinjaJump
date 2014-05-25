@@ -7,11 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NJPile.h";
+#import "NJPile.h"
+#import "NJGraphicsUnitilities.h"
+#import "NJNinjaCharacter.h"
 
 @protocol NJAIDelegate <NSObject>
 
-- (NJPile *) woodPileToJump:(NJCharacter *)character;
+- (BOOL)containsPile:(NJPile *)pile;
+
+- (NJPile *)woodPileToJump:(NJCharacter *)ninja;
+
+- (NJCharacter *)getNearestCharacter:(NJCharacter *)ninja;
 
 @end
 
@@ -21,6 +27,7 @@
 
 @property (nonatomic, weak) id<NJAIDelegate> delegate;
 @property(nonatomic) NJAIPlayer *owner;
+@property (nonatomic) BOOL jumpFlag;
 
 - (id)initWithOwner:(NJAIPlayer *)player;
 
@@ -29,5 +36,12 @@
 - (void)execute;
 
 - (void)exit;
+
+- (void)jumpWithFrequency:(CGFloat)frequency and:(BOOL)isWander;
+
+- (void)changeState;
+
+- (void)useItemWithDistance:(CGFloat)distance;
+
 
 @end

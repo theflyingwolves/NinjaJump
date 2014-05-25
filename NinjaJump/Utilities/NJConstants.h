@@ -113,9 +113,17 @@
 #define kNotificationAfterPause @"actionAfterPause"
 
 #pragma mark - AI
-#define kAIJumpFrequency 0.5
-#define kAIWanderFrequency 0.3
+#define kAIGeneralJumpFrequency 0.4
+#define kAISurvivalJumpFrequency 0.6
+#define kAIItemJumpFrequency 0.9
+#define kAIStateChangeInterval 4
+#define kAIStateChangeFrequency 0.3
 #define kAISurvivalHp 30
+#define kAIprevPileNum 3
+#define kAIAlertRadius 150
+#define kAIArmedAttackRadius 200
+#define kAIJumpWandering YES
+#define kAIJumpRandom NO
 
 typedef enum : uint8_t {
     NJGameModeBeginner=0,

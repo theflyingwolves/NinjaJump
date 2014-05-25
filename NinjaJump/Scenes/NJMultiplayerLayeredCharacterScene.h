@@ -106,4 +106,11 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 /* the following two methods are defined in NJScroll delegate they are declared here in order to be used by tutorial scene. */
 - (NSArray *)getAffectedTargetsWithRange:(NJRange *)range;
 - (NSArray *)getAffectedPilesWithRange:(NJRange *)range;
+
+- (BOOL)containsPile:(NJPile *)pile;
+
+- (NJPile *)woodPileToJump:(NJCharacter *)ninja;
+
+- (NJCharacter *)getNearestCharacter:(NJCharacter *)ninja;
+
 @end

@@ -20,6 +20,7 @@
     self = [super init];
     if(self){
         _currState = [[NJAIStateGeneral alloc] initWithOwner:self];
+        _prevPileList = [NSMutableArray array];
     }
     return self;
 }
@@ -34,22 +35,32 @@
 
 - (void) changeToState:(NJAIStateType)newState
 {
+    [_currState exit];
     switch (newState) {
         case GENERAL:
             _currState = [[NJAIStateGeneral alloc]initWithOwner:self];
+            _currState.delegate = _delegate;
+            NSLog(@"general state");
             break;
         case WANDER:
             _currState = [[NJAIStateWander alloc]initWithOwner:self];
+            _currState.delegate = _delegate;
+            NSLog(@"wander state");
             break;
         case SURVIVAL:
             _currState = [[NJAIStateSurvival alloc]initWithOwner:self];
+            _currState.delegate = _delegate;
+            NSLog(@"survival state");
             break;
         case ARMED:
             _currState = [[NJAIStateArmed alloc]initWithOwner:self];
+            _currState.delegate = _delegate;
+            NSLog(@"armed state");
             break;
         default:
             break;
     }
+    [_currState enter];
 }
 
 @end

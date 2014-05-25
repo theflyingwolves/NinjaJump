@@ -23,4 +23,6 @@ CGFloat normalizeZRotation(CGFloat zRotation);
 bool CGPointEqualToPointApprox(CGPoint point1, CGPoint point2);
 CGPoint CGPointApprox(CGPoint point);
 CGFloat NJRandomAngle();//random angle between -PI and PI
+CGFloat NJRandomValue(); //random value between 0 to 1
+
 @end

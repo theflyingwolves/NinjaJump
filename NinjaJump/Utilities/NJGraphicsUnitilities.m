@@ -81,4 +81,9 @@ CGFloat NJRandomAngle()
     return ang;
 }
 
+CGFloat NJRandomValue()
+{
+    return (CGFloat)rand()/RAND_MAX;
+}
+
 @end
