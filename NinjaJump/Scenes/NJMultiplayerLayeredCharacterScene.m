@@ -403,7 +403,6 @@
         _woodPiles = [NSMutableArray array];
     }
     
-//    CGFloat r= 230.0f;
     NSArray *pilePosDict = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"InitialDistributionOfWoodpilesIPad" ofType:@"plist"]];
     NSMutableArray *pilePos = [NSMutableArray array];
     for (int i=0; i<[pilePosDict count]; i++) {
@@ -411,8 +410,7 @@
         NSValue *point = [NSValue valueWithCGPoint:CGPointMake([((NSNumber *)[dict objectForKey:@"x"]) integerValue], [((NSNumber *)[dict objectForKey:@"y"]) integerValue])];
         [pilePos addObject:point];
     }
-    
-//    NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(350, 220)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 500)], [NSValue valueWithCGPoint:CGPointMake(400, 350)], [NSValue valueWithCGPoint:CGPointMake(300, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(200, 300)], [NSValue valueWithCGPoint:CGPointMake(260, 410)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 610)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
+
     //add in the spawn pile of ninjas
     for (NSValue *posValue in pilePos){
         CGPoint pos = [posValue CGPointValue];
@@ -977,7 +975,7 @@
     SKAction *appear = [SKAction sequence:@[fadeIn,wait,fadeOut,removeNode]];
     
     SKSpriteNode *startNote = [SKSpriteNode spriteNodeWithImageNamed:@"start"];
-    startNote.position = CGPointMake(1024/2, 768/2);
+    startNote.position = CGPointMake(FRAME.size.width/2, FRAME.size.height/2);
     [self addChild:startNote];
     
     [startNote runAction:appear completion:^{

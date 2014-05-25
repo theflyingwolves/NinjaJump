@@ -11,4 +11,5 @@
 
 @interface NJStore : NSObject
 - (BOOL)isProductUnlocked:(ProductId *)pId;
+- (NSString *)imageNameForProductWithId:(ProductId *)pId;
 @end
