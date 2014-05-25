@@ -165,10 +165,6 @@
 - (void)button:(NJButton *)button touchesEnded:(NSSet *)touches
 {
     [button setScale:1.00];
-    if (button.index == NJGameModeCount) {
-        NSLog(@"facebook detected");
-    }else{
-        [self.delegate modeSelected:button.index];
-    }
+    [self.delegate modeSelected:button.index];
 }
 @end

@@ -56,6 +56,7 @@
 		2F63E12F18E0291500E9A17B /* hp_bar_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F63E12D18E0291500E9A17B /* hp_bar_bottom.png */; };
 		2F63E13018E0291500E9A17B /* hp_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F63E12E18E0291500E9A17B /* hp_bar.png */; };
 		2F6DB79F193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F6DB79E193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist */; };
+		2F6DB7A21931CC4200488370 /* NJStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB7A11931CC4200488370 /* NJStoreViewController.m */; };
 		2F814E0818FD56CC009CF268 /* settingBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F814E0718FD56CC009CF268 /* settingBtn.png */; };
 		2F814E0A18FD5B25009CF268 /* selectionBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F814E0918FD5B25009CF268 /* selectionBG.png */; };
 		2F8A72B318E449B300B88E79 /* NJItemControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8A72B218E449B300B88E79 /* NJItemControl.m */; };
@@ -278,6 +279,8 @@
 		2F63E12D18E0291500E9A17B /* hp_bar_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hp_bar_bottom.png; path = Assets/HPBar/hp_bar_bottom.png; sourceTree = "<group>"; };
 		2F63E12E18E0291500E9A17B /* hp_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hp_bar.png; path = Assets/HPBar/hp_bar.png; sourceTree = "<group>"; };
 		2F6DB79E193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = InitialDistributionOfWoodpilesIPad.plist; path = GameData/InitialDistributionOfWoodpilesIPad.plist; sourceTree = "<group>"; };
+		2F6DB7A01931CC4200488370 /* NJStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJStoreViewController.h; path = ../Scenes/NJStoreViewController.h; sourceTree = "<group>"; };
+		2F6DB7A11931CC4200488370 /* NJStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJStoreViewController.m; path = ../Scenes/NJStoreViewController.m; sourceTree = "<group>"; };
 		2F814E0718FD56CC009CF268 /* settingBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingBtn.png; sourceTree = "<group>"; };
 		2F814E0918FD5B25009CF268 /* selectionBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectionBG.png; sourceTree = "<group>"; };
 		2F8A72B118E449B300B88E79 /* NJItemControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJItemControl.h; path = Sprites/Control/NJItemControl.h; sourceTree = "<group>"; };
@@ -707,6 +710,8 @@
 		2F94CD7718D419F1007DAFAD /* NinjaJump */ = {
 			isa = PBXGroup;
 			children = (
+				2F6DB7A01931CC4200488370 /* NJStoreViewController.h */,
+				2F6DB7A11931CC4200488370 /* NJStoreViewController.m */,
 				2F94CD8018D419F1007DAFAD /* NJAppDelegate.h */,
 				2F94CD8118D419F1007DAFAD /* NJAppDelegate.m */,
 				2F94CD8318D419F1007DAFAD /* Main.storyboard */,
@@ -1326,6 +1331,7 @@
 				2F45B43A18E6AC8E00482453 /* NJRectangularRange.m in Sources */,
 				C42170C618E0672400942374 /* NJTool.m in Sources */,
 				C4F0821418E4569E00F81C8C /* NJEffectShurikenMulti.m in Sources */,
+				2F6DB7A21931CC4200488370 /* NJStoreViewController.m in Sources */,
 				2FC568AE18E1BCFF00C6589D /* NJGraphicsUnitilities.m in Sources */,
 				2F42F71518FA59FC00973113 /* NJNinjaCharacterBoss.m in Sources */,
 				2F45B43D18E6AC9F00482453 /* NJFanRange.m in Sources */,

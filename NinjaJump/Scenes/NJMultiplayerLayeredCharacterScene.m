@@ -1580,4 +1580,5 @@
 {
     [self addNode:effectNode atWorldLayer:NJWorldLayerAboveCharacter];
 }
+
 @end

@@ -23,7 +23,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    self.navigationController.navigationBar.hidden = YES;
     // Configure the view.
     NJLoadingScene *loadingScene = [[NJLoadingScene alloc] initWithSize:_skView.bounds.size];
     loadingScene.scaleMode = SKSceneScaleModeAspectFill;
@@ -36,6 +36,9 @@
 
 - (void)modeSelected:(NJGameMode)mode
 {
+    if (mode == NJGameModeCount) {
+        [self performSegueWithIdentifier:@"store" sender:self];
+    }else{
     [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
         if (mode == NJGameModeTutorial) {
             // Initialize Tutorial Scene Here
@@ -54,6 +57,7 @@
             [_skView presentScene:scene transition:[SKTransition crossFadeWithDuration:0.5f]];
         }
     }];
+    }
 }
 
 - (void)backToModeSelectionScene
@@ -83,4 +87,8 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // do nothing
+}
 @end
