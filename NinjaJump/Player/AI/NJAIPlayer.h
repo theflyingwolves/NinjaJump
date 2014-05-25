@@ -7,7 +7,18 @@
 //
 
 #import "NJPlayer.h"
+#import "NJAIState.h"
+#import "NJMultiplayerLayeredCharacterScene.h"
+
+typedef enum {GENERAL, WANDER, SURVIVAL, ARMED} NJAIStateType;
 
 @interface NJAIPlayer : NJPlayer
+
+@property id<NJAIDelegate> delegate;
+@property NJAIState *currState;
+
+- (void) update;
+
+- (void) changeToState:(NJAIStateType)newState;
 
 @end

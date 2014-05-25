@@ -162,6 +162,11 @@
 		C9150B0618EC45EF00645698 /* victory.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0518EC45EF00645698 /* victory.png */; };
 		C9150B0818EC56EF00645698 /* victory bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0718EC56EF00645698 /* victory bg.png */; };
 		C9150B0A18EC5ADD00645698 /* continue.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0918EC5ADD00645698 /* continue.png */; };
+		C9165C0A1930837B005F2B98 /* NJAIState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9165C091930837B005F2B98 /* NJAIState.m */; };
+		C9165C0D193083AA005F2B98 /* NJAIStateGeneral.m in Sources */ = {isa = PBXBuildFile; fileRef = C9165C0C193083AA005F2B98 /* NJAIStateGeneral.m */; };
+		C9165C10193083E6005F2B98 /* NJAIStateSurvival.m in Sources */ = {isa = PBXBuildFile; fileRef = C9165C0F193083E6005F2B98 /* NJAIStateSurvival.m */; };
+		C9165C1319308418005F2B98 /* NJAIStateWander.m in Sources */ = {isa = PBXBuildFile; fileRef = C9165C1219308418005F2B98 /* NJAIStateWander.m */; };
+		C9165C161930844E005F2B98 /* NJAIStateArmed.m in Sources */ = {isa = PBXBuildFile; fileRef = C9165C151930844E005F2B98 /* NJAIStateArmed.m */; };
 		C931A93E18E05EF7002FE154 /* ready buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93718E05EF7002FE154 /* ready buttons.png */; };
 		C931A93F18E05EF7002FE154 /* shade.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93818E05EF7002FE154 /* shade.png */; };
 		C931A94018E05EF7002FE154 /* start button.png in Resources */ = {isa = PBXBuildFile; fileRef = C931A93918E05EF7002FE154 /* start button.png */; };
@@ -410,6 +415,16 @@
 		C9150B0518EC45EF00645698 /* victory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = victory.png; path = "Assets/victory scene/victory.png"; sourceTree = "<group>"; };
 		C9150B0718EC56EF00645698 /* victory bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "victory bg.png"; path = "Assets/victory scene/victory bg.png"; sourceTree = "<group>"; };
 		C9150B0918EC5ADD00645698 /* continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = continue.png; path = "Assets/victory scene/continue.png"; sourceTree = "<group>"; };
+		C9165C081930837A005F2B98 /* NJAIState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJAIState.h; path = Player/AI/NJAIState.h; sourceTree = "<group>"; };
+		C9165C091930837B005F2B98 /* NJAIState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJAIState.m; path = Player/AI/NJAIState.m; sourceTree = "<group>"; };
+		C9165C0B193083AA005F2B98 /* NJAIStateGeneral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJAIStateGeneral.h; path = Player/AI/NJAIStateGeneral.h; sourceTree = "<group>"; };
+		C9165C0C193083AA005F2B98 /* NJAIStateGeneral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJAIStateGeneral.m; path = Player/AI/NJAIStateGeneral.m; sourceTree = "<group>"; };
+		C9165C0E193083E5005F2B98 /* NJAIStateSurvival.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJAIStateSurvival.h; path = Player/AI/NJAIStateSurvival.h; sourceTree = "<group>"; };
+		C9165C0F193083E6005F2B98 /* NJAIStateSurvival.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJAIStateSurvival.m; path = Player/AI/NJAIStateSurvival.m; sourceTree = "<group>"; };
+		C9165C1119308418005F2B98 /* NJAIStateWander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJAIStateWander.h; path = Player/AI/NJAIStateWander.h; sourceTree = "<group>"; };
+		C9165C1219308418005F2B98 /* NJAIStateWander.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJAIStateWander.m; path = Player/AI/NJAIStateWander.m; sourceTree = "<group>"; };
+		C9165C141930844D005F2B98 /* NJAIStateArmed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJAIStateArmed.h; path = Player/AI/NJAIStateArmed.h; sourceTree = "<group>"; };
+		C9165C151930844E005F2B98 /* NJAIStateArmed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJAIStateArmed.m; path = Player/AI/NJAIStateArmed.m; sourceTree = "<group>"; };
 		C931A93718E05EF7002FE154 /* ready buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ready buttons.png"; path = "Assets/selection scene/ready buttons.png"; sourceTree = "<group>"; };
 		C931A93818E05EF7002FE154 /* shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shade.png; path = "Assets/selection scene/shade.png"; sourceTree = "<group>"; };
 		C931A93918E05EF7002FE154 /* start button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "start button.png"; path = "Assets/selection scene/start button.png"; sourceTree = "<group>"; };
@@ -951,6 +966,16 @@
 			children = (
 				C4ED02E819306E3D00044202 /* NJAIPlayer.h */,
 				C4ED02E919306E3D00044202 /* NJAIPlayer.m */,
+				C9165C081930837A005F2B98 /* NJAIState.h */,
+				C9165C091930837B005F2B98 /* NJAIState.m */,
+				C9165C0B193083AA005F2B98 /* NJAIStateGeneral.h */,
+				C9165C0C193083AA005F2B98 /* NJAIStateGeneral.m */,
+				C9165C0E193083E5005F2B98 /* NJAIStateSurvival.h */,
+				C9165C0F193083E6005F2B98 /* NJAIStateSurvival.m */,
+				C9165C1119308418005F2B98 /* NJAIStateWander.h */,
+				C9165C1219308418005F2B98 /* NJAIStateWander.m */,
+				C9165C141930844D005F2B98 /* NJAIStateArmed.h */,
+				C9165C151930844E005F2B98 /* NJAIStateArmed.m */,
 			);
 			name = AI;
 			sourceTree = "<group>";
@@ -1291,7 +1316,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C42170CF18E0685500942374 /* NJMine.m in Sources */,
+				C9165C0D193083AA005F2B98 /* NJAIStateGeneral.m in Sources */,
 				2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */,
+				C9165C161930844E005F2B98 /* NJAIStateArmed.m in Sources */,
 				2F45B43418E6A9E100482453 /* NJRange.m in Sources */,
 				2FC568B118E1BD5000C6589D /* NJScroll.m in Sources */,
 				C9B8F29618E05B3B00FA877E /* NJSelectionButtonSystem.m in Sources */,
@@ -1307,6 +1334,7 @@
 				C4ED02EA19306E3D00044202 /* NJAIPlayer.m in Sources */,
 				C4966E7318FEEB4F00D7BBA6 /* NJTutorialHomeButton.m in Sources */,
 				2B21F15418D4342E007220CF /* NJPlayer.m in Sources */,
+				C9165C1319308418005F2B98 /* NJAIStateWander.m in Sources */,
 				C42170C318E066F800942374 /* NJSpecialItem.m in Sources */,
 				2B21F15118D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m in Sources */,
 				2F45B43A18E6AC8E00482453 /* NJRectangularRange.m in Sources */,
@@ -1318,6 +1346,7 @@
 				2F8A72B318E449B300B88E79 /* NJItemControl.m in Sources */,
 				C42170E118E068CF00942374 /* NJWindScroll.m in Sources */,
 				C9B8F29518E05B3B00FA877E /* NJSelectCharacterButton.m in Sources */,
+				C9165C10193083E6005F2B98 /* NJAIStateSurvival.m in Sources */,
 				2F94CD8218D419F1007DAFAD /* NJAppDelegate.m in Sources */,
 				C4CAA80018DB21830070F3D5 /* NJPile.m in Sources */,
 				2F45B44018E72F6600482453 /* NJResponsibleBG.m in Sources */,
@@ -1329,6 +1358,7 @@
 				C42170D818E0689100942374 /* NJMedikit.m in Sources */,
 				C42170E418E068DD00942374 /* NJIceScroll.m in Sources */,
 				C42170DE18E068C100942374 /* NJThunderScroll.m in Sources */,
+				C9165C0A1930837B005F2B98 /* NJAIState.m in Sources */,
 				2F0AB7E619304A8F00654F0B /* NJGameAttribute.m in Sources */,
 				2BFA6DB318E6BA7300EBA279 /* NJLoadingScene.m in Sources */,
 				2FBFDCF618F8FEF400A59A77 /* NJModeSelectionScene.m in Sources */,

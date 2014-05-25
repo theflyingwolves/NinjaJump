@@ -112,6 +112,11 @@
 #define kNotificationPlayerIndex @"activatedPlayerIndex"
 #define kNotificationAfterPause @"actionAfterPause"
 
+#pragma mark - AI
+#define kAIJumpFrequency 0.5
+#define kAIWanderFrequency 0.3
+#define kAISurvivalHp 30
+
 typedef enum : uint8_t {
     NJGameModeBeginner=0,
     NJGameModeSurvival,

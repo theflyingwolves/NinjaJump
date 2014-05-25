@@ -30,7 +30,7 @@
 #import "NJMedikit.h"
 #import "NJVictoryRestart.h"
 
-@interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate,NJCharacterDelegate>
+@interface NJMultiplayerLayeredCharacterScene ()  <SKPhysicsContactDelegate, NJButtonDelegate,NJItemControlDelegate, NJBGclickingDelegate, NJScrollDelegate,NJCharacterDelegate, NJAIDelegate>
 
 @end
 
@@ -120,9 +120,10 @@
     _AIplayers = [NSMutableArray array];
     
     NJAIPlayer *AIPlayer = [[NJAIPlayer alloc] init];
+    AIPlayer.delegate = self;
+    AIPlayer.currState.delegate = self;
     AIPlayer.teamId = -1;
     [_AIplayers addObject:AIPlayer];
-    
 }
 
 /* Initializes frequency of occurrences for special items according to the mode selected. */
@@ -348,7 +349,10 @@
         [player.character removeFromParent];
         [player.indicatorNode removeFromParent];
     }
-    
+//    if (player.ninja && !player.ninja.dying) {
+//        [player.ninja removeFromParent];
+//        [player.indicatorNode removeFromParent];
+//    }
     NJNinjaCharacter *ninja = nil;
     
     if (_gameMode == NJGameModeOneVsThree) {
@@ -1274,17 +1278,7 @@
         if ([AICharacters count] < 1) {
             return;
         }
-        
-        NJPile *pile = [self woodPileToJump:player.character];
-        if (pile && !player.isJumping && player.character.frozenCount == 0) {
-            if (player.jumpCooldown >= kJumpCooldownTime) {
-                player.jumpCooldown = 0;
-                player.fromPile = player.targetPile;
-                player.targetPile = pile;
-                player.jumpRequested = YES;
-                player.isJumping = YES;
-            }
-        }
+        [player update];
     }
 }
 
