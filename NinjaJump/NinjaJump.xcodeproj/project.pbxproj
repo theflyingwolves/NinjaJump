@@ -55,6 +55,7 @@
 		2F4DB99918FFEEBE00E6685F /* facebookBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F4DB99818FFEEBE00E6685F /* facebookBtn.png */; };
 		2F63E12F18E0291500E9A17B /* hp_bar_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F63E12D18E0291500E9A17B /* hp_bar_bottom.png */; };
 		2F63E13018E0291500E9A17B /* hp_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F63E12E18E0291500E9A17B /* hp_bar.png */; };
+		2F6DB79F193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F6DB79E193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist */; };
 		2F814E0818FD56CC009CF268 /* settingBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F814E0718FD56CC009CF268 /* settingBtn.png */; };
 		2F814E0A18FD5B25009CF268 /* selectionBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F814E0918FD5B25009CF268 /* selectionBG.png */; };
 		2F8A72B318E449B300B88E79 /* NJItemControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8A72B218E449B300B88E79 /* NJItemControl.m */; };
@@ -276,6 +277,7 @@
 		2F4DB99818FFEEBE00E6685F /* facebookBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookBtn.png; sourceTree = "<group>"; };
 		2F63E12D18E0291500E9A17B /* hp_bar_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hp_bar_bottom.png; path = Assets/HPBar/hp_bar_bottom.png; sourceTree = "<group>"; };
 		2F63E12E18E0291500E9A17B /* hp_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hp_bar.png; path = Assets/HPBar/hp_bar.png; sourceTree = "<group>"; };
+		2F6DB79E193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = InitialDistributionOfWoodpilesIPad.plist; path = GameData/InitialDistributionOfWoodpilesIPad.plist; sourceTree = "<group>"; };
 		2F814E0718FD56CC009CF268 /* settingBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingBtn.png; sourceTree = "<group>"; };
 		2F814E0918FD5B25009CF268 /* selectionBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectionBG.png; sourceTree = "<group>"; };
 		2F8A72B118E449B300B88E79 /* NJItemControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJItemControl.h; path = Sprites/Control/NJItemControl.h; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 			children = (
 				2F0AB7E9193081E600654F0B /* ProductInfo.plist */,
 				2F0AB7EF19309E8100654F0B /* ProductIdItem.plist */,
+				2F6DB79E193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist */,
 			);
 			name = GameData;
 			sourceTree = "<group>";
@@ -1260,6 +1263,7 @@
 				2F4DB99918FFEEBE00E6685F /* facebookBtn.png in Resources */,
 				2FC568C018E1BE3B00C6589D /* shuriken.png in Resources */,
 				C4966E5E18FEBF3400D7BBA6 /* arrow.png in Resources */,
+				2F6DB79F193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist in Resources */,
 				C408B40A18F0427A004E614C /* ice.mid in Resources */,
 				2F42F72918FA81BA00973113 /* selectedBoss_01.png in Resources */,
 				2FDD9C3C18ED940D0071C712 /* indicator_fire.png in Resources */,
