@@ -7,6 +7,8 @@
 //
 
 #import "NJAIStateSurvival.h"
+#import "NJAIPlayer.h"
+
 
 @implementation NJAIStateSurvival
 

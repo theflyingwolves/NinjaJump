@@ -12,6 +12,7 @@
 
 typedef enum {GENERAL, WANDER, SURVIVAL, ARMED} NJAIStateType;
 
+
 @interface NJAIPlayer : NJPlayer
 
 @property id<NJAIDelegate> delegate;

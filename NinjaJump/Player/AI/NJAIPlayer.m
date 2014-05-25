@@ -12,10 +12,6 @@
 #import "NJAIStateSurvival.h"
 #import "NJAIStateWander.h"
 
-@interface NJAIPlayer()
-@property NJAIState *globalState;
-
-@end
 
 @implementation NJAIPlayer
 
@@ -31,9 +27,6 @@
 
 - (void) update
 {
-    if (_globalState) {
-        [_globalState execute];
-    }
     if (_currState) {
         [_currState execute];
     }

@@ -7,6 +7,7 @@
 //
 
 #import "NJAIStateArmed.h"
+#import "NJAIPlayer.h"
 
 @implementation NJAIStateArmed
 

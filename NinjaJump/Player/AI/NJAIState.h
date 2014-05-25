@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NJAIPlayer.h"
-
-
+#import "NJPile.h";
 
 @protocol NJAIDelegate <NSObject>
 
 - (NJPile *) woodPileToJump:(NJCharacter *)character;
 
 @end
+
+@class NJAIPlayer;
 
 @interface NJAIState : NSObject
 

@@ -7,6 +7,8 @@
 //
 
 #import "NJAIStateWander.h"
+#import "NJAIPlayer.h"
+
 
 @interface NJAIStateWander()
 
