@@ -321,7 +321,6 @@ typedef enum : uint8_t {
             
         case NJTutorialPhaseAttack:
             if (((NJPlayer*)self.players[3]).character.health <FULL_HP){ //when finish attacking
-//            if (((NJPlayer*)self.players[3]).ninja.health <FULL_HP){ //when finish attacking
                 [self goToNextPhaseWithDelay];
             }
             break;
@@ -346,7 +345,6 @@ typedef enum : uint8_t {
             
         case NJTutorialPhasePickupMedikit:
             if (((NJPlayer*)self.players[1]).character.health == FULL_HP) { //when finish picking up medikit
-//            if (((NJPlayer*)self.players[1]).ninja.health == FULL_HP) { //when finish picking up medikit
                 [self goToNextPhaseWithDelay];
             } else {
                 if ([self.items count] == 0){
@@ -370,7 +368,6 @@ typedef enum : uint8_t {
         case NJTutorialPhaseUseIce:
             if (!((NJPlayer*)self.players[1]).item) { //when the scroll is used
                 if (((NJPlayer*)self.players[3]).character.frozenCount > 0){
-//                if (((NJPlayer*)self.players[3]).ninja.frozenCount > 0){
                     [self goToNextPhaseWithDelay];
                 } else if ([self.items count] == 0 && !((NJPlayer*)self.players[1]).item) {
                     //if the enemy is not frozen
@@ -386,18 +383,14 @@ typedef enum : uint8_t {
     }
     
     if (((NJPlayer*)self.players[3]).character.health <(FULL_HP-20)) {
-//    if (((NJPlayer*)self.players[3]).ninja.health <(FULL_HP-20)) {
         if (phaseNum < NJTutorialPhaseUseShuriken) {
             //ensure the lower bound of HP of the enemy
             ((NJPlayer*)self.players[3]).character.health = FULL_HP-20;
-//            ((NJPlayer*)self.players[3]).ninja.health = FULL_HP-20;
         }
     }
     if (((NJPlayer*)self.players[3]).character.health <(FULL_HP-40)) {
-//    if (((NJPlayer*)self.players[3]).ninja.health <(FULL_HP-40)) {
         //ensure the lower bound of HP of the enemy
         ((NJPlayer*)self.players[3]).character.health = FULL_HP-40;
-//        ((NJPlayer*)self.players[3]).ninja.health = FULL_HP-40;
     }
 }
 
@@ -457,7 +450,6 @@ typedef enum : uint8_t {
                 [self activateDummyPlayer];
             
                 [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[3]).character.position.x-110, ((NJPlayer*)self.players[3]).character.position.y) andDirectionIsNormal:YES]];
-//                [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[3]).ninja.position.x-110, ((NJPlayer*)self.players[3]).ninja.position.y) andDirectionIsNormal:YES]];
             
                 break;
             
@@ -483,7 +475,6 @@ typedef enum : uint8_t {
                 phaseNum++;
                 [self addItem:kItemNameMedikit];
                 ((NJPlayer*)self.players[1]).character.health -= 40;
-//                ((NJPlayer*)self.players[1]).ninja.health -= 40;
             
                 [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJSpecialItem*)self.items[0]).position.x-110, ((NJSpecialItem*)self.items[0]).position.y) andDirectionIsNormal:YES]];
             
@@ -507,13 +498,6 @@ typedef enum : uint8_t {
                     [self addChild:[self createArrowWithVector:CGVectorMake(30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[1]).character.position.x+250, ((NJPlayer*)self.players[1]).character.position.y) andDirectionIsNormal:NO]];
                     
                 }
-                
-//                if (((NJPlayer*)self.players[1]).ninja.position.x >= 200) { //add from left
-//                    [self addChild:[self createArrowWithVector:CGVectorMake(-30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[1]).ninja.position.x-250, ((NJPlayer*)self.players[1]).ninja.position.y) andDirectionIsNormal:YES]];
-//                } else {
-//                    [self addChild:[self createArrowWithVector:CGVectorMake(30, 0) andPosition:CGPointMake(((NJPlayer*)self.players[1]).ninja.position.x+250, ((NJPlayer*)self.players[1]).ninja.position.y) andDirectionIsNormal:NO]];
-//                    
-//                }
             
                 break;
             

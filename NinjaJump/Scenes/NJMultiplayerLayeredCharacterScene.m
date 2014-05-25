@@ -192,10 +192,6 @@
             [_ninjas removeObject:player.character];
             [player.character removeFromParent];
         }
-//        else if(player.ninja){
-//            [_ninjas removeObject:player.ninja];
-//            [player.ninja removeFromParent];
-//        }
     }
     
     [self initAICharacters];
@@ -349,10 +345,6 @@
         [player.character removeFromParent];
         [player.indicatorNode removeFromParent];
     }
-//    if (player.ninja && !player.ninja.dying) {
-//        [player.ninja removeFromParent];
-//        [player.indicatorNode removeFromParent];
-//    }
     NJNinjaCharacter *ninja = nil;
     
     if (_gameMode == NJGameModeOneVsThree) {
@@ -376,7 +368,6 @@
         ninja.colorBlendFactor = kNinjaColorBlendFactor;
     }
     player.character = ninja;
-//    player.ninja = ninja;
     
     return ninja;
 }
@@ -596,14 +587,10 @@
         if (!player.isDisabled && !player.character.dying){
             [livingNinjas addObject:[NSNumber numberWithInt:i]];
         }
-//        if (!player.isDisabled && !player.ninja.dying){
-//            [livingNinjas addObject:[NSNumber numberWithInt:i]];
-//        }
     }
     
     if (_gameMode == NJGameModeOneVsThree) {
         if (!isGameEnded && ((NJPlayer *)self.players[_bossIndex]).character.isDying){
-//            if (!isGameEnded && ((NJPlayer *)self.players[_bossIndex]).ninja.isDying){
             isGameEnded = YES;
             _isBossLost = YES;
             [self victoryAnimationToPlayer:_bossIndex];
@@ -832,11 +819,9 @@
         NJPlayer *player = [self.players objectAtIndex:i];
         player.isDisabled = NO;
         [player.character reset];
-//        [player.ninja reset];
         player.item = nil;
         [player.indicatorNode removeFromParent];
         [player.character.shadow removeFromParent];
-//        [player.ninja.shadow removeFromParent];
         player.indicatorNode = nil;
         player.targetPile = nil;
         player.fromPile = nil;
@@ -857,7 +842,6 @@
     for (NJNinjaCharacter *ninja in _ninjas) {
         [ninja removeFromParent];
         ninja.player.character = nil;
-//                ninja.player.ninja = nil;
     }
     [_ninjas removeAllObjects];
 }
@@ -928,9 +912,7 @@
         NJPlayer *player = (NJPlayer *)self.players[i];
         if(player.isDisabled){
             [_ninjas removeObject:player.character];
-//            [_ninjas removeObject:player.ninja];            
             [player.character removeFromParent];
-//            [player.ninja removeFromParent];
         }
     }
     
@@ -1260,7 +1242,6 @@
                 // prevent player from using mine when jumping
                 if (![player.item isKindOfClass:[NJMine class]] || !player.isJumping) {
                     [player.character useItem:player.item];
-//                    [player.ninja useItem:player.item];
                 }
             }
             player.itemIndicatorAdded = NO;
@@ -1370,11 +1351,9 @@
     NJCharacter *ninja = nil;
     if ([self.ninjas count] > 0){
         ninja = player.character;
-        //            ninja = player.ninja;
     }
     
     if (player.character.dying) {
-        //        if (player.ninja.dying) {
         // If a ninja is dying, remove all items, indicator nodes and shadows attached to the ninja
         if (player.indicatorNode) {
             [player.indicatorNode removeFromParent];
@@ -1389,7 +1368,6 @@
             player.item = nil;
         }
         [player.character.shadow removeFromParent];
-        //            [player.ninja.shadow removeFromParent];
     }
     
     if (player.item) {
@@ -1427,8 +1405,6 @@
         // Update the indicator node to have the same position and zRotation as the player
         player.indicatorNode.position = player.character.position;
         player.indicatorNode.zRotation = player.character.zRotation;
-        //            player.indicatorNode.position = player.ninja.position;
-        //            player.indicatorNode.zRotation = player.ninja.zRotation;
     }
     
     if (![ninja isDying]) {
@@ -1471,7 +1447,6 @@
 - (void)resolveJumpRequestForPlayer:(NJPlayer *)player sinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     NJCharacter *ninja = player.character;
-//    NJCharacter *ninja = player.ninja;
     if (player.fromPile.standingCharacter == ninja) {
         player.fromPile.standingCharacter = nil;
     }
@@ -1491,10 +1466,8 @@
             NJPlayer *p = player.targetPile.standingCharacter.player;
             if (!p.isDisabled) {
                 [ninja attackCharacter:p.character];
-//                [ninja attackCharacter:p.ninja];
                 NJPile *pile = [self spawnAtRandomPileForNinja:YES];
                 pile.standingCharacter = p.character;
-//                pile.standingCharacter = p.ninja;
                 if (pile.itemHolded) {
                     [(NSMutableArray*)self.items removeObject:pile.itemHolded];
                     [pile.itemHolded removeFromParent];
@@ -1504,7 +1477,6 @@
                 if (pile.itemEffectOnPile){
                     NJItemEffect *effect = pile.itemEffectOnPile;
                     if (effect.owner != p.character) {
-//                    if (effect.owner != p.ninja) {
                         [effect removeAllActions];
                         [effect removeFromParent];
                         pile.itemEffectOnPile = nil;
@@ -1515,7 +1487,6 @@
                 }
                 
                 [p.character resetToPosition:pile.position];
-//                [p.ninja resetToPosition:pile.position];
                 p.targetPile = nil;
                 p.jumpRequested = NO;
                 p.isJumping = NO;
@@ -1525,7 +1496,6 @@
         // If there is any item effect imposed on the target file, for example if the pile is on fire, perform the corresponding effect to the jumping character
         if (player.targetPile.isOnFire) {
             [player.character applyDamage:10];
-//            [player.ninja applyDamage:10];
         }
         
         player.targetPile.standingCharacter = ninja;
@@ -1533,7 +1503,6 @@
         
         //pick up items if needed
         [player.character pickupItem:self.items onPile:player.targetPile];
-//        [player.ninja pickupItem:self.items onPile:player.targetPile];
         player.itemIndicatorAdded = NO;
     }
 }
@@ -1577,9 +1546,7 @@
     }
     
     NJPile *pile = [self woodPileToJump:button.player.character];
-//    NJPile *pile = [self woodPileToJump:button.player.ninja];
     if (pile && !button.player.isJumping && button.player.character.frozenCount == 0) {
-//    if (pile && !button.player.isJumping && button.player.ninja.frozenCount == 0) {
         if (button.player.jumpCooldown >= kJumpCooldownTime) {
             button.player.jumpCooldown = 0;
             button.player.fromPile = button.player.targetPile;
@@ -1605,7 +1572,6 @@
     }
     // Use Item
     if (control.player.character.frozenCount == 0) {
-//    if (control.player.ninja.frozenCount == 0) {
         control.player.itemUseRequested = YES;
     }
 }
@@ -1631,9 +1597,7 @@
     for (NJPlayer *player in self.players) {
         if (!player.isDisabled) {
             if ([range isPointWithinRange:player.character.position]) {
-//            if ([range isPointWithinRange:player.ninja.position]) {
                 [affectedNinjas addObject:player.character];
-//                [affectedNinjas addObject:player.ninja];
             }
         }
     }
