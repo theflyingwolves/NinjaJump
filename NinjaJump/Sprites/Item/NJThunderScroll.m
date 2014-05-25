@@ -10,11 +10,14 @@
 #import "NJCircularRange.h"
 #import "NJPile.h"
 #import "NJConstants.h"
+#import "NJProductId.h"
 
 #define AFFECTED_RADIUS 200
 #define kSoundThunder @"thunder.mid"
 
 @implementation NJThunderScroll
+
+static ProductId *pId = kThunderScrollProductId;
 
 + (instancetype)itemAtPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate
 {
@@ -41,6 +44,11 @@
     }
     [character performThunderAnimation];
     [self runAction:[SKAction playSoundFileNamed:kSoundThunder waitForCompletion:NO]];
+}
+
+- (ProductId *)getProductId
+{
+    return pId;
 }
 
 @end

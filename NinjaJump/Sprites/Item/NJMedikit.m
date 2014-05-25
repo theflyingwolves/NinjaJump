@@ -11,6 +11,8 @@
 
 @implementation NJMedikit
 
+static ProductId *pId = kMedikitProductId;
+
 +(instancetype)itemAtPosition:(CGPoint)position
 {
     return [[NJMedikit alloc] initWithTextureNamed:kMedikitFileName atPosition:position];
@@ -28,6 +30,11 @@
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
     [self runAction:[SKAction playSoundFileNamed:kSoundRecover waitForCompletion:NO]];
+}
+
+- (ProductId *)getProductId
+{
+    return pId;
 }
 
 @end

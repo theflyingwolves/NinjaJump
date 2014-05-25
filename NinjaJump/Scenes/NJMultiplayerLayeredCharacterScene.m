@@ -57,6 +57,8 @@
         _gameMode = mode;
         _world = [[SKNode alloc] init];
         [_world setName:GameWorld];
+        [self initStore];
+        [self initUsableItemTypes];
         [self initGameAttributeWithMode:mode];
         [self initLayers];
         [self initPlayers];
@@ -80,6 +82,55 @@
         }
     }
     return self;
+}
+
+- (void)initStore
+{
+    _store = [[NJStore alloc] init];
+}
+
+// Retrieve items that are unlocked and store their product ids in the property _usableItemTypes
+- (void)initUsableItemTypes
+{
+    _usableItemTypes = [NSMutableArray array];
+    NSArray *arrayOfAllItemIds = [self getAllItemIds];
+    
+    for (ProductId *pId in arrayOfAllItemIds){
+        if ([_store isProductUnlocked:pId]) {
+            NJItemType itemType = [self determineItemTypeFromProductId:pId];
+            if (itemType >= 0) {
+                [_usableItemTypes addObject:[NSNumber numberWithInt:itemType]];
+            }
+        }
+    }
+}
+
+// Return product ids for all special items, regardless of whether it has been unlocked or not
+- (NSArray *)getAllItemIds
+{
+    NSArray *itemIds = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductIdItem" ofType:@"plist"]];
+    return itemIds;
+}
+
+- (NJItemType)determineItemTypeFromProductId:(ProductId *)pId
+{
+    if ([pId isEqualToString:kIceScrollProductId]) {
+        return NJItemIceScroll;
+    }else if([pId isEqualToString:kFireScrollProductId]){
+        return NJItemFireScroll;
+    }else if([pId isEqualToString:kWindScrollProductId]){
+        return NJItemWindScroll;
+    }else if([pId isEqualToString:kThunderScrollProductId]){
+        return NJItemThunderScroll;
+    }else if([pId isEqualToString:kMedikitProductId]){
+        return NJItemMedikit;
+    }else if([pId isEqualToString:kMineProductId]){
+        return NJItemMine;
+    }else if([pId isEqualToString:kShurikenProductId]){
+        return NJItemShuriken;
+    }else{
+        return -1;
+    }
 }
 
 - (void)initGameAttributeWithMode:(NJGameMode)mode
@@ -413,8 +464,14 @@
         _woodPiles = [NSMutableArray array];
     }
     
-    CGFloat r= 230.0f;
-    NSArray *pilePos = [NSArray arrayWithObjects: [NSValue valueWithCGPoint:CGPointMake(350, 220)], [NSValue valueWithCGPoint:CGPointMake(1024-r, r)], [NSValue valueWithCGPoint:CGPointMake(1024-r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(r, 768-r)], [NSValue valueWithCGPoint:CGPointMake(512, 500)], [NSValue valueWithCGPoint:CGPointMake(400, 350)], [NSValue valueWithCGPoint:CGPointMake(300, 100)], [NSValue valueWithCGPoint:CGPointMake(650, 350)], [NSValue valueWithCGPoint:CGPointMake(850, 400)], [NSValue valueWithCGPoint:CGPointMake(200, 300)], [NSValue valueWithCGPoint:CGPointMake(260, 410)], [NSValue valueWithCGPoint:CGPointMake(550, 400)], [NSValue valueWithCGPoint:CGPointMake(700, 610)], [NSValue valueWithCGPoint:CGPointMake(750, 150)], nil];
+    NSArray *pilePosDict = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"InitialDistributionOfWoodpilesIPad" ofType:@"plist"]];
+    NSMutableArray *pilePos = [NSMutableArray array];
+    for (int i=0; i<[pilePosDict count]; i++) {
+        NSDictionary *dict = (NSDictionary *)[pilePosDict objectAtIndex:i];
+        NSValue *point = [NSValue valueWithCGPoint:CGPointMake([((NSNumber *)[dict objectForKey:@"x"]) integerValue], [((NSNumber *)[dict objectForKey:@"y"]) integerValue])];
+        [pilePos addObject:point];
+    }
+
     //add in the spawn pile of ninjas
     for (NSValue *posValue in pilePos){
         CGPoint pos = [posValue CGPointValue];
@@ -481,11 +538,12 @@
 
 - (NJSpecialItem *)generateRandomItem
 {
-    int index = arc4random() % NJItemCount;
+    int randNum = arc4random() % ([_usableItemTypes count]);
+    NJItemType itemType = (NJItemType)[((NSNumber *)[_usableItemTypes objectAtIndex:randNum]) integerValue];
     NJSpecialItem *item;
-    
+
     CGPoint position = CGPointZero;
-    switch (index) {
+    switch (itemType) {
         case NJItemThunderScroll:
             item = [NJThunderScroll itemAtPosition:position delegate:self];
             break;
@@ -995,7 +1053,7 @@
     SKAction *appear = [SKAction sequence:@[fadeIn,wait,fadeOut,removeNode]];
     
     SKSpriteNode *startNote = [SKSpriteNode spriteNodeWithImageNamed:@"start"];
-    startNote.position = CGPointMake(1024/2, 768/2);
+    startNote.position = CGPointMake(FRAME.size.width/2, FRAME.size.height/2);
     [self addChild:startNote];
     
     [startNote runAction:appear completion:^{

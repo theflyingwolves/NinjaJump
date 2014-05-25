@@ -13,7 +13,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJCharacter.h"
-
+#import "NJProductId.h"
 #import "NJRange.h"
 #import "NJItemEffect.h"
 
@@ -59,4 +59,6 @@ typedef enum : uint8_t {
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character;
 // EFFECTS: Use the item at a position with a direction (which is the zRotation of the player)
+
+- (ProductId *)getProductId;
 @end

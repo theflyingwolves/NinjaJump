@@ -14,6 +14,7 @@
 #import "NJConstants.h"
 #import "NJItemEffect.h"
 #import "NJGameAttribute.h"
+#import "NJStore.h"
 
 /* The layers in a scene. */
 typedef enum : uint8_t {
@@ -74,6 +75,8 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 @property (nonatomic) BOOL isBossLost;                          // indicates whether boss player loses in 1 vs 3 mode
 @property (nonatomic) BOOL doAddItemRandomly;                   // indicates whether add item randomly to the scene
 @property (nonatomic) id<NJMultiplayerLayeredCharacterSceneDelegate> delegate;
+@property (nonatomic) NSMutableArray *usableItemTypes;
+@property (nonatomic) NJStore *store;
 
 /* Start loading all the shared assets for the scene in the background. This method calls +loadSceneAssets
  on a background queue, then calls the callback handler on the main thread. */
