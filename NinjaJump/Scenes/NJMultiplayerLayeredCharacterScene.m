@@ -45,6 +45,7 @@
     BOOL shouldPileStartDecreasing;                 // indicates whether woodpiles should start decreasing periodically
     NSUInteger kNumberOfFramesToSpawnItem;          // rate for items to spawn
     BOOL hasBeenPaused;                             // indicates whether game is paused
+    BOOL isAIEnabled;                               // indicates whether AI is enabled
 }
 
 #pragma mark - Initialization
@@ -67,6 +68,7 @@
         isFirstTimeInitialized = YES;
         isGameEnded = NO;
         hasBeenPaused = NO;
+        isAIEnabled = NO;
         shouldPileStartDecreasing = NO;
         self.doAddItemRandomly = YES;
         [self buildWorld];
@@ -536,7 +538,9 @@
         [self updateWithTimeSinceLastUpdate:timeSinceLast];
         [self removeDyingNinjas];
         [self updatePlayers];
-        [self updateAIPlayers];
+        if (isAIEnabled) {
+            [self updateAIPlayers];
+        }
         [self updateHpBars];
         [self spawnNewItems];
         [self applyImpulseToSlowWoodpiles];
@@ -589,6 +593,13 @@
         }
     }
     
+    for (int i=0; i<self.AIplayers.count; i++) {
+        NJAIPlayer *player = self.AIplayers[i];
+        if (!player.isDisabled && !player.character.dying){
+            [livingNinjas addObject:[NSNumber numberWithInt:i]];
+        }
+    }
+    
     if (_gameMode == NJGameModeOneVsThree) {
         if (!isGameEnded && ((NJPlayer *)self.players[_bossIndex]).character.isDying){
             isGameEnded = YES;
@@ -621,11 +632,15 @@
 
 - (void)victoryAnimationToPlayer:(NSInteger)index
 {
+
     _victoryBackground = [SKSpriteNode spriteNodeWithImageNamed:@"victory bg"];
-    _victoryBackground.position = CGPointMake(CGRectGetMidX(FRAME), CGRectGetMidY(FRAME));
-//    SKSpriteNode *victoryLabel = [_attribute getVictoryLabelForWinnerIndex:index];
+    _victoryBackground.position = CGPointMake(FRAME.size.width/2, FRAME.size.height/2);
+//    _victoryBackground.position = CGPointMake(512, 384);
     SKSpriteNode *victoryLabel;
     float angle = atan(FRAME.size.width/FRAME.size.height)+0.1;
+    
+    NSLog(@"index: %ld", (long)index);
+    NSLog(@"position1: %f, %f", _victoryBackground.position.x, _victoryBackground.position.y);
     
     if (_gameMode == NJGameModeOneVsThree) {
         if (_isBossLost) {
@@ -682,6 +697,8 @@
         }];
         [self presentVictoryRestartScene];
     }];
+    
+    NSLog(@"position: %f, %f", _victoryBackground.position.x, _victoryBackground.position.y);
 }
 
 - (void)presentVictoryRestartScene
@@ -985,6 +1002,7 @@
         [cover removeFromParent];
     }];
     self.physicsWorld.speed = 1.0;
+    isAIEnabled = YES;
 }
 
 #pragma mark - Auxiliary Methods
@@ -1072,15 +1090,24 @@
 /* Removes Ninjas that are dying from being rendered in MScene and disables the control. */
 - (void)removeDyingNinjas
 {
-    NSMutableArray *ninjasToRemove = [NSMutableArray new];
-    for (NJNinjaCharacter *ninja in self.ninjas) {
-        if (ninja.isDying) {
-            [ninja.player.jumpTimerSprite removeAllActions];
-            [ninja.player.jumpTimerSprite removeFromParent];
-            [ninjasToRemove addObject:ninja];
+    NSMutableArray *charactersToRemove = [NSMutableArray array];
+    for (NJCharacter *character in self.ninjas) {
+        if (character.isDying) {
+            [character.player.jumpTimerSprite removeAllActions];
+            [character.player.jumpTimerSprite removeFromParent];
+            [charactersToRemove addObject:character];
         }
     }
-    [self.ninjas removeObjectsInArray:ninjasToRemove];
+    
+    for (NJCharacter *character in self.AICharacters) {
+        if (character.isDying) {
+            [character.player.jumpTimerSprite removeAllActions];
+            [character.player.jumpTimerSprite removeFromParent];
+            [charactersToRemove addObject:character];
+        }
+    }
+    
+    [self.ninjas removeObjectsInArray:charactersToRemove];
 }
 
 /* Triggers the update loop in NJCharacter instances, which resolves the character-level animations requested inside NJCharacter and also generates random item for boss player, if in 1V3 mode. */
