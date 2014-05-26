@@ -7,6 +7,7 @@
 //
 
 #import "NJViewController.h"
+#import "NJStoreViewController.h"
 #import "NJLoadingScene.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJTutorialScene.h"
@@ -16,6 +17,7 @@
 @interface NJViewController () <NJModeSelectionSceneDelegate,NJMultiplayerLayeredCharacterSceneDelegate>
 @property (weak, nonatomic) IBOutlet SKView *skView;
 @property (strong, nonatomic) NJMultiplayerLayeredCharacterScene *scene;
+@property (nonatomic) NJStore *store;
 @end
 
 @implementation NJViewController
@@ -34,6 +36,12 @@
     [_skView presentScene:modeSelectionScene];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    _store = [[NJStore alloc] init];
+}
+
 - (void)modeSelected:(NJGameMode)mode
 {
     if (mode == NJGameModeCount) {
@@ -49,7 +57,7 @@
             [_skView presentScene:scene transition:[SKTransition crossFadeWithDuration:0.5f]];
         }else{
             // Create and configure the scene.
-            NJMultiplayerLayeredCharacterScene * scene = [[NJMultiplayerLayeredCharacterScene alloc] initWithSize:_skView.bounds.size mode:mode];
+            NJMultiplayerLayeredCharacterScene * scene = [[NJMultiplayerLayeredCharacterScene alloc] initWithSize:_skView.bounds.size mode:mode store:self.store];
             scene.scaleMode = SKSceneScaleModeAspectFill;
             scene.delegate = self;
             self.scene = scene;
@@ -89,6 +97,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // do nothing
+    UIViewController *dest = segue.destinationViewController;
+    if ([dest isKindOfClass:[NJStoreViewController class]]) {
+        NJStoreViewController *storeViewController = (NJStoreViewController *)dest;
+        [storeViewController setStore:_store];
+    }
 }
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NJStore.h"
 
 @interface NJStoreViewController: UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+
+- (void)setStore:(NJStore *)store;
 
 @end

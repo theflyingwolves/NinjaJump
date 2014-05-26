@@ -48,14 +48,14 @@
 
 #pragma mark - Initialization
 /* Designated initializer. Initializes with a size and a game mode. */
-- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode
+- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode store:(NJStore *)store
 {
     self = [self initWithSize:size];
     if (self) {
         _gameMode = mode;
+        _store = store;
         _world = [[SKNode alloc] init];
         [_world setName:GameWorld];
-        [self initStore];
         [self initUsableItemTypes];
         [self initGameAttributeWithMode:mode];
         [self initLayers];
@@ -78,11 +78,6 @@
         }
     }
     return self;
-}
-
-- (void)initStore
-{
-    _store = [[NJStore alloc] init];
 }
 
 // Retrieve items that are unlocked and store their product ids in the property _usableItemTypes

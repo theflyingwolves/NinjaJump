@@ -10,6 +10,7 @@
 
 @interface NJStoreViewController ()
 @property NSMutableArray *data;
+@property NJStore *store;
 @end
 
 @implementation NJStoreViewController
