@@ -44,7 +44,7 @@ typedef enum : uint8_t {
 #pragma mark - actual ability
 @property (readonly) NSInteger physicalAttack;
 @property (readonly) NSInteger physicalDefense;
-@property (readonly) NSInteger hp;
+@property (readonly) NSInteger maxHP;
 @property (readonly) NSInteger magicAttack;
 @property (readonly) NSInteger magicDefense;
 @property (readonly) CGFloat JumpCoolTime;
@@ -54,8 +54,8 @@ typedef enum : uint8_t {
 @property (nonatomic) CGFloat health;
 @property (nonatomic) SKTexture *origTexture;
 @property (nonatomic) SKSpriteNode *shadow;
-@property (nonatomic) float physicalDamageMultiplier;
-@property (nonatomic) float magicalDamageMultiplier;
+//@property (nonatomic) float physicalDamageMultiplier;
+//@property (nonatomic) float magicalDamageMultiplier;
 @property (nonatomic, weak) NJPlayer *player;
 @property (nonatomic) CGPoint jumpTargetPosition;
 

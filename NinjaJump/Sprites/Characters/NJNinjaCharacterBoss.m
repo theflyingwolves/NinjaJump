@@ -27,15 +27,15 @@
 {
     self = [super initWithTextureNamed:textureName atPosition:position withPlayer:player delegate:delegate];
     if (self) {
-        self.magicalDamageMultiplier = 0.5f;
-        self.physicalDamageMultiplier = 0.5f;
+//        self.magicalDamageMultiplier = 0.5f;
+//        self.physicalDamageMultiplier = 0.5f;
         self.addItemTimer = 0.0f;
         self.needsAddItem = YES;
         
         self.strength = 150;
         self.vitality = 200;
         self.intellect = 150;
-        self.agility = 200;
+        self.agility = 150;
         [self initActualAbility];
     }
     return self;

@@ -310,7 +310,8 @@ typedef enum : uint8_t {
 
 - (void)update:(NSTimeInterval)currentTime{
     [super update:currentTime];
-
+    NJCharacter *character;
+    
     //check whether the task of a specific phase is completed
     switch (phaseNum) {
         case NJTutorialPhaseJump:
@@ -320,7 +321,8 @@ typedef enum : uint8_t {
             break;
             
         case NJTutorialPhaseAttack:
-            if (((NJPlayer*)self.players[3]).character.health <FULL_HP){ //when finish attacking
+            character = ((NJPlayer*)self.players[3]).character;
+            if (character.health <character.maxHP){ //when finish attacking
                 [self goToNextPhaseWithDelay];
             }
             break;
@@ -344,7 +346,8 @@ typedef enum : uint8_t {
             break;
             
         case NJTutorialPhasePickupMedikit:
-            if (((NJPlayer*)self.players[1]).character.health == FULL_HP) { //when finish picking up medikit
+            character = ((NJPlayer*)self.players[1]).character;
+            if (character.health == character.maxHP) { //when finish picking up medikit
                 [self goToNextPhaseWithDelay];
             } else {
                 if ([self.items count] == 0){
@@ -382,15 +385,16 @@ typedef enum : uint8_t {
             break;
     }
     
-    if (((NJPlayer*)self.players[3]).character.health <(FULL_HP-20)) {
+    character = ((NJPlayer*)self.players[3]).character;
+    if (character.health <(character.maxHP-20)) {
         if (phaseNum < NJTutorialPhaseUseShuriken) {
             //ensure the lower bound of HP of the enemy
-            ((NJPlayer*)self.players[3]).character.health = FULL_HP-20;
+            character.health = character.maxHP-20;
         }
     }
-    if (((NJPlayer*)self.players[3]).character.health <(FULL_HP-40)) {
+    if (character.health <(character.maxHP-40)) {
         //ensure the lower bound of HP of the enemy
-        ((NJPlayer*)self.players[3]).character.health = FULL_HP-40;
+        character.health = character.maxHP-40;
     }
 }
 
