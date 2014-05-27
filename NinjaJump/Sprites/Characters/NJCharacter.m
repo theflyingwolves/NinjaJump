@@ -109,7 +109,7 @@
     if (character.health <= 0) {
         return ; // to prevent the attack animation to be wrongly performed
     }
-    float damageToApply = kAttackDamage;
+    float damageToApply = self.physicalAttack;
     if (character.player.teamId == self.player.teamId) {
         damageToApply = damageToApply / 2.0f;
     }
@@ -132,6 +132,7 @@
 // A generic method for applying a certain amount of unattributed damage
 - (BOOL)applyDamage:(CGFloat)damage
 {
+    NSLog(@"damage: %f", damage);
     self.health -= damage;
     if (self.health > 0.0f) {
         return NO;

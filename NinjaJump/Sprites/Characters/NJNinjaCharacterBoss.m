@@ -32,7 +32,7 @@
         self.addItemTimer = 0.0f;
         self.needsAddItem = YES;
         
-        self.strength = 150;
+        self.strength = 120;
         self.vitality = 200;
         self.intellect = 150;
         self.agility = 150;

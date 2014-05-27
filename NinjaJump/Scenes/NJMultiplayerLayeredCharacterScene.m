@@ -172,11 +172,13 @@
 - (void)initAIPlayers{
     _AIplayers = [NSMutableArray array];
     
-    NJAIPlayer *AIPlayer = [[NJAIPlayer alloc] init];
-    AIPlayer.delegate = self;
-    AIPlayer.currState.delegate = self;
-    AIPlayer.teamId = -1;
-    [_AIplayers addObject:AIPlayer];
+    if (_gameMode == NJGameModeSurvival){
+        NJAIPlayer *AIPlayer = [[NJAIPlayer alloc] init];
+        AIPlayer.delegate = self;
+        AIPlayer.currState.delegate = self;
+        AIPlayer.teamId = -1;
+        [_AIplayers addObject:AIPlayer];
+    }
 }
 
 /* Initializes frequency of occurrences for special items according to the mode selected. */

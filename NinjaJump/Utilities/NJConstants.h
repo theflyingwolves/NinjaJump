@@ -33,7 +33,6 @@
 #define shadowImageName @"shadow"
 
 #pragma mark - Special Items
-#define kAttackDamage 20
 #define kThunderScrollDamage 10
 #define kWindScrollDamage 10
 #define kFireScrollDamage 10
