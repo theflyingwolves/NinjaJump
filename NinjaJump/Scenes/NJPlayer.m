@@ -12,7 +12,6 @@
 #import "NJMultiplayerLayeredCharacterScene.h"
 
 #define NUM_OF_FRAMES_FOR_JUMP_TIMER 9
-#define kJumpAnimationSpeed kJumpCooldownTime / NUM_OF_FRAMES_FOR_JUMP_TIMER
 
 @implementation NJPlayer
 
@@ -28,7 +27,8 @@
         [self.character.parent addChild:self.jumpTimerSprite];
 //        self.jumpTimerSprite.position = self.ninja.position;
 //        [self.ninja.parent addChild:self.jumpTimerSprite];
-        [self.jumpTimerSprite runAction:[SKAction animateWithTextures:sSharedJumpTimerFrames timePerFrame:kJumpAnimationSpeed resize:YES restore:YES] completion:^{
+        float jumpAnimationSpeed = self.character.JumpCoolTime / NUM_OF_FRAMES_FOR_JUMP_TIMER;
+        [self.jumpTimerSprite runAction:[SKAction animateWithTextures:sSharedJumpTimerFrames timePerFrame:jumpAnimationSpeed resize:YES restore:YES] completion:^{
             [self.jumpTimerSprite removeFromParent];
         }];
     }

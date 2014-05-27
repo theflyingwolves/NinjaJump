@@ -56,7 +56,7 @@
     _maxHP = _vitality;
     _magicAttack = (NSInteger)(_intellect/2.5);
     _magicDefense = (NSInteger)(_intellect/5.0);
-    _JumpCoolTime = (NSInteger)(70.0/_agility);
+    _JumpCoolTime = (70.0/(_agility*1.0));
     _jumpSpeed = (NSInteger)(_agility*8);
 
     _health = _maxHP;

@@ -27,7 +27,7 @@
 {
     NJPile *pile = [self.delegate woodPileToJump:self.owner.character];
     if ((pile==_prevPile || _prevPile) && !self.owner.isJumping && self.owner.character.frozenCount == 0) {
-        if (self.owner.jumpCooldown >= kJumpCooldownTime) {
+        if (self.owner.jumpCooldown >= self.owner.character.JumpCoolTime) {
             self.owner.jumpCooldown = 0;
             self.owner.fromPile = self.owner.targetPile;
             self.owner.targetPile = pile;
