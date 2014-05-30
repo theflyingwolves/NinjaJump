@@ -50,14 +50,14 @@
     [NJMultiplayerLayeredCharacterScene loadSceneAssetsWithCompletionHandler:^{
         if (mode == NJGameModeTutorial) {
             // Initialize Tutorial Scene Here
-            NJTutorialScene *scene = [[NJTutorialScene alloc] initWithSizeWithoutSelection:_skView.bounds.size];
+            NJTutorialScene *scene = [[NJTutorialScene alloc] initWithSizeWithoutSelection:_skView.bounds.size store:_store];
             self.scene = scene;
             scene.scaleMode = SKSceneScaleModeAspectFill;
             scene.delegate = self;
             [_skView presentScene:scene transition:[SKTransition crossFadeWithDuration:0.5f]];
         }else{
             // Create and configure the scene.
-            NJMultiplayerLayeredCharacterScene * scene = [[NJMultiplayerLayeredCharacterScene alloc] initWithSize:_skView.bounds.size mode:mode store:self.store];
+            NJMultiplayerLayeredCharacterScene * scene = [[NJMultiplayerLayeredCharacterScene alloc] initWithSize:_skView.bounds.size mode:mode store:_store];
             scene.scaleMode = SKSceneScaleModeAspectFill;
             scene.delegate = self;
             self.scene = scene;
@@ -100,7 +100,7 @@
     UIViewController *dest = segue.destinationViewController;
     if ([dest isKindOfClass:[NJStoreViewController class]]) {
         NJStoreViewController *storeViewController = (NJStoreViewController *)dest;
-        [storeViewController setStore:_store];
+        [storeViewController setStoreForView:_store];
     }
 }
 @end

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "NJStore.h"
+#import "NJStoreViewDelegate.h"
 
 @interface NJStoreViewController: UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@property (nonatomic) id<NJStoreViewDelegate> delegate;
 
-- (void)setStore:(NJStore *)store;
+- (void)setStoreForView:(NJStore *)store;
 
 @end

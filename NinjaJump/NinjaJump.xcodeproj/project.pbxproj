@@ -101,6 +101,7 @@
 		2FDD9C3D18ED940D0071C712 /* indicator_ice.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C3918ED940D0071C712 /* indicator_ice.png */; };
 		2FDD9C3E18ED940D0071C712 /* indicator_thunder.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C3A18ED940D0071C712 /* indicator_thunder.png */; };
 		2FDD9C3F18ED940D0071C712 /* indicator_wind.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD9C3B18ED940D0071C712 /* indicator_wind.png */; };
+		2FFD26F71938836D00A224C6 /* PlayerInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD26F61938836D00A224C6 /* PlayerInfo.plist */; };
 		C408B40A18F0427A004E614C /* ice.mid in Resources */ = {isa = PBXBuildFile; fileRef = C408B40918F0427A004E614C /* ice.mid */; };
 		C40AC20018FA5B450068E814 /* NJTuTorialNextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */; };
 		C40AC20618FAADE30068E814 /* NPC.png in Resources */ = {isa = PBXBuildFile; fileRef = C40AC20318FAADE30068E814 /* NPC.png */; };
@@ -306,6 +307,7 @@
 		2F94CD9D18D419F1007DAFAD /* NinjaJumpTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NinjaJumpTests-Info.plist"; sourceTree = "<group>"; };
 		2F94CD9F18D419F1007DAFAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2F94CDA118D419F1007DAFAD /* NinjaJumpTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NinjaJumpTests.m; sourceTree = "<group>"; };
+		2FBD89E4193344BC0065C4D1 /* NJStoreViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NJStoreViewDelegate.h; sourceTree = "<group>"; };
 		2FBFDCF418F8FEF400A59A77 /* NJModeSelectionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJModeSelectionScene.h; path = Scenes/NJModeSelectionScene.h; sourceTree = "<group>"; };
 		2FBFDCF518F8FEF400A59A77 /* NJModeSelectionScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJModeSelectionScene.m; path = Scenes/NJModeSelectionScene.m; sourceTree = "<group>"; };
 		2FBFDCF818F9108800A59A77 /* beginnerBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beginnerBtn.png; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 		2FDD9C3918ED940D0071C712 /* indicator_ice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_ice.png; sourceTree = "<group>"; };
 		2FDD9C3A18ED940D0071C712 /* indicator_thunder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_thunder.png; sourceTree = "<group>"; };
 		2FDD9C3B18ED940D0071C712 /* indicator_wind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator_wind.png; sourceTree = "<group>"; };
+		2FFD26F61938836D00A224C6 /* PlayerInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PlayerInfo.plist; path = GameData/PlayerInfo.plist; sourceTree = "<group>"; };
 		C408B40918F0427A004E614C /* ice.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = ice.mid; sourceTree = "<group>"; };
 		C40AC1FE18FA5B450068E814 /* NJTuTorialNextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJTuTorialNextButton.h; path = Sprites/Control/NJTuTorialNextButton.h; sourceTree = "<group>"; };
 		C40AC1FF18FA5B450068E814 /* NJTuTorialNextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJTuTorialNextButton.m; path = Sprites/Control/NJTuTorialNextButton.m; sourceTree = "<group>"; };
@@ -571,6 +574,7 @@
 				2F0AB7E9193081E600654F0B /* ProductInfo.plist */,
 				2F0AB7EF19309E8100654F0B /* ProductIdItem.plist */,
 				2F6DB79E193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist */,
+				2FFD26F61938836D00A224C6 /* PlayerInfo.plist */,
 			);
 			name = GameData;
 			sourceTree = "<group>";
@@ -712,6 +716,7 @@
 			children = (
 				2F6DB7A01931CC4200488370 /* NJStoreViewController.h */,
 				2F6DB7A11931CC4200488370 /* NJStoreViewController.m */,
+				2FBD89E4193344BC0065C4D1 /* NJStoreViewDelegate.h */,
 				2F94CD8018D419F1007DAFAD /* NJAppDelegate.h */,
 				2F94CD8118D419F1007DAFAD /* NJAppDelegate.m */,
 				2F94CD8318D419F1007DAFAD /* Main.storyboard */,
@@ -1217,6 +1222,7 @@
 				C931A94618E06358002FE154 /* logo.png in Resources */,
 				C4C8747118F023A9004B6527 /* recover.mid in Resources */,
 				C980974018FA418400FDD5C4 /* unselectedPurple.png in Resources */,
+				2FFD26F71938836D00A224C6 /* PlayerInfo.plist in Resources */,
 				C93BFED0190188A8002898E2 /* countdown3.png in Resources */,
 				2F42F72E18FA81BA00973113 /* touched button boss 02.png in Resources */,
 				C4C8747418F023A9004B6527 /* thunder.mid in Resources */,

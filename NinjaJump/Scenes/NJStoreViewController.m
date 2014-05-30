@@ -41,7 +41,7 @@
 - (void)addGestureRecognizers
 {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler)];
-    [self.view addGestureRecognizer:tap];
+//    [self.view addGestureRecognizer:tap];
 }
 
 - (void)tapHandler
@@ -69,6 +69,23 @@
     view.layer.borderColor = [UIColor whiteColor].CGColor;
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Perform buying here in store
+    BOOL isPurchaseSuccessful = [self.delegate buyProductWithId:[_data objectAtIndex:indexPath.row]];
+    if (isPurchaseSuccessful) {
+        NSLog(@"Purchase Successful for Product: %@",[_data objectAtIndex:indexPath.row]);
+    }else{
+        NSLog(@"Purchase Unsuccessful for Product: %@",[_data objectAtIndex:indexPath.row]);
+    }
+}
+
+- (void)setStoreForView:(NJStore *)store
+{
+    self.store = store;
+    self.delegate = self.store;
 }
 
 @end
