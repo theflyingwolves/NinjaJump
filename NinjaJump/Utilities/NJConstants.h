@@ -113,15 +113,22 @@
 #define kNotificationAfterPause @"actionAfterPause"
 
 #pragma mark - AI
-#define kAIGeneralJumpFrequency 0.4
-#define kAISurvivalJumpFrequency 0.6
+#define kAIOperationInterval 5
+#define kAIGeneralJumpFrequency 0.3
+#define kAISurvivalJumpFrequency 0.5
+#define kAIEscapeJumpFrequency 0.9
 #define kAIItemJumpFrequency 0.9
+#define kAIItemAttackFrequency 0.6
 #define kAIStateChangeInterval 4
 #define kAIStateChangeFrequency 0.3
 #define kAISurvivalHp 30
 #define kAIprevPileNum 3
 #define kAIAlertRadius 150
 #define kAIArmedAttackRadius 200
+#define kAIGeneralAlertRadius 200
+#define kAISurvivalAlertRadius 300
+#define kAIAttackFireAngle M_PI/6
+#define kAIAttackWindAngle M_PI/12
 #define kAIJumpWandering YES
 #define kAIJumpRandom NO
 

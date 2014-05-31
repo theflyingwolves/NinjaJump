@@ -28,6 +28,7 @@
 @property (nonatomic, weak) id<NJAIDelegate> delegate;
 @property(nonatomic) NJAIPlayer *owner;
 @property (nonatomic) BOOL jumpFlag;
+@property (nonatomic) CGFloat alertDist;
 
 - (id)initWithOwner:(NJAIPlayer *)player;
 
@@ -41,7 +42,6 @@
 
 - (void)changeState;
 
-- (void)useItemWithDistance:(CGFloat)distance;
-
+- (void)useItemWithRadius:(CGFloat) attackRadius;
 
 @end

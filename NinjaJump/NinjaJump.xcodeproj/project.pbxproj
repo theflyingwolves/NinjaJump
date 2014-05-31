@@ -24,7 +24,6 @@
 		2F08C91319029CD800048ABE /* bossLoss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C90E19029CD800048ABE /* bossLoss.png */; };
 		2F08C91419029CD800048ABE /* bossWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C90F19029CD800048ABE /* bossWin.png */; };
 		2F08C91519029CD800048ABE /* continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C91019029CD800048ABE /* continue.png */; };
-		2F08C91619029CD800048ABE /* victory bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C91119029CD800048ABE /* victory bg.png */; };
 		2F08C91719029CD800048ABE /* victory.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F08C91219029CD800048ABE /* victory.png */; };
 		2F08C91A19029F7000048ABE /* NJVictoryRestart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F08C91919029F7000048ABE /* NJVictoryRestart.m */; };
 		2F0AB7E619304A8F00654F0B /* NJGameAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AB7E519304A8F00654F0B /* NJGameAttribute.m */; };
@@ -159,9 +158,7 @@
 		C4F0821718E459B700F81C8C /* NJItemEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0821618E459B700F81C8C /* NJItemEffect.m */; };
 		C4F0821A18E4708300F81C8C /* shurikenEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0821918E4708300F81C8C /* shurikenEffect.png */; };
 		C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0821B18E472C100F81C8C /* shurikenLong.png */; };
-		C9150B0618EC45EF00645698 /* victory.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0518EC45EF00645698 /* victory.png */; };
 		C9150B0818EC56EF00645698 /* victory bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0718EC56EF00645698 /* victory bg.png */; };
-		C9150B0A18EC5ADD00645698 /* continue.png in Resources */ = {isa = PBXBuildFile; fileRef = C9150B0918EC5ADD00645698 /* continue.png */; };
 		C9165C0A1930837B005F2B98 /* NJAIState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9165C091930837B005F2B98 /* NJAIState.m */; };
 		C9165C0D193083AA005F2B98 /* NJAIStateGeneral.m in Sources */ = {isa = PBXBuildFile; fileRef = C9165C0C193083AA005F2B98 /* NJAIStateGeneral.m */; };
 		C9165C10193083E6005F2B98 /* NJAIStateSurvival.m in Sources */ = {isa = PBXBuildFile; fileRef = C9165C0F193083E6005F2B98 /* NJAIStateSurvival.m */; };
@@ -412,9 +409,7 @@
 		C4F0821618E459B700F81C8C /* NJItemEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJItemEffect.m; path = Sprites/ItemEffect/NJItemEffect.m; sourceTree = "<group>"; };
 		C4F0821918E4708300F81C8C /* shurikenEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shurikenEffect.png; path = Assets/effect/shurikenEffect.png; sourceTree = "<group>"; };
 		C4F0821B18E472C100F81C8C /* shurikenLong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shurikenLong.png; path = Assets/Items/shurikenLong.png; sourceTree = "<group>"; };
-		C9150B0518EC45EF00645698 /* victory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = victory.png; path = "Assets/victory scene/victory.png"; sourceTree = "<group>"; };
 		C9150B0718EC56EF00645698 /* victory bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "victory bg.png"; path = "Assets/victory scene/victory bg.png"; sourceTree = "<group>"; };
-		C9150B0918EC5ADD00645698 /* continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = continue.png; path = "Assets/victory scene/continue.png"; sourceTree = "<group>"; };
 		C9165C081930837A005F2B98 /* NJAIState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJAIState.h; path = Player/AI/NJAIState.h; sourceTree = "<group>"; };
 		C9165C091930837B005F2B98 /* NJAIState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJAIState.m; path = Player/AI/NJAIState.m; sourceTree = "<group>"; };
 		C9165C0B193083AA005F2B98 /* NJAIStateGeneral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJAIStateGeneral.h; path = Player/AI/NJAIStateGeneral.h; sourceTree = "<group>"; };
@@ -1203,7 +1198,6 @@
 				C980973E18FA418400FDD5C4 /* unselectedBlue.png in Resources */,
 				C4F0821C18E472C100F81C8C /* shurikenLong.png in Resources */,
 				C9D8D09118ED940F00F63E9A /* FireworkRed.sks in Resources */,
-				2F08C91619029CD800048ABE /* victory bg.png in Resources */,
 				C41270F018E1D3AF00CAC44A /* fireScroll.png in Resources */,
 				C931A94318E05EF7002FE154 /* touched button purple.png in Resources */,
 				C4966E7018FEC81000D7BBA6 /* dialogUseShuriken.png in Resources */,
@@ -1262,12 +1256,10 @@
 				2FBFDCFC18F9108800A59A77 /* survivalBtn.png in Resources */,
 				2F050DBE18F574290094F07F /* wind.png in Resources */,
 				C93DBCAB18F03B960036136E /* Soft Cloud.png in Resources */,
-				C9150B0618EC45EF00645698 /* victory.png in Resources */,
 				C4966E6B18FEC81000D7BBA6 /* dialogAttack.png in Resources */,
 				C4C8746F18F023A9004B6527 /* firestrong.mid in Resources */,
 				2F42F72F18FA81BA00973113 /* touched button boss 03.png in Resources */,
 				2F08C91519029CD800048ABE /* continue.png in Resources */,
-				C9150B0A18EC5ADD00645698 /* continue.png in Resources */,
 				2FBFDCFF18F95CCF00A59A77 /* banner.png in Resources */,
 				C931A94118E05EF7002FE154 /* touched button blue.png in Resources */,
 				C931A94018E05EF7002FE154 /* start button.png in Resources */,

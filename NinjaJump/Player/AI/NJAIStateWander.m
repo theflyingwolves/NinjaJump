@@ -17,10 +17,18 @@
 
 @implementation NJAIStateWander
 
+- (id)initWithOwner:(NJAIPlayer *)player
+{
+    self = [super initWithOwner:player];
+    if (self) {
+        self.alertDist = kAIGeneralAlertRadius;
+    }
+    return self;
+}
+
 - (void)enter
 {
     [super enter];
-    NSLog(@"enter wander");
 }
 
 - (void)execute
@@ -35,6 +43,8 @@
     CGFloat dist = NJDistanceBetweenPoints(self.owner.character.position, nearestCharacter.position);
     if (dist < kAIAlertRadius) {
         [self.owner changeToState:GENERAL];
+    }  else if (self.owner.item) {
+        [self.owner changeToState:ARMED];
     }
 }
 

@@ -12,11 +12,27 @@
 
 @implementation NJAIStateSurvival
 
+- (id)initWithOwner:(NJAIPlayer *)player
+{
+    self = [super initWithOwner:player];
+    if (self) {
+        self.alertDist = kAISurvivalAlertRadius;
+    }
+    return self;
+}
 
 - (void)execute
 {
     [self jumpWithFrequency:kAISurvivalJumpFrequency and:kAIJumpRandom];
+    [self useItemWithRadius:kAIAlertRadius];
+    [self changeState];
 }
 
+- (void)changeState
+{
+    if (self.owner.character.health > kAISurvivalHp) {
+        [self.owner changeToState:GENERAL];
+    }
+}
 
 @end

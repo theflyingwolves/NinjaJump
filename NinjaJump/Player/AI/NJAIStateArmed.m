@@ -11,12 +11,28 @@
 
 @implementation NJAIStateArmed
 
+- (id)initWithOwner:(NJAIPlayer *)player
+{
+    self = [super initWithOwner:player];
+    if (self) {
+        self.alertDist = kAIGeneralAlertRadius;
+    }
+    return self;
+}
 
 - (void)execute
 {
     [self jumpWithFrequency:kAISurvivalJumpFrequency and:kAIJumpRandom];
     if(self.owner.item){
-        [self useItemWithDistance:kAIArmedAttackRadius];
+        [self useItemWithRadius:kAIArmedAttackRadius];
+    }
+    [self changeState];
+}
+
+- (void)changeState
+{
+    if (!self.owner.item) {
+        [self.owner changeToState:GENERAL];
     }
 }
 
