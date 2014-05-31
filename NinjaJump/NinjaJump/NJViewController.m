@@ -39,7 +39,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    _store = [[NJStore alloc] init];
+    _store = [NJStore store];
 }
 
 - (void)modeSelected:(NJGameMode)mode

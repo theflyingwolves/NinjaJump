@@ -11,6 +11,7 @@
 #import "NJStoreViewDelegate.h"
 
 @interface NJStore : NSObject <NJStoreViewDelegate>
++ (NJStore *)store;
 - (BOOL)isProductUnlocked:(ProductId *)pId;
 - (NSArray *)buyableItemImageNames;
 @end

@@ -99,7 +99,8 @@
 // Return product ids for all special items, regardless of whether it has been unlocked or not
 - (NSArray *)getAllItemIds
 {
-    NSArray *itemIds = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductIdItem" ofType:@"plist"]];
+    NSDictionary *itemDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductIdItem" ofType:@"plist"]];
+    NSArray *itemIds = [[itemDict keyEnumerator] allObjects];
     return itemIds;
 }
 

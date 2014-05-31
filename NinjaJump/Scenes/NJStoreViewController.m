@@ -74,7 +74,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // Perform buying here in store
-    BOOL isPurchaseSuccessful = [self.delegate buyProductWithId:[_data objectAtIndex:indexPath.row]];
+    NSString *productName = [_data objectAtIndex:indexPath.row];
+    NSString *productId = [self determineProductIdForProductNamed:productName];
+    BOOL isPurchaseSuccessful = [self.delegate buyProductWithId:productId];
     if (isPurchaseSuccessful) {
         NSLog(@"Purchase Successful for Product: %@",[_data objectAtIndex:indexPath.row]);
     }else{
@@ -88,4 +90,9 @@
     self.delegate = self.store;
 }
 
+- (NSString *)determineProductIdForProductNamed:(NSString *)pName
+{
+    NSDictionary *productId = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductIdItem" ofType:@"plist"]];
+    return [productId objectForKey:pName];
+}
 @end

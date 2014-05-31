@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Account</key>
-	<integer>3000</integer>
+	<key>account</key>
+	<integer>30</integer>
 </dict>
 </plist>

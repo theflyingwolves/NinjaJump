@@ -11,8 +11,8 @@
 @interface NJStore ()
 @property NJStore *store;
 @property NSUInteger account;
-@property NSDictionary *playerInfo;
-@property NSDictionary *productInfo;
+@property NSMutableDictionary *playerInfo;
+@property NSMutableDictionary *productInfo;
 @end
 
 @implementation NJStore
@@ -26,8 +26,8 @@
 {
     self = [super init];
     if (self) {
-        _playerInfo = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"PlayerInfo" ofType:@"plist"]];
-        _productInfo = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductInfo" ofType:@"plist"]];
+        _playerInfo = [NSMutableDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"PlayerInfo" ofType:@"plist"]];
+        _productInfo = [NSMutableDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductInfo" ofType:@"plist"]];
     }
     return self;
 }
@@ -35,13 +35,7 @@
 - (BOOL)isProductUnlocked:(NSString *)pId
 {
     NSDictionary *product = [_productInfo objectForKey:pId];
-    BOOL isUnlocked = [product objectForKey:@"isUnlocked"];
-    if (isUnlocked) {
-        NSLog(@"Product %@ is unlocked",pId);
-    }else{
-        NSLog(@"Product %@ is locked",pId);
-    }
-    
+    BOOL isUnlocked = ((NSNumber *)[product objectForKey:@"isUnlocked"]).boolValue;
     return isUnlocked;
 }
 
@@ -52,7 +46,15 @@
 
 - (BOOL)buyProductWithId:(NSString *)pId
 {
-    return YES;
+    NSDictionary *product = [_productInfo objectForKey:pId];
+    long price = ((NSNumber *)[product objectForKey:@"price"]).integerValue;
+    long remainingAccount = ((NSNumber *)[_playerInfo objectForKey:@"account"]).integerValue - price;
+    if (remainingAccount >= 0) {
+        [_playerInfo setObject:[NSNumber numberWithLong:remainingAccount] forKey:@"account"];
+        return YES;
+    }else{
+        return NO;
+    }
 }
 
 - (void)backupStore
