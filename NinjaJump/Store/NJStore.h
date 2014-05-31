@@ -14,4 +14,5 @@
 + (NJStore *)store;
 - (BOOL)isProductUnlocked:(ProductId *)pId;
 - (NSArray *)buyableItemImageNames;
+- (void)saveStore;
 @end

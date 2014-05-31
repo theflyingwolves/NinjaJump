@@ -57,14 +57,17 @@
     }
 }
 
-- (void)backupStore
+- (void)saveStore
 {
     NSString *error;
     NSData *playerInfoData = [NSPropertyListSerialization dataFromPropertyList:_playerInfo
                                                                         format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
+    NSLog(@"remaining account to store is %@",[_playerInfo objectForKey:@"account"]);
+    
     if (playerInfoData) {
         [playerInfoData writeToFile:[[NSBundle mainBundle] pathForResource:@"PlayerInfo" ofType:@"plist"] atomically:YES];
-        NSLog(@"The path is %@",[[NSBundle mainBundle] pathForResource:@"PlayerInfo" ofType:@"plist"]);
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"PlayerInfo" ofType:@"plist"];
+        NSLog(@"The path is %@",plistPath);
     }else{
         NSLog(@"Error backing up player information: %@",error);
     }

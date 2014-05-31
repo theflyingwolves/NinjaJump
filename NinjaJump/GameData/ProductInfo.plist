@@ -11,7 +11,7 @@
 		<key>price</key>
 		<integer>20</integer>
 		<key>isUnlocked</key>
-		<false/>
+		<true/>
 	</dict>
 	<key>product_item_scroll_ice</key>
 	<dict>

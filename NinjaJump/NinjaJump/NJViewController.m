@@ -11,10 +11,11 @@
 #import "NJLoadingScene.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 #import "NJTutorialScene.h"
+#import "NJMainScene.h"
 #import "NJModeSelectionScene.h"
 #import <SpriteKit/SpriteKit.h>
 
-@interface NJViewController () <NJModeSelectionSceneDelegate,NJMultiplayerLayeredCharacterSceneDelegate>
+@interface NJViewController () <NJMainSceneDelegate,NJModeSelectionSceneDelegate,NJMultiplayerLayeredCharacterSceneDelegate>
 @property (weak, nonatomic) IBOutlet SKView *skView;
 @property (strong, nonatomic) NJMultiplayerLayeredCharacterScene *scene;
 @property (nonatomic) NJStore *store;
@@ -30,10 +31,10 @@
     NJLoadingScene *loadingScene = [[NJLoadingScene alloc] initWithSize:_skView.bounds.size];
     loadingScene.scaleMode = SKSceneScaleModeAspectFill;
     [_skView presentScene:loadingScene];
-    NJModeSelectionScene *modeSelectionScene = [[NJModeSelectionScene alloc] initWithSize:_skView.bounds.size];
-    modeSelectionScene.scaleMode = SKSceneScaleModeAspectFill;
-    modeSelectionScene.delegate = self;
-    [_skView presentScene:modeSelectionScene];
+    NJMainScene *mainScene = [[NJMainScene alloc] initWithSize:_skView.bounds.size];
+    mainScene.delegate = self;
+    mainScene.scaleMode = SKSceneScaleModeAspectFill;
+    [_skView presentScene:mainScene];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -65,6 +66,18 @@
             [_skView presentScene:scene transition:[SKTransition crossFadeWithDuration:0.5f]];
         }
     }];
+    }
+}
+
+- (void)mainModeSelected:(NJGameMode)mode
+{
+    if (mode == NJGameModeCount) {
+        [self performSegueWithIdentifier:@"store" sender:self];
+    }else{
+        NJModeSelectionScene *modeSelectionScene = [[NJModeSelectionScene alloc] initWithSize:_skView.bounds.size];
+        modeSelectionScene.scaleMode = SKSceneScaleModeAspectFill;
+        modeSelectionScene.delegate = self;
+        [_skView presentScene:modeSelectionScene];
     }
 }
 

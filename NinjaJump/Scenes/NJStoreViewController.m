@@ -71,7 +71,7 @@
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // Perform buying here in store
     NSString *productName = [_data objectAtIndex:indexPath.row];
@@ -94,5 +94,11 @@
 {
     NSDictionary *productId = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductIdItem" ofType:@"plist"]];
     return [productId objectForKey:pName];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [_store saveStore];
 }
 @end

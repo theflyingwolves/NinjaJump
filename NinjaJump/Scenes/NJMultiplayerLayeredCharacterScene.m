@@ -100,7 +100,11 @@
 - (NSArray *)getAllItemIds
 {
     NSDictionary *itemDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductIdItem" ofType:@"plist"]];
-    NSArray *itemIds = [[itemDict keyEnumerator] allObjects];
+    NSEnumerator *itemNames = [itemDict keyEnumerator];
+    NSMutableArray *itemIds = [NSMutableArray array];
+    for (NSString *key in itemNames) {
+        [itemIds addObject:[itemDict objectForKey:key]];
+    }
     return itemIds;
 }
 

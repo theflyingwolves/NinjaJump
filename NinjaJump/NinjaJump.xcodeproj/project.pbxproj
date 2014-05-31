@@ -53,6 +53,7 @@
 		2F45B45518E7332700482453 /* restart button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F45B45218E7332700482453 /* restart button.png */; };
 		2F4DB99718FFE99100E6685F /* mainTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F4DB99618FFE99100E6685F /* mainTitle.png */; };
 		2F4DB99918FFEEBE00E6685F /* facebookBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F4DB99818FFEEBE00E6685F /* facebookBtn.png */; };
+		2F4E6D541939BD41007FB3E7 /* NJMainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E6D531939BD41007FB3E7 /* NJMainScene.m */; };
 		2F63E12F18E0291500E9A17B /* hp_bar_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F63E12D18E0291500E9A17B /* hp_bar_bottom.png */; };
 		2F63E13018E0291500E9A17B /* hp_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F63E12E18E0291500E9A17B /* hp_bar.png */; };
 		2F6DB79F193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F6DB79E193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist */; };
@@ -277,6 +278,8 @@
 		2F45B45218E7332700482453 /* restart button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "restart button.png"; sourceTree = "<group>"; };
 		2F4DB99618FFE99100E6685F /* mainTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainTitle.png; sourceTree = "<group>"; };
 		2F4DB99818FFEEBE00E6685F /* facebookBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookBtn.png; sourceTree = "<group>"; };
+		2F4E6D521939BD41007FB3E7 /* NJMainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJMainScene.h; path = Scenes/NJMainScene.h; sourceTree = "<group>"; };
+		2F4E6D531939BD41007FB3E7 /* NJMainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJMainScene.m; path = Scenes/NJMainScene.m; sourceTree = "<group>"; };
 		2F63E12D18E0291500E9A17B /* hp_bar_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hp_bar_bottom.png; path = Assets/HPBar/hp_bar_bottom.png; sourceTree = "<group>"; };
 		2F63E12E18E0291500E9A17B /* hp_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hp_bar.png; path = Assets/HPBar/hp_bar.png; sourceTree = "<group>"; };
 		2F6DB79E193189D200488370 /* InitialDistributionOfWoodpilesIPad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = InitialDistributionOfWoodpilesIPad.plist; path = GameData/InitialDistributionOfWoodpilesIPad.plist; sourceTree = "<group>"; };
@@ -514,6 +517,8 @@
 				2B21F15018D433D2007220CF /* NJMultiplayerLayeredCharacterScene.m */,
 				C4E8E70718FD706200BDFACA /* NJTutorialScene.h */,
 				C4E8E70818FD706200BDFACA /* NJTutorialScene.m */,
+				2F4E6D521939BD41007FB3E7 /* NJMainScene.h */,
+				2F4E6D531939BD41007FB3E7 /* NJMainScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -1318,6 +1323,7 @@
 				C42170CF18E0685500942374 /* NJMine.m in Sources */,
 				2F94CD8818D419F1007DAFAD /* NJViewController.m in Sources */,
 				2F45B43418E6A9E100482453 /* NJRange.m in Sources */,
+				2F4E6D541939BD41007FB3E7 /* NJMainScene.m in Sources */,
 				2FC568B118E1BD5000C6589D /* NJScroll.m in Sources */,
 				C9B8F29618E05B3B00FA877E /* NJSelectionButtonSystem.m in Sources */,
 				2F0AB7EE193088BE00654F0B /* NJStore.m in Sources */,
