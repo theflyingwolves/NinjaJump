@@ -85,7 +85,7 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 + (void)loadSceneAssets;
 
 /* Designated initializer. */
-- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode;
+- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode store:(NJStore *)store;
 
 /* All sprites in the scene should be added through this method to ensure they are placed in the correct world layer. */
 - (void)addNode:(SKNode *)node atWorldLayer:(NJWorldLayer)layer;
@@ -108,4 +108,5 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 /* the following two methods are defined in NJScroll delegate they are declared here in order to be used by tutorial scene. */
 - (NSArray *)getAffectedTargetsWithRange:(NJRange *)range;
 - (NSArray *)getAffectedPilesWithRange:(NJRange *)range;
+
 @end

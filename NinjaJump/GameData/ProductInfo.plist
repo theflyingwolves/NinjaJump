@@ -11,7 +11,7 @@
 		<key>price</key>
 		<integer>20</integer>
 		<key>isUnlocked</key>
-		<false/>
+		<true/>
 	</dict>
 	<key>product_item_scroll_ice</key>
 	<dict>
@@ -20,9 +20,9 @@
 		<key>imageNameLocked</key>
 		<string></string>
 		<key>price</key>
-		<integer>10</integer>
+		<integer>40</integer>
 		<key>isUnlocked</key>
-		<false/>
+		<true/>
 	</dict>
 	<key>product_item_scroll_thunder</key>
 	<dict>
@@ -31,9 +31,9 @@
 		<key>imageNameLocked</key>
 		<string></string>
 		<key>price</key>
-		<integer>10</integer>
+		<integer>35</integer>
 		<key>isUnlocked</key>
-		<false/>
+		<true/>
 	</dict>
 	<key>product_item_scroll_wind</key>
 	<dict>

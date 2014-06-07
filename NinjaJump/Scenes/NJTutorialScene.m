@@ -79,8 +79,8 @@ typedef enum : uint8_t {
 
 #pragma mark - init
 
-- (instancetype)initWithSizeWithoutSelection:(CGSize)size{
-    self = [super initWithSize:size mode:NJGameModeTutorial];
+- (instancetype)initWithSizeWithoutSelection:(CGSize)size store:(NJStore *)store{
+    self = [super initWithSize:size mode:NJGameModeTutorial store:store];
     if (self){
         [self initDialogImageNames];
         [self initGameSettings];

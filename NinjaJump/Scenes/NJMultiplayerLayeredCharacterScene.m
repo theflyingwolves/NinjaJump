@@ -50,14 +50,14 @@
 
 #pragma mark - Initialization
 /* Designated initializer. Initializes with a size and a game mode. */
-- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode
+- (instancetype)initWithSize:(CGSize)size mode:(NJGameMode)mode store:(NJStore *)store
 {
     self = [self initWithSize:size];
     if (self) {
         _gameMode = mode;
+        _store = store;
         _world = [[SKNode alloc] init];
         [_world setName:GameWorld];
-        [self initStore];
         [self initUsableItemTypes];
         [self initGameAttributeWithMode:mode];
         [self initLayers];
@@ -84,11 +84,6 @@
     return self;
 }
 
-- (void)initStore
-{
-    _store = [[NJStore alloc] init];
-}
-
 // Retrieve items that are unlocked and store their product ids in the property _usableItemTypes
 - (void)initUsableItemTypes
 {
@@ -108,7 +103,12 @@
 // Return product ids for all special items, regardless of whether it has been unlocked or not
 - (NSArray *)getAllItemIds
 {
-    NSArray *itemIds = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductIdItem" ofType:@"plist"]];
+    NSDictionary *itemDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProductIdItem" ofType:@"plist"]];
+    NSEnumerator *itemNames = [itemDict keyEnumerator];
+    NSMutableArray *itemIds = [NSMutableArray array];
+    for (NSString *key in itemNames) {
+        [itemIds addObject:[itemDict objectForKey:key]];
+    }
     return itemIds;
 }
 
@@ -1713,4 +1713,5 @@
 {
     [self addNode:effectNode atWorldLayer:NJWorldLayerAboveCharacter];
 }
+
 @end

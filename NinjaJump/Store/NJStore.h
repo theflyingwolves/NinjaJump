@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "NJProductId.h"
+#import "NJStoreViewDelegate.h"
 
-@interface NJStore : NSObject
+@interface NJStore : NSObject <NJStoreViewDelegate>
++ (NJStore *)store;
 - (BOOL)isProductUnlocked:(ProductId *)pId;
-- (NSString *)imageNameForProductWithId:(ProductId *)pId;
+- (NSArray *)buyableItemImageNames;
+- (void)saveStore;
 @end

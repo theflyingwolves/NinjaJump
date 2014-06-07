@@ -1,14 +1,13 @@
 //
-//  NJModeSelectionScene.m
+//  NJMainScene.m
 //  NinjaJump
 //
-//  Created by Wang Kunzhen on 12/4/14.
+//  Created by Wang Kunzhen on 31/5/14.
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
+//
 
-/*
- Main Scene of the game after the loading scene has been completed. Allows players to select which mode to enter or enters a tutorial.
- */
+#import "NJMainScene.h"
 
 #define BUTTON_WIDTH 250.0f
 #define GAP 17.0f
@@ -22,7 +21,7 @@
 #import "NJButton.h"
 #import "NJConstants.h"
 
-@interface NJModeSelectionScene () <NJButtonDelegate>
+@interface NJMainScene () <NJButtonDelegate>
 @property NJButton *oneVSThreeMode;
 @property NJButton *beginnerMode;
 @property NJButton *survivalMode;
@@ -34,7 +33,7 @@
 @property SKSpriteNode *background;
 @end
 
-@implementation NJModeSelectionScene
+@implementation NJMainScene
 
 - (id)initWithSize:(CGSize)size
 {
@@ -165,6 +164,6 @@
 - (void)button:(NJButton *)button touchesEnded:(NSSet *)touches
 {
     [button setScale:1.00];
-    [self.delegate modeSelected:button.index];
+    [self.delegate mainModeSelected:button.index];
 }
 @end
