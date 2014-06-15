@@ -33,7 +33,7 @@
 
 - (void)execute
 {
-    [self jumpWithFrequency:kAIGeneralJumpFrequency and:kAIJumpWandering];
+    [self jumpWithFrequency:kAIGeneralJumpFrequency];
     [self changeState];
 }
 
@@ -46,6 +46,19 @@
     }  else if (self.owner.item) {
         [self.owner changeToState:ARMED];
     }
+}
+
+- (void)jumpWithFrequency:(CGFloat)frequency
+{
+    
+    NJPile *pile = [self.delegate woodPileToJump:self.owner.character];
+    //If ninja jumps in wander mode, he will only choose the previously jumped woodpiles as target.
+    if ([self.owner.prevPileList count]>=kAIprevPileNum) {
+        if (![self.owner.prevPileList containsObject:pile]) {
+            return;
+        }
+    }
+    [super jumpWithFrequency:frequency];
 }
 
 @end

@@ -8,12 +8,12 @@
 
 #import "NJAIState.h"
 #import "NJAIPlayer.h"
-#import "NJMine.h"
 #import "NJThunderScroll.h"
 #import "NJWindScroll.h"
 #import "NJFireScroll.h"
 #import "NJIceScroll.h"
-#import "NJShuriken.h"
+#import "NJMedikit.h"
+
 
 @implementation NJAIState
 
@@ -24,6 +24,19 @@
     self = [super init];
     if(self){
         self.owner = player;
+        switch (player.characterType) {
+            case GIANT:
+                _targetItemClass = [NJMedikit class];
+                break;
+            case SHURIKEN_MASTER:
+                _targetItemClass = [NJShuriken class];
+                break;
+            case SCROLL_MASTER:
+                _targetItemClass = [NJScroll class];
+                break;
+            default:
+                break;
+        }
     }
     return self;
 }
@@ -43,16 +56,10 @@
 
 }
 
-- (void)jumpWithFrequency:(CGFloat)frequency and:(BOOL)isWander
+- (void)jumpWithFrequency:(CGFloat)frequency
 {
     
     NJPile *pile = [self.delegate woodPileToJump:self.owner.character];
-    //If ninja jumps in wander mode, he will only choose the previously jumped woodpiles as target.
-    if ([self.owner.prevPileList count]>=kAIprevPileNum && isWander) {
-        if (![self.owner.prevPileList containsObject:pile]) {
-            return;
-        }
-    }
     if (pile.itemHolded) {
         frequency = kAIItemJumpFrequency;
     }
@@ -65,6 +72,9 @@
         frequency = 1;
     }
     if ([self.delegate isPileTargeted:self.owner.targetPile]) {
+        frequency = 1;
+    }
+    if ([pile.itemHolded isKindOfClass:_targetItemClass]) {
         frequency = 1;
     }
     if (pile && !self.owner.isJumping && self.owner.character.frozenCount == 0 && NJRandomValue()<frequency && !pile.isOnFire) {
@@ -179,9 +189,13 @@
             return @"WANDER"; break;
         case SURVIVAL:
             return @"SURVIVAL"; break;
-        case ARMED:
-            return @"ARMED"; break;
+        case AGGRESSIVE:
+            return @"AGGRESSIVE"; break;
     }
 }
+
+
+
+
 
 @end

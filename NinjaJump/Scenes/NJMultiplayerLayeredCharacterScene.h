@@ -117,4 +117,6 @@ typedef void (^NJAssetLoadCompletionHandler)(void);
 
 - (BOOL)isPileTargeted:(NJPile *)pile;
 
+- (NSArray *)getAllPlayers;
+
 @end

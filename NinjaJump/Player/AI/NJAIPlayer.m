@@ -7,7 +7,7 @@
 //
 
 #import "NJAIPlayer.h"
-#import "NJAIStateArmed.h"
+#import "NJAIStateAggressive.h"
 #import "NJAIStateGeneral.h"
 #import "NJAIStateSurvival.h"
 #import "NJAIStateWander.h"
@@ -64,11 +64,11 @@
             _currState.delegate = _delegate;
             NSLog(@"survival state");
             break;
-        case ARMED:
-            _currState = [[NJAIStateArmed alloc]initWithOwner:self];
-            _currStateType = ARMED;
+        case AGGRESSIVE:
+            _currState = [[NJAIStateAggressive alloc]initWithOwner:self];
+            _currStateType = AGGRESSIVE;
             _currState.delegate = _delegate;
-            NSLog(@"armed state");
+            NSLog(@"aggressive state");
             break;
         default:
             break;

@@ -10,12 +10,17 @@
 #import "NJPile.h"
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacter.h"
+#import "NJMine.h"
+#import "NJScroll.h"
+#import "NJShuriken.h"
 
 @protocol NJAIDelegate <NSObject>
 
 - (BOOL)containsPile:(NJPile *)pile;
 
 - (NJPile *)woodPileToJump:(NJCharacter *)ninja;
+
+- (NSArray *)getAllPlayers;
 
 - (NJCharacter *)getNearestCharacter:(NJCharacter *)ninja;
 
@@ -31,6 +36,7 @@
 @property(nonatomic) NJAIPlayer *owner;
 @property (nonatomic) BOOL jumpFlag;
 @property (nonatomic) CGFloat alertDist;
+@property (nonatomic) Class targetItemClass;
 
 - (id)initWithOwner:(NJAIPlayer *)player;
 
@@ -40,7 +46,7 @@
 
 - (void)exit;
 
-- (void)jumpWithFrequency:(CGFloat)frequency and:(BOOL)isWander;
+- (void)jumpWithFrequency:(CGFloat)frequency;
 
 - (void)changeState;
 

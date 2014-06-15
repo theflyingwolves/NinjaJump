@@ -275,7 +275,6 @@
     for (NJAIPlayer *AIPlayer in self.AIplayers){
         if (!AIPlayer.isDisabled) {
             AIPlayer.shouldBlendCharacter = YES;
-            
             NJCharacter *character= [self addAICharacterForPlayer:AIPlayer];
             [self addNode:character.shadow atWorldLayer:NJWorldLayerBelowCharacter];
             NJPile *pile = [self spawnAtRandomPileForNinja:YES];
@@ -458,7 +457,7 @@
         [player.indicatorNode removeFromParent];
     }
     
-    NJNinjaCharacter *character= [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];;
+    NJNinjaCharacter *character= [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
     if (character) {
         [character render];
         [(NSMutableArray *)self.AICharacters addObject:character];
@@ -1771,5 +1770,11 @@
     }
     return NO;
 }
+
+- (NSArray *)getAllPlayers
+{
+    return [_players arrayByAddingObjectsFromArray:_AIplayers];
+}
+
 
 @end

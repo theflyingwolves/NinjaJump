@@ -8,6 +8,6 @@
 
 #import "NJAIState.h"
 
-@interface NJAIStateArmed : NJAIState
+@interface NJAIStateAggressive : NJAIState
 
 @end

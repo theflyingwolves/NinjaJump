@@ -9,6 +9,7 @@
 #import "NJAIStateGeneral.h"
 #import "NJAIPlayer.h"
 
+
 @implementation NJAIStateGeneral
 
 - (id)initWithOwner:(NJAIPlayer *)player
@@ -22,7 +23,7 @@
 
 - (void)execute
 {
-    [self jumpWithFrequency:kAIGeneralJumpFrequency and:kAIJumpRandom];
+    [self jumpWithFrequency:kAIGeneralJumpFrequency];
     [self useItemWithRadius:kAIAlertRadius];
     [self changeState];
 }
@@ -39,10 +40,51 @@
         if (self.owner.character.health < kAISurvivalHp) {
             [self.owner changeToState:SURVIVAL];
         }
-        else if (self.owner.item) {
-            [self.owner changeToState:ARMED];
+        else {
+            switch (self.owner.characterType) {
+                case GIANT:
+                    if (![self isAnyRivalArmed]) {
+                        [self.owner changeToState:AGGRESSIVE];
+                    }
+                    break;
+                case ROBBER:
+                    if (NJRandomValue() < kAIStateChangeFrequency) {
+                        [self.owner changeToState:AGGRESSIVE];
+                    }
+                    break;
+                case SHURIKEN_MASTER:
+                    if (![self.owner.item isKindOfClass:[NJShuriken class]]) {
+                        [self.owner changeToState:AGGRESSIVE];
+                    }
+                    break;
+                case SCROLL_MASTER:
+                    if (![self.owner.item isKindOfClass:[NJScroll class]]) {
+                        [self.owner changeToState:AGGRESSIVE];
+                    }
+                    break;
+                default:
+                    if (self.owner.item) {
+                        [self.owner changeToState:AGGRESSIVE];
+                    }
+                    break;
+            }
+        }
+
+    }
+}
+
+- (BOOL)isAnyRivalArmed {
+    for (NJPlayer *player in [self.delegate getAllPlayers]) {
+        if ([self isRival:player] && !player.isDisabled && !player.character.dying && [player.item isKindOfClass:[NJScroll class]]) {
+            return YES;
         }
     }
+    return NO;
+}
+
+- (BOOL)isRival:(NJPlayer *)player
+{
+    return player.teamId != self.owner.teamId ;
 }
 
 @end

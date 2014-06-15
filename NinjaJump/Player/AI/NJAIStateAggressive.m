@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
 
-#import "NJAIStateArmed.h"
+#import "NJAIStateAggressive.h"
 #import "NJAIPlayer.h"
 
-@implementation NJAIStateArmed
+@implementation NJAIStateAggressive
 
 - (id)initWithOwner:(NJAIPlayer *)player
 {
@@ -22,7 +22,7 @@
 
 - (void)execute
 {
-    [self jumpWithFrequency:kAISurvivalJumpFrequency and:kAIJumpRandom];
+    [self jumpWithFrequency:kAISurvivalJumpFrequency];
     if(self.owner.item){
         [self useItemWithRadius:kAIArmedAttackRadius];
     }

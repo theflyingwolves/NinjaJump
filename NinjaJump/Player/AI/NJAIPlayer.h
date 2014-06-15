@@ -10,8 +10,8 @@
 #import "NJAIState.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
 
-typedef enum {GENERAL, WANDER, SURVIVAL, ARMED} NJAIStateType;
-
+typedef enum {GENERAL, WANDER, SURVIVAL, AGGRESSIVE} NJAIStateType;
+typedef enum {NORMAL, GIANT, ROBBER, SHURIKEN_MASTER, SCROLL_MASTER, HIGH_NINJA, BOSS} NJAICharacterType;
 
 @interface NJAIPlayer : NJPlayer
 
@@ -19,6 +19,7 @@ typedef enum {GENERAL, WANDER, SURVIVAL, ARMED} NJAIStateType;
 @property NJAIState *currState;
 @property NSMutableArray *prevPileList;
 @property NJAIStateType currStateType;
+@property NJAICharacterType characterType;
 
 - (void) update;
 
