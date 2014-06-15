@@ -15,6 +15,15 @@
 
 @implementation NJPlayer
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _characterType = CHARA_NORMAL;
+    }
+    return self;
+}
+
 - (void)runJumpTimerAction
 {
     if (self.character) {

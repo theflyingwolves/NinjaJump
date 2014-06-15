@@ -77,7 +77,7 @@
 - (void)addStartButton{
     _startButton = [SKSpriteNode spriteNodeWithImageNamed:kStartButton];
     _shade = [SKSpriteNode spriteNodeWithImageNamed:kShurikenShade];
-    _startButton.hidden = YES;
+    //_startButton.hidden = YES;
     _startButton.position=CGPointMake(-5, 0);
     _shade.alpha = 0;
     [self addChild:_shade];
@@ -176,13 +176,13 @@
         CGPathRelease(path);
     }
     //NSLog(@"touchPoint %f",dist);
-    if (_activePlayerList.count>1) {
+    if (_activePlayerList.count>=1) {
         _startButton.hidden = NO;
         if (!isReacted && dist<startButtonRadius) {
             [self didStartButtonClicked];
         }
     } else {
-        _startButton.hidden = YES;
+        //_startButton.hidden = YES;
     }
 }
 

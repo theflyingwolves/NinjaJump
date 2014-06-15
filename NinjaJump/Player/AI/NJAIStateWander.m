@@ -44,7 +44,7 @@
     if (dist < kAIAlertRadius) {
         [self.owner changeToState:GENERAL];
     }  else if (self.owner.item) {
-        [self.owner changeToState:ARMED];
+        [self.owner changeToState:AGGRESSIVE];
     }
 }
 

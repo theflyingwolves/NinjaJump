@@ -11,6 +11,8 @@
 
 @class NJNinjaCharacter, SKColor, NJPile;
 
+typedef enum {CHARA_NORMAL, GIANT, ROBBER, SHURIKEN_MASTER, SCROLL_MASTER, HIGH_NINJA, BOSS} NJAICharacterType;
+
 @interface NJPlayer : NSObject
 //@property (nonatomic) NJNinjaCharacter *ninja;
 @property (nonatomic) NJCharacter *character;
@@ -34,6 +36,7 @@
 @property (nonatomic) SKSpriteNode *indicatorNode;
 @property (nonatomic) BOOL shouldBlendCharacter;
 @property (nonatomic) NJTeamId teamId;
+@property NJAICharacterType characterType;
 
 + (void)loadSharedAssets;
 - (void)runJumpTimerAction;

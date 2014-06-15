@@ -19,6 +19,7 @@
 
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterRobber.h"
+#import "NJPlayer.h"
 
 @implementation NJNinjaCharacterRobber
 
@@ -35,6 +36,16 @@
     }
     return self;
 }
+
+- (void)attackCharacter:(NJCharacter *)character
+{
+    [super attackCharacter:character];
+    if (character.player.item) {
+        self.player.item = character.player.item;
+        character.player.item = NULL;
+    }
+}
+
 
 + (void)loadSharedAssets
 {

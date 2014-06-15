@@ -8,6 +8,12 @@
 
 #import "NJNinjaCharacter.h"
 #import "NJNinjaCharacterBoss.h"
+#import "NJNinjaCharacterGiant.h"
+#import "NJNinjaCharacterNormal.h"
+#import "NJNinjaCharacterRobber.h"
+#import "NJNinjaCharacterScrollMaster.h"
+#import "NJNinjaCharacterShurikenMaster.h"
+#import "NJNinjaCharacterHighNinja.h"
 #import "NJPile.h"
 #import "NJButton.h"
 #import "NJItemControl.h"
@@ -15,7 +21,6 @@
 #import "NJPlayer.h"
 #import "NJAIPlayer.h"
 #import "NJGraphicsUnitilities.h"
-#import "NJNinjaCharacterNormal.h"
 #import "NJSelectionButtonSystem.h"
 #import "NJ1V3SelectionButtonSystem.h"
 #import "NJResponsibleBG.h"
@@ -175,6 +180,12 @@
     if (_gameMode == NJGameModeSurvival){
         for (int i=0; i<kNumPlayers; i++) {
             NJAIPlayer *AIPlayer = [[NJAIPlayer alloc] init];
+            //WYCAI testing AI
+            if (i==2) {
+                AIPlayer.characterType = GIANT;
+            } else if (i==3) {
+                AIPlayer.characterType = ROBBER;
+            }
             AIPlayer.delegate = self;
             AIPlayer.currState.delegate = self;
             AIPlayer.teamId = -1;
@@ -456,8 +467,31 @@
         [player.character removeFromParent];
         [player.indicatorNode removeFromParent];
     }
-    
-    NJNinjaCharacter *character= [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+    NJNinjaCharacter *character;
+    switch (player.characterType) {
+        case CHARA_NORMAL:
+            character = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+            break;
+        case GIANT:
+            character = [[NJNinjaCharacterGiant alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+            break;
+        case ROBBER:
+            character = [[NJNinjaCharacterRobber alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+            break;
+        case SHURIKEN_MASTER:
+            character = [[NJNinjaCharacterShurikenMaster alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+            break;
+        case SCROLL_MASTER:
+            character = [[NJNinjaCharacterScrollMaster alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+            break;
+        case HIGH_NINJA:
+            character = [[NJNinjaCharacterHighNinja alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+            break;
+        default:
+            [NSException raise:@"Unrecognized character type" format:@"add character exception"];
+            break;
+    }
+
     if (character) {
         [character render];
         [(NSMutableArray *)self.AICharacters addObject:character];
@@ -1573,11 +1607,16 @@
         
         if (player.targetPile.standingCharacter) {
             // If there is any character standing in the target pile, attack the character.
-            NJPlayer *p = player.targetPile.standingCharacter.player;
-            if (!p.isDisabled) {
-                [ninja attackCharacter:p.character];
+            NJCharacter *attacker = ninja;
+            NJPlayer *victim = player.targetPile.standingCharacter.player;
+            if (victim.characterType == GIANT) {
+                victim = player;
+                attacker = victim.character;
+            }
+            if (!victim.isDisabled) {
+                [attacker attackCharacter:victim.character];
                 NJPile *pile = [self spawnAtRandomPileForNinja:YES];
-                pile.standingCharacter = p.character;
+                pile.standingCharacter = victim.character;
                 if (pile.itemHolded) {
                     [(NSMutableArray*)self.items removeObject:pile.itemHolded];
                     [pile.itemHolded removeFromParent];
@@ -1586,7 +1625,7 @@
                 
                 if (pile.itemEffectOnPile){
                     NJItemEffect *effect = pile.itemEffectOnPile;
-                    if (effect.owner != p.character) {
+                    if (effect.owner != victim.character) {
                         [effect removeAllActions];
                         [effect removeFromParent];
                         pile.itemEffectOnPile = nil;
@@ -1596,10 +1635,10 @@
                     pile.isOnFire = NO;
                 }
                 
-                [p.character resetToPosition:pile.position];
-                p.targetPile = nil;
-                p.jumpRequested = NO;
-                p.isJumping = NO;
+                [victim.character resetToPosition:pile.position];
+                victim.targetPile = nil;
+                victim.jumpRequested = NO;
+                victim.isJumping = NO;
             }
         }
         
