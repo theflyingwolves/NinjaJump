@@ -173,11 +173,14 @@
     _AIplayers = [NSMutableArray array];
     
     if (_gameMode == NJGameModeSurvival){
-        NJAIPlayer *AIPlayer = [[NJAIPlayer alloc] init];
-        AIPlayer.delegate = self;
-        AIPlayer.currState.delegate = self;
-        AIPlayer.teamId = -1;
-        [_AIplayers addObject:AIPlayer];
+        for (int i=0; i<kNumPlayers; i++) {
+            NJAIPlayer *AIPlayer = [[NJAIPlayer alloc] init];
+            AIPlayer.delegate = self;
+            AIPlayer.currState.delegate = self;
+            AIPlayer.teamId = -1;
+            AIPlayer.isDisabled = YES;
+            [_AIplayers addObject:AIPlayer];
+        }
     }
 }
 
@@ -206,9 +209,16 @@
     }
     for (int i=0; i < kNumPlayers; i++) {
         CGPoint position = [self determinePositionOfHpBarIndexedBy:i];
+        // WYCAI testing AI
         NJPlayer *player = self.players[i];
+        NJAIPlayer *AIplayer = self.AIplayers[i];
         if ([_hpBars count] < kNumPlayers) {
-            NJHPBar *bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
+            NJHPBar *bar;
+            if (((NJPlayer *)self.players[i]).isDisabled && !((NJPlayer *)self.AIplayers[i]).isDisabled) {
+                bar = [NJHPBar hpBarWithPosition:position andPlayer:self.AIplayers[i]];
+            } else {
+                bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
+            }
             float angle = i * M_PI / 2 - M_PI / 2;
             bar.zRotation = angle;
             [_hpBars addObject:bar];
@@ -218,7 +228,11 @@
             if (!((NJHPBar *)_hpBars[i]).parent) {
                 [self addChild:_hpBars[i]];
             }
-        }else{
+        } else if (!AIplayer.isDisabled) {
+            if (!((NJHPBar *)_hpBars[i]).parent) {
+                [self addChild:_hpBars[i]];
+            }
+        } else{
             [(NJHPBar *)_hpBars[i] removeFromParent];
         }
     }
@@ -310,7 +324,9 @@
         _buttons = [NSMutableArray arrayWithCapacity:kNumPlayers];
     }
     for (int i = 0; i < kNumPlayers; i++) {
+        //WYCAI testing AI
         NJPlayer *player = (NJPlayer *)self.players[i];
+        NJAIPlayer *AIplayer = self.AIplayers[i];
         if ([_buttons count]<kNumPlayers) {
             NJButton *button = [[NJButton alloc] initWithImageNamed:NJButtonJump];
             button.delegate = self;
@@ -321,9 +337,16 @@
             if (!((NJButton *)_buttons[i]).parent) {
                 [self addChild:_buttons[i]];
             }
-        }else{
+        } else {
+            if (!AIplayer.isDisabled) {
+                if (!((NJButton *)_buttons[i]).parent) {
+                    [self addChild:_buttons[i]];
+                    ((NJButton *)_buttons[i]).player = AIplayer;
+                }
+            }
             [(NJButton *)_buttons[i] removeFromParent];
         }
+            
     }
     //configure jump buttons for players
     [self configureControlButton:_buttons[0] ForPlayerIndex:0 atPosition:CGPointMake(yDiff, xDiff) withRotation:-M_PI/4];
@@ -983,6 +1006,7 @@
     
     for (NSNumber *index in fullIndices){ //inactivate unselected players
         ((NJPlayer *)self.players[[index intValue]]).isDisabled = YES;
+        ((NJAIPlayer *)self.AIplayers[[index intValue]]).isDisabled = NO;
     }
     
     for (int i=0; i<kNumPlayers; i++) {

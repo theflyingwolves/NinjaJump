@@ -65,7 +65,7 @@
         frequency = 1;
     }
     if (pile && !self.owner.isJumping && self.owner.character.frozenCount == 0 && NJRandomValue()<frequency && !pile.isOnFire) {
-        if (self.owner.jumpCooldown >= kJumpCooldownTime) {
+        if (self.owner.jumpCooldown >= self.owner.character.JumpCoolTime) {
             if (frequency == 1) {
                 NSLog( @"%@ jump to attack enemy",[self convertStateToString:owner.currStateType]);
             }
