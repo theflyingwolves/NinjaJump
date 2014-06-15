@@ -41,4 +41,10 @@
     //NSLog(@"use item!");
 }
 
+- (ProductId *)getProductId
+{
+    // Overridden by subclasses
+    return nil;
+}
+
 @end

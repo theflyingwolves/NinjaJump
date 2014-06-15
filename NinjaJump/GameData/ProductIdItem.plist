@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>iceScroll</key>
+	<string>product_item_scroll_ice</string>
+	<key>fireScroll</key>
+	<string>product_item_scroll_fire</string>
+	<key>thunderScroll</key>
+	<string>product_item_scroll_thunder</string>
+	<key>windScroll</key>
+	<string>product_item_scroll_wind</string>
+	<key>medikit</key>
+	<string>product_item_tool_medikit</string>
+	<key>shuriken</key>
+	<string>product_item_tool_shuriken</string>
+	<key>mine</key>
+	<string>product_item_tool_mine</string>
+</dict>
+</plist>

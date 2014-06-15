@@ -12,6 +12,8 @@
 
 @implementation NJMine
 
+static ProductId *pId = kMineProductId;
+
 +(instancetype)itemAtPosition:(CGPoint)position
 {
     return [[NJMine alloc] initWithTextureNamed:kMineFileName atPosition:position];
@@ -37,6 +39,11 @@
 {
     NJEffectMine *mine = [[NJEffectMine alloc] initAtPosition:position withDirection:direction onScene:self.myParent andOwner:character];
     [mine performEffect];
+}
+
+- (ProductId *)getProductId
+{
+    return pId;
 }
 
 @end

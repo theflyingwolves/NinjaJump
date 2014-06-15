@@ -18,6 +18,8 @@
 
 @implementation NJIceScroll
 
+static ProductId *pId = kIceScrollProductId;
+
 + (instancetype)itemAtPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate
 {
     return [[NJIceScroll alloc] initWithTextureNamed:kIceScrollFileName atPosition:position delegate:delegate];
@@ -45,4 +47,8 @@
     [self runAction:[SKAction playSoundFileNamed:kSoundIce waitForCompletion:NO]];
 }
 
+- (ProductId *)getProductId
+{
+    return pId;
+}
 @end

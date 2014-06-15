@@ -18,6 +18,8 @@
 
 @implementation NJFireScroll
 
+static ProductId *pId = kFireScrollProductId;
+
 + (instancetype)itemAtPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate
 {
     return [[NJFireScroll alloc] initWithTextureNamed:kFireScrollFileName atPosition:position delegate:delegate];
@@ -52,6 +54,11 @@
     [animation runFireEffect:character];
     
     [self runAction:[SKAction playSoundFileNamed:kSoundFire waitForCompletion:NO]];
+}
+
+- (ProductId *)getProductId
+{
+    return kFireScrollProductId;
 }
 
 @end

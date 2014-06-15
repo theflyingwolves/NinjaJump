@@ -12,6 +12,7 @@
 #define kShurikenAngle 30
 
 @implementation NJShuriken
+static ProductId *pId = kShurikenProductId;
 
 +(instancetype)itemAtPosition:(CGPoint)position
 {
@@ -66,4 +67,8 @@
     [shuriken3 fireShuriken];
 }
 
+- (ProductId *)getProductId
+{
+    return pId;
+}
 @end

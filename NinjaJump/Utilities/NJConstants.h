@@ -23,7 +23,7 @@
 #define NJWoodPileImageName @"woodPile"
 
 #pragma mark - Ninja Characters
-#define FULL_HP 100
+//#define FULL_HP 100
 
 #define kNinjaOneColor [SKColor colorWithRed:1 green:0.3 blue:0 alpha:1]
 #define kNinjaTwoColor [SKColor colorWithRed:0.2 green:0.6 blue:1 alpha:1]
@@ -33,7 +33,6 @@
 #define shadowImageName @"shadow"
 
 #pragma mark - Special Items
-#define kAttackDamage 20
 #define kThunderScrollDamage 10
 #define kWindScrollDamage 10
 #define kFireScrollDamage 10

@@ -32,12 +32,11 @@
     if (self) {
         self.delegate = delegate;
         self.position = position;
-        self.movementSpeed = 800;
+//        self.movementSpeed = 800;
         self.animationSpeed = 1/60.0f;
-        self.health = FULL_HP;
         self.origTexture = [SKTexture textureWithImageNamed:textureName];
-        self.physicalDamageMultiplier = 1.0f;
-        self.magicalDamageMultiplier = 1.0f;
+//        self.physicalDamageMultiplier = 1.0f;
+//        self.magicalDamageMultiplier = 1.0f;
         [self initShadow];
         [self configurePhysicsBody];
     }
@@ -51,6 +50,18 @@
     _shadow.alpha = 0.7;
 }
 
+- (void)initActualAbility{
+    _physicalAttack = (NSInteger)_strength/2.5;
+    _physicalDefense = (NSInteger)(_strength/5.0);
+    _maxHP = _vitality;
+    _magicAttack = (NSInteger)(_intellect/2.5);
+    _magicDefense = (NSInteger)(_intellect/5.0);
+    _JumpCoolTime = (70.0/(_agility*1.0));
+    _jumpSpeed = (NSInteger)(_agility*8);
+
+    _health = _maxHP;
+}
+
 #pragma mark - Jump
 - (void)jumpToPile:(NJPile*)toPile fromPile:(NJPile*)fromPile withTimeInterval:(NSTimeInterval)timeInterval
 {
@@ -60,7 +71,8 @@
     CGPoint curPosition = self.position;
     CGFloat dx = toPile.position.x - curPosition.x;
     CGFloat dy = toPile.position.y - curPosition.y;
-    CGFloat dt = self.movementSpeed * timeInterval;
+//    CGFloat dt = self.movementSpeed * timeInterval;
+    CGFloat dt = self.jumpSpeed * timeInterval;
     CGFloat distRemaining = hypotf(dx, dy);
     
     CGFloat ang = NJ_POLAR_ADJUST(NJRadiansBetweenPoints(toPile.position, curPosition));
@@ -97,7 +109,7 @@
     if (character.health <= 0) {
         return ; // to prevent the attack animation to be wrongly performed
     }
-    float damageToApply = kAttackDamage;
+    float damageToApply = self.physicalAttack;
     if (character.player.teamId == self.player.teamId) {
         damageToApply = damageToApply / 2.0f;
     }
@@ -120,6 +132,7 @@
 // A generic method for applying a certain amount of unattributed damage
 - (BOOL)applyDamage:(CGFloat)damage
 {
+    NSLog(@"damage: %f", damage);
     self.health -= damage;
     if (self.health > 0.0f) {
         return NO;
@@ -132,22 +145,22 @@
 // Apply a damage caused by magics, for example, those caused by scrolls
 - (BOOL)applyMagicalDamage:(CGFloat)damage
 {
-    float multiplier = self.magicalDamageMultiplier;
-    return [self applyDamage:damage * multiplier];
+    float multiplier = self.magicDefense;
+    return [self applyDamage:damage *10.0 / multiplier];
 }
 
 // Apply a damage caused by physical attack, for example, those caused by shurikens
 - (BOOL)applyPhysicalDamage:(CGFloat)damage
 {
-    float multiplier = self.physicalDamageMultiplier;
-    return [self applyDamage:damage * multiplier];
+    float multiplier = self.physicalDefense;
+    return [self applyDamage:damage *10.0 / multiplier];
 }
 
 // Recover a certain amount of health points for the character
 -(void)recover:(CGFloat)amount{
     [self applyDamage:(0-amount)];
-    if (self.health > FULL_HP) {
-        self.health = FULL_HP;
+    if (self.health > self.maxHP) {
+        self.health = self.maxHP;
     }
 }
 
@@ -170,7 +183,7 @@
 // Reset the ninja to its original state
 - (void)reset
 {
-    self.health = FULL_HP;
+    self.health = self.maxHP;
     self.dying = NO;
     self.attacking = NO;
     self.animated = NO;

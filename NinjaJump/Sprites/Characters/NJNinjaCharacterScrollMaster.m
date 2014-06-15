@@ -1,10 +1,11 @@
 //
-//  NJNinjaCharacterNormal.m
+//  NJNinjaCharacterScrollMaster.m
 //  NinjaJump
 //
-//  Created by Wang Kunzhen on 18/3/14.
+//  Created by wulifu on 7/6/14.
 //  Copyright (c) 2014 Wang Kunzhen. All rights reserved.
 //
+
 #define NUM_OF_FRAMES_FOR_NORMAL_NINJA_JUMP 17
 #define NUM_OF_FRAMES_FOR_NORMAL_NINJA_DEATH 10
 #define NUM_OF_FRAMES_FOR_NORMAL_NINJA_ATTACK 6
@@ -16,21 +17,19 @@
 #define JUMP_ANIMATION_FRAMES_ATLAS_NAME @"Ninja_Jump"
 #define JUMP_ANIMATION_FRAMES_BASE_NAME @"ninja_jump_"
 
-#import "NJNinjaCharacterNormal.h"
 #import "NJGraphicsUnitilities.h"
+#import "NJNinjaCharacterScrollMaster.h"
 
-@implementation NJNinjaCharacterNormal
+@implementation NJNinjaCharacterScrollMaster
 
 - (instancetype)initWithTextureNamed:(NSString *)textureName atPosition:(CGPoint)position withPlayer:(NJPlayer *)player delegate:(id<NJCharacterDelegate>)delegate
 {
     self = [super initWithTextureNamed:textureName atPosition:position withPlayer:player delegate:delegate];
     if (self) {
-//        self.magicalDamageMultiplier = 1.0f;
-//        self.physicalDamageMultiplier = 1.0f;
-        
-        self.strength = 100;
-        self.vitality = 100;
-        self.intellect = 100;
+        //wait for adjustment
+        self.strength = 80;
+        self.vitality = 50;
+        self.intellect = 150;
         self.agility = 80;
         [self initActualAbility];
     }
@@ -65,4 +64,6 @@ static NSArray *sSharedThunderAnimationFrames;
 {
     return sSharedThunderAnimationFrames;
 }
+
+
 @end

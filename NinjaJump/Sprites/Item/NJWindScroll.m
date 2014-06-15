@@ -17,6 +17,8 @@
 
 @implementation NJWindScroll
 
+static ProductId *pId = kWindScrollProductId;
+
 + (instancetype)itemAtPosition:(CGPoint)position delegate:(id<NJScrollDelegate>)delegate
 {
     return [[NJWindScroll alloc] initWithTextureNamed:kWindScrollFileName atPosition:position delegate:delegate];
@@ -43,6 +45,11 @@
     }
     [character performWindAnimationInDirection:direction];
     [self runAction:[SKAction playSoundFileNamed:kSoundWind waitForCompletion:NO]];
+}
+
+- (ProductId *)getProductId
+{
+    return pId;
 }
 
 @end
