@@ -64,6 +64,9 @@
         NSLog(@"%@ detect enemy in front",[self convertStateToString:owner.currStateType]);
         frequency = 1;
     }
+    if ([self.delegate isPileTargeted:self.owner.targetPile]) {
+        frequency = 1;
+    }
     if (pile && !self.owner.isJumping && self.owner.character.frozenCount == 0 && NJRandomValue()<frequency && !pile.isOnFire) {
         if (self.owner.jumpCooldown >= self.owner.character.JumpCoolTime) {
             if (frequency == 1) {
@@ -93,25 +96,25 @@
     if ([self.owner.item isKindOfClass:[NJMine class]]) {
         return YES;
     }
-    if ([self.owner.item isKindOfClass:[NJShuriken class]] && [self isNinjaTargeted:kAIAttackFireAngle andRadius:INFINITY]) {
+    if ([self.owner.item isKindOfClass:[NJShuriken class]] && [self canAttackRival:kAIAttackFireAngle andRadius:INFINITY]) {
         return YES;
     }
-    if ([self.owner.item isKindOfClass:[NJFireScroll class]] && [self isNinjaTargeted:kAIAttackFireAngle andRadius:attackRadius]) {
+    if ([self.owner.item isKindOfClass:[NJFireScroll class]] && [self canAttackRival:kAIAttackFireAngle andRadius:attackRadius]) {
         return YES;
     }
-    if ([self.owner.item isKindOfClass:[NJWindScroll class]] && [self isNinjaTargeted:kAIAttackWindAngle andRadius:INFINITY]) {
+    if ([self.owner.item isKindOfClass:[NJWindScroll class]] && [self canAttackRival:kAIAttackWindAngle andRadius:INFINITY]) {
         return YES;
     }
-    if ([self.owner.item isKindOfClass:[NJThunderScroll class]] && [self isNinjaTargeted:2*M_PI andRadius:attackRadius]) {
+    if ([self.owner.item isKindOfClass:[NJThunderScroll class]] && [self canAttackRival:2*M_PI andRadius:attackRadius]) {
         return YES;
     }
-    if ([self.owner.item isKindOfClass:[NJThunderScroll class]] && [self isNinjaTargeted:2*M_PI andRadius:attackRadius]) {
+    if ([self.owner.item isKindOfClass:[NJThunderScroll class]] && [self canAttackRival:2*M_PI andRadius:attackRadius]) {
         return YES;
     }
     return NO;
 }
 
-- (BOOL)isNinjaTargeted: (CGFloat)attackAngle andRadius:(CGFloat)attackRadius
+- (BOOL)canAttackRival: (CGFloat)attackAngle andRadius:(CGFloat)attackRadius
 {
     if (attackAngle < 2*M_PI) {
         NJCharacter *nearestCharacter = [self.delegate getNearestCharacter:self.owner.character];

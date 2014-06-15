@@ -19,6 +19,8 @@
 
 - (NJCharacter *)getNearestCharacter:(NJCharacter *)ninja;
 
+- (BOOL)isPileTargeted:(NJPile *)pile;
+
 @end
 
 @class NJAIPlayer;

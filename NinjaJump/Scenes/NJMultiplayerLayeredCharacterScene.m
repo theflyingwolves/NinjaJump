@@ -1757,4 +1757,19 @@
     return nearestCharacter;
 }
 
+- (BOOL)isPileTargeted:(NJPile *)pile
+{
+    for (NJPlayer *player in _players){
+        if (player.targetPile == pile) {
+            return YES;
+        }
+    }
+    for (NJPlayer *AIplayer in _AIplayers){
+        if (AIplayer.targetPile == pile) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 @end
