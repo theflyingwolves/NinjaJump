@@ -10,4 +10,6 @@
 
 @interface NJNinjaCharacterShurikenMaster : NJNinjaCharacter
 
+@property (nonatomic) BOOL needsAddShuriken;
+@property (nonatomic) NSTimeInterval addShurikenTimer;
 @end

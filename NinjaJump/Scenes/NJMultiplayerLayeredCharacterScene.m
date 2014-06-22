@@ -1249,6 +1249,15 @@
                     ninja.player.item = item;
                 }
             }
+        } else if ([ninja isKindOfClass:[NJNinjaCharacterShurikenMaster class]]) {
+            if (((NJNinjaCharacterShurikenMaster *)ninja).needsAddShuriken) {
+                ((NJNinjaCharacterShurikenMaster *)ninja).needsAddShuriken = NO;
+                if (ninja.player.item) {
+                    continue;
+                }
+                NJShuriken *shuriken = [[NJShuriken alloc]init];
+                ninja.player.item = shuriken;
+            }
         }
     }
 }

@@ -19,6 +19,7 @@
 
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterShurikenMaster.h"
+#import "NJConstants.h"
 
 @implementation NJNinjaCharacterShurikenMaster
 
@@ -46,6 +47,17 @@
         sSharedThunderAnimationFrames = [NJGraphicsUnitilities NJLoadFramesFromAtlas:THUNDER_ANIMATION_FRAMES_ATLAS_NAME withBaseName:THUNDER_ANIMATION_FRAMES_BASE_NAME andNumOfFrames:NUM_OF_FRAMES_FOR_NORMAL_NINJA_THUNDER];
     });
 }
+
+- (void) updateWithTimeSinceLastUpdate:(NSTimeInterval)interval
+{
+    [super updateWithTimeSinceLastUpdate:interval];
+    self.addShurikenTimer += interval;
+    if (self.addShurikenTimer > kTimeAddShurikenToMaster) {
+        self.addShurikenTimer = 0;
+        self.needsAddShuriken = YES;
+    }
+}
+
 
 static NSArray *sSharedJumpAnimationFrames;
 - (NSArray *)jumpAnimationFrames

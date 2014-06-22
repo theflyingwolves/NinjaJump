@@ -19,6 +19,8 @@
 
 #import "NJGraphicsUnitilities.h"
 #import "NJNinjaCharacterGiant.h"
+#import "NJScroll.h"
+
 
 @implementation NJNinjaCharacterGiant
 
@@ -34,6 +36,16 @@
         [self initActualAbility];
     }
     return self;
+}
+
+- (void)pickupItem:(NSArray *)items onPile:(NJPile *)pile{
+    NSMutableArray *nonScrollItems = [NSMutableArray array];
+    for (NJSpecialItem *item in items) {
+        if(![item isKindOfClass:[NJScroll class]]) {
+            [nonScrollItems addObject:item];
+        }
+    }
+    [super pickupItem:nonScrollItems onPile:pile];
 }
 
 + (void)loadSharedAssets
