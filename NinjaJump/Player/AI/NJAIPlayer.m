@@ -50,25 +50,25 @@
             _currState = [[NJAIStateGeneral alloc]initWithOwner:self];
             _currStateType = GENERAL;
             _currState.delegate = _delegate;
-            NSLog(@"general state");
+            //NSLog(@"general state");
             break;
         case WANDER:
             _currState = [[NJAIStateWander alloc]initWithOwner:self];
             _currStateType = WANDER;
             _currState.delegate = _delegate;
-            NSLog(@"wander state");
+            //NSLog(@"wander state");
             break;
         case SURVIVAL:
             _currState = [[NJAIStateSurvival alloc]initWithOwner:self];
             _currStateType = SURVIVAL;
             _currState.delegate = _delegate;
-            NSLog(@"survival state");
+            //NSLog(@"survival state");
             break;
         case AGGRESSIVE:
             _currState = [[NJAIStateAggressive alloc]initWithOwner:self];
             _currStateType = AGGRESSIVE;
             _currState.delegate = _delegate;
-            NSLog(@"aggressive state");
+            //NSLog(@"aggressive state");
             break;
         default:
             break;

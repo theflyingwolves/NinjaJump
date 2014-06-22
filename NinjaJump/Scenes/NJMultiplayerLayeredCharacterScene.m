@@ -184,14 +184,13 @@
             if (i==1) {
                 AIPlayer.characterType = CHARA_NORMAL;
             } else if (i==2) {
-                AIPlayer.characterType = CHARA_NORMAL;
+                AIPlayer.characterType = GIANT;
             } else if (i==3) {
                 AIPlayer.characterType = ROBBER;
             }
             AIPlayer.delegate = self;
             AIPlayer.currState.delegate = self;
             AIPlayer.teamId = -1;
-            AIPlayer.isDisabled = YES;
             [_AIplayers addObject:AIPlayer];
         }
     }
@@ -226,11 +225,7 @@
         NJPlayer *player = self.players[i];
         if ([_hpBars count] < kNumPlayers) {
             NJHPBar *bar;
-            if (((NJPlayer *)self.players[i]).isDisabled && !((NJPlayer *)self.AIplayers[i]).isDisabled) {
-                bar = [NJHPBar hpBarWithPosition:position andPlayer:self.AIplayers[i]];
-            } else {
-                bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
-            }
+            bar = [NJHPBar hpBarWithPosition:position andPlayer:self.players[i]];
             float angle = i * M_PI / 2 - M_PI / 2;
             bar.zRotation = angle;
             [_hpBars addObject:bar];
@@ -255,7 +250,7 @@
     [_ninjas removeAllObjects];
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
-        if (!player.isDisabled) {
+        if (!player.isDisabled && ![player isKindOfClass:[NJAIPlayer class]]) {
             player.shouldBlendCharacter = YES;
             if (index == _bossIndex && _gameMode == NJGameModeOneVsThree) {
                 player.shouldBlendCharacter = NO;
@@ -314,6 +309,9 @@
             control.delegate = self;
             control.player = self.players[i];
             [_itemControls addObject:control];
+            if ([player isKindOfClass:[NJAIPlayer class]]) {
+                ((NJAIPlayer *)player).itemControl = control;
+            }
         }
         if (!player.isDisabled) {
             if (!((NJItemControl *)_itemControls[i]).parent) {
@@ -337,12 +335,14 @@
     for (int i = 0; i < kNumPlayers; i++) {
         //WYCAI testing AI
         NJPlayer *player = (NJPlayer *)self.players[i];
-        NJAIPlayer *AIplayer = self.AIplayers[i];
         if ([_buttons count]<kNumPlayers) {
             NJButton *button = [[NJButton alloc] initWithImageNamed:NJButtonJump];
             button.delegate = self;
             button.player = self.players[i];
             [_buttons addObject:button];
+            if ([player isKindOfClass:[NJAIPlayer class]]) {
+                ((NJAIPlayer *)player).button = button;
+            }
         }
         if (!player.isDisabled && ![player isKindOfClass:[NJAIPlayer class]]) {
             if (!((NJButton *)_buttons[i]).parent) {
@@ -351,7 +351,6 @@
         } else {
             [(NJButton *)_buttons[i] removeFromParent];
         }
-            
     }
     //configure jump buttons for players
     [self configureControlButton:_buttons[0] ForPlayerIndex:0 atPosition:CGPointMake(yDiff, xDiff) withRotation:-M_PI/4];
@@ -1027,7 +1026,6 @@
     
     for (NSNumber *index in fullIndices){ //inactivate unselected players
         self.players[[index intValue]] = self.AIplayers[[index intValue]];
-        ((NJAIPlayer *)self.AIplayers[[index intValue]]).isDisabled = NO;
     }
     
     for (int i=0; i<kNumPlayers; i++) {

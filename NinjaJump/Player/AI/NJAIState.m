@@ -68,7 +68,7 @@
         frequency = kAIEscapeJumpFrequency;
     }
     if (pile.standingCharacter) {
-        NSLog(@"%@ detect enemy in front",[self convertStateToString:owner.currStateType]);
+        //NSLog(@"%@ detect enemy in front",[self convertStateToString:owner.currStateType]);
         frequency = 1;
     }
     if ([self.delegate isPileTargeted:self.owner.targetPile]) {
@@ -80,14 +80,16 @@
     if (pile && !self.owner.isJumping && self.owner.character.frozenCount == 0 && NJRandomValue()<frequency && !pile.isOnFire) {
         if (self.owner.jumpCooldown >= self.owner.character.JumpCoolTime) {
             if (frequency == 1) {
-                NSLog( @"%@ jump to attack enemy",[self convertStateToString:owner.currStateType]);
+                //NSLog( @"%@ jump to attack enemy",[self convertStateToString:owner.currStateType]);
             }
-            self.owner.jumpCooldown = 0;
-            self.owner.fromPile = self.owner.targetPile;
-            self.owner.targetPile = pile;
-            self.owner.jumpRequested = YES;
-            self.owner.isJumping = YES;
+//            self.owner.jumpCooldown = 0;
+//            self.owner.fromPile = self.owner.targetPile;
+//            self.owner.targetPile = pile;
+//           self.owner.jumpRequested = YES;
+//            self.owner.isJumping = YES;
             _jumpFlag = YES;
+            NJButton *button = self.owner.button;
+            [button.delegate button:button touchesEnded:[NSSet set]];
             [self updatePrevPileList];
         }
     }
@@ -96,8 +98,9 @@
 - (void)useItemWithRadius:(CGFloat) attackRadius
 {
     if ([self checkItemUsingWithRadius:attackRadius] && NJRandomValue()<kAIItemAttackFrequency) {
-        [self.owner.character useItem:self.owner.item];
-        NSLog(@"%@ Decide to use item",[self convertStateToString:owner.currStateType]);
+        NJItemControl *control = self.owner.itemControl;
+        [control.delegate itemControl:control touchesEnded:[NSSet set]];
+        //NSLog(@"%@ Decide to use item",[self convertStateToString:owner.currStateType]);
     }
 }
 
@@ -118,7 +121,7 @@
     if ([self.owner.item isKindOfClass:[NJThunderScroll class]] && [self canAttackRival:2*M_PI andRadius:attackRadius]) {
         return YES;
     }
-    if ([self.owner.item isKindOfClass:[NJThunderScroll class]] && [self canAttackRival:2*M_PI andRadius:attackRadius]) {
+    if ([self.owner.item isKindOfClass:[NJIceScroll class]] && [self canAttackRival:2*M_PI andRadius:attackRadius]) {
         return YES;
     }
     return NO;

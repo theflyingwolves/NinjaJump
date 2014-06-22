@@ -9,6 +9,8 @@
 #import "NJPlayer.h"
 #import "NJAIState.h"
 #import "NJMultiplayerLayeredCharacterScene.h"
+#import "NJButton.h"
+#import "NJItemControl.h"
 
 typedef enum {GENERAL, WANDER, SURVIVAL, AGGRESSIVE} NJAIStateType;
 
@@ -18,6 +20,8 @@ typedef enum {GENERAL, WANDER, SURVIVAL, AGGRESSIVE} NJAIStateType;
 @property NJAIState *currState;
 @property NSMutableArray *prevPileList;
 @property NJAIStateType currStateType;
+@property NJButton *button;
+@property NJItemControl *itemControl;
 
 - (void) update;
 
