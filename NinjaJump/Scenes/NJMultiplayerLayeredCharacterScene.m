@@ -181,8 +181,10 @@
         for (int i=0; i<kNumPlayers; i++) {
             NJAIPlayer *AIPlayer = [[NJAIPlayer alloc] init];
             //WYCAI testing AI
-            if (i==2) {
-                AIPlayer.characterType = GIANT;
+            if (i==1) {
+                AIPlayer.characterType = CHARA_NORMAL;
+            } else if (i==2) {
+                AIPlayer.characterType = CHARA_NORMAL;
             } else if (i==3) {
                 AIPlayer.characterType = ROBBER;
             }
@@ -222,7 +224,6 @@
         CGPoint position = [self determinePositionOfHpBarIndexedBy:i];
         // WYCAI testing AI
         NJPlayer *player = self.players[i];
-        NJAIPlayer *AIplayer = self.AIplayers[i];
         if ([_hpBars count] < kNumPlayers) {
             NJHPBar *bar;
             if (((NJPlayer *)self.players[i]).isDisabled && !((NJPlayer *)self.AIplayers[i]).isDisabled) {
@@ -236,10 +237,6 @@
         }
         if (!player.isDisabled) {
             // Only add hp bar for players that are enabled
-            if (!((NJHPBar *)_hpBars[i]).parent) {
-                [self addChild:_hpBars[i]];
-            }
-        } else if (!AIplayer.isDisabled) {
             if (!((NJHPBar *)_hpBars[i]).parent) {
                 [self addChild:_hpBars[i]];
             }
@@ -283,17 +280,20 @@
     }
     [_AICharacters removeAllObjects];
     
-    for (NJAIPlayer *AIPlayer in self.AIplayers){
-        if (!AIPlayer.isDisabled) {
-            AIPlayer.shouldBlendCharacter = YES;
-            NJCharacter *character= [self addAICharacterForPlayer:AIPlayer];
-            [self addNode:character.shadow atWorldLayer:NJWorldLayerBelowCharacter];
-            NJPile *pile = [self spawnAtRandomPileForNinja:YES];
-            pile.standingCharacter = character;
-            character.position = pile.position;
-        }else if(AIPlayer.character){
-            [_AICharacters removeObject:AIPlayer.character];
-            [AIPlayer.character removeFromParent];
+    for (NJPlayer *player in self.players){
+        if ([player isKindOfClass:[NJAIPlayer class]]) {
+            NJAIPlayer *AIPlayer = (NJAIPlayer *)player;
+            if (!AIPlayer.isDisabled) {
+                AIPlayer.shouldBlendCharacter = YES;
+                NJCharacter *character= [self addAICharacterForPlayer:AIPlayer];
+                [self addNode:character.shadow atWorldLayer:NJWorldLayerBelowCharacter];
+                NJPile *pile = [self spawnAtRandomPileForNinja:YES];
+                pile.standingCharacter = character;
+                character.position = pile.position;
+            }else if(AIPlayer.character){
+                [_AICharacters removeObject:AIPlayer.character];
+                [AIPlayer.character removeFromParent];
+            }
         }
     }
     
@@ -319,7 +319,8 @@
             if (!((NJItemControl *)_itemControls[i]).parent) {
                 [self addChild:_itemControls[i]];
             }
-        }else{
+        }
+        else{
             [(NJItemControl *)_itemControls[i] removeFromParent];
         }
     }
@@ -343,17 +344,11 @@
             button.player = self.players[i];
             [_buttons addObject:button];
         }
-        if (!player.isDisabled) {
+        if (!player.isDisabled && ![player isKindOfClass:[NJAIPlayer class]]) {
             if (!((NJButton *)_buttons[i]).parent) {
                 [self addChild:_buttons[i]];
             }
         } else {
-            if (!AIplayer.isDisabled) {
-                if (!((NJButton *)_buttons[i]).parent) {
-                    [self addChild:_buttons[i]];
-                    ((NJButton *)_buttons[i]).player = AIplayer;
-                }
-            }
             [(NJButton *)_buttons[i] removeFromParent];
         }
             
@@ -488,7 +483,7 @@
             character = [[NJNinjaCharacterHighNinja alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
             break;
         default:
-            [NSException raise:@"Unrecognized character type" format:@"add character exception"];
+            character = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
             break;
     }
 
@@ -704,13 +699,6 @@
     NSMutableArray *livingNinjas = [NSMutableArray array];
     for (int i=0; i<self.players.count; i++) {
         NJPlayer *player = self.players[i];
-        if (!player.isDisabled && !player.character.dying){
-            [livingNinjas addObject:[NSNumber numberWithInt:i]];
-        }
-    }
-    
-    for (int i=0; i<self.AIplayers.count; i++) {
-        NJAIPlayer *player = self.AIplayers[i];
         if (!player.isDisabled && !player.character.dying){
             [livingNinjas addObject:[NSNumber numberWithInt:i]];
         }
@@ -1038,7 +1026,7 @@
     }
     
     for (NSNumber *index in fullIndices){ //inactivate unselected players
-        ((NJPlayer *)self.players[[index intValue]]).isDisabled = YES;
+        self.players[[index intValue]] = self.AIplayers[[index intValue]];
         ((NJAIPlayer *)self.AIplayers[[index intValue]]).isDisabled = NO;
     }
     
@@ -1407,12 +1395,15 @@
 }
 
 -(void)updateAIPlayers{
-    for (NJAIPlayer *player in self.AIplayers){
-        NSArray *AICharacters = self.AICharacters;
-        if ([AICharacters count] < 1) {
-            return;
+    for (NJPlayer *player in self.players){
+        if ([player isKindOfClass:[NJAIPlayer class]]) {
+            NJAIPlayer *AIPlayer = (NJAIPlayer *)player;
+            NSArray *AICharacters = self.AICharacters;
+            if ([AICharacters count] < 1) {
+                return;
+            }
+            [AIPlayer update];
         }
-        [player update];
     }
 }
 
@@ -1576,9 +1567,6 @@
 - (void)updatePlayersSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJPlayer *player in self.players) {
-        [self updateOnePlayer:player timeSinceLast:timeSinceLast];
-    }
-    for (NJAIPlayer *player in self.AIplayers){
         [self updateOnePlayer:player timeSinceLast:timeSinceLast];
     }
 }
@@ -1811,17 +1799,12 @@
             return YES;
         }
     }
-    for (NJPlayer *AIplayer in _AIplayers){
-        if (AIplayer.targetPile == pile) {
-            return YES;
-        }
-    }
     return NO;
 }
 
 - (NSArray *)getAllPlayers
 {
-    return [_players arrayByAddingObjectsFromArray:_AIplayers];
+    return _players;
 }
 
 
