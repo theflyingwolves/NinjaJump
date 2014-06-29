@@ -50,6 +50,6 @@
 
 - (void)changeState;
 
-- (void)useItemWithRadius:(CGFloat) attackRadius;
+- (void)useItemWithinRadius:(CGFloat) attackRadius;
 
 @end

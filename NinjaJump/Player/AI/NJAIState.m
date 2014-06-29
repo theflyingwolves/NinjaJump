@@ -95,10 +95,13 @@
     }
 }
 
-- (void)useItemWithRadius:(CGFloat) attackRadius
+- (void)useItemWithinRadius:(CGFloat) attackRadius
 {
     if ([self checkItemUsingWithRadius:attackRadius] && NJRandomValue()<kAIItemAttackFrequency) {
         NJItemControl *control = self.owner.itemControl;
+        if ([self.owner.item isKindOfClass:[NJShuriken class]]) {
+            NSLog(@"use shuriken");
+        }
         [control.delegate itemControl:control touchesEnded:[NSSet set]];
         //NSLog(@"%@ Decide to use item",[self convertStateToString:owner.currStateType]);
     }

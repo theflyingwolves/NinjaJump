@@ -24,7 +24,7 @@
 - (void)execute
 {
     [self jumpWithFrequency:kAISurvivalJumpFrequency];
-    [self useItemWithRadius:kAIAlertRadius];
+    [self useItemWithinRadius:kAIAlertRadius];
     [self changeState];
 }
 

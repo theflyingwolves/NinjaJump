@@ -181,8 +181,8 @@
         for (int i=0; i<kNumPlayers; i++) {
             NJAIPlayer *AIPlayer = [[NJAIPlayer alloc] init];
             //WYCAI testing AI
-            if (i==1) {
-                AIPlayer.characterType = CHARA_NORMAL;
+            if (i==0 || i==1) {
+                AIPlayer.characterType = SHURIKEN_MASTER;
             } else if (i==2) {
                 AIPlayer.characterType = GIANT;
             } else if (i==3) {
@@ -250,7 +250,7 @@
     [_ninjas removeAllObjects];
     for (int index=0; index<4; index++) {
         NJPlayer *player = self.players[index];
-        if (!player.isDisabled && ![player isKindOfClass:[NJAIPlayer class]]) {
+        if (!player.isDisabled) {
             player.shouldBlendCharacter = YES;
             if (index == _bossIndex && _gameMode == NJGameModeOneVsThree) {
                 player.shouldBlendCharacter = NO;
@@ -266,7 +266,7 @@
         }
     }
     
-    [self initAICharacters];
+//    [self initAICharacters];
 }
 
 - (void)initAICharacters{
@@ -437,8 +437,34 @@
             }
         }
     }
+    if ([player isKindOfClass:[NJAIPlayer class]] && !ninja) {
+        switch (player.characterType) {
+            case CHARA_NORMAL:
+                ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+                break;
+            case GIANT:
+                ninja = [[NJNinjaCharacterGiant alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+                break;
+            case ROBBER:
+                ninja = [[NJNinjaCharacterRobber alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+                break;
+            case SHURIKEN_MASTER:
+                ninja = [[NJNinjaCharacterShurikenMaster alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+                break;
+            case SCROLL_MASTER:
+                ninja = [[NJNinjaCharacterScrollMaster alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+                break;
+            case HIGH_NINJA:
+                ninja = [[NJNinjaCharacterHighNinja alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+                break;
+            default:
+                ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+                break;
+        }
+
+    }
     if (!ninja) {
-        ninja = [[NJNinjaCharacterNormal alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
+        ninja = [[NJNinjaCharacterShurikenMaster alloc] initWithTextureNamed:kNinjaImageName atPosition:CGPointZero withPlayer:player delegate:self];
     }
     
     if (ninja) {
@@ -633,6 +659,7 @@
     return item;
 }
 
+
 #pragma mark - Loop Update
 - (void)update:(NSTimeInterval)currentTime {
     if (!hasBeenPaused) {
@@ -663,7 +690,7 @@
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     [self updateNinjaStatesSinceLastUpdate:timeSinceLast];
-    [self updateAICharacterStatesSinceLastUpdate:timeSinceLast];
+//    [self updateAICharacterStatesSinceLastUpdate:timeSinceLast];
     [self decreasePilesSinceLastUpdate:timeSinceLast];
     [self updateWoodpilesSinceLastUpdate:timeSinceLast];
     [self updateItemControlsSinceLastUpdate:timeSinceLast];
@@ -1201,14 +1228,14 @@
             [charactersToRemove addObject:character];
         }
     }
-    
-    for (NJCharacter *character in self.AICharacters) {
-        if (character.isDying) {
-            [character.player.jumpTimerSprite removeAllActions];
-            [character.player.jumpTimerSprite removeFromParent];
-            [charactersToRemove addObject:character];
-        }
-    }
+//    
+//    for (NJCharacter *character in self.AICharacters) {
+//        if (character.isDying) {
+//            [character.player.jumpTimerSprite removeAllActions];
+//            [character.player.jumpTimerSprite removeFromParent];
+//            [charactersToRemove addObject:character];
+//        }
+//    }
     
     [self.ninjas removeObjectsInArray:charactersToRemove];
 }
@@ -1217,6 +1244,8 @@
 - (void)updateNinjaStatesSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
     for (NJNinjaCharacter *ninja in self.ninjas) {
+        
+        
         [ninja updateWithTimeSinceLastUpdate:timeSinceLast];
         if ([ninja isKindOfClass:[NJNinjaCharacterBoss class]]) {
             if (((NJNinjaCharacterBoss*)ninja).needsAddItem) {
@@ -1241,7 +1270,7 @@
                 if (ninja.player.item) {
                     continue;
                 }
-                NJShuriken *shuriken = [[NJShuriken alloc]init];
+                NJThunderScroll *shuriken = [NJThunderScroll itemAtPosition:CGPointZero delegate:self];
                 ninja.player.item = shuriken;
             }
         }
@@ -1261,7 +1290,8 @@
     _pileDecreaseTime += timeSinceLast;
     if (shouldPileStartDecreasing && _pileDecreaseTime >= kPileDecreaseTimeInterval) {
         _pileDecreaseTime = 0;
-        if ([_woodPiles count] > [_ninjas count]+ [_AICharacters count] + 1) {
+       // if ([_woodPiles count] > [_ninjas count]+ [_AICharacters count] + 1) {
+        if ([_woodPiles count] > [_ninjas count] + 1) {
             NSMutableArray *pilesToChoose = [NSMutableArray new];
             for (NJPile *pile in _woodPiles) {
                 BOOL isFree = !pile.standingCharacter;
@@ -1396,11 +1426,9 @@
     for (NJPlayer *player in self.players){
         if ([player isKindOfClass:[NJAIPlayer class]]) {
             NJAIPlayer *AIPlayer = (NJAIPlayer *)player;
-            NSArray *AICharacters = self.AICharacters;
-            if ([AICharacters count] < 1) {
-                return;
+            if (AIPlayer.character && !AIPlayer.character.dying) {
+                [AIPlayer update];
             }
-            [AIPlayer update];
         }
     }
 }

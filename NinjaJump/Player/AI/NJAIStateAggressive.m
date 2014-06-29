@@ -24,7 +24,7 @@
 {
     [self jumpWithFrequency:kAISurvivalJumpFrequency];
     if(self.owner.item){
-        [self useItemWithRadius:kAIArmedAttackRadius];
+        [self useItemWithinRadius:kAIArmedAttackRadius];
     }
     [self changeState];
 }

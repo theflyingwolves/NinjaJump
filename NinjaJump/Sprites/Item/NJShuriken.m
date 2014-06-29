@@ -30,6 +30,7 @@ static ProductId *pId = kShurikenProductId;
 
 - (void)useAtPosition:(CGPoint)position withDirection:(CGFloat)direction byCharacter:(NJCharacter*)character
 {
+    NSLog(@"shuriken used");
     int angle1 = 0 - kShurikenAngle/2;
     int angle2 = 0;
     int angle3 = kShurikenAngle - kShurikenAngle/2;
